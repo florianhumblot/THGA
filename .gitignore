@@ -1,5 +1,8 @@
 # Editors
 /.idea
+.vs/
+Debug/
+x64/
 
 # Prerequisites
 *.d
@@ -33,3 +36,4 @@
 *.exe
 *.out
 *.app
+
