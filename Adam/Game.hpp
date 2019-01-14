@@ -21,7 +21,7 @@ private:
 
 public:
 	
-	Game() {}
+	Game();
 	
 	void handleInput() {
 		for (auto& action : actions) {
@@ -31,8 +31,9 @@ public:
 		}
 
 	}
-	void update() {}
-	void render() {}
+
+	void update();
+	void render();
 
 	
 
