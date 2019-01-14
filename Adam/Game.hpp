@@ -2,18 +2,19 @@
 #define _GAME_HPP
 
 #include <SFML/Graphics.hpp>
+#include <functional>
 
 class Game {
 private:
 
 	const struct {
 		sf::Keyboard::Key key;
-		float x; float y;
-	} actions[] = {
-	   { sf::Keyboard::Left,  -1.0,  0.0 },
-	   { sf::Keyboard::Right, +1.0,  0.0 },
-	   { sf::Keyboard::Up,     0.0, -1.0 },
-	   { sf::Keyboard::Down,   0.0, +1.0 }
+		std::function<void(void)> actionLambda;
+	} actions[4] = {
+	   { sf::Keyboard::A,  []() {} },
+	   { sf::Keyboard::D, []() {} },
+	   { sf::Keyboard::Escape, []() {} },
+	   { sf::Keyboard::Space, []() {}  }
 	};
 
 
@@ -23,10 +24,15 @@ public:
 	Game() {}
 	
 	void handleInput() {
+		for (auto& action : actions) {
+			if (sf::Keyboard::isKeyPressed(action.key)) {
+				action.actionLambda();
+			}
+		}
 
 	}
 	void update() {}
-	void Render() {}
+	void render() {}
 
 	
 
