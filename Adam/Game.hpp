@@ -20,13 +20,13 @@ private:
 
 public:
 	
-	Game() {}
+	Game();
 	
 	void handleInput() {
 
 	}
-	void update() {}
-	void Render() {}
+	void update();
+	void render();
 
 	
 
