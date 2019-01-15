@@ -61,7 +61,6 @@ Character::Character(sf::Vector2f position, sf::Vector2f scale, const std::strin
 	sprite.setScale(scale);
 }
 
-
 Character::~Character()
 {
 }
