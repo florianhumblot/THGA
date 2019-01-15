@@ -3,6 +3,8 @@
 .vs/
 Debug/
 x64/
+*.vcxproj
+*.vcxproj.filters
 
 # Prerequisites
 *.d
