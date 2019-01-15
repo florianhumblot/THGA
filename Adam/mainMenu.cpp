@@ -10,12 +10,16 @@ void mainMenu::draw(sf::RenderWindow & window)
 
 void mainMenu::moveUp()
 {
+	menuChoices[selectedItem].setFillColor(sf::Color::White);
 	if (selectedItem - 1 >= 0)
 	{
-		menuChoices[selectedItem].setFillColor(sf::Color::White);
 		selectedItem--;
-		menuChoices[selectedItem].setFillColor(sf::Color::Red);
 	}
+	else
+	{
+		selectedItem = numberOfTiles - 1 ;
+	}
+	menuChoices[selectedItem].setFillColor(sf::Color::Red);
 }
 void mainMenu::moveDown()
 {
