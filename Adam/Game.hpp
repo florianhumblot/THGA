@@ -7,6 +7,11 @@
 class Game {
 private:
 
+	sf::RenderWindow & window;
+	sf::CircleShape shape;
+
+
+
 	const struct {
 		sf::Keyboard::Key key;
 		std::function<void(void)> actionLambda;
@@ -21,17 +26,9 @@ private:
 
 public:
 	
-	Game();
+	Game(sf::RenderWindow &w);
 	
-	void handleInput() {
-		for (auto& action : actions) {
-			if (sf::Keyboard::isKeyPressed(action.key)) {
-				action.actionLambda();
-			}
-		}
-
-	}
-
+	void handleInput();
 	void update();
 	void render();
 
