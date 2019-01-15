@@ -12,7 +12,6 @@ using namespace sf;
 #define v2i sf::Vector2i
 #define v2 sf::Vector2f
 
-
 int main()
 {
 		//mainMenu mainmenu(window.getSize().x, window.getSize().y);
@@ -173,6 +172,8 @@ int main()
 		main_camera.setCenter(center);
 		window.setView(main_camera);
 		window.display();
+
+		sf::sleep(sf::milliseconds(1));
 	}
 
 	return 0;

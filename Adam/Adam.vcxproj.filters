@@ -18,6 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
 
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
@@ -26,13 +27,22 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="mainMenu.cpp">
+=======
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+>>>>>>> dba071bb17615a2da1de352199c0dfaa1e872843
       <Filter>Source Files</Filter>
     </ClCompile>
 
     <ClCompile Include="Character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
 
+=======
+>>>>>>> dba071bb17615a2da1de352199c0dfaa1e872843
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
@@ -41,6 +51,7 @@
     <ClInclude Include="Collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="mainMenu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -50,5 +61,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
 
+=======
+    <ClInclude Include="Character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+>>>>>>> dba071bb17615a2da1de352199c0dfaa1e872843
   </ItemGroup>
 </Project>
