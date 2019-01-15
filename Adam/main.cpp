@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cmath>
 #include "Character.h"
+#include "AnimationManager.h"
 using namespace std;
 using namespace sf;
 
@@ -45,7 +46,7 @@ int main()
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
 
-	Character player(v2(100, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0));
+	Character player(v2(100, 100), v2(1, 1), "assets/char_alpha.png", v2(0, 0));
 	
 
 	main_camera.setCenter(player.getPosition());
@@ -59,13 +60,49 @@ int main()
 
 	v2 pos = player.getPosition();
 	auto gravity = v2(0, 1);
-
+	AnimationManager a("assets/animations/animations.txt");
+	a.print();
+	while (1) {
+		for (auto elem : a.animations) {
+			for (auto t : elem.second) {
+				Animation anim = t.second;
+				while (window.isOpen())
+				{
+					Event ev;
+					while (window.pollEvent(ev))
+					{
+						switch (ev.type)
+						{
+						case Event::Closed:
+						{
+							window.close();
+							break;
+						}
+						}
+						if (Keyboard::isKeyPressed(Keyboard::Escape)) { window.close(); }
+						if (ev.type == ev.KeyReleased && ev.key.code == sf::Keyboard::Space)
+						{
+							player.setVelocity(sf::Vector2f(player.getVelocity().x, -14));
+						}
+					}
+					window.clear();
+					player.setTexture(anim.nextFrame());
+					window.draw(sf::Sprite(player));
+					window.display();
+					if (anim.isDone()) {
+						break;
+					}
+					sf::sleep(sf::milliseconds(80));
+				}
+			}
+		}
+	}
 	while (window.isOpen())
 	{
 		ft = timer.getElapsedTime().asSeconds();
 		timer.restart();
 		accumulator += ft;
-		std::cout << "acc: " << accumulator << std::endl;
+		//std::cout << "acc: " << accumulator << std::endl;
 		while (accumulator >= dt)
 		{
 			//do game stuff
