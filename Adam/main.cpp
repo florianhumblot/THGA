@@ -9,10 +9,19 @@ using namespace sf;
 
 #define v2i sf::Vector2i
 #define v2 sf::Vector2f
+>>>>>>> 5689bb29ba67d0f44411fc0f017ae755ddd17e9f
 
 
 int main()
 {
+
+	//sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+
+	//Game game = Game(window);
+	
+	//clock_t previous = clock();
+	//double lag = 0.0;
+
 	RenderWindow window(VideoMode(1920, 1080, 32), "APPLICATION");
 	sf::View main_camera;
 	window.setVerticalSyncEnabled(true);
@@ -135,6 +144,20 @@ int main()
 			}
 			accumulator -= dt;
 		}
+
+		//clock_t current = clock();
+		//double elapsed = current - previous;
+		//previous = current;
+		//lag += elapsed;
+
+		//game.handleInput();
+
+		//while (lag >= MS_PER_UPDATE)
+		//{
+		//	game.update();
+		//	lag -= MS_PER_UPDATE;
+		//}
+		//game.render();
 
 		if (player.getPosition().y > 4000) player.setPosition(v2(100, 100));
 
