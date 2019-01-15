@@ -10,9 +10,9 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu) :
 	window.setVerticalSyncEnabled(true);
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
-	Collision::CreateTextureAndBitmask(tex, "assets/background.png");
+	Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/tiles2.png");
 	bg = Sprite(tex);
-	Collision::CreateTextureAndBitmask(tex2, "assets/gradient.png");
+	Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/background2.png");
 	bg2 = Sprite(tex2);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
@@ -26,7 +26,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu) :
 
 	gravity = v2(0, 1);
 	
-	state = STATE::MENU;
+	state = STATE::PLAYING;
 }
 
 
