@@ -1,12 +1,20 @@
 #ifndef STATISTIC_HPP
 #define STATISTIC_HPP
 
+#include "SFML/Graphics.hpp"
+//#include "Character.h"
+
 class statistic {
 private:
+
+	sf::Font font;
+	sf::Text text;
+
+public:
 	int max = 100;
 	int current = 100;
-public:
-	statistic(int max , int current);
+	statistic(int max  , int current );
+	statistic();
 	void set_max(int max_points);
 	void add(int points);
 	void sub(int points);

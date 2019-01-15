@@ -9,11 +9,12 @@ class Character
 	sf::Texture texture;
 	sf::Vector2f scale;
 	sf::Vector2f velocity;
-	statistic mana = statistic(100,100);
-	statistic health = statistic(100, 100);
-	statistic exp = statistic(0, 100);
-	int lvl = 0;
+	int lvl = 1;
 public:
+	statistic  mana;
+	statistic health;
+	statistic exp;
+
 	enum class direction { LEFT, RIGHT };
 	direction current_direction = direction::RIGHT;
 	sf::Vector2f getPosition();
@@ -24,8 +25,9 @@ public:
 	void move();
 	void setTexture(const std::string & textureFile);
 	void setTexture(sf::Texture & texture);
+	void character_info_draw(sf::RenderWindow & window, sf::Vector2f characters_pos);
 	Character(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, \
-									statistic mana = statistic(100,100), statistic health = statistic(100, 100), statistic exp = statistic(0, 100));
+												statistic  mana, statistic health, statistic exp);
 	~Character();
 	operator sf::Sprite() { return sprite; }
 };

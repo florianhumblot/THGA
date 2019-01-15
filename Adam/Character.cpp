@@ -47,18 +47,49 @@ void Character::setTexture(sf::Texture & texture)
 	texture = texture;
 }
 
-Character::Character(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, statistic mana, statistic health, statistic exp)
+void Character::character_info_draw(sf::RenderWindow & window, sf::Vector2f characters_pos)
+{
+	sf::Font font;
+	sf::Text text[4];
+	std::string t[4];
+
+	if (!font.loadFromFile("fonts/stranger.ttf"))
+	{
+		//std::cout << "error loading font" << std::endl;
+	}
+	t[0] = std::to_string(health.current) + "/" + std::to_string(health.max) + '\n';
+	t[1] = std::to_string(mana.current) + "/" + std::to_string(mana.max) + '\n';
+	t[2] = std::to_string(exp.current) + "/" + std::to_string(exp.max) + '\n';
+	t[3] = "  lvl: " + std::to_string(lvl);
+
+	text[0].setFillColor(sf::Color::Red);
+	text[1].setFillColor(sf::Color::Blue);
+	text[2].setFillColor(sf::Color::Yellow);
+	text[3].setFillColor(sf::Color::Black);
+	for (unsigned int i = 0; i < 4; i++)
+	{
+		text[i].setFont(font);
+		text[i].setCharacterSize(25);
+		text[i].setString(t[i]);
+		text[i].setPosition(sf::Vector2f(characters_pos.x, characters_pos.y + i * 24));
+		window.draw(text[i]);
+	}
+
+}
+
+Character::Character(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, statistic mana_c, statistic health_c, statistic exp_c)
 {
 	position = position;
 	scale = scale;
 	velocity = velocity;
-	mana = mana;
-	health = health;
-	exp = exp;
+	mana = mana_c;
+	health = health_c;
+	exp = exp_c;
 	Collision::CreateTextureAndBitmask(texture, textureFile);
 	sprite.setPosition(position);
 	sprite.setTexture(texture);
 	sprite.setScale(scale);
+	exp.is_zero();
 }
 
 Character::~Character()
