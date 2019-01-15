@@ -3,14 +3,17 @@
 
 #include <SFML/Graphics.hpp>
 #include <functional>
+#include "Character.h"
 
 class Game {
 private:
 
 	sf::RenderWindow & window;
 	sf::CircleShape shape;
-
-
+	
+	Character player;
+	sf::Sprite terrain;
+	sf::Sprite background;
 
 	const struct {
 		sf::Keyboard::Key key;

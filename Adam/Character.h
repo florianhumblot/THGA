@@ -19,6 +19,7 @@ public:
 	void move();
 	void setTexture(const std::string & textureFile);
 	void setTexture(sf::Texture & texture);
+	Character() {}
 	Character(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity);
 	~Character();
 	operator sf::Sprite() { return sprite; }

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cmath>
 #include "Character.h"
+#include "Game.hpp"
 using namespace std;
 using namespace sf;
 
@@ -15,7 +16,6 @@ int main()
 
 	//sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
 
-	//Game game = Game(window);
 	
 	//clock_t previous = clock();
 	//double lag = 0.0;
@@ -23,6 +23,8 @@ int main()
 	RenderWindow window(VideoMode(1920, 1080, 32), "APPLICATION");
 	sf::View main_camera;
 	window.setVerticalSyncEnabled(true);
+	
+	Game game = Game(window);
 
 	float dt = 1.f / 60.f; //fixed physics step
 	float accumulator = 0.f; //total to consume from
@@ -44,7 +46,6 @@ int main()
 
 	Character player(v2(100, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0));
 	
-
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(1600, 900);
 
