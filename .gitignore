@@ -39,3 +39,5 @@ x64/
 *.out
 *.app
 
+Adam/Adam.vcxproj
+Adam/Adam.vcxproj.filters
