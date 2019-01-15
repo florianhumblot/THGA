@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include "mainMenu.hpp"
 #include "SFML/Graphics.hpp"
 #include "Windows.h"
 #include "Collision.h"
@@ -12,9 +14,9 @@ using namespace sf;
 #define v2 sf::Vector2f
 
 
-
 int main()
 {
+		//mainMenu mainmenu(window.getSize().x, window.getSize().y);
 
 	RenderWindow window(VideoMode(1920, 1080, 32), "APPLICATION");
 	
@@ -45,6 +47,7 @@ int main()
 		}
 
 		//draw everything
+
 		game.render();
 	}
 	cout << "done";
