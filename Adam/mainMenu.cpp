@@ -26,3 +26,8 @@ void mainMenu::moveDown()
 		menuChoices[selectedItem].setFillColor(sf::Color::Red);
 	}
 }
+
+void mainMenu::chooseTile(int & tileSelect)
+{
+
+}

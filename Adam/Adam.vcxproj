@@ -93,6 +93,9 @@
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="mainMenu.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="stranger.ttf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

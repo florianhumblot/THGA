@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cmath>
 #include "Character.h"
+#include "mainMenu.hpp"
 using namespace std;
 using namespace sf;
 
@@ -46,7 +47,6 @@ int main()
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
 
 	Character player(v2(100, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0));
-	
 
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(1600, 900);
@@ -56,6 +56,8 @@ int main()
 
 	sf::Sprite ground;
 	ground.setTexture(tex);
+
+	mainMenu menutje(window.getSize().x / 2, window.getSize().y / 2);
 
 	v2 pos = player.getPosition();
 	auto gravity = v2(0, 1);
@@ -166,6 +168,7 @@ int main()
 		window.clear();
 		window.draw(background);
 		window.draw(sf::Sprite(player));
+		menutje.draw(window);
 		window.draw(ground);
 
 		auto center = Collision::GetSpriteCenter(player);
