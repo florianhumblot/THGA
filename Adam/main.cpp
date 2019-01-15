@@ -37,7 +37,7 @@ int main()
 	auto gravity = v2(0, 1);
 	AnimationManager a("assets/animations/animations.txt");
 	a.print();
-	while (1) {
+	/*while (1) {
 		for (auto elem : a.animations) {
 			for (auto t : elem.second) {
 				Animation anim = t.second;
@@ -71,7 +71,7 @@ int main()
 				}
 			}
 		}
-	}
+	}*/
 
 	while (window.isOpen())
 	{
