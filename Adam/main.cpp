@@ -141,13 +141,15 @@ int main()
 		//draw everything
 		window.clear();
 		window.draw(background);
-		window.draw(player);
+		window.draw(sf::Sprite(player));
 		window.draw(ground);
 
 		auto center = Collision::GetSpriteCenter(player);
 		main_camera.setCenter(center);
 		window.setView(main_camera);
 		window.display();
+
+		sf::sleep(sf::milliseconds(1));
 	}
 
 	return 0;
