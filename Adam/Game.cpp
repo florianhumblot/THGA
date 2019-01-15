@@ -133,7 +133,7 @@ void Game::update() {
 	{
 		player.setVelocity(player.getVelocity() + gravity);
 	}
-	
+//	std::cout << sf::Sprite(player).getGlobalBounds().width;
 
 }
 

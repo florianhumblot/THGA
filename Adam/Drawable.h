@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Collision.h"
+#include <iostream>
 
 class drawable {
 protected:
@@ -20,6 +21,9 @@ public:
 //	virtual void move() = 0;
 	void setTexture(const std::string & textureFile);
 	void setTexture(sf::Texture & texture);
-	operator sf::Sprite() { return sprite; }
+	operator sf::Sprite() { 
+	//	std::cout << texture.getSize().y << "\n"; 
+		return sprite; 
+	}
 
 };

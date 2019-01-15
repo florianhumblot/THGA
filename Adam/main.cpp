@@ -35,7 +35,7 @@ int main()
 		ft = timer.getElapsedTime().asSeconds();
 		timer.restart();
 		accumulator += ft;
-		std::cout << "acc: " << accumulator << std::endl;
+		//std::cout << "acc: " << accumulator << std::endl;
 		while (accumulator >= dt)
 		{
 			game.handleInput();

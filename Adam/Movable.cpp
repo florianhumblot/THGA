@@ -1,7 +1,9 @@
 #include "Movable.h"
 
-movable::movable(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity) {
-	drawable(position, scale, textureFile);
+movable::movable(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity):
+	drawable(position, scale, textureFile)
+{
+//	drawable(position, scale, textureFile);
 	velocity = velocity;
 }
 

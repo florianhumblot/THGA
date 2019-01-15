@@ -3,51 +3,20 @@
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Collision.cpp" />
-	<ClCompile Include="mainMenu.cpp">
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainMenu.cpp" />
+    <ClCompile Include="statistic.cpp" />
+    <ClCompile Include="Movable.cpp" />
+    <ClCompile Include="Drawable.cpp" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ClInclude Include="Character.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Game.hpp" />
-	<ClInclude Include="mainMenu.hpp" />
-
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-
-    <ClCompile Include="Character.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-	<ClCompile Include="mainMenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Game.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="mainMenu.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-
-
-    <ClInclude Include="Character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-
+    <ClInclude Include="mainMenu.hpp" />
+    <ClInclude Include="statistic.hpp" />
+    <ClInclude Include="Movable.h" />
+    <ClInclude Include="Drawable.h" />
   </ItemGroup>
 </Project>
