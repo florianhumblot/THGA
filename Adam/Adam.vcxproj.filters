@@ -30,6 +30,9 @@
 	<ClCompile Include="mainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+	<ClInclude Include="statistic.cpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
 	
   </ItemGroup>
   
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+	<ClInclude Include="statistic.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
 

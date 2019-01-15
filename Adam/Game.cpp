@@ -1,9 +1,10 @@
 #include "Game.hpp"
 
-Game::Game(sf::RenderWindow &w, Character &player) :
+Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu) :
 
 	window(w),
-	player(player)
+	player(player),
+	menu(menu)
 
 {
 	window.setVerticalSyncEnabled(true);
@@ -24,67 +25,96 @@ Game::Game(sf::RenderWindow &w, Character &player) :
 	pos = player.getPosition();
 
 	gravity = v2(0, 1);
+	
+	state = STATE::MENU;
 }
 
 
 void Game::handleInput() {
-	/*for (auto& action : actions) {
-		if (sf::Keyboard::isKeyPressed(action.key)) {
-			action.actionLambda();
-		}
-	}*/
-
+	
 	//do game stuff
-	v2 current_pos = player.getPosition();
+	switch (state) {
 
-	Event ev;
-	while (window.pollEvent(ev))
-	{
-		switch (ev.type)
+		case STATE::MENU:
 		{
-			case Event::Closed:
+			sf::Event ev;
+			while (window.pollEvent(ev))
+			{
+				if (ev.type == sf::Event::Closed)
+				{
+					window.close();
+				}
+				switch (ev.type)
+				{
+					case sf::Event::KeyPressed:
+						switch (ev.key.code)
+						{
+							case sf::Keyboard::Up:
+								menu.moveUp();
+								break;
+
+							case sf::Keyboard::Down:
+								menu.moveDown();
+								break;
+						}
+				}
+			}
+			break;
+		}
+
+
+
+		case STATE::PLAYING:
+		{
+			v2 current_pos = player.getPosition();
+
+			Event ev;
+			while (window.pollEvent(ev))
+			{
+				switch (ev.type)
+				{
+					case Event::Closed:
+					{
+						window.close();
+						break;
+					}
+				}
+
+				if (ev.key.code == sf::Keyboard::Space)
+				{
+					player.setVelocity(sf::Vector2f(player.getVelocity().x, -14));
+				}
+			}
+
+			if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
 				window.close();
-				break;
 			}
-		}
 
-		if (ev.key.code == sf::Keyboard::Space)
-		{
-			player.setVelocity(sf::Vector2f(player.getVelocity().x, -14));
-		}
-	}
 
-	if (Keyboard::isKeyPressed(Keyboard::Escape)) 
-	{ 
-		window.close(); 
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-	{
-		window.close();
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		if (player.current_direction != Character::direction::RIGHT)
-		{
-			player.current_direction = Character::direction::RIGHT;
-			player.setTexture(char_alpha);
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			{
+				if (player.current_direction != Character::direction::RIGHT)
+				{
+					player.current_direction = Character::direction::RIGHT;
+					player.setTexture(char_alpha);
+				}
+				player.setVelocity(sf::Vector2f(8, player.getVelocity().y));
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			{
+				if (player.current_direction != Character::direction::LEFT) {
+					player.current_direction = Character::direction::LEFT;
+					player.setTexture(char_alpha_invert);
+				}
+				player.setVelocity(sf::Vector2f(-8, player.getVelocity().y));
+			}
+			else
+			{
+				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
+			}
+			break;
 		}
-		player.setVelocity(sf::Vector2f(8, player.getVelocity().y));
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		if (player.current_direction != Character::direction::LEFT) {
-			player.current_direction = Character::direction::LEFT;
-			player.setTexture(char_alpha_invert);
-		}
-		player.setVelocity(sf::Vector2f(-8, player.getVelocity().y));
-	}
-	else
-	{
-		player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 	}
 
 
@@ -96,54 +126,82 @@ void Game::handleInput() {
 
 void Game::update() {
 
-	//move on x
-	player.move(sf::Vector2f(player.getVelocity().x, 0));
+	switch (state) {
 
-
-
-
-	//if we collide, we know it's on the x axis, so we move back and set our x velocity to 0
-	if (Collision::PixelPerfectTest(player, ground))
-	{
-		player.move(sf::Vector2f(-player.getVelocity().x, 0));
-		player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
-	}
-
-	player.move(v2(0, player.getVelocity().y));
-
-	if (Collision::PixelPerfectTest(player, ground) && player.getVelocity().y > 0)
-	{
-		while (Collision::PixelPerfectTest(player, ground))
+		case STATE::MENU:
 		{
-			player.move(v2(0, -0.5));
+		
 		}
-		player.setVelocity(sf::Vector2f(player.getVelocity().x, 0));
-	}
-	else if (Collision::PixelPerfectTest(player, ground) && player.getVelocity().y < 0)
-	{
-		while (Collision::PixelPerfectTest(player, ground))
+
+
+
+		case STATE::PLAYING:
 		{
-			player.move(v2(0, 0.5));
+
+			//move on x
+			player.move(sf::Vector2f(player.getVelocity().x, 0));
+
+
+
+
+			//if we collide, we know it's on the x axis, so we move back and set our x velocity to 0
+			if (Collision::PixelPerfectTest(player, ground))
+			{
+				player.move(sf::Vector2f(-player.getVelocity().x, 0));
+				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
+			}
+
+			player.move(v2(0, player.getVelocity().y));
+
+			if (Collision::PixelPerfectTest(player, ground) && player.getVelocity().y > 0)
+			{
+				while (Collision::PixelPerfectTest(player, ground))
+				{
+					player.move(v2(0, -0.5));
+				}
+				player.setVelocity(sf::Vector2f(player.getVelocity().x, 0));
+			}
+			else if (Collision::PixelPerfectTest(player, ground) && player.getVelocity().y < 0)
+			{
+				while (Collision::PixelPerfectTest(player, ground))
+				{
+					player.move(v2(0, 0.5));
+				}
+				player.setVelocity(sf::Vector2f(player.getVelocity().x, 0));
+			}
+			else
+			{
+				player.setVelocity(player.getVelocity() + gravity);
+			}
 		}
-		player.setVelocity(sf::Vector2f(player.getVelocity().x, 0));
+		break;
 	}
-	else
-	{
-		player.setVelocity(player.getVelocity() + gravity);
-	}
-	
 
 }
 
 void Game::render() {
+	switch (state) {
 
-	window.clear();
-	window.draw(background);
-	window.draw(sf::Sprite(player));
-	window.draw(ground);
-	auto center = Collision::GetSpriteCenter(player);
-	main_camera.setCenter(center);
-	window.setView(main_camera);
-	window.display();
+		case STATE::MENU:
+		{
+			menu.draw(window);
+			window.display();
+			break;
+		}
+
+		case STATE::PLAYING:
+		{
+			window.clear();
+			window.draw(background);
+			window.draw(sf::Sprite(player));
+			window.draw(ground);
+
+			auto center = Collision::GetSpriteCenter(player);
+			main_camera.setCenter(center);
+			window.setView(main_camera);
+			window.display();
+			break;
+		}
+	}
 
 }

@@ -19,12 +19,18 @@ void mainMenu::moveUp()
 }
 void mainMenu::moveDown()
 {
+	menuChoices[selectedItem].setFillColor(sf::Color::White);
 	if (selectedItem + 1 < numberOfTiles)
 	{
-		menuChoices[selectedItem].setFillColor(sf::Color::White);
+		
 		selectedItem++;
-		menuChoices[selectedItem].setFillColor(sf::Color::Red);
+		
 	}
+	else 
+	{
+		selectedItem = 0;
+	}
+	menuChoices[selectedItem].setFillColor(sf::Color::Red);
 }
 
 void mainMenu::chooseTile(int & tileSelect)

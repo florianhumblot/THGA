@@ -20,6 +20,7 @@ class Game {
 private:
 
 	sf::RenderWindow & window;
+	mainMenu & menu;
 	sf::CircleShape shape;
 	sf::View main_camera;
 	sf::Texture tex;
@@ -35,22 +36,15 @@ private:
 	v2 pos;
 	v2 gravity;
 
-	const struct {
-		sf::Keyboard::Key key;
-		std::function<void(void)> actionLambda;
-	} actions[4] = {
-	   { sf::Keyboard::A,  []() {} },
-	   { sf::Keyboard::D, []() {} },
-	   { sf::Keyboard::Escape,[this]() {getWindow().close();} },
-	   { sf::Keyboard::Space, []() {}  }
-	};
+	enum class STATE { MENU, PLAYING, GAMEOVER };
+	enum STATE state;
 
 
 
 public:
-	
-	Game(sf::RenderWindow &w, Character &player);
-	
+
+	Game(sf::RenderWindow &w, Character &player, mainMenu &mainmenu);
+
 	void handleInput();
 	void update();
 	void render();
@@ -59,7 +53,7 @@ public:
 		return window;
 	}
 
-	
+
 
 };
 
