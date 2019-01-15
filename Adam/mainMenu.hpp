@@ -17,7 +17,7 @@ public:
 	mainMenu(float width, float heigth)
 
 	{
-		if (!font.loadFromFile("stranger.ttf"))
+		if (!font.loadFromFile("fonts/stranger.ttf"))
 		{
 			std::cout << "error loading font" << std::endl;
 		}
