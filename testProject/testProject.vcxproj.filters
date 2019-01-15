@@ -21,37 +21,30 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-=======
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
->>>>>>> 5689bb29ba67d0f44411fc0f017ae755ddd17e9f
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
-=======
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
->>>>>>> 5689bb29ba67d0f44411fc0f017ae755ddd17e9f
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="1463469520529.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="background.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="char.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="char_alpha.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="char_alpha_invert.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="gradient.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
