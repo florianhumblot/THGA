@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cmath>
 #include "Character.h"
+#include "AnimationManager.h"
 #include "Game.hpp"
 using namespace std;
 using namespace sf;
@@ -30,6 +31,47 @@ int main()
 	Game game(window, player);
 	mainMenu menu(window.getSize().x, window.getSize().y);
 
+
+
+	v2 pos = player.getPosition();
+	auto gravity = v2(0, 1);
+	AnimationManager a("assets/animations/animations.txt");
+	a.print();
+	/*while (1) {
+		for (auto elem : a.animations) {
+			for (auto t : elem.second) {
+				Animation anim = t.second;
+				while (window.isOpen())
+				{
+					Event ev;
+					while (window.pollEvent(ev))
+					{
+						switch (ev.type)
+						{
+						case Event::Closed:
+						{
+							window.close();
+							break;
+						}
+						}
+						if (Keyboard::isKeyPressed(Keyboard::Escape)) { window.close(); }
+						if (ev.type == ev.KeyReleased && ev.key.code == sf::Keyboard::Space)
+						{
+							player.setVelocity(sf::Vector2f(player.getVelocity().x, -14));
+						}
+					}
+					window.clear();
+					player.setTexture(anim.nextFrame());
+					window.draw(sf::Sprite(player));
+					window.display();
+					if (anim.isDone()) {
+						break;
+					}
+					sf::sleep(sf::milliseconds(80));
+				}
+			}
+		}
+	}*/
 	while (window.isOpen())
 	{
 		sf::Event ev;
