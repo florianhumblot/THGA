@@ -85,6 +85,7 @@ void Game::handleInput() {
 				if (ev.key.code == sf::Keyboard::Space)
 				{
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -14));
+					player.update_exp(2);
 				}
 			}
 

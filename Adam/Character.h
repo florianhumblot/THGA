@@ -26,6 +26,7 @@ public:
 	void setTexture(const std::string & textureFile);
 	void setTexture(sf::Texture & texture);
 	void character_info_draw(sf::RenderWindow & window, sf::Vector2f characters_pos);
+	void update_exp(int amount);
 	Character(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, \
 												statistic  mana, statistic health, statistic exp);
 	~Character();

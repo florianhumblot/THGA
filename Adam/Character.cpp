@@ -70,9 +70,22 @@ void Character::character_info_draw(sf::RenderWindow & window, sf::Vector2f char
 	{
 		text[i].setFont(font);
 		text[i].setCharacterSize(25);
+		//text[i].setOutlineThickness(0.5f);
+		//text[i].setOutlineColor(sf::Color::Black);
 		text[i].setString(t[i]);
 		text[i].setPosition(sf::Vector2f(characters_pos.x, characters_pos.y + i * 24));
 		window.draw(text[i]);
+	}
+
+}
+
+void Character::update_exp(int amount) 
+{
+	exp.add(amount);
+	if (exp.is_max()) {
+		lvl++;
+		exp.set_max(exp.max + 20);
+		exp.zero();
 	}
 
 }
