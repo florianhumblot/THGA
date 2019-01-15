@@ -1,10 +1,11 @@
+#include <stdlib.h>
 #include <SFML/Graphics.hpp>
+#include "mainMenu.hpp"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	sf::RenderWindow window(sf::VideoMode(1600, 900), "SFML works!");
+	mainMenu mainmenu(window.getSize().x, window.getSize().y);
 
 	while (window.isOpen())
 	{
@@ -16,7 +17,6 @@ int main()
 		}
 
 		window.clear();
-		window.draw(shape);
 		window.display();
 	}
 
