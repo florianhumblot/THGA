@@ -1,17 +1,18 @@
 #include "Game.hpp"
 
-Game::Game(sf::RenderWindow &w, Character &player) :
+Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu) :
 
 	window(w),
-	player(player)
+	player(player),
+	menu(menu)
 
 {
 	window.setVerticalSyncEnabled(true);
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
-	Collision::CreateTextureAndBitmask(tex, "assets/background.png");
+	Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/tiles2.png");
 	bg = Sprite(tex);
-	Collision::CreateTextureAndBitmask(tex2, "assets/gradient.png");
+	Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/background2.png");
 	bg2 = Sprite(tex2);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
@@ -24,21 +25,43 @@ Game::Game(sf::RenderWindow &w, Character &player) :
 	pos = player.getPosition();
 
 	gravity = v2(0, 1);
+	
+	state = STATE::PLAYING;
 }
 
 
 void Game::handleInput() {
-	/*for (auto& action : actions) {
-		if (sf::Keyboard::isKeyPressed(action.key)) {
-			action.actionLambda();
-		}
-	}*/
-
+	
 	//do game stuff
 	switch (state) {
 
 		case STATE::MENU:
 		{
+			sf::Event ev;
+			while (window.pollEvent(ev))
+			{
+				if (ev.type == sf::Event::Closed)
+				{
+					window.close();
+				}
+				switch (ev.type)
+				{
+					case sf::Event::KeyPressed:
+						switch (ev.key.code)
+						{
+							case sf::Keyboard::Up:
+								menu.moveUp();
+								break;
+
+							case sf::Keyboard::Down:
+								menu.moveDown();
+								break;
+						}
+				}
+			}
+			menu.draw(window);
+			window.display();
+			break;
 		}
 
 
@@ -52,11 +75,11 @@ void Game::handleInput() {
 			{
 				switch (ev.type)
 				{
-				case Event::Closed:
-				{
-					window.close();
-					break;
-				}
+					case Event::Closed:
+					{
+						window.close();
+						break;
+					}
 				}
 
 				if (ev.key.code == sf::Keyboard::Space)
@@ -95,9 +118,6 @@ void Game::handleInput() {
 			break;
 		}
 	}
-		
-
-
 
 
 }
@@ -109,6 +129,7 @@ void Game::update() {
 
 		case STATE::MENU:
 		{
+			break;
 		}
 
 
@@ -152,6 +173,7 @@ void Game::update() {
 				player.setVelocity(player.getVelocity() + gravity);
 			}
 		}
+		break;
 	}
 
 }
@@ -161,6 +183,8 @@ void Game::render() {
 
 		case STATE::MENU:
 		{
+			
+			break;
 		}
 
 		case STATE::PLAYING:
@@ -174,6 +198,8 @@ void Game::render() {
 			main_camera.setCenter(center);
 			window.setView(main_camera);
 			window.display();
+			break;
+
 		}
 	}
 

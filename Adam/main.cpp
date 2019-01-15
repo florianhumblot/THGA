@@ -6,7 +6,6 @@
 #include <iostream>
 #include <cmath>
 #include "Character.h"
-#include "AnimationManager.h"
 #include "Game.hpp"
 using namespace std;
 using namespace sf;
@@ -17,8 +16,7 @@ using namespace sf;
 
 int main()
 {
-		//mainMenu mainmenu(window.getSize().x, window.getSize().y);
-
+	
 	RenderWindow window(VideoMode(1920, 1080, 32), "APPLICATION");
 	
 
@@ -28,75 +26,12 @@ int main()
 	float ft = 0.0f; //frame time 
 	sf::Clock timer;
 	Character player(v2(100, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0));
-	Game game(window, player);
+	
 	mainMenu menu(window.getSize().x, window.getSize().y);
+	Game game(window, player, menu);
 
-
-
-	v2 pos = player.getPosition();
-	auto gravity = v2(0, 1);
-	AnimationManager a("assets/animations/animations.txt");
-	a.print();
-	/*while (1) {
-		for (auto elem : a.animations) {
-			for (auto t : elem.second) {
-				Animation anim = t.second;
-				while (window.isOpen())
-				{
-					Event ev;
-					while (window.pollEvent(ev))
-					{
-						switch (ev.type)
-						{
-						case Event::Closed:
-						{
-							window.close();
-							break;
-						}
-						}
-						if (Keyboard::isKeyPressed(Keyboard::Escape)) { window.close(); }
-						if (ev.type == ev.KeyReleased && ev.key.code == sf::Keyboard::Space)
-						{
-							player.setVelocity(sf::Vector2f(player.getVelocity().x, -14));
-						}
-					}
-					window.clear();
-					player.setTexture(anim.nextFrame());
-					window.draw(sf::Sprite(player));
-					window.display();
-					if (anim.isDone()) {
-						break;
-					}
-					sf::sleep(sf::milliseconds(80));
-				}
-			}
-		}
-	}*/
 	while (window.isOpen())
 	{
-		sf::Event ev;
-		while (window.pollEvent(ev))
-		{
-			if (ev.type == sf::Event::Closed)
-			{
-				window.close();
-			}
-			switch (ev.type)
-			{
-			case sf::Event::KeyReleased:
-				switch (ev.key.code)
-				{
-				case sf::Keyboard::Up:
-					menu.moveUp();
-					break;
-
-				case sf::Keyboard::Down:
-					menu.moveDown();
-					break;
-				}
-			}
-		}
-
 		ft = timer.getElapsedTime().asSeconds();
 		timer.restart();
 		accumulator += ft;
@@ -104,15 +39,12 @@ int main()
 		//menu.draw(window);
 		while (accumulator >= dt)
 		{
-			//game.handleInput();
-			//game.update();
+			game.handleInput();
+			game.update();
 			accumulator -= dt;
 		}
-		window.clear();
-		menu.draw(window);
-		window.display();
 		//draw everything
-		//game.render();
+		game.render();
 	}
 	cout << "done";
 

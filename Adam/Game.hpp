@@ -20,6 +20,7 @@ class Game {
 private:
 
 	sf::RenderWindow & window;
+	mainMenu & menu;
 	sf::CircleShape shape;
 	sf::View main_camera;
 	sf::Texture tex;
@@ -41,9 +42,9 @@ private:
 
 
 public:
-	
-	Game(sf::RenderWindow &w, Character &player);
-	
+
+	Game(sf::RenderWindow &w, Character &player, mainMenu &mainmenu);
+
 	void handleInput();
 	void update();
 	void render();
@@ -52,7 +53,7 @@ public:
 		return window;
 	}
 
-	
+
 
 };
 
