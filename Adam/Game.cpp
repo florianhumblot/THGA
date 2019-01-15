@@ -157,7 +157,6 @@ void Game::update() {
 }
 
 void Game::render() {
-
 	switch (state) {
 
 		case STATE::MENU:

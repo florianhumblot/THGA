@@ -8,6 +8,7 @@
 #include <iostream>
 #include <cmath>
 #include "Character.h"
+#include "mainMenu.hpp"
 
 using namespace std;
 using namespace sf;
@@ -20,7 +21,6 @@ private:
 
 	sf::RenderWindow & window;
 	sf::CircleShape shape;
-
 	sf::View main_camera;
 	sf::Texture tex;
 	Sprite bg;

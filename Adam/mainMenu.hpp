@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-#define numberOfTiles 4
+#define numberOfTiles 5
 
 class mainMenu
 {
@@ -17,7 +17,7 @@ public:
 	mainMenu(float width, float heigth)
 
 	{
-		if (!font.loadFromFile("assets/stranger.ttf"))
+		if (!font.loadFromFile("fonts/stranger.ttf"))
 		{
 			std::cout << "error loading font" << std::endl;
 		}
@@ -30,7 +30,7 @@ public:
 
 		menuChoices[1].setFont(font);
 		menuChoices[1].setFillColor(sf::Color::White);
-		menuChoices[1].setString("Options");
+		menuChoices[1].setString("Continue Game");
 		menuChoices[1].setCharacterSize(111);
 		menuChoices[1].setPosition(sf::Vector2f((width / 2)* 0.85, (numberOfTiles + 1) * 50));
 
@@ -42,9 +42,15 @@ public:
 
 		menuChoices[3].setFont(font);
 		menuChoices[3].setFillColor(sf::Color::White);
-		menuChoices[3].setString("Quit Game");
+		menuChoices[3].setString("Options");
 		menuChoices[3].setCharacterSize(111);
 		menuChoices[3].setPosition(sf::Vector2f((width / 2)* 0.85, (numberOfTiles + 1) * 90));
+
+		menuChoices[4].setFont(font);
+		menuChoices[4].setFillColor(sf::Color::White);
+		menuChoices[4].setString("Quit Game");
+		menuChoices[4].setCharacterSize(111);
+		menuChoices[4].setPosition(sf::Vector2f((width / 2)* 0.85, (numberOfTiles + 1) * 110));
 
 		selectedItem = 0;
 	}
@@ -52,6 +58,7 @@ public:
 	void draw(sf::RenderWindow & window);
 	void moveUp();
 	void moveDown();
+	void chooseTile(int & tileSelect);
 
 };
 

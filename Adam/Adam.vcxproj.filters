@@ -3,12 +3,16 @@
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Collision.cpp" />
-	<ClCompile Include="mainMenu.cpp">
+	<ClCompile Include="mainMenu.cpp"/>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
 	<ClCompile Include="statistic.cpp" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7e91b1f4b0d57e68fb86c42dab0a7fce7b4de91a
     <ClInclude Include="Character.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Game.hpp" />
@@ -31,11 +35,17 @@
 	<ClCompile Include="mainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
 	<ClCompile Include="statistic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
 
+=======
+	
+>>>>>>> 7e91b1f4b0d57e68fb86c42dab0a7fce7b4de91a
   </ItemGroup>
+  
+  
   <ItemGroup>
     <ClInclude Include="Game.hpp">
       <Filter>Header Files</Filter>
@@ -46,14 +56,16 @@
     <ClInclude Include="mainMenu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-
-
     <ClInclude Include="Character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
 	<ClInclude Include="statistic.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
+
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="stranger.ttf" />
 
   </ItemGroup>
 </Project>
