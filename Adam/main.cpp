@@ -9,8 +9,6 @@ using namespace sf;
 
 #define v2i sf::Vector2i
 #define v2 sf::Vector2f
->>>>>>> 5689bb29ba67d0f44411fc0f017ae755ddd17e9f
-
 
 int main()
 {
