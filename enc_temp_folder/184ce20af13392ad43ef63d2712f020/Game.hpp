@@ -35,8 +35,15 @@ private:
 	v2 pos;
 	v2 gravity;
 
-	enum class STATE { MENU, PLAYING, GAMEOVER };
-	enum STATE state;
+	const struct {
+		sf::Keyboard::Key key;
+		std::function<void(void)> actionLambda;
+	} actions[4] = {
+	   { sf::Keyboard::A,  []() {} },
+	   { sf::Keyboard::D, []() {} },
+	   { sf::Keyboard::Escape,[this]() {getWindow().close();} },
+	   { sf::Keyboard::Space, []() {}  }
+	};
 
 
 
