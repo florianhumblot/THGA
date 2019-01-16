@@ -8,6 +8,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu) :
 
 {
 	window.setVerticalSyncEnabled(true);
+	window.setKeyRepeatEnabled(false);
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
 	Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/tiles2.png");
@@ -82,7 +83,7 @@ void Game::handleInput() {
 					}
 				}
 
-				if (ev.key.code == sf::Keyboard::Space)
+				if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
 				{
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -14));
 					player.update_exp(2);
