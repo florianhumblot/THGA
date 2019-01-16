@@ -21,7 +21,7 @@ using namespace sf;
 
 class Game {
 private:
-	std::vector<Character> gameObjects;
+	std::vector<Character> enemies;
 	sf::RenderWindow & window;
 	mainMenu & menu;
 	sf::CircleShape shape;

@@ -81,23 +81,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="collision_handler.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="Movable.cpp" />
+    <ClCompile Include="physics.cpp" />
+    <ClCompile Include="projectile.cpp" />
     <ClCompile Include="statistic.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="collision_handler.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="mainMenu.hpp" />
     <ClCompile Include="statistic.hpp" />
     <ClInclude Include="Movable.h" />
+    <ClInclude Include="physics.h" />
+    <ClInclude Include="projectile.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="stranger.ttf" />

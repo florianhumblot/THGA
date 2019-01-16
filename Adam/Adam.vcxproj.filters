@@ -10,6 +10,11 @@
     <ClCompile Include="statistic.hpp" />
     <ClCompile Include="Movable.cpp" />
     <ClCompile Include="Drawable.cpp" />
+    <ClCompile Include="physics.cpp" />
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="collision_handler.cpp" />
+    <ClCompile Include="projectile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
@@ -36,6 +41,11 @@
     </ClCompile>
     <ClInclude Include="Movable.h" />
     <ClInclude Include="Drawable.h" />
+    <ClInclude Include="physics.h" />
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationManager.h" />
+    <ClInclude Include="collision_handler.h" />
+    <ClInclude Include="projectile.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
@@ -48,9 +58,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="statistic.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
