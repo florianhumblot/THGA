@@ -13,6 +13,8 @@ namespace Adam
 	{
 	}
 
+	physics::physics() {}
+
 	void physics::step_x_moveables()
 	{
 		for (auto & moveable : moveables)

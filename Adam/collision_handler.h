@@ -7,9 +7,10 @@ namespace Adam
 	class collision_handler
 	{
 	public:
-		sf::Sprite & collision_layer;
+		sf::Sprite * collision_layer;
 
 		collision_handler(sf::Sprite & collision_layer);
+		collision_handler();
 		~collision_handler();
 
 		template<typename LAMBDA>
