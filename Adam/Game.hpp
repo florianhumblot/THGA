@@ -10,7 +10,7 @@
 #include "Character.h"
 #include "Movable.h"
 #include "mainMenu.hpp"
-#include "statistic.hpp"
+//#include "statistic.h"
 #include "physics.h"
 #include "HUD.hpp"
 
