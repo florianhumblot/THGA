@@ -1,73 +1,82 @@
 #include "statistic.hpp"
-#include "SFML/Graphics.hpp"
-#include <iostream>
+//#include "SFML/Graphics.hpp"
+//#include <iostream>
+//#include "Character.h"
 
-statistic::statistic(int max, int current) 
+statistic::statistic(int max, int current) :
+	max(max),
+	current(current)
 {
-	max = max;
-	current = current;
+	//max = max;
+	//current = current;
 }
 
-void statistic::set_max(int max_points) 
+statistic::statistic()
+//max(100), 
+//current(100)
+{}
+
+void statistic::set_max(int max_points)
+
 {
 	max = max_points;
 	current = max_points;
 }
 
-void statistic::add(int points) 
+void statistic::add(int points)
 {
 	current += points;
-	if (is_max()) 
+	if (is_max())
 	{
 		current = max;
 	}
 }
 
-void statistic::sub(int points) 
+void statistic::sub(int points)
 {
 	current -= points;
-	if (is_zero()) 
+	if (is_zero())
 	{
 		current = 0;
 	}
 }
 
-void statistic::zero() 
+void statistic::zero()
 {
 	current = 0;
 }
 
-int statistic::is_zero() 
+int statistic::is_zero()
 {
-	if (current <= 0) 
+	if (current <= 0)
 	{
 		return true;
 	}
-	else 
+	else
 	{
 		return false;
 	}
 }
 
-int statistic::is_max() 
+int statistic::is_max()
 {
-	if (current >= max) 
+	if (current >= max)
 	{
 		return true;
 	}
-	else 
+	else
 	{
 		return false;
 	}
 }
 
-void statistic::update_max(int points) 
+void statistic::update_max(int points)
 {
 	set_max(max + points);
-}
 
+}
 
 void statistic::print()
 {
-	std::cout << current << "/" << max << '\n';
+	//std::cout << current << "/" << max << '\n';
 }

@@ -7,6 +7,8 @@
 #include <cmath>
 #include "Character.h"
 #include "Game.hpp"
+#include "HUD.hpp"
+
 using namespace std;
 using namespace sf;
 
@@ -16,34 +18,23 @@ using namespace sf;
 
 int main()
 {
-	
 	RenderWindow window(VideoMode(1920, 1080, 32), "APPLICATION");
-	
-
 
 	float dt = 1.f / 60.f; //fixed physics step
 	float accumulator = 0.f; //total to consume from
 	float ft = 0.0f; //frame time 
 	sf::Clock timer;
-	Character player(v2(100, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0));
-	
+
+	Character player(v2(100, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
+	HUD hud(player);
 	mainMenu menu(window.getSize().x, window.getSize().y);
-	Game game(window, player, menu);
+	Game game(window, player, menu, hud);
+
 
 	while (window.isOpen())
 	{
-		ft = timer.getElapsedTime().asSeconds();
-		timer.restart();
-		accumulator += ft;
-		//std::cout << "acc: " << accumulator << std::endl;
-		//menu.draw(window);
-		while (accumulator >= dt)
-		{
-			game.handleInput();
-			game.update();
-			accumulator -= dt;
-		}
-		//draw everything
+		game.handleInput();
+		game.update();
 		game.render();
 	}
 	cout << "done";

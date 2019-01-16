@@ -6,19 +6,21 @@
 namespace Adam
 {
 	collision_handler::collision_handler(sf::Sprite & collision_layer)
-		:collision_layer(collision_layer)
+		:collision_layer(&collision_layer)
 	{
 
 	}
+
+	collision_handler::collision_handler() {}
 
 	collision_handler::~collision_handler()
 	{
 
 	}
 
-	bool collision_handler::handle_world_collision(Character &object)
+	bool collision_handler::handle_world_collision(movable *object)
 	{
-		return Collision::PixelPerfectTest(collision_layer, object);
+		return Collision::PixelPerfectTest(*collision_layer, *object);
 	}
 
 	bool collision_handler::handle_sprite_collision(sf::Sprite & object1, sf::Sprite & object2)

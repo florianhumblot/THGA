@@ -8,7 +8,11 @@
 #include <iostream>
 #include <cmath>
 #include "Character.h"
+#include "Movable.h"
 #include "mainMenu.hpp"
+#include "statistic.hpp"
+#include "physics.h"
+#include "HUD.hpp"
 
 using namespace std;
 using namespace sf;
@@ -18,12 +22,14 @@ using namespace sf;
 
 class Game {
 private:
-
+	std::vector<Character> enemies;
 	sf::RenderWindow & window;
 	mainMenu & menu;
+	HUD & hud;
 	sf::CircleShape shape;
 	sf::View main_camera;
 	sf::Texture tex;
+	sf::View main_HUD;
 	Sprite bg;
 	Sprite bg2;
 	sf::Texture tex2;
@@ -32,6 +38,11 @@ private:
 	Character & player;
 	sf::Sprite background;
 	sf::Sprite ground;
+
+	sf::Texture slimeChar;
+
+	Adam::collision_handler cln_h;
+	Adam::physics world_physics;
 
 	v2 pos;
 	v2 gravity;
@@ -43,7 +54,7 @@ private:
 
 public:
 
-	Game(sf::RenderWindow &w, Character &player, mainMenu &mainmenu);
+	Game(sf::RenderWindow &w, Character &player, mainMenu &mainmenu, HUD &hud);
 
 	void handleInput();
 	void update();
@@ -59,5 +70,5 @@ public:
 
 
 
-#endif // _GAME_HPP
+#endif  _GAME_HPP
 

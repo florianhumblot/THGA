@@ -3,15 +3,17 @@
 
 namespace Adam
 {
-	physics::physics(Character & player, collision_handler & clh_in)
+	physics::physics(movable* player, collision_handler & clh_in)
 	{
-		moveables.push_back(&player);
+		moveables.push_back(player);
 		clh = &clh_in;
 	}
 
 	physics::~physics()
 	{
 	}
+
+	physics::physics() {}
 
 	void physics::step_x_moveables()
 	{
@@ -23,7 +25,7 @@ namespace Adam
 		for (auto & moveable : moveables)
 		{
 
-			clh->handle_collision(clh->handle_world_collision(*moveable), 
+			clh->handle_collision(clh->handle_world_collision(moveable), 
 			[&]() 
 			{
 				moveable->move(sf::Vector2f(-moveable->getVelocity().x, 0));
@@ -41,18 +43,18 @@ namespace Adam
 
 		for (auto & moveable : moveables)
 		{
-			if (clh->handle_collision(clh->handle_world_collision(*moveable) && moveable->getVelocity().y > 0,
+			if (clh->handle_collision(clh->handle_world_collision(moveable) && moveable->getVelocity().y > 0,
 				[&]() {
-				while (clh->handle_world_collision(*moveable))
+				while (clh->handle_world_collision(moveable))
 				{
 					moveable->move(sf::Vector2f(0, -0.5));
 				}
 				moveable->setVelocity(sf::Vector2f(moveable->getVelocity().x, 0));
 			})) return;
 
-			if (clh->handle_collision(clh->handle_world_collision(*moveable) && moveable->getVelocity().y < 0,
+			if (clh->handle_collision(clh->handle_world_collision(moveable) && moveable->getVelocity().y < 0,
 				[&]() {
-				while (clh->handle_world_collision(*moveable))
+				while (clh->handle_world_collision(moveable))
 				{
 					moveable->move(sf::Vector2f(0, 0.5));
 				}
