@@ -21,18 +21,17 @@ Character::~Character()
 void Character::update_info()
 {
 	t[0] = std::to_string(health.current) + "/" + std::to_string(health.max) + '\n';
-	t[1] = std::to_string(mana.current) + "/" + std::to_string(mana.max) + '\n';
-	t[2] = std::to_string(exp.current) + "/" + std::to_string(exp.max) + '\n';
-	t[3] = "  lvl: " + std::to_string(lvl);
-	for (unsigned int k = 0; k < 4; k++)
+	t[1] = "  lvl: " + std::to_string(lvl);
+	for (unsigned int k = 0; k < 2; k++)
 	{
 		text[k].setString(t[k]);
+
 	}
 }
 
 void Character::update_info_pos(sf::RenderWindow & window, sf::Vector2f characters_pos)
 {
-	for (unsigned int j = 0; j < 4; j++)
+	for (unsigned int j = 0; j < 2; j++)
 	{
 		text[j].setPosition(sf::Vector2f(characters_pos.x, characters_pos.y + j * 24));
 		window.draw(text[j]);
