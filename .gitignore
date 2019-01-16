@@ -5,6 +5,7 @@ Debug/
 x64/
 *.vcxproj
 *.vcxproj.filters
+*.user
 
 # Prerequisites
 *.d
