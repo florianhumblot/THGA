@@ -38,7 +38,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 
 	}
 
-	state = STATE::MENU;
+	state = STATE::PLAYING;
 }
 
 
@@ -183,7 +183,7 @@ void Game::render() {
 			window.draw(sf::Sprite(player));
 			for (auto & enemy : enemies) {
 				enemy.setTexture(slimeChar);
-				window.draw(enemy);
+				window.draw(sf::Sprite(enemy));
 
 			}
 			window.draw(ground);
@@ -197,6 +197,6 @@ void Game::render() {
 
 		}
 	}
-
+	return;
 
 }
