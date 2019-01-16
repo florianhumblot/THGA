@@ -34,7 +34,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	gravity = v2(0, 1);
 	Collision::CreateTextureAndBitmask(slimeChar, "assets/slimeTest.png");
 	for (int i = 0; i < 5; i++) {
-		gameObjects.push_back(Character(sf::Vector2f(200 + i * 100, 200), sf::Vector2f(5.f, 5.f), "assets/slimeTest.png", sf::Vector2f(0, 0)));
+		enemies.push_back(Character(sf::Vector2f(200 + i * 100, 1500), sf::Vector2f(5.f, 5.f), "assets/slimeTest.png", sf::Vector2f(0, 0)));
 
 	}
 
@@ -158,11 +158,11 @@ void Game::update() {
 		break;
 	}
 
-	for (auto & object : gameObjects) {
+/*	for (auto & object : enemies) {
 		object.setVelocity(object.getVelocity() + gravity);
 		object.move();
 
-	}
+	}*/
 
 
 }
@@ -183,6 +183,11 @@ void Game::render() {
 			//sf::Vector2f pos_info = sf::Vector2f(player.getPosition().x, player.getPosition().y - 100);
 			//player.update_info_pos(window,pos_info);
 			window.draw(sf::Sprite(player));
+			for (auto & enemy : enemies) {
+				enemy.setTexture(slimeChar);
+				window.draw(enemy);
+
+			}
 			window.draw(ground);
 			window.setView(main_HUD);
 			hud.draw(window);
