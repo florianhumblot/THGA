@@ -18,9 +18,6 @@ using namespace sf;
 
 int main()
 {
-
-
-
 	RenderWindow window(VideoMode(1920, 1080, 32), "APPLICATION");
 
 	float dt = 1.f / 60.f; //fixed physics step
@@ -36,20 +33,8 @@ int main()
 
 	while (window.isOpen())
 	{
-		ft = timer.getElapsedTime().asSeconds();
-		timer.restart();
-		accumulator += ft;
-		//std::cout << "acc: " << accumulator << std::endl;
-
-		//menu.draw(window);
-
-		while (accumulator >= dt)
-		{
-			game.handleInput();
-			game.update();
-			accumulator -= dt;
-		}
-		//draw everything
+		game.handleInput();
+		game.update();
 		game.render();
 	}
 	cout << "done";
