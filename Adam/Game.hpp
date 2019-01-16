@@ -9,6 +9,7 @@
 #include <cmath>
 #include "Character.h"
 #include "Movable.h"
+#include "mainMenu.hpp"
 
 using namespace std;
 using namespace sf;
@@ -20,8 +21,8 @@ class Game {
 private:
 	std::vector<Character> gameObjects;
 	sf::RenderWindow & window;
+	mainMenu & menu;
 	sf::CircleShape shape;
-
 	sf::View main_camera;
 	sf::Texture tex;
 	Sprite bg;
@@ -38,22 +39,15 @@ private:
 	v2 pos;
 	v2 gravity;
 
-	const struct {
-		sf::Keyboard::Key key;
-		std::function<void(void)> actionLambda;
-	} actions[4] = {
-	   { sf::Keyboard::A,  []() {} },
-	   { sf::Keyboard::D, []() {} },
-	   { sf::Keyboard::Escape,[this]() {getWindow().close();} },
-	   { sf::Keyboard::Space, []() {}  }
-	};
+	enum class STATE { MENU, PLAYING, GAMEOVER };
+	enum STATE state;
 
 
 
 public:
-	
-	Game(sf::RenderWindow &w, Character &player);
-	
+
+	Game(sf::RenderWindow &w, Character &player, mainMenu &mainmenu);
+
 	void handleInput();
 	void update();
 	void render();
@@ -62,7 +56,7 @@ public:
 		return window;
 	}
 
-	
+
 
 };
 
