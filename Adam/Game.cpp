@@ -38,9 +38,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 
 	}
 
-	
-	state = STATE::PLAYING;
-
+	state = STATE::MENU;
 }
 
 
