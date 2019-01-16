@@ -11,6 +11,7 @@
 #include "Movable.h"
 #include "mainMenu.hpp"
 #include "statistic.hpp"
+#include "physics.h"
 
 using namespace std;
 using namespace sf;
@@ -36,6 +37,9 @@ private:
 	sf::Sprite ground;
 
 	sf::Texture slimeChar;
+
+	Adam::collision_handler cln_h;
+	Adam::physics world_physics;
 
 	v2 pos;
 	v2 gravity;
