@@ -12,7 +12,7 @@ class Character : public movable
 	sf::Text text[4];
 	std::string t[4];
 public:
-	int lvl = 0;
+	int lvl = 1;
 	statistic mana;
 	statistic health;
 	statistic exp;

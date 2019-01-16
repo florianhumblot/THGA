@@ -101,6 +101,7 @@ void Game::handleInput() {
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -14));
 					player.update_exp(2);
 					player.update_info();
+					hud.update();
 				}
 			}
 

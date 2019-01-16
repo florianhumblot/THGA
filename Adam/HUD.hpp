@@ -15,6 +15,7 @@ private:
 public:
 	HUD(Character & character);
 	~HUD();
+	void update();
 	void draw(sf::RenderWindow & window);
 };
 #endif // !HUD_HPP
