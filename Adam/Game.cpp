@@ -51,7 +51,7 @@ void Game::handleInput() {
 	//do game stuff
 	switch (state) {
 
-		case STATE::MENU:
+		case STATE::MENUS:
 		{
 			sf::Event ev;
 			while (window.pollEvent(ev))
