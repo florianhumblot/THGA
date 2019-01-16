@@ -26,7 +26,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu) :
 
 	gravity = v2(0, 1);
 	
-	state = STATE::PLAYING;
+	state = STATE::MENU;
 }
 
 
