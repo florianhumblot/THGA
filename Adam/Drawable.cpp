@@ -5,11 +5,9 @@ drawable::drawable(sf::Vector2f position, sf::Vector2f scale, const std::string 
 	position = position;
 	scale = scale;
 	Collision::CreateTextureAndBitmask(texture, textureFile);
-//	setTexture(texture);
 	sprite.setPosition(position);
 	sprite.setTexture(texture);
 	sprite.setScale(scale);
-	std::cout << sprite.getGlobalBounds().height << "  " << texture.getSize().x << "\n";
 }
 
 sf::Vector2f drawable::getPosition() {
@@ -29,6 +27,5 @@ void drawable::setTexture(const std::string & textureFile) {
 void drawable::setTexture(sf::Texture & texture) {
 	sprite.setTexture(texture);
 	texture = texture;
-	std::cout << sprite.getGlobalBounds().height << "  "  << texture.getSize().x << "\n";
 }
 

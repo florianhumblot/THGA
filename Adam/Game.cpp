@@ -24,7 +24,13 @@ Game::Game(sf::RenderWindow &w, Character &player) :
 	ground.setTexture(tex);
 	pos = player.getPosition();
 
+
 	gravity = v2(0, 1);
+	Collision::CreateTextureAndBitmask(slimeChar, "assets/slimeTest.png");
+	for (int i = 0; i < 5; i++) {
+		gameObjects.push_back(Character(sf::Vector2f(200 + i * 100, 200), sf::Vector2f(5.f, 5.f), "assets/slimeTest.png", sf::Vector2f(0, 0)));
+
+	}
 
 }
 
@@ -133,7 +139,11 @@ void Game::update() {
 	{
 		player.setVelocity(player.getVelocity() + gravity);
 	}
-//	std::cout << sf::Sprite(player).getGlobalBounds().width;
+	for (auto & object : gameObjects) {
+		object.setVelocity(object.getVelocity() + gravity);
+		object.move();
+
+	}
 
 }
 
@@ -142,6 +152,10 @@ void Game::render() {
 	window.clear();
 	window.draw(background);
 	window.draw(sf::Sprite(player));
+	for (auto & object: gameObjects) {
+		object.setTexture(slimeChar);
+		window.draw(sf::Sprite(object));
+	}
 	window.draw(ground);
 
 	auto center = Collision::GetSpriteCenter(player);
