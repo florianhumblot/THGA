@@ -24,7 +24,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	main_camera.setSize(1600, 900);
 
 	this->cln_h = Adam::collision_handler(bg);
-	this->world_physics = Adam::physics(player, cln_h);
+	this->world_physics = Adam::physics(&player, cln_h);
 
 	background.setTexture(tex2);
 	ground.setTexture(tex);
