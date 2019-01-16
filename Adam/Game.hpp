@@ -35,9 +35,11 @@ private:
 	sf::Texture tex2;
 	sf::Texture char_alpha;
 	sf::Texture char_alpha_invert;
+	sf::Texture menuTex;
 	Character & player;
 	sf::Sprite background;
 	sf::Sprite ground;
+	sf::Sprite bgMain;
 
 	sf::Texture slimeChar;
 
