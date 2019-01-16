@@ -7,6 +7,8 @@
 #include <cmath>
 #include "Character.h"
 #include "Game.hpp"
+#include "HUD.hpp"
+
 using namespace std;
 using namespace sf;
 
@@ -27,9 +29,9 @@ int main()
 	sf::Clock timer;
 
 	Character player(v2(100, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
-	
+	HUD hud(player);
 	mainMenu menu(window.getSize().x, window.getSize().y);
-	Game game(window, player, menu);
+	Game game(window, player, menu, hud);
 
 
 	while (window.isOpen())

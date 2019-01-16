@@ -12,7 +12,7 @@ private:
 public:
 	int max = 100;
 	int current = 100;
-	statistic(int max , int current );
+	statistic(int max, int current);
 	statistic();
 	void set_max(int max_points);
 	void add(int points);

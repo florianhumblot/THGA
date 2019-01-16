@@ -1,10 +1,11 @@
 #include "Game.hpp"
 
-Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu) :
+Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 
 	window(w),
 	player(player),
-	menu(menu)
+	menu(menu),
+	hud(hud)
 
 {
 
@@ -178,11 +179,12 @@ void Game::render() {
 		{
 			window.clear();
 			window.draw(background);
-			sf::Vector2f pos_info = sf::Vector2f(player.getPosition().x, player.getPosition().y - 100);
-			player.update_info_pos(window,pos_info);
+			//sf::Vector2f pos_info = sf::Vector2f(player.getPosition().x, player.getPosition().y - 100);
+			//player.update_info_pos(window,pos_info);
 			window.draw(sf::Sprite(player));
 			window.draw(ground);
-
+			window.setView(main_HUD);
+			hud.draw(window);
 			auto center = Collision::GetSpriteCenter(player);
 			main_camera.setCenter(center);
 			window.setView(main_camera);
