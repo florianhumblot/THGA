@@ -158,6 +158,7 @@ void Game::update() {
 		{
 			world_physics.step_x_moveables();
 			world_physics.step_y_moveables();
+			if (player.getPosition().y > 4000) player.setPosition(v2(100, 100));
 		}
 		break;
 	}
