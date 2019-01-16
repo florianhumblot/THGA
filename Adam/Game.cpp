@@ -1,10 +1,11 @@
 #include "Game.hpp"
 
-Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu) :
+Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 
 	window(w),
 	player(player),
-	menu(menu)
+	menu(menu),
+	hud(hud)
 
 {
 
@@ -23,7 +24,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu) :
 	main_camera.setSize(1600, 900);
 
 	this->cln_h = Adam::collision_handler(bg);
-	this->world_physics = Adam::physics(player, cln_h);
+	this->world_physics = Adam::physics(&player, cln_h);
 
 	background.setTexture(tex2);
 	ground.setTexture(tex);
@@ -100,6 +101,7 @@ void Game::handleInput() {
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -14));
 					player.update_exp(2);
 					player.update_info();
+					hud.update();
 				}
 			}
 
@@ -178,8 +180,8 @@ void Game::render() {
 		{
 			window.clear();
 			window.draw(background);
-			sf::Vector2f pos_info = sf::Vector2f(player.getPosition().x, player.getPosition().y - 100);
-			player.update_info_pos(window,pos_info);
+			//sf::Vector2f pos_info = sf::Vector2f(player.getPosition().x, player.getPosition().y - 100);
+			//player.update_info_pos(window,pos_info);
 			window.draw(sf::Sprite(player));
 			for (auto & enemy : enemies) {
 				enemy.setTexture(slimeChar);
@@ -187,7 +189,8 @@ void Game::render() {
 
 			}
 			window.draw(ground);
-
+			window.setView(main_HUD);
+			hud.draw(window);
 			auto center = Collision::GetSpriteCenter(player);
 			main_camera.setCenter(center);
 			window.setView(main_camera);
