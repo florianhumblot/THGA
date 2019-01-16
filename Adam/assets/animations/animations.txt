@@ -1,126 +1,335 @@
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(1).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(2).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(3).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(4).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(5).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(6).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(7).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(8).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(9).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(10).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(11).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(12).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(13).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(14).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(15).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(16).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(17).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(18).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(19).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(20).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(21).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(22).png 384 192
-gunwoman attackLEFT animations/gunwomanATTACKleft/gunwomanATTACKleft(23).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(1).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(2).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(3).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(4).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(5).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(6).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(7).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(8).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(9).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(10).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(11).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(12).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(13).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(14).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(15).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(16).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(17).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(18).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(19).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(20).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(21).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(22).png 384 192
-gunwoman attackRIGHT animations/gunwomanATTACKright/gunwomanATTACKright(23).png 384 192
-gunwoman walkLEFT animations/gunwomanWALKleft/gunwomanWALKleft(1).png 192 192
-gunwoman walkLEFT animations/gunwomanWALKleft/gunwomanWALKleft(2).png 192 192
-gunwoman walkLEFT animations/gunwomanWALKleft/gunwomanWALKleft(3).png 192 192
-gunwoman walkLEFT animations/gunwomanWALKleft/gunwomanWALKleft(4).png 192 192
-gunwoman walkLEFT animations/gunwomanWALKleft/gunwomanWALKleft(5).png 192 192
-gunwoman walkLEFT animations/gunwomanWALKleft/gunwomanWALKleft(6).png 192 192
-gunwoman walkLEFT animations/gunwomanWALKleft/gunwomanWALKleft(7).png 192 192
-gunwoman walkLEFT animations/gunwomanWALKleft/gunwomanWALKleft(8).png 192 192
-gunwoman walkLEFT animations/gunwomanWALKleft/gunwomanWALKleft(9).png 192 192
-gunwoman walkLEFT animations/gunwomanWALKleft/gunwomanWALKleft(10).png 192 192
-gunwoman walkLEFT animations/gunwomanWALKleft/gunwomanWALKleft(11).png 192 192
-gunwoman walkLEFT animations/gunwomanWALKleft/gunwomanWALKleft(12).png 192 192
-gunwoman walkLEFT animations/gunwomanWALKleft/gunwomanWALKleft(13).png 192 192
-gunwoman walkLEFT animations/gunwomanWALKleft/gunwomanWALKleft(14).png 192 192
-gunwoman walkRIGHT animations/gunwomanWALKright/gunwomanWALKright(1).png 192 192
-gunwoman walkRIGHT animations/gunwomanWALKright/gunwomanWALKright(2).png 192 192
-gunwoman walkRIGHT animations/gunwomanWALKright/gunwomanWALKright(3).png 192 192
-gunwoman walkRIGHT animations/gunwomanWALKright/gunwomanWALKright(4).png 192 192
-gunwoman walkRIGHT animations/gunwomanWALKright/gunwomanWALKright(5).png 192 192
-gunwoman walkRIGHT animations/gunwomanWALKright/gunwomanWALKright(6).png 192 192
-gunwoman walkRIGHT animations/gunwomanWALKright/gunwomanWALKright(7).png 192 192
-gunwoman walkRIGHT animations/gunwomanWALKright/gunwomanWALKright(8).png 192 192
-gunwoman walkRIGHT animations/gunwomanWALKright/gunwomanWALKright(9).png 192 192
-gunwoman walkRIGHT animations/gunwomanWALKright/gunwomanWALKright(10).png 192 192
-gunwoman walkRIGHT animations/gunwomanWALKright/gunwomanWALKright(11).png 192 192
-gunwoman walkRIGHT animations/gunwomanWALKright/gunwomanWALKright(12).png 192 192
-gunwoman walkRIGHT animations/gunwomanWALKright/gunwomanWALKright(13).png 192 192
-gunwoman walkRIGHT animations/gunwomanWALKright/gunwomanWALKright(14).png 192 192
-knight walkLEFT animations/knightWALKleft/knightWALKleft(1).png 192 192
-knight walkLEFT animations/knightWALKleft/knightWALKleft(2).png 192 192
-knight walkLEFT animations/knightWALKleft/knightWALKleft(3).png 192 192
-knight walkLEFT animations/knightWALKleft/knightWALKleft(4).png 192 192
-knight walkLEFT animations/knightWALKleft/knightWALKleft(5).png 192 192
-knight walkLEFT animations/knightWALKleft/knightWALKleft(6).png 192 192
-knight walkLEFT animations/knightWALKleft/knightWALKleft(7).png 192 192
-knight walkLEFT animations/knightWALKleft/knightWALKleft(8).png 192 192
-knight walkLEFT animations/knightWALKleft/knightWALKleft(9).png 192 192
-knight walkLEFT animations/knightWALKleft/knightWALKleft(10).png 192 192
-knight walkLEFT animations/knightWALKleft/knightWALKleft(11).png 192 192
-knight walkLEFT animations/knightWALKleft/knightWALKleft(12).png 192 192
-knight walkRIGHT animations/knightWALKright/knightWALKright(1).png 192 192
-knight walkRIGHT animations/knightWALKright/knightWALKright(2).png 192 192
-knight walkRIGHT animations/knightWALKright/knightWALKright(3).png 192 192
-knight walkRIGHT animations/knightWALKright/knightWALKright(4).png 192 192
-knight walkRIGHT animations/knightWALKright/knightWALKright(5).png 192 192
-knight walkRIGHT animations/knightWALKright/knightWALKright(6).png 192 192
-knight walkRIGHT animations/knightWALKright/knightWALKright(7).png 192 192
-knight walkRIGHT animations/knightWALKright/knightWALKright(8).png 192 192
-knight walkRIGHT animations/knightWALKright/knightWALKright(9).png 192 192
-knight walkRIGHT animations/knightWALKright/knightWALKright(10).png 192 192
-knight walkRIGHT animations/knightWALKright/knightWALKright(11).png 192 192
-knight walkRIGHT animations/knightWALKright/knightWALKright(12).png 192 192
-knight ATTACKright animations/knightATTACKright/knightATTACKright(1).png 384 192
-knight ATTACKright animations/knightATTACKright/knightATTACKright(2).png 384 192
-knight ATTACKright animations/knightATTACKright/knightATTACKright(3).png 384 192
-knight ATTACKright animations/knightATTACKright/knightATTACKright(4).png 384 192
-knight ATTACKright animations/knightATTACKright/knightATTACKright(5).png 384 192
-knight ATTACKright animations/knightATTACKright/knightATTACKright(6).png 384 192
-knight ATTACKright animations/knightATTACKright/knightATTACKright(7).png 384 192
-knight ATTACKright animations/knightATTACKright/knightATTACKright(8).png 384 192
-knight ATTACKright animations/knightATTACKright/knightATTACKright(9).png 384 192
-knight ATTACKright animations/knightATTACKright/knightATTACKright(10).png 384 192
-knight ATTACKright animations/knightATTACKright/knightATTACKright(11).png 384 192
-knight ATTACKright animations/knightATTACKright/knightATTACKright(12).png 384 192
-knight ATTACKright animations/knightATTACKright/knightATTACKright(13).png 384 192
-knight ATTACKright animations/knightATTACKright/knightATTACKright(14).png 384 192
-knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(1).png 384 192
-knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(2).png 384 192
-knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(3).png 384 192
-knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(4).png 384 192
-knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(5).png 384 192
-knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(6).png 384 192
-knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(7).png 384 192
-knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(8).png 384 192
-knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(9).png 384 192
-knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(10).png 384 192
-knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(11).png 384 192
-knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(12).png 384 192
-knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(13).png 384 192
-knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(14).png 384 192
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(1).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(2).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(3).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(4).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(5).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(6).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(7).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(8).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(9).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(10).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(11).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(12).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(13).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(14).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(15).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(16).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(17).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(18).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(19).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(20).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(21).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(22).png
+gunwoman ATTACKleft animations/gunwomanATTACKleft/gunwomanATTACKleft(23).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(1).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(2).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(3).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(4).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(5).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(6).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(7).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(8).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(9).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(10).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(11).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(12).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(13).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(14).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(15).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(16).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(17).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(18).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(19).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(20).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(21).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(22).png
+gunwoman ATTACKright animations/gunwomanATTACKright/gunwomanATTACKright(23).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(1).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(2).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(3).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(4).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(5).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(6).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(7).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(8).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(9).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(10).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(11).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(12).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(13).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(14).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(15).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(16).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(17).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(18).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(19).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(20).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(21).png
+gunwoman IDLEleft animations/gunwomanIDLEleft/gunwomanIDLEleft(22).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(1).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(2).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(3).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(4).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(5).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(6).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(7).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(8).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(9).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(10).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(11).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(12).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(13).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(14).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(15).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(16).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(17).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(18).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(19).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(20).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(21).png
+gunwoman IDLEright animations/gunwomanIDLEright/gunwomanIDLEright(22).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(1).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(2).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(3).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(4).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(5).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(6).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(7).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(8).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(9).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(10).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(11).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(12).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(13).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(14).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(15).png
+gunwoman IMPACTeffect animations/gunwomanIMPACTeffect/gunwomanIMPACTeffect(16).png
+gunwoman WALKleft animations/gunwomanWALKleft/gunwomanWALKleft(1).png
+gunwoman WALKleft animations/gunwomanWALKleft/gunwomanWALKleft(2).png
+gunwoman WALKleft animations/gunwomanWALKleft/gunwomanWALKleft(3).png
+gunwoman WALKleft animations/gunwomanWALKleft/gunwomanWALKleft(4).png
+gunwoman WALKleft animations/gunwomanWALKleft/gunwomanWALKleft(5).png
+gunwoman WALKleft animations/gunwomanWALKleft/gunwomanWALKleft(6).png
+gunwoman WALKleft animations/gunwomanWALKleft/gunwomanWALKleft(7).png
+gunwoman WALKleft animations/gunwomanWALKleft/gunwomanWALKleft(8).png
+gunwoman WALKleft animations/gunwomanWALKleft/gunwomanWALKleft(9).png
+gunwoman WALKleft animations/gunwomanWALKleft/gunwomanWALKleft(10).png
+gunwoman WALKleft animations/gunwomanWALKleft/gunwomanWALKleft(11).png
+gunwoman WALKleft animations/gunwomanWALKleft/gunwomanWALKleft(12).png
+gunwoman WALKleft animations/gunwomanWALKleft/gunwomanWALKleft(13).png
+gunwoman WALKleft animations/gunwomanWALKleft/gunwomanWALKleft(14).png
+gunwoman WALKright animations/gunwomanWALKright/gunwomanWALKright(1).png
+gunwoman WALKright animations/gunwomanWALKright/gunwomanWALKright(2).png
+gunwoman WALKright animations/gunwomanWALKright/gunwomanWALKright(3).png
+gunwoman WALKright animations/gunwomanWALKright/gunwomanWALKright(4).png
+gunwoman WALKright animations/gunwomanWALKright/gunwomanWALKright(5).png
+gunwoman WALKright animations/gunwomanWALKright/gunwomanWALKright(6).png
+gunwoman WALKright animations/gunwomanWALKright/gunwomanWALKright(7).png
+gunwoman WALKright animations/gunwomanWALKright/gunwomanWALKright(8).png
+gunwoman WALKright animations/gunwomanWALKright/gunwomanWALKright(9).png
+gunwoman WALKright animations/gunwomanWALKright/gunwomanWALKright(10).png
+gunwoman WALKright animations/gunwomanWALKright/gunwomanWALKright(11).png
+gunwoman WALKright animations/gunwomanWALKright/gunwomanWALKright(12).png
+gunwoman WALKright animations/gunwomanWALKright/gunwomanWALKright(13).png
+gunwoman WALKright animations/gunwomanWALKright/gunwomanWALKright(14).png
+knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(1).png
+knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(2).png
+knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(3).png
+knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(4).png
+knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(5).png
+knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(6).png
+knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(7).png
+knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(8).png
+knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(9).png
+knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(10).png
+knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(11).png
+knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(12).png
+knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(13).png
+knight ATTACKleft animations/knightATTACKleft/knightATTACKleft(14).png
+knight ATTACKright animations/knightATTACKright/knightATTACKright(1).png
+knight ATTACKright animations/knightATTACKright/knightATTACKright(2).png
+knight ATTACKright animations/knightATTACKright/knightATTACKright(3).png
+knight ATTACKright animations/knightATTACKright/knightATTACKright(4).png
+knight ATTACKright animations/knightATTACKright/knightATTACKright(5).png
+knight ATTACKright animations/knightATTACKright/knightATTACKright(6).png
+knight ATTACKright animations/knightATTACKright/knightATTACKright(7).png
+knight ATTACKright animations/knightATTACKright/knightATTACKright(8).png
+knight ATTACKright animations/knightATTACKright/knightATTACKright(9).png
+knight ATTACKright animations/knightATTACKright/knightATTACKright(10).png
+knight ATTACKright animations/knightATTACKright/knightATTACKright(11).png
+knight ATTACKright animations/knightATTACKright/knightATTACKright(12).png
+knight ATTACKright animations/knightATTACKright/knightATTACKright(13).png
+knight ATTACKright animations/knightATTACKright/knightATTACKright(14).png
+knight IDLEleft animations/knightIDLEleft/knightIDLEleft(1).png
+knight IDLEleft animations/knightIDLEleft/knightIDLEleft(2).png
+knight IDLEleft animations/knightIDLEleft/knightIDLEleft(3).png
+knight IDLEleft animations/knightIDLEleft/knightIDLEleft(4).png
+knight IDLEleft animations/knightIDLEleft/knightIDLEleft(5).png
+knight IDLEleft animations/knightIDLEleft/knightIDLEleft(6).png
+knight IDLEleft animations/knightIDLEleft/knightIDLEleft(7).png
+knight IDLEleft animations/knightIDLEleft/knightIDLEleft(8).png
+knight IDLEleft animations/knightIDLEleft/knightIDLEleft(9).png
+knight IDLEleft animations/knightIDLEleft/knightIDLEleft(10).png
+knight IDLEleft animations/knightIDLEleft/knightIDLEleft(11).png
+knight IDLEleft animations/knightIDLEleft/knightIDLEleft(12).png
+knight IDLEleft animations/knightIDLEleft/knightIDLEleft(13).png
+knight IDLEleft animations/knightIDLEleft/knightIDLEleft(14).png
+knight IDLEright animations/knightIDLEright/knightIDLEright(1).png
+knight IDLEright animations/knightIDLEright/knightIDLEright(2).png
+knight IDLEright animations/knightIDLEright/knightIDLEright(3).png
+knight IDLEright animations/knightIDLEright/knightIDLEright(4).png
+knight IDLEright animations/knightIDLEright/knightIDLEright(5).png
+knight IDLEright animations/knightIDLEright/knightIDLEright(6).png
+knight IDLEright animations/knightIDLEright/knightIDLEright(7).png
+knight IDLEright animations/knightIDLEright/knightIDLEright(8).png
+knight IDLEright animations/knightIDLEright/knightIDLEright(9).png
+knight IDLEright animations/knightIDLEright/knightIDLEright(10).png
+knight IDLEright animations/knightIDLEright/knightIDLEright(11).png
+knight IDLEright animations/knightIDLEright/knightIDLEright(12).png
+knight IDLEright animations/knightIDLEright/knightIDLEright(13).png
+knight IDLEright animations/knightIDLEright/knightIDLEright(14).png
+knight IMPACTeffect animations/knightIMPACTeffect/knightIMPACTeffect(1).png
+knight IMPACTeffect animations/knightIMPACTeffect/knightIMPACTeffect(2).png
+knight IMPACTeffect animations/knightIMPACTeffect/knightIMPACTeffect(3).png
+knight IMPACTeffect animations/knightIMPACTeffect/knightIMPACTeffect(4).png
+knight IMPACTeffect animations/knightIMPACTeffect/knightIMPACTeffect(5).png
+knight IMPACTeffect animations/knightIMPACTeffect/knightIMPACTeffect(6).png
+knight WALKleft animations/knightWALKleft/knightWALKleft(1).png
+knight WALKleft animations/knightWALKleft/knightWALKleft(2).png
+knight WALKleft animations/knightWALKleft/knightWALKleft(3).png
+knight WALKleft animations/knightWALKleft/knightWALKleft(4).png
+knight WALKleft animations/knightWALKleft/knightWALKleft(5).png
+knight WALKleft animations/knightWALKleft/knightWALKleft(6).png
+knight WALKleft animations/knightWALKleft/knightWALKleft(7).png
+knight WALKleft animations/knightWALKleft/knightWALKleft(8).png
+knight WALKleft animations/knightWALKleft/knightWALKleft(9).png
+knight WALKleft animations/knightWALKleft/knightWALKleft(10).png
+knight WALKleft animations/knightWALKleft/knightWALKleft(11).png
+knight WALKleft animations/knightWALKleft/knightWALKleft(12).png
+knight WALKright animations/knightWALKright/knightWALKright(1).png
+knight WALKright animations/knightWALKright/knightWALKright(2).png
+knight WALKright animations/knightWALKright/knightWALKright(3).png
+knight WALKright animations/knightWALKright/knightWALKright(4).png
+knight WALKright animations/knightWALKright/knightWALKright(5).png
+knight WALKright animations/knightWALKright/knightWALKright(6).png
+knight WALKright animations/knightWALKright/knightWALKright(7).png
+knight WALKright animations/knightWALKright/knightWALKright(8).png
+knight WALKright animations/knightWALKright/knightWALKright(9).png
+knight WALKright animations/knightWALKright/knightWALKright(10).png
+knight WALKright animations/knightWALKright/knightWALKright(11).png
+knight WALKright animations/knightWALKright/knightWALKright(12).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(1).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(2).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(3).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(4).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(5).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(6).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(7).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(8).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(9).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(10).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(11).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(12).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(13).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(14).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(15).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(16).png
+mage ATTACKleft animations/mageATTACKleft/mageATTACKleft(17).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(1).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(2).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(3).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(4).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(5).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(6).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(7).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(8).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(9).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(10).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(11).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(12).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(13).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(14).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(15).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(16).png
+mage ATTACKright animations/mageATTACKright/mageATTACKright(17).png
+mage IDLEleft animations/mageIDLEleft/mageIDLEleft(1).png
+mage IDLEleft animations/mageIDLEleft/mageIDLEleft(2).png
+mage IDLEleft animations/mageIDLEleft/mageIDLEleft(3).png
+mage IDLEleft animations/mageIDLEleft/mageIDLEleft(4).png
+mage IDLEleft animations/mageIDLEleft/mageIDLEleft(5).png
+mage IDLEleft animations/mageIDLEleft/mageIDLEleft(6).png
+mage IDLEleft animations/mageIDLEleft/mageIDLEleft(7).png
+mage IDLEleft animations/mageIDLEleft/mageIDLEleft(8).png
+mage IDLEleft animations/mageIDLEleft/mageIDLEleft(9).png
+mage IDLEleft animations/mageIDLEleft/mageIDLEleft(10).png
+mage IDLEright animations/mageIDLEright/mageIDLEright(1).png
+mage IDLEright animations/mageIDLEright/mageIDLEright(2).png
+mage IDLEright animations/mageIDLEright/mageIDLEright(3).png
+mage IDLEright animations/mageIDLEright/mageIDLEright(4).png
+mage IDLEright animations/mageIDLEright/mageIDLEright(5).png
+mage IDLEright animations/mageIDLEright/mageIDLEright(6).png
+mage IDLEright animations/mageIDLEright/mageIDLEright(7).png
+mage IDLEright animations/mageIDLEright/mageIDLEright(8).png
+mage IDLEright animations/mageIDLEright/mageIDLEright(9).png
+mage IDLEright animations/mageIDLEright/mageIDLEright(10).png
+mage IMPACTeffect animations/mageIMPACTeffect/mageIMPACTeffect(1).png
+mage IMPACTeffect animations/mageIMPACTeffect/mageIMPACTeffect(2).png
+mage IMPACTeffect animations/mageIMPACTeffect/mageIMPACTeffect(3).png
+mage IMPACTeffect animations/mageIMPACTeffect/mageIMPACTeffect(4).png
+mage IMPACTeffect animations/mageIMPACTeffect/mageIMPACTeffect(5).png
+mage IMPACTeffect animations/mageIMPACTeffect/mageIMPACTeffect(6).png
+mage IMPACTeffect animations/mageIMPACTeffect/mageIMPACTeffect(7).png
+mage IMPACTeffect animations/mageIMPACTeffect/mageIMPACTeffect(8).png
+mage IMPACTeffect animations/mageIMPACTeffect/mageIMPACTeffect(9).png
+mage IMPACTeffect animations/mageIMPACTeffect/mageIMPACTeffect(10).png
+mage IMPACTeffect animations/mageIMPACTeffect/mageIMPACTeffect(11).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(1).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(2).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(3).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(4).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(5).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(6).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(7).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(8).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(9).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(10).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(11).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(12).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(13).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(14).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(15).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(16).png
+mage POWERUPleft animations/magePOWERUPleft/magePOWERUPleft(17).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(1).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(2).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(3).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(4).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(5).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(6).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(7).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(8).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(9).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(10).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(11).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(12).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(13).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(14).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(15).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(16).png
+mage POWERUPright animations/magePOWERUPright/magePOWERUPright(17).png
+mage WALKleft animations/mageWALKleft/mageWALKleft(1).png
+mage WALKleft animations/mageWALKleft/mageWALKleft(2).png
+mage WALKleft animations/mageWALKleft/mageWALKleft(3).png
+mage WALKleft animations/mageWALKleft/mageWALKleft(4).png
+mage WALKleft animations/mageWALKleft/mageWALKleft(5).png
+mage WALKleft animations/mageWALKleft/mageWALKleft(6).png
+mage WALKleft animations/mageWALKleft/mageWALKleft(7).png
+mage WALKleft animations/mageWALKleft/mageWALKleft(8).png
+mage WALKright animations/mageWALKright/mageWALKright(1).png
+mage WALKright animations/mageWALKright/mageWALKright(2).png
+mage WALKright animations/mageWALKright/mageWALKright(3).png
+mage WALKright animations/mageWALKright/mageWALKright(4).png
+mage WALKright animations/mageWALKright/mageWALKright(5).png
+mage WALKright animations/mageWALKright/mageWALKright(6).png
+mage WALKright animations/mageWALKright/mageWALKright(7).png
+mage WALKright animations/mageWALKright/mageWALKright(8).png
