@@ -16,19 +16,21 @@ using namespace sf;
 
 int main()
 {
-	
-	RenderWindow window(VideoMode(1920, 1080, 32), "APPLICATION");
-	
 
+
+
+	RenderWindow window(VideoMode(1920, 1080, 32), "APPLICATION");
 
 	float dt = 1.f / 60.f; //fixed physics step
 	float accumulator = 0.f; //total to consume from
 	float ft = 0.0f; //frame time 
 	sf::Clock timer;
+
 	Character player(v2(100, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
 	
 	mainMenu menu(window.getSize().x, window.getSize().y);
 	Game game(window, player, menu);
+
 
 	while (window.isOpen())
 	{
@@ -36,7 +38,9 @@ int main()
 		timer.restart();
 		accumulator += ft;
 		//std::cout << "acc: " << accumulator << std::endl;
+
 		//menu.draw(window);
+
 		while (accumulator >= dt)
 		{
 			game.handleInput();
