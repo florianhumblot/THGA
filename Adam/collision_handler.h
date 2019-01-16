@@ -20,7 +20,7 @@ namespace Adam
 			return condition;
 		}
 
-		bool handle_world_collision(Character & object);
+		bool handle_world_collision(movable* object);
 		bool handle_sprite_collision(sf::Sprite & object1, sf::Sprite & object2);
 
 	};
