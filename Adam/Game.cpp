@@ -86,6 +86,7 @@ void Game::handleInput() {
 				{
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -14));
 					player.update_exp(2);
+					player.update_info();
 				}
 			}
 
@@ -193,7 +194,7 @@ void Game::render() {
 			window.clear();
 			window.draw(background);
 			sf::Vector2f pos_info = sf::Vector2f(player.getPosition().x, player.getPosition().y - 100);
-			player.character_info_draw(window, pos_info);
+			player.update_info_pos(window,pos_info);
 			window.draw(sf::Sprite(player));
 			window.draw(ground);
 

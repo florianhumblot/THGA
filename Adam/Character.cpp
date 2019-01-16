@@ -47,36 +47,25 @@ void Character::setTexture(sf::Texture & texture)
 	texture = texture;
 }
 
-void Character::character_info_draw(sf::RenderWindow & window, sf::Vector2f characters_pos)
+void Character::update_info()
 {
-	sf::Font font;
-	sf::Text text[4];
-	std::string t[4];
-
-	if (!font.loadFromFile("fonts/stranger.ttf"))
-	{
-		//std::cout << "error loading font" << std::endl;
-	}
 	t[0] = std::to_string(health.current) + "/" + std::to_string(health.max) + '\n';
 	t[1] = std::to_string(mana.current) + "/" + std::to_string(mana.max) + '\n';
 	t[2] = std::to_string(exp.current) + "/" + std::to_string(exp.max) + '\n';
 	t[3] = "  lvl: " + std::to_string(lvl);
-
-	text[0].setFillColor(sf::Color::Red);
-	text[1].setFillColor(sf::Color::Blue);
-	text[2].setFillColor(sf::Color::Yellow);
-	text[3].setFillColor(sf::Color::Black);
-	for (unsigned int i = 0; i < 4; i++)
+	for (unsigned int k = 0; k < 4; k++)
 	{
-		text[i].setFont(font);
-		text[i].setCharacterSize(25);
-		//text[i].setOutlineThickness(0.5f);
-		//text[i].setOutlineColor(sf::Color::Black);
-		text[i].setString(t[i]);
-		text[i].setPosition(sf::Vector2f(characters_pos.x, characters_pos.y + i * 24));
-		window.draw(text[i]);
+		text[k].setString(t[k]);
 	}
+}
 
+void Character::update_info_pos(sf::RenderWindow & window, sf::Vector2f characters_pos)
+{
+	for (unsigned int j = 0; j < 4; j++) 
+	{
+		text[j].setPosition(sf::Vector2f(characters_pos.x, characters_pos.y + j * 24));
+		window.draw(text[j]);
+	}
 }
 
 void Character::update_exp(int amount) 
@@ -103,6 +92,26 @@ Character::Character(sf::Vector2f position, sf::Vector2f scale, const std::strin
 	sprite.setTexture(texture);
 	sprite.setScale(scale);
 	exp.is_zero();
+
+	if (!font.loadFromFile("fonts/stranger.ttf"))
+	{
+		//std::cout << "error loading font" << std::endl;
+	}
+	update_info();
+
+	text[0].setFillColor(sf::Color::Red);
+	text[1].setFillColor(sf::Color::Blue);
+	text[2].setFillColor(sf::Color::Yellow);
+	text[3].setFillColor(sf::Color::Black);
+	for (unsigned int i = 0; i < 4; i++)
+	{
+		text[i].setFont(font);
+		text[i].setCharacterSize(25);
+		text[i].setOutlineThickness(0.5f);
+		text[i].setOutlineColor(sf::Color::Black);
+		
+	}
+
 }
 
 Character::~Character()

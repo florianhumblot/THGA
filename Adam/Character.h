@@ -10,6 +10,9 @@ class Character
 	sf::Vector2f scale;
 	sf::Vector2f velocity;
 	int lvl = 1;
+	sf::Font font;
+	sf::Text text[4];
+	std::string t[4];
 public:
 	statistic  mana;
 	statistic health;
@@ -25,7 +28,8 @@ public:
 	void move();
 	void setTexture(const std::string & textureFile);
 	void setTexture(sf::Texture & texture);
-	void character_info_draw(sf::RenderWindow & window, sf::Vector2f characters_pos);
+	void update_info();
+	void update_info_pos(sf::RenderWindow & window, sf::Vector2f characters_pos);
 	void update_exp(int amount);
 	Character(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, \
 												statistic  mana, statistic health, statistic exp);
