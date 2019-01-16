@@ -1,6 +1,6 @@
 #include "statistic.hpp"
-#include "SFML/Graphics.hpp"
-#include <iostream>
+//#include "SFML/Graphics.hpp"
+//#include <iostream>
 //#include "Character.h"
 
 statistic::statistic(int max, int current) :
@@ -78,5 +78,5 @@ void statistic::update_max(int points)
 
 void statistic::print()
 {
-	std::cout << current << "/" << max << '\n';
+	//std::cout << current << "/" << max << '\n';
 }

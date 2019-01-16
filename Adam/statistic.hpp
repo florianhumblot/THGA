@@ -1,5 +1,4 @@
-#ifndef STATISTIC_HPP
-#define STATISTIC_HPP
+#pragma once
 
 #include "SFML/Graphics.hpp"
 //#include "Character.h"
@@ -13,7 +12,7 @@ private:
 public:
 	int max = 100;
 	int current = 100;
-	statistic(int max  , int current );
+	statistic(int max , int current );
 	statistic();
 	void set_max(int max_points);
 	void add(int points);
@@ -26,4 +25,4 @@ public:
 
 };
 
-#endif // !STATISTIC_HPP
+
