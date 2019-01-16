@@ -8,8 +8,8 @@ AnimationManager::AnimationManager(const std::string & s)
 		std::cout << "Couldn't open " << s << std::endl;
 	}
 	std::string object, action, path = "";
-	size_t size_x, size_y;
-	while (in >> object >> action >> path >> size_x >> size_y) {
+	//size_t size_x, size_y;
+	while (in >> object >> action >> path) {
 		sf::Texture t;
 		Animation a;
 		Collision::CreateTextureAndBitmask(t, "assets/" + path);
