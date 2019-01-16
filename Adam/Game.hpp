@@ -8,7 +8,9 @@
 #include <iostream>
 #include <cmath>
 #include "Character.h"
+#include "Movable.h"
 #include "mainMenu.hpp"
+#include "statistic.hpp"
 
 using namespace std;
 using namespace sf;
@@ -18,7 +20,7 @@ using namespace sf;
 
 class Game {
 private:
-
+	std::vector<Character> gameObjects;
 	sf::RenderWindow & window;
 	mainMenu & menu;
 	sf::CircleShape shape;
@@ -32,6 +34,8 @@ private:
 	Character & player;
 	sf::Sprite background;
 	sf::Sprite ground;
+
+	sf::Texture slimeChar;
 
 	v2 pos;
 	v2 gravity;
@@ -59,5 +63,5 @@ public:
 
 
 
-#endif // _GAME_HPP
+#endif  _GAME_HPP
 
