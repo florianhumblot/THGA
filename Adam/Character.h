@@ -7,11 +7,12 @@
 class Character : public movable
 {
 
-	int lvl = 0;
+	
 	sf::Font font;
 	sf::Text text[4];
 	std::string t[4];
 public:
+	int lvl = 0;
 	statistic mana;
 	statistic health;
 	statistic exp;
