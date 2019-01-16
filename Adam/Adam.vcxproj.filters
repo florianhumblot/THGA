@@ -3,19 +3,19 @@
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Collision.cpp" />
-	<ClCompile Include="mainMenu.cpp"/>
+    <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
-	<ClCompile Include="statistic.cpp" />
+    <ClCompile Include="statistic.cpp" />
+    <ClCompile Include="statistic.hpp" />
+    <ClCompile Include="Movable.cpp" />
+    <ClCompile Include="Drawable.cpp" />
   </ItemGroup>
   <ItemGroup>
-
     <ClInclude Include="Character.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Game.hpp" />
-	<ClInclude Include="mainMenu.hpp" />
-	<ClInclude Include="statistic.hpp" />
-
+    <ClInclude Include="mainMenu.hpp" />
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -25,20 +25,18 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-
     <ClCompile Include="Character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-	<ClCompile Include="mainMenu.cpp">
+    <ClCompile Include="mainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-	<ClCompile Include="statistic.cpp">
+    <ClCompile Include="statistic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-
+    <ClInclude Include="Movable.h" />
+    <ClInclude Include="Drawable.h" />
   </ItemGroup>
-  
-  
   <ItemGroup>
     <ClInclude Include="Game.hpp">
       <Filter>Header Files</Filter>
@@ -52,13 +50,11 @@
     <ClInclude Include="Character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-	<ClInclude Include="statistic.hpp">
+    <ClInclude Include="statistic.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-
   </ItemGroup>
   <ItemGroup>
     <Font Include="stranger.ttf" />
-
   </ItemGroup>
 </Project>

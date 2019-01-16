@@ -10,6 +10,7 @@
 #include "Character.h"
 #include "Movable.h"
 #include "mainMenu.hpp"
+#include "statistic.hpp"
 
 using namespace std;
 using namespace sf;
@@ -62,5 +63,5 @@ public:
 
 
 
-#endif // _GAME_HPP
+#endif  _GAME_HPP
 

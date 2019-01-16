@@ -89,7 +89,6 @@
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="Movable.cpp" />
     <ClCompile Include="statistic.cpp" />
-	<ClCompile Include="statistic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
@@ -97,9 +96,8 @@
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="mainMenu.hpp" />
+    <ClCompile Include="statistic.hpp" />
     <ClInclude Include="Movable.h" />
-    <ClInclude Include="statistic.hpp" />
-	<ClCompile Include="statistic.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="stranger.ttf" />
