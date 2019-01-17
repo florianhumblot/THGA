@@ -13,6 +13,8 @@
 //#include "statistic.h"
 #include "physics.h"
 #include "HUD.hpp"
+#include "menu.hpp"
+#include "newGameMenu.hpp"
 
 using namespace std;
 using namespace sf;
@@ -45,6 +47,8 @@ private:
 
 	Adam::collision_handler cln_h;
 	Adam::physics world_physics;
+
+	std::shared_ptr<Menu> currentMenu;
 
 	v2 pos;
 	v2 gravity;

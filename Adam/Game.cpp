@@ -33,6 +33,9 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	ground.setTexture(tex);
 	bgMain.setTexture(menuTex);
 	pos = player.getPosition();
+
+	currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
+
 	std::cout << pos.x << " <posx ";
 
 	gravity = v2(0, 1);
@@ -43,7 +46,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 		world_physics.moveables.push_back(n);
 	}
 
-	state = STATE::PLAYING;
+	state = STATE::MENU;
 }
 
 
@@ -66,21 +69,32 @@ void Game::handleInput() {
 			case sf::Event::KeyPressed:
 				switch (ev.key.code)
 				{
-				case sf::Keyboard::Up:
-					menu.moveUp();
-					break;
+					case sf::Keyboard::Up:
+						currentMenu->moveUp();
+						break;
 
-				case sf::Keyboard::Down:
-					menu.moveDown();
-					break;
+					case sf::Keyboard::Down:
+						currentMenu->moveDown();
+						break;
+
+					case sf::Keyboard::Enter:
+						// change menu
+						currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y);
+						break;
+
+					case sf::Keyboard::BackSpace:
+						// change menu
+						currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
+						break;
+					
 				}
 			}
-		}
 
-		window.draw(bgMain);
-		menu.draw(window);
-		window.display();
-		break;
+			window.draw(bgMain);
+			currentMenu->draw(window);
+			window.display();
+			break;
+		}
 	}
 
 
