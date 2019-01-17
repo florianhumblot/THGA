@@ -26,6 +26,8 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(1600, 900);
 
+	enemy = std::make_shared<Enemy>(v2(200, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
+
 	this->cln_h = Adam::collision_handler(bg);
 	this->world_physics = Adam::physics(&player, cln_h);
 
@@ -34,6 +36,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	bgMain.setTexture(menuTex);
 	pos = player.getPosition();
 
+	
 	currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
 
 	std::cout << pos.x << " <posx ";
@@ -45,6 +48,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 		enemies.push_back(n);
 		world_physics.moveables.push_back(n);
 	}
+	world_physics.moveables.push_back(&*enemy);
 
 	state = STATE::MENU;
 }
@@ -55,104 +59,119 @@ void Game::handleInput() {
 	//do game stuff
 	switch (state) {
 
-	case STATE::MENU:
-	{
-		sf::Event ev;
-		while (window.pollEvent(ev))
+		case STATE::MENU:
 		{
-			if (ev.type == sf::Event::Closed)
+			sf::Event ev;
+			while (window.pollEvent(ev))
 			{
-				window.close();
-			}
-			switch (ev.type)
-			{
-			case sf::Event::KeyPressed:
-				switch (ev.key.code)
+				if (ev.type == sf::Event::Closed)
 				{
-					case sf::Keyboard::Up:
-						currentMenu->moveUp();
-						break;
+					window.close();
+				}
+				switch (ev.type)
+				{
+				case sf::Event::KeyPressed:
+					switch (ev.key.code)
+					{
+						case sf::Keyboard::Up:
+							currentMenu->moveUp();
+							break;
 
-					case sf::Keyboard::Down:
-						currentMenu->moveDown();
-						break;
+						case sf::Keyboard::Down:
+							currentMenu->moveDown();
+							break;
 
-					case sf::Keyboard::Enter:
-						// change menu
-						currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y);
-						break;
+						case sf::Keyboard::Enter:
+							// change menu
+							currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y);
+							break;
 
-					case sf::Keyboard::BackSpace:
-						// change menu
-						currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
-						break;
+						case sf::Keyboard::BackSpace:
+							// change menu
+							currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
+							break;
+						case sf::Keyboard::P:
+							// change menu
+							state = STATE::PLAYING;
+							break;
 					
+					}
+				}
+
+				window.draw(bgMain);
+				currentMenu->draw(window);
+				window.display();
+				break;
+			}
+		}
+
+
+
+		case STATE::PLAYING:
+		{
+			v2 current_pos = player.getPosition();
+
+			Event ev;
+			while (window.pollEvent(ev))
+			{
+				switch (ev.type)
+				{
+					case Event::Closed:
+					{
+						window.close();
+						break;
+					}
+				}
+
+				if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
+				{
+					player.setVelocity(sf::Vector2f(player.getVelocity().x, -14));
+					player.update_exp(2);
+					player.update_info();
+					hud.update();
 				}
 			}
 
-			window.draw(bgMain);
-			currentMenu->draw(window);
-			window.display();
-			break;
-		}
-	}
-
-
-
-	case STATE::PLAYING:
-	{
-		v2 current_pos = player.getPosition();
-
-		Event ev;
-		while (window.pollEvent(ev))
-		{
-			switch (ev.type)
-			{
-			case Event::Closed:
+			if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
 				window.close();
-				break;
-			}
 			}
 
-			if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
-				player.setVelocity(sf::Vector2f(player.getVelocity().x, -14));
-				player.update_exp(2);
-				player.update_info();
-				hud.update();
+				if (player.current_direction != Character::direction::RIGHT)
+				{
+					player.current_direction = Character::direction::RIGHT;
+					player.setTexture(char_alpha);
+				}
+				player.setVelocity(sf::Vector2f(8, player.getVelocity().y));
 			}
-		}
-
-		if (Keyboard::isKeyPressed(Keyboard::Escape))
-		{
-			window.close();
-		}
-
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		{
-			if (player.current_direction != Character::direction::RIGHT)
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
-				player.current_direction = Character::direction::RIGHT;
-				player.setTexture(char_alpha);
+				if (player.current_direction != Character::direction::LEFT) {
+					player.current_direction = Character::direction::LEFT;
+					player.setTexture(char_alpha_invert);
+				}
+				player.setVelocity(sf::Vector2f(-8, player.getVelocity().y));
 			}
-			player.setVelocity(sf::Vector2f(8, player.getVelocity().y));
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-			if (player.current_direction != Character::direction::LEFT) {
-				player.current_direction = Character::direction::LEFT;
-				player.setTexture(char_alpha_invert);
+			else
+			{
+				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 			}
-			player.setVelocity(sf::Vector2f(-8, player.getVelocity().y));
+
+			/*if (enemy->current_direction == Enemy::direction::RIGHT) {
+				enemy->setVelocity(sf::Vector2f(8, enemy->getVelocity().y));
+			}
+			else {
+				enemy->setVelocity(sf::Vector2f(-8, enemy->getVelocity().y));
+			}*/
+
+			
+
+
+			break;
 		}
-		else
-		{
-			player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
-		}
-		break;
-	}
 	}
 
 
@@ -202,6 +221,7 @@ void Game::render() {
 		//sf::Vector2f pos_info = sf::Vector2f(player.getPosition().x, player.getPosition().y - 100);
 		//player.update_info_pos(window,pos_info);
 		window.draw(sf::Sprite(player));
+		window.draw(sf::Sprite(*enemy));
 		for (auto & enemy : enemies) {
 			//				std::cout << enemy->getPosition().y << ", <POSy " << enemy->getPosition().x << ", <POSx ";
 			//				std::cout << enemy->getVelocity().y << ", <VEL \n";
