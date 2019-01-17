@@ -11,7 +11,7 @@ Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, const std::string & text
 	{
 		//std::cout << "error loading font" << std::endl;
 	}
-	update_info();
+	update_info(3);
 
 	for (int i = 0; i < 2; i++)
 	{
@@ -30,8 +30,9 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::update_info()
+void Enemy::update_info(int new_lvl)
 {
+	lvl = new_lvl;
 	t[0] = std::to_string(health.current) + "/" + std::to_string(health.max) + '\n';
 	t[1] = "  lvl: " + std::to_string(lvl);
 	for (unsigned int k = 0; k < 2; k++)

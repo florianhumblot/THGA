@@ -23,7 +23,7 @@ public:
 
 	enum class direction { LEFT, RIGHT };
 	direction current_direction = direction::RIGHT;
-	void update_info();
+	void update_info(int new_lvl);
 	void update_info_pos(sf::RenderWindow & window);
 	Enemy() {}
 	Enemy(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
