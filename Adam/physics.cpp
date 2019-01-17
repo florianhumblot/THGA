@@ -50,7 +50,7 @@ namespace Adam
 					moveable->move(sf::Vector2f(0, -0.5));
 				}
 				moveable->setVelocity(sf::Vector2f(moveable->getVelocity().x, 0));
-			})) return;
+			})) continue;
 
 			if (clh->handle_collision(clh->handle_world_collision(moveable) && moveable->getVelocity().y < 0,
 				[&]() {
@@ -59,7 +59,7 @@ namespace Adam
 					moveable->move(sf::Vector2f(0, 0.5));
 				}
 				moveable->setVelocity(sf::Vector2f(moveable->getVelocity().x, 0));
-			})) return;
+			})) continue;
 
 			moveable->setVelocity(moveable->getVelocity() + gravity);
 

@@ -15,6 +15,7 @@
 #include "HUD.hpp"
 #include "menu.hpp"
 #include "newGameMenu.hpp"
+#include "Enemy.hpp"
 
 using namespace std;
 using namespace sf;
@@ -47,6 +48,8 @@ private:
 
 	Adam::collision_handler cln_h;
 	Adam::physics world_physics;
+
+	std::shared_ptr<Enemy> enemy;
 
 	std::shared_ptr<Menu> currentMenu;
 
