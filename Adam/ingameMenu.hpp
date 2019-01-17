@@ -19,7 +19,7 @@ private:
 public:
 	inGameMenu(float width, float heigth)
 	{
-		if (!font.loadFromFile("fonts/strangers.ttf"))
+		if (!font.loadFromFile("fonts/stranger.ttf"))
 		{
 			std::cout << "error loading font" << std::endl;
 		}

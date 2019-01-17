@@ -16,6 +16,7 @@
 #include "menu.hpp"
 #include "newGameMenu.hpp"
 #include "Enemy.hpp"
+#include "ingameMenu.hpp"
 
 #include "AI.hpp"
 
