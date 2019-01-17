@@ -250,6 +250,7 @@ void Game::render() {
 
 
 		}
+		enemy->update_info_pos(window);
 		window.draw(ground);
 		window.setView(main_HUD);
 		hud.draw(window);
