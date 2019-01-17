@@ -18,6 +18,8 @@
 #include "Enemy.hpp"
 #include "ingameMenu.hpp"
 
+#include "AI.hpp"
+
 using namespace std;
 using namespace sf;
 
@@ -51,6 +53,8 @@ private:
 	Adam::physics world_physics;
 
 	std::shared_ptr<Enemy> enemy;
+
+	std::shared_ptr<AI> ai;
 
 	std::shared_ptr<Menu> currentMenu;
 

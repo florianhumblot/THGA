@@ -6,6 +6,23 @@ Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, const std::string & text
 	health = health_c;
 	Collision::CreateTextureAndBitmask(texture, textureFile);
 	std::cout << position.x << " <charPosX";
+
+	if (!font.loadFromFile("fonts/stranger.ttf"))
+	{
+		//std::cout << "error loading font" << std::endl;
+	}
+	update_info();
+
+	for (int i = 0; i < 2; i++)
+	{
+		text[i].setFont(font);
+		text[i].setOutlineColor(sf::Color::Black);
+		text[i].setOutlineThickness(2.0f);
+		text[i].setCharacterSize(24);
+		text[i].setString(t[i]);
+	}
+	text[0].setFillColor(sf::Color::Red);
+	text[1].setFillColor(sf::Color::White);
 }
 
 
@@ -24,11 +41,12 @@ void Enemy::update_info()
 	}
 }
 
-void Enemy::update_info_pos(sf::RenderWindow & window, sf::Vector2f characters_pos)
+void Enemy::update_info_pos(sf::RenderWindow & window)
 {
 	for (unsigned int j = 0; j < 2; j++)
 	{
-		text[j].setPosition(sf::Vector2f(characters_pos.x, characters_pos.y + j * 24));
+		text[j].setPosition(sf::Vector2f(position.x, position.y - 50 + j * 24));
 		window.draw(text[j]);
+		//std::cout << ;
 	}
 }
