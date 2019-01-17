@@ -25,7 +25,7 @@ namespace Adam
 		for (auto & moveable : moveables)
 		{
 
-			clh->handle_collision(clh->handle_world_collision(moveable), 
+			clh->handle_collision(clh->collides_with_world(moveable), 
 			[&]() 
 			{
 				moveable->move(sf::Vector2f(-moveable->getVelocity().x, 0));
@@ -43,18 +43,18 @@ namespace Adam
 
 		for (auto & moveable : moveables)
 		{
-			if (clh->handle_collision(clh->handle_world_collision(moveable) && moveable->getVelocity().y > 0,
+			if (clh->handle_collision(clh->collides_with_world(moveable) && moveable->getVelocity().y > 0,
 				[&]() {
-				while (clh->handle_world_collision(moveable))
+				while (clh->collides_with_world(moveable))
 				{
 					moveable->move(sf::Vector2f(0, -0.5));
 				}
 				moveable->setVelocity(sf::Vector2f(moveable->getVelocity().x, 0));
 			})) continue;
 
-			if (clh->handle_collision(clh->handle_world_collision(moveable) && moveable->getVelocity().y < 0,
+			if (clh->handle_collision(clh->collides_with_world(moveable) && moveable->getVelocity().y < 0,
 				[&]() {
-				while (clh->handle_world_collision(moveable))
+				while (clh->collides_with_world(moveable))
 				{
 					moveable->move(sf::Vector2f(0, 0.5));
 				}
