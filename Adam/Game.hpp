@@ -13,6 +13,7 @@
 #include "statistic.hpp"
 #include "physics.h"
 #include "HUD.hpp"
+#include "newGameMenu.hpp"
 
 using namespace std;
 using namespace sf;
@@ -25,23 +26,28 @@ private:
 	std::vector<Character> enemies;
 	sf::RenderWindow & window;
 	mainMenu & menu;
+	newGameMenu & ngMenu;
 	HUD & hud;
 	sf::CircleShape shape;
 	sf::View main_camera;
-	sf::Texture tex;
 	sf::View main_HUD;
-	Sprite bg;
-	Sprite bg2;
+
+	sf::Texture tex;
 	sf::Texture tex2;
 	sf::Texture char_alpha;
 	sf::Texture char_alpha_invert;
 	sf::Texture menuTex;
+	sf::Texture slimeChar;
+	sf::Texture newMenu;
+
 	Character & player;
+
+	sf::Sprite bg;
+	sf::Sprite bg2;
 	sf::Sprite background;
 	sf::Sprite ground;
 	sf::Sprite bgMain;
-
-	sf::Texture slimeChar;
+	sf::Sprite bgNew;
 
 	Adam::collision_handler cln_h;
 	Adam::physics world_physics;
@@ -56,7 +62,7 @@ private:
 
 public:
 
-	Game(sf::RenderWindow &w, Character &player, mainMenu &mainmenu, HUD &hud);
+	Game(sf::RenderWindow &w, Character &player, mainMenu &mainmenu, newGameMenu &ngMenu, HUD &hud);
 
 	void handleInput();
 	void update();

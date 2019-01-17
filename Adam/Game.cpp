@@ -1,10 +1,11 @@
 #include "Game.hpp"
 
-Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
+Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, newGameMenu &ngMenu, HUD &hud) :
 
 	window(w),
 	player(player),
 	menu(menu),
+	ngMenu(ngMenu),
 	hud(hud)
 
 {
@@ -14,12 +15,15 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
 	menuTex = sf::Texture();
+	newMenu = sf::Texture();
 	Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/tiles2.png");
 	bg = Sprite(tex);
 	Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/background2.png");
 	bg2 = Sprite(tex2);
 	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
+	Collision::CreateTextureAndBitmask(newMenu, "assets/backgrounds/forestNewGame.png");
 	bgMain = Sprite(menuTex);
+	bgNew = Sprite(newMenu);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
 	
@@ -32,6 +36,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	background.setTexture(tex2);
 	ground.setTexture(tex);
 	bgMain.setTexture(menuTex);
+	bgNew.setTexture(newMenu);
 	pos = player.getPosition();
 
 
@@ -51,7 +56,7 @@ void Game::handleInput() {
 	//do game stuff
 	switch (state) {
 
-		case STATE::MENUS:
+		case STATE::MENU:
 		{
 			sf::Event ev;
 			while (window.pollEvent(ev))
