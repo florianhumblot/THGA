@@ -94,6 +94,9 @@ void Game::handleInput() {
 							// change menu
 							state = STATE::PLAYING;
 							break;
+						case sf::Keyboard::O:
+								// ingameMenu hack
+							currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y);
 					
 					}
 				}
@@ -130,6 +133,11 @@ void Game::handleInput() {
 					player.update_info();
 					hud.update();
 				}
+			}
+			if (Keyboard::isKeyPressed(Keyboard::O))
+			{
+				state = STATE::MENU;
+				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y);
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
