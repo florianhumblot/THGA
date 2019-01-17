@@ -13,6 +13,7 @@
 //#include "statistic.h"
 #include "physics.h"
 #include "HUD.hpp"
+#include "AnimationManager.h"
 
 using namespace std;
 using namespace sf;
@@ -42,6 +43,10 @@ private:
 	sf::Sprite bgMain;
 
 	sf::Texture slimeChar;
+	
+	sf::Clock Clock;
+	AnimationManager playerAnimation;
+	Animation currentAnimation;
 
 	Adam::collision_handler cln_h;
 	Adam::physics world_physics;

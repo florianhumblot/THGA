@@ -22,6 +22,9 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	bgMain = Sprite(menuTex);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
+
+	playerAnimation = AnimationManager("assets/animations/animations.txt");
+	currentAnimation = playerAnimation.animations["gunwoman"]["IDLEleft"];
 	
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(1600, 900);
@@ -118,17 +121,27 @@ void Game::handleInput() {
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
+				if (currentAnimation != playerAnimation.animations["gunwoman"]["WALKleft"]) {
+					currentAnimation = playerAnimation.animations["gunwoman"]["WALKleft"];
+				}
 				player.setScale(sf::Vector2f(-1, 1));
 				player.setVelocity(sf::Vector2f(8, player.getVelocity().y));
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
+				if (currentAnimation != playerAnimation.animations["gunwoman"]["WALKleft"]) {
+					currentAnimation = playerAnimation.animations["gunwoman"]["WALKleft"];
+				}
 				player.setScale(sf::Vector2f(1, 1));
 				player.setVelocity(sf::Vector2f(-8, player.getVelocity().y));
 			}
 			else
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
+				if (player.getVelocity().y == 0) {
+					if(currentAnimation != playerAnimation.animations["gunwoman"]["IDLEleft"])
+					currentAnimation = playerAnimation.animations["gunwoman"]["IDLEleft"];
+				}
 			}
 			break;
 		}
@@ -150,6 +163,10 @@ void Game::update() {
 
 		case STATE::PLAYING:
 		{
+			if (Clock.getElapsedTime().asMilliseconds() >= 100) {
+				player.setTexture(currentAnimation.nextFrame());
+				Clock.restart();
+			}
 			world_physics.step_x_moveables();
 			world_physics.step_y_moveables();
 			if (player.getPosition().y > 4000) player.setPosition(v2(100, 100));
@@ -177,6 +194,7 @@ void Game::render() {
 
 		case STATE::PLAYING:
 		{
+
 			window.clear();
 			window.draw(background);
 			//sf::Vector2f pos_info = sf::Vector2f(player.getPosition().x, player.getPosition().y - 100);
