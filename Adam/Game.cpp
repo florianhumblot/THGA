@@ -38,7 +38,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 
 	}
 
-	state = STATE::MENU;
+	state = STATE::PLAYING;
 }
 
 
@@ -111,19 +111,12 @@ void Game::handleInput() {
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
-				if (player.current_direction != Character::direction::RIGHT)
-				{
-					player.current_direction = Character::direction::RIGHT;
-					player.setTexture(char_alpha);
-				}
+				player.setScale(sf::Vector2f(-1, 1));
 				player.setVelocity(sf::Vector2f(8, player.getVelocity().y));
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
-				if (player.current_direction != Character::direction::LEFT) {
-					player.current_direction = Character::direction::LEFT;
-					player.setTexture(char_alpha_invert);
-				}
+				player.setScale(sf::Vector2f(1, 1));
 				player.setVelocity(sf::Vector2f(-8, player.getVelocity().y));
 			}
 			else

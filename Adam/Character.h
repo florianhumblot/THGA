@@ -17,8 +17,7 @@ public:
 	statistic health;
 	statistic exp;
 
-	enum class direction { LEFT, RIGHT };
-	direction current_direction = direction::RIGHT;
+	
 	void update_info();
 	void update_info_pos(sf::RenderWindow & windwo, sf::Vector2f character_pos);
 	void update_exp(int amount);

@@ -20,3 +20,14 @@ void movable::move() {
 	position += velocity;
 	sprite.setPosition(position);
 }
+
+void movable::setScale(sf::Vector2f scale)
+{
+	if (scale.x < 0) {
+		sprite.setOrigin(texture.getSize().x, 0);
+	}
+	else {
+		sprite.setOrigin(sf::Vector2f(0, 0));
+	}
+	sprite.setScale(scale);
+}
