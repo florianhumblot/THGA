@@ -53,6 +53,8 @@ private:
 
 	std::shared_ptr<Menu> currentMenu;
 
+	int tellerEnemy = 0;
+
 	v2 pos;
 	v2 gravity;
 

@@ -26,7 +26,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(1600, 900);
 
-	enemy = std::make_shared<Enemy>(v2(200, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
+	enemy = std::make_shared<Enemy>(v2(1600, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(bg);
 	this->world_physics = Adam::physics(&player, cln_h);
@@ -160,12 +160,19 @@ void Game::handleInput() {
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 			}
 
-			/*if (enemy->current_direction == Enemy::direction::RIGHT) {
-				enemy->setVelocity(sf::Vector2f(8, enemy->getVelocity().y));
+			if (enemy->current_direction == Enemy::direction::RIGHT) {
+				enemy->updatePosition(8);
 			}
 			else {
-				enemy->setVelocity(sf::Vector2f(-8, enemy->getVelocity().y));
-			}*/
+				enemy->updatePosition(-8);
+			}
+
+			if ((enemy->getPosition() - player.getPosition()).x <= 100) {
+				enemy->updateFollowPosition(-1);
+			}
+			else if ((enemy->getPosition() - player.getPosition()).x >= -100) {
+				enemy->updateFollowPosition(1);
+			}
 
 			
 
