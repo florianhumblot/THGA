@@ -13,7 +13,14 @@
 //#include "statistic.h"
 #include "physics.h"
 #include "HUD.hpp"
+
 #include "AnimationManager.h"
+
+#include "menu.hpp"
+#include "newGameMenu.hpp"
+#include "Enemy.hpp"
+#include "ingameMenu.hpp"
+
 
 using namespace std;
 using namespace sf;
@@ -51,6 +58,12 @@ private:
 	Adam::collision_handler cln_h;
 	Adam::physics world_physics;
 
+	std::shared_ptr<Enemy> enemy;
+
+	std::shared_ptr<Menu> currentMenu;
+
+	int tellerEnemy = 0;
+
 	v2 pos;
 	v2 gravity;
 
@@ -78,4 +91,3 @@ public:
 
 
 #endif  _GAME_HPP
-

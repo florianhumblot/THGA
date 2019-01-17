@@ -29,6 +29,8 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(1600, 900);
 
+	enemy = std::make_shared<Enemy>(v2(1600, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
+
 	this->cln_h = Adam::collision_handler(bg);
 	this->world_physics = Adam::physics(&player, cln_h);
 
@@ -36,22 +38,27 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	ground.setTexture(tex);
 	bgMain.setTexture(menuTex);
 	pos = player.getPosition();
+
+	
+	currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
+
 	std::cout << pos.x << " <posx ";
 
 	gravity = v2(0, 1);
 	Collision::CreateTextureAndBitmask(slimeChar, "assets/slimeTest.png");
 	for (int i = 0; i < 5; i++) {
-		Character* n = new Character(sf::Vector2f(500 + 100 * i, 1500), sf::Vector2f(5.f, 5.f), "assets/slimeTest.png", sf::Vector2f(0, 0));
-		enemies.push_back( n);
+		Character* n = new Character(sf::Vector2f(500 + 100 * i, 1500), sf::Vector2f(5.f, 5.f), "assets/slimeTest.png", sf::Vector2f(0, 0), playerAnimation.animations["gunwoman"]);
+		enemies.push_back(n);
 		world_physics.moveables.push_back(n);
 	}
+	world_physics.moveables.push_back(&*enemy);
 
 	state = STATE::PLAYING;
 }
 
 
 void Game::handleInput() {
-	
+
 	//do game stuff
 	switch (state) {
 
@@ -66,24 +73,42 @@ void Game::handleInput() {
 				}
 				switch (ev.type)
 				{
-					case sf::Event::KeyPressed:
-						switch (ev.key.code)
-						{
-							case sf::Keyboard::Up:
-								menu.moveUp();
-								break;
+				case sf::Event::KeyPressed:
+					switch (ev.key.code)
+					{
+						case sf::Keyboard::Up:
+							currentMenu->moveUp();
+							break;
 
-							case sf::Keyboard::Down:
-								menu.moveDown();
-								break;
-						}
+						case sf::Keyboard::Down:
+							currentMenu->moveDown();
+							break;
+
+						case sf::Keyboard::Enter:
+							// change menu
+							currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y);
+							break;
+
+						case sf::Keyboard::BackSpace:
+							// change menu
+							currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
+							break;
+						case sf::Keyboard::P:
+							// change menu
+							state = STATE::PLAYING;
+							break;
+						case sf::Keyboard::O:
+								// ingameMenu hack
+							currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y);
+					
+					}
 				}
+
+				window.draw(bgMain);
+				currentMenu->draw(window);
+				window.display();
+				break;
 			}
-			
-			window.draw(bgMain);
-			menu.draw(window);
-			window.display();
-			break;
 		}
 
 
@@ -112,6 +137,11 @@ void Game::handleInput() {
 					hud.update();
 				}
 			}
+			if (Keyboard::isKeyPressed(Keyboard::O))
+			{
+				state = STATE::MENU;
+				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y);
+			}
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
@@ -121,16 +151,18 @@ void Game::handleInput() {
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
-				if (currentAnimation != playerAnimation.animations["gunwoman"]["WALKleft"]) {
-					currentAnimation = playerAnimation.animations["gunwoman"]["WALKleft"];
+				if (player.getCurrentAnimation() != player.getAnimation("WALKleft")) {
+					player.setAnimation("WALKleft");
+		//			player.setAnimation("WALKleft");
 				}
 				player.setScale(sf::Vector2f(-1, 1));
 				player.setVelocity(sf::Vector2f(8, player.getVelocity().y));
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
-				if (currentAnimation != playerAnimation.animations["gunwoman"]["WALKleft"]) {
-					currentAnimation = playerAnimation.animations["gunwoman"]["WALKleft"];
+				if (player.getCurrentAnimation() != player.getAnimation("WALKleft")) {
+					player.setAnimation("WALKleft");
+			//		player.setAnimation("WALKleft");
 				}
 				player.setScale(sf::Vector2f(1, 1));
 				player.setVelocity(sf::Vector2f(-8, player.getVelocity().y));
@@ -139,10 +171,30 @@ void Game::handleInput() {
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 				if (player.getVelocity().y == 0) {
-					if(currentAnimation != playerAnimation.animations["gunwoman"]["IDLEleft"])
-					currentAnimation = playerAnimation.animations["gunwoman"]["IDLEleft"];
+					if (player.getCurrentAnimation() != player.getAnimation("IDLEleft")) {
+						player.setAnimation("IDLEleft");
+						player.setAnimation("IDLEleft");
+					}
 				}
 			}
+
+			if (enemy->current_direction == Enemy::direction::RIGHT) {
+				enemy->updatePosition(8);
+			}
+			else {
+				enemy->updatePosition(-8);
+			}
+
+			if ((enemy->getPosition() - player.getPosition()).x <= 100) {
+				enemy->updateFollowPosition(-1);
+			}
+			else if ((enemy->getPosition() - player.getPosition()).x >= -100) {
+				enemy->updateFollowPosition(1);
+			}
+
+			
+
+
 			break;
 		}
 	}
@@ -154,31 +206,33 @@ void Game::update() {
 
 	switch (state) {
 
-		case STATE::MENU:
-		{
-			break;
-		}
+	case STATE::MENU:
+	{
+		break;
+	}
+
 
 
 
 		case STATE::PLAYING:
 		{
 			if (Clock.getElapsedTime().asMilliseconds() >= 100) {
-				player.setTexture(currentAnimation.nextFrame());
+				player.setTexture(player.currentAnimation.nextFrame());
 				Clock.restart();
 			}
+
 			world_physics.step_x_moveables();
 			world_physics.step_y_moveables();
 			if (player.getPosition().y > 4000) player.setPosition(v2(100, 100));
 		}
 		break;
+
 	}
 
-/*	for (auto & object : enemies) {
-		object.setVelocity(object.getVelocity() + gravity);
-		object.move();
-
-	}*/
+	/*	for (auto & object : enemies) {
+			object.setVelocity(object.getVelocity() + gravity);
+			object.move();
+		}*/
 
 
 }
@@ -186,37 +240,39 @@ void Game::update() {
 void Game::render() {
 	switch (state) {
 
-		case STATE::MENU:
-		{
-			
-			break;
-		}
-
-		case STATE::PLAYING:
-		{
-
-			window.clear();
-			window.draw(background);
-			//sf::Vector2f pos_info = sf::Vector2f(player.getPosition().x, player.getPosition().y - 100);
-			//player.update_info_pos(window,pos_info);
-			window.draw(sf::Sprite(player));
-			for (auto & enemy : enemies) {
-//				std::cout << enemy->getPosition().y << ", <POSy " << enemy->getPosition().x << ", <POSx ";
-//				std::cout << enemy->getVelocity().y << ", <VEL \n";
-				window.draw(enemy->operator sf::Sprite());
+	case STATE::MENU:
+	{
 
 
-			}
-			window.draw(ground);
-			window.setView(main_HUD);
-			hud.draw(window);
-			auto center = Collision::GetSpriteCenter(player);
-			main_camera.setCenter(center);
-			window.setView(main_camera);
-			window.display();
-			break;
+		break;
+	}
+
+
+	case STATE::PLAYING:
+	{
+		window.clear();
+		window.draw(background);
+		//sf::Vector2f pos_info = sf::Vector2f(player.getPosition().x, player.getPosition().y - 100);
+		//player.update_info_pos(window,pos_info);
+		window.draw(sf::Sprite(player));
+		window.draw(sf::Sprite(*enemy));
+		for (auto & enemy : enemies) {
+			//				std::cout << enemy->getPosition().y << ", <POSy " << enemy->getPosition().x << ", <POSx ";
+			//				std::cout << enemy->getVelocity().y << ", <VEL \n";
+			window.draw(enemy->operator sf::Sprite());
+
 
 		}
+		window.draw(ground);
+		window.setView(main_HUD);
+		hud.draw(window);
+		auto center = Collision::GetSpriteCenter(player);
+		main_camera.setCenter(center);
+		window.setView(main_camera);
+		window.display();
+		break;
+
+	}
 	}
 	return;
 

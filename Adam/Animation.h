@@ -17,7 +17,9 @@ public:
 	sf::Texture & nextFrame();
 	void reset_animation();
 	bool isDone() { return animation_done; }
+	void print();
 	bool operator==(Animation & rhs);
 	bool operator!=(Animation & rhs);
+	bool operator!=(Animation rhs);
 };
 

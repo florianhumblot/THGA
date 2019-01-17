@@ -1,5 +1,5 @@
 #include "Animation.h"
-
+#include <iostream>
 Animation::~Animation()
 {
 }
@@ -30,11 +30,18 @@ void Animation::reset_animation()
 	animation_done = false;
 	current_frame = -1;
 }
+void Animation::print() {
+	std::cout << name << " ";
+}
 
 bool Animation::operator==(Animation &rhs) {
 	return this->name == rhs.name;
 }
 
 bool Animation::operator!=(Animation &rhs) {
+	return this->name != rhs.name;
+}
+
+bool Animation::operator!=(Animation rhs) {
 	return this->name != rhs.name;
 }
