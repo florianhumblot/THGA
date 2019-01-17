@@ -34,6 +34,8 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	bgMain.setTexture(menuTex);
 	pos = player.getPosition();
 
+	currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
+
 
 	gravity = v2(0, 1);
 	Collision::CreateTextureAndBitmask(slimeChar, "assets/slimeTest.png");
@@ -42,7 +44,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 
 	}
 
-	state = STATE::PLAYING;
+	state = STATE::MENU;
 }
 
 
@@ -66,18 +68,28 @@ void Game::handleInput() {
 						switch (ev.key.code)
 						{
 							case sf::Keyboard::Up:
-								menu.moveUp();
+								currentMenu->moveUp();
 								break;
 
 							case sf::Keyboard::Down:
-								menu.moveDown();
+								currentMenu->moveDown();
+								break;
+
+							case sf::Keyboard::Enter:
+								// change menu
+								currentMenu = std::make_shared<newGameMenu> (window.getSize().x, window.getSize().y);
+								break;
+							
+							case sf::Keyboard::BackSpace:
+								// change menu
+								currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
 								break;
 						}
 				}
 			}
 			
 			window.draw(bgMain);
-			menu.draw(window);
+			currentMenu->draw(window);
 			window.display();
 			break;
 		}

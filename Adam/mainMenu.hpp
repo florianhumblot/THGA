@@ -1,11 +1,13 @@
-#ifndef MENU_HPP
-#define MENU_HPP
+#ifndef _MAINMENU_HPP
+#define _MAINMENU_HPP
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "menu.hpp"
+
 #define numberOfTiles 5
 
-class mainMenu
+class mainMenu : public Menu
 {
 private:
 	float width;
@@ -13,6 +15,8 @@ private:
 	int selectedItem;
 	sf::Font font;
 	sf::Text menuChoices[numberOfTiles];
+
+
 public:
 	mainMenu(float width, float heigth)
 
@@ -55,10 +59,10 @@ public:
 		selectedItem = 0;
 	}
 
-	void draw(sf::RenderWindow & window);
-	void moveUp();
-	void moveDown();
-	void chooseTile(int & tileSelect);
+	void draw(sf::RenderWindow & window) override;
+	void moveUp() override;
+	void moveDown() override;
+	void chooseTile(int & tileSelect) override;
 
 };
 

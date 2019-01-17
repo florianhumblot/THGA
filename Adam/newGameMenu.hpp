@@ -3,9 +3,11 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "menu.hpp"
+
 #define newGameTiles 5
 
-class newGameMenu
+class newGameMenu : public Menu
 {
 private:
 	float width;
@@ -19,14 +21,14 @@ public:
 	newGameMenu(float width, float heigth)
 
 	{
-		if (!font.loadFromFile("fonts/strangers.ttf"))
+		if (!font.loadFromFile("fonts/stranger.ttf"))
 		{
 			std::cout << "error loading font" << std::endl;
 		}
 
 		menuChoices[0].setFont(font);
-		menuChoices[0].setString("What class do you want to play?");
 		menuChoices[0].setFillColor(sf::Color::Red);
+		menuChoices[0].setString("What class do you want to play?");
 		menuChoices[0].setCharacterSize(100);
 		menuChoices[0].setPosition(sf::Vector2f((width / 2) * 0.85, (newGameTiles + 1) * 30));
 
@@ -52,10 +54,10 @@ public:
 		selectedItem = 1;
 	}
 
-	void draw(sf::RenderWindow & window);
-	void moveUp();
-	void moveDown();
-	void chooseTile(int & tileSelect);
+	void draw(sf::RenderWindow & window) override;
+	void moveUp() override;
+	void moveDown() override;
+	void chooseTile(int & tileSelect) override;
 };
 
 
