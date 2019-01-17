@@ -10,6 +10,21 @@ void projectile::setDamage(float dmg) {
 	dmg = dmg;
 }
 
+void projectile::setLive(int newLive) {
+	live = newLive;
+}
+
 float projectile::getDamage() {
 	return dmg;
+}
+
+void projectile::updateLive(int minus){
+	live -= minus;
+	if (live <= 0) {
+		death = true;
+	}
+}
+
+bool projectile::isDeath() {
+	return death;
 }

@@ -13,12 +13,10 @@ protected:
 public:
 
 	drawable() {}
-	drawable(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile);
+	drawable(sf::Vector2f &position, sf::Vector2f scale, const std::string & textureFile);
 	~drawable() {}
 	sf::Vector2f getPosition();
 	void setPosition(sf::Vector2f newPos);
-//	virtual void move(sf::Vector2f direction) = 0;
-//	virtual void move() = 0;
 	void setTexture(const std::string & textureFile);
 	void setTexture(sf::Texture & texture);
 	operator sf::Sprite() { 
