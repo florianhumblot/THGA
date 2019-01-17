@@ -13,13 +13,16 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	window.setKeyRepeatEnabled(false);
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
+	menuTex = sf::Texture();
 	Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/tiles2.png");
 	bg = Sprite(tex);
 	Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/background2.png");
 	bg2 = Sprite(tex2);
+	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
+	bgMain = Sprite(menuTex);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
-
+	
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(1600, 900);
 
@@ -28,14 +31,16 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 
 	background.setTexture(tex2);
 	ground.setTexture(tex);
+	bgMain.setTexture(menuTex);
 	pos = player.getPosition();
-
+	std::cout << pos.x << " <posx ";
 
 	gravity = v2(0, 1);
 	Collision::CreateTextureAndBitmask(slimeChar, "assets/slimeTest.png");
 	for (int i = 0; i < 5; i++) {
-		enemies.push_back(Character(sf::Vector2f(200 + i * 100, 1500), sf::Vector2f(5.f, 5.f), "assets/slimeTest.png", sf::Vector2f(0, 0)));
-
+		Character* n = new Character(sf::Vector2f(500 + 100 * i, 1500), sf::Vector2f(5.f, 5.f), "assets/slimeTest.png", sf::Vector2f(0, 0));
+		enemies.push_back( n);
+		world_physics.moveables.push_back(n);
 	}
 
 	state = STATE::PLAYING;
@@ -71,6 +76,8 @@ void Game::handleInput() {
 						}
 				}
 			}
+			
+			window.draw(bgMain);
 			menu.draw(window);
 			window.display();
 			break;
@@ -145,6 +152,7 @@ void Game::update() {
 		{
 			world_physics.step_x_moveables();
 			world_physics.step_y_moveables();
+			if (player.getPosition().y > 4000) player.setPosition(v2(100, 100));
 		}
 		break;
 	}
@@ -175,8 +183,10 @@ void Game::render() {
 			//player.update_info_pos(window,pos_info);
 			window.draw(sf::Sprite(player));
 			for (auto & enemy : enemies) {
-				enemy.setTexture(slimeChar);
-				window.draw(enemy);
+//				std::cout << enemy->getPosition().y << ", <POSy " << enemy->getPosition().x << ", <POSx ";
+//				std::cout << enemy->getVelocity().y << ", <VEL \n";
+				window.draw(enemy->operator sf::Sprite());
+
 
 			}
 			window.draw(ground);
@@ -190,6 +200,6 @@ void Game::render() {
 
 		}
 	}
-
+	return;
 
 }

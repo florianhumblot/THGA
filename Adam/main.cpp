@@ -8,6 +8,7 @@
 #include "Character.h"
 #include "Game.hpp"
 #include "HUD.hpp"
+#include "statistic.h"
 
 using namespace std;
 using namespace sf;

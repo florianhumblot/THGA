@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Collision.h"
-#include "statistic.hpp"
+#include "statistic.h"
 #include "Movable.h"
 
 class Character : public movable
@@ -23,7 +23,7 @@ public:
 	void update_exp(int amount);
 	Character() {}
 	Character(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, 
-									statistic mana = statistic(100,100), statistic health = statistic(100, 100), statistic exp = statistic(0, 100));
+									statistic mana_c = statistic(100,100), statistic health_c = statistic(100, 100), statistic exp_c = statistic(0, 100));
 
 	~Character();
 //	operator sf::Sprite() { return sprite; }

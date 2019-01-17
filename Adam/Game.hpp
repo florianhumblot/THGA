@@ -10,7 +10,7 @@
 #include "Character.h"
 #include "Movable.h"
 #include "mainMenu.hpp"
-#include "statistic.hpp"
+//#include "statistic.h"
 #include "physics.h"
 #include "HUD.hpp"
 
@@ -22,7 +22,7 @@ using namespace sf;
 
 class Game {
 private:
-	std::vector<Character> enemies;
+	std::vector<Character*> enemies;
 	sf::RenderWindow & window;
 	mainMenu & menu;
 	HUD & hud;
@@ -35,9 +35,11 @@ private:
 	sf::Texture tex2;
 	sf::Texture char_alpha;
 	sf::Texture char_alpha_invert;
+	sf::Texture menuTex;
 	Character & player;
 	sf::Sprite background;
 	sf::Sprite ground;
+	sf::Sprite bgMain;
 
 	sf::Texture slimeChar;
 

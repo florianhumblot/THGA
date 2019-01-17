@@ -1,19 +1,14 @@
-#include "statistic.hpp"
-//#include "SFML/Graphics.hpp"
-//#include <iostream>
-//#include "Character.h"
+#include "statistic.h"
+
 
 statistic::statistic(int max, int current) :
 	max(max),
 	current(current)
 {
-	//max = max;
-	//current = current;
+
 }
 
 statistic::statistic()
-//max(100), 
-//current(100)
 {}
 
 void statistic::set_max(int max_points)
