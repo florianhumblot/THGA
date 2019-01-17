@@ -22,7 +22,7 @@ using namespace sf;
 
 class Game {
 private:
-	std::vector<Character> enemies;
+	std::vector<Character*> enemies;
 	sf::RenderWindow & window;
 	mainMenu & menu;
 	HUD & hud;
