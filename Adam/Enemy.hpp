@@ -29,15 +29,15 @@ public:
 	Enemy(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 
 	
-	void updatePosition(int x) { 
+	/*void updatePosition(int x) { 
 		if (state == STATE::IDLE) {
-			if (teller % 6 == 0) {
+			//if (teller % 6 == 0) {
 				setVelocity(sf::Vector2f(x, getVelocity().y));
 				teller++;
-			}
-			else {
-				setVelocity(sf::Vector2f(0, getVelocity().y));
-			}
+			//}
+			//else {
+				//setVelocity(sf::Vector2f(0, getVelocity().y));
+			//}
 
 			if (teller++ > 80) {
 				if (current_direction == Enemy::direction::RIGHT) {
@@ -51,10 +51,10 @@ public:
 		}
 		
 		
-	}
+	}*/
 
 	void updateFollowPosition(int x) {
-		setVelocity(sf::Vector2f(8 *x, getVelocity().y));
+		setVelocity(sf::Vector2f(8 * x, getVelocity().y));
 
 
 	}
