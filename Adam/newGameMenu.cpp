@@ -17,7 +17,7 @@ void newGameMenu::moveUp()
 	}
 	else
 	{
-		selectedItem = newGameTiles - 2;
+		selectedItem = newGameTiles - 3;
 	}
 	menuChoices[selectedItem].setFillColor(sf::Color::Yellow);
 }
@@ -25,7 +25,7 @@ void newGameMenu::moveUp()
 void newGameMenu::moveDown()
 {
 	menuChoices[selectedItem].setFillColor(sf::Color::White);
-	if (selectedItem + 1 < newGameTiles)
+	if (selectedItem + 1 < newGameTiles-2)
 	{
 
 		selectedItem++;

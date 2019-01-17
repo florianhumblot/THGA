@@ -18,12 +18,12 @@ namespace Adam
 
 	}
 
-	bool collision_handler::handle_world_collision(movable *object)
+	bool collision_handler::collides_with_world(movable *object)
 	{
 		return Collision::PixelPerfectTest(*collision_layer, *object);
 	}
 
-	bool collision_handler::handle_sprite_collision(sf::Sprite & object1, sf::Sprite & object2)
+	bool collision_handler::collides_with_sprite(sf::Sprite & object1, sf::Sprite & object2)
 	{
 		return Collision::PixelPerfectTest(object1, object2);
 	}
