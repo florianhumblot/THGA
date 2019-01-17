@@ -1,9 +1,9 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
-//#include "Character.h"
 
-class statistic {
+class statistic
+{
 private:
 
 	sf::Font font;

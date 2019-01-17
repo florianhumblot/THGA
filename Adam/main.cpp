@@ -8,7 +8,7 @@
 #include "Character.h"
 #include "Game.hpp"
 #include "HUD.hpp"
-#include "newGameMenu.hpp"
+#include "statistic.h"
 
 using namespace std;
 using namespace sf;
@@ -28,9 +28,8 @@ int main()
 
 	Character player(v2(100, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
 	HUD hud(player);
-	newGameMenu newGame(window.getSize().x, window.getSize().y);
 	mainMenu menu(window.getSize().x, window.getSize().y);
-	Game game(window, player, menu, newGame, hud);
+	Game game(window, player, menu, hud);
 
 
 	while (window.isOpen())
