@@ -1,4 +1,6 @@
 #pragma once
+#include "SFML/Graphics.hpp"
+#include <vector>
 #include "Character.h"
 #include "Movable.h"
 #include "collision_handler.h"

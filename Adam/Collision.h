@@ -36,6 +36,8 @@ it freely, subject to the following restrictions:
 #ifndef COLLISION_H
 #define COLLISION_H
 
+#include <SFML/Graphics.hpp>
+
 namespace Collision {
 	//////
 	/// Test for a collision between two sprites by comparing the alpha values of overlapping pixels

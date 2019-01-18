@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Movable.h"
 
 movable::movable(sf::Vector2f &position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity):

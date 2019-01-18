@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Character.h"
 
 Character::Character(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, std::map<std::string, Animation> animations, statistic mana_c, statistic health_c, statistic exp_c): 

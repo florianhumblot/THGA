@@ -1,6 +1,7 @@
 #ifndef HUD_HPP
 #define HUD_HPP
 
+#include "SFML/Graphics.hpp"
 #include "Character.h"
 
 class HUD

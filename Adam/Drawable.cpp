@@ -1,5 +1,5 @@
-#include "pch.h"
 #include "Drawable.h"
+#include <iostream>
 
 drawable::drawable(sf::Vector2f &position, sf::Vector2f scale, const std::string & textureFile):
 	position(position),

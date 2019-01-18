@@ -1,5 +1,11 @@
 #pragma once
+#include <string>
+#include <vector>
+#include <SFML/Graphics.hpp>
+#include <tuple>
 #include "Animation.h"
+#include "fstream"
+#include <iostream>
 class AnimationManager
 {
 public:

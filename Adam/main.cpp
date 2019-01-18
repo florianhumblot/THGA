@@ -1,6 +1,10 @@
-#include "pch.h"
+#include <stdlib.h>
 #include "mainMenu.hpp"
+#include "SFML/Graphics.hpp"
+#include "Windows.h"
 #include "Collision.h"
+#include <iostream>
+#include <cmath>
 #include "Character.h"
 #include "Game.hpp"
 #include "HUD.hpp"
@@ -27,6 +31,7 @@ int main()
 	HUD hud(player);
 	mainMenu menu(window.getSize().x, window.getSize().y);
 	Game game(window, player, menu, hud);
+
 
 	while (window.isOpen())
 	{

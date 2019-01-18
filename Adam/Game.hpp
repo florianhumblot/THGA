@@ -1,7 +1,12 @@
 #ifndef _GAME_HPP
 #define _GAME_HPP
 
+#include <SFML/Graphics.hpp>
+#include <functional>
+#include "Windows.h"
 #include "Collision.h"
+#include <iostream>
+#include <cmath>
 #include "Character.h"
 #include "Movable.h"
 #include "mainMenu.hpp"
@@ -15,6 +20,7 @@
 #include "newGameMenu.hpp"
 #include "Enemy.hpp"
 #include "ingameMenu.hpp"
+
 
 using namespace std;
 using namespace sf;
@@ -53,8 +59,6 @@ private:
 	Adam::physics world_physics;
 
 	std::shared_ptr<Enemy> enemy;
-
-	std::shared_ptr<AI> ai;
 
 	std::shared_ptr<Menu> currentMenu;
 
