@@ -13,7 +13,6 @@ Character::Character(sf::Vector2f position, sf::Vector2f scale, const std::strin
 
 Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic mana_c, statistic health_c, statistic exp_c):
 	Animateable(animations),
-//	movable(position, scale, animations.begin()->second.textures[3], velocity)
 	movable(position, scale, animations["IDLEleft"].textures[0], velocity)
 {
 	animations["IDLEleft"].print();
