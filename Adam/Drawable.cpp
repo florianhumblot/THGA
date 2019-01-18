@@ -9,8 +9,19 @@ drawable::drawable(sf::Vector2f &position, sf::Vector2f scale, const std::string
 	sprite.setPosition(position);
 	sprite.setTexture(texture);
 	sprite.setScale(scale);
-	std::cout << position.x << ", <xPos ";
 }
+
+drawable::drawable(sf::Vector2f &position, sf::Vector2f scale, sf::Texture texture):
+	position(position),
+	scale(scale),
+	texture(texture)
+{
+//	Collision::CreateTextureAndBitmask(texture, "assets/char_alpha.png");
+	sprite.setPosition(position);
+	sprite.setTexture(texture);
+	sprite.setScale(scale);
+}
+
 
 sf::Vector2f drawable::getPosition() {
 	return position;

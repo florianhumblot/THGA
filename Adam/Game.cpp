@@ -24,7 +24,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
 
 	playerAnimation = AnimationManager("assets/animations/animations.txt");
-	currentAnimation = playerAnimation.animations["gunwoman"]["IDLEleft"];
+//	currentAnimation = playerAnimation.animations["gunwoman"]["IDLEleft"];
 	
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(1600, 900);
@@ -42,12 +42,12 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	
 	currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
 
-	std::cout << pos.x << " <posx ";
+//	std::cout << pos.x << " <posx ";
 
 	gravity = v2(0, 1);
 	Collision::CreateTextureAndBitmask(slimeChar, "assets/slimeTest.png");
 	for (int i = 0; i < 5; i++) {
-		Character* n = new Character(sf::Vector2f(500 + 100 * i, 1500), sf::Vector2f(5.f, 5.f), "assets/slimeTest.png", sf::Vector2f(0, 0), playerAnimation.animations["gunwoman"]);
+		Character* n = new Character(sf::Vector2f(500 + 100 * i, 1500), sf::Vector2f(5.f, 5.f), "assets/slimeTest.png", sf::Vector2f(0, 0));
 		enemies.push_back(n);
 		world_physics.moveables.push_back(n);
 	}
@@ -153,7 +153,6 @@ void Game::handleInput() {
 			{
 				if (player.getCurrentAnimation() != player.getAnimation("WALKleft")) {
 					player.setAnimation("WALKleft");
-		//			player.setAnimation("WALKleft");
 				}
 				player.setScale(sf::Vector2f(-1, 1));
 				player.setVelocity(sf::Vector2f(8, player.getVelocity().y));
@@ -162,7 +161,6 @@ void Game::handleInput() {
 			{
 				if (player.getCurrentAnimation() != player.getAnimation("WALKleft")) {
 					player.setAnimation("WALKleft");
-			//		player.setAnimation("WALKleft");
 				}
 				player.setScale(sf::Vector2f(1, 1));
 				player.setVelocity(sf::Vector2f(-8, player.getVelocity().y));
@@ -172,7 +170,6 @@ void Game::handleInput() {
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 				if (player.getVelocity().y == 0) {
 					if (player.getCurrentAnimation() != player.getAnimation("IDLEleft")) {
-						player.setAnimation("IDLEleft");
 						player.setAnimation("IDLEleft");
 					}
 				}
@@ -213,11 +210,11 @@ void Game::update() {
 
 
 
-
 		case STATE::PLAYING:
 		{
 			if (Clock.getElapsedTime().asMilliseconds() >= 100) {
 				player.setTexture(player.currentAnimation.nextFrame());
+			//	std::cout << sf::Sprite(player).getGlobalBounds().height << ", :w";
 				Clock.restart();
 			}
 

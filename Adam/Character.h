@@ -23,9 +23,10 @@ public:
 	void update_info_pos(sf::RenderWindow & windwo, sf::Vector2f character_pos);
 	void update_exp(int amount);
 	Character() {}
-	Character(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, std::map<std::string, Animation> animations,
+	Character(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity,
 									statistic mana_c = statistic(100,100), statistic health_c = statistic(100, 100), statistic exp_c = statistic(0, 100));
 
+	Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic mana_c = statistic(100, 100), statistic health_c = statistic(100, 100), statistic exp_c = statistic(0, 100));
 	~Character();
 //	operator sf::Sprite() { return sprite; }
 };
