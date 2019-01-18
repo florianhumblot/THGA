@@ -56,7 +56,7 @@ void Enemy::update_info_pos(sf::RenderWindow & window)
 void Enemy::take_damage(int amount)
 {
 	health.current = health.current - amount;
-	if (health.is_zero) {
+	if (health.is_zero()) {
 		//killed!
 	}
 }
