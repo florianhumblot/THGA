@@ -94,11 +94,11 @@ void Game::handleInput() {
 								{
 									case 0:
 									{
-										if (currentMenu->selectedItem == Menu::menu_states::s_mainMenu)
+										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
 										{
 											currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y);
 										}
-										else if (currentMenu->selectedItem == Menu::menu_states::s_ingameMenu)
+										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
 										{
 											state = STATE::PLAYING;
 										}
@@ -115,7 +115,7 @@ void Game::handleInput() {
 											std::cout << "warrior has been chosen" << '\n';
 											state = STATE::PLAYING;
 										}
-										else if (currentMenu->selectedItem == Menu::menu_states::s_ingameMenu)
+										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
 										{
 											std::cout << "option not made yet" << '\n';
 										}
