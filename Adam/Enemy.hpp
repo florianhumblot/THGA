@@ -52,8 +52,10 @@ public:
 		
 	}*/
 
+	void take_damage(int amount);
+
 	void updateFollowPosition(int x) {
-		setVelocity(sf::Vector2f(8 * x, getVelocity().y));
+		setVelocity(sf::Vector2f(4 * x, getVelocity().y));
 
 
 	}

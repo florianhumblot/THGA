@@ -19,7 +19,7 @@ Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, const std::string & text
 		text[i].setFont(font);
 		text[i].setOutlineColor(sf::Color::Black);
 		text[i].setOutlineThickness(2.0f);
-		text[i].setCharacterSize(24);
+		text[i].setCharacterSize(10);
 		text[i].setString(t[i]);
 	}
 	text[0].setFillColor(sf::Color::Red);
@@ -47,8 +47,16 @@ void Enemy::update_info_pos(sf::RenderWindow & window)
 {
 	for (unsigned int j = 0; j < 2; j++)
 	{
-		text[j].setPosition(sf::Vector2f(position.x, position.y - 50 + j * 24));
+		text[j].setPosition(sf::Vector2f(position.x, position.y - 30 + j * 12));
 		window.draw(text[j]);
 		//std::cout << ;
+	}
+}
+
+void Enemy::take_damage(int amount)
+{
+	health.current = health.current - amount;
+	if (health.is_zero()) {
+		//killed!
 	}
 }
