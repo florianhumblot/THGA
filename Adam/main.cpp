@@ -24,8 +24,7 @@ int main()
 
 	Character player(v2(200, 200), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
 	HUD hud(player);
-	mainMenu menu(window.getSize().x, window.getSize().y);
-	Game game(window, player, menu, hud);
+	Game game(window, player, hud);
 
 	while (window.isOpen())
 	{

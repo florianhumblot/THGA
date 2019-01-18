@@ -10,7 +10,6 @@ class mainMenu : public Menu
 private:
 	float width;
 	float heigth;
-	int selectedItem;
 	sf::Font font;
 	sf::Text menuChoices[numberOfTiles];
 
@@ -55,6 +54,8 @@ public:
 		menuChoices[4].setPosition(sf::Vector2f((width / 2)* 0.85, (numberOfTiles + 1) * 110));
 
 		selectedItem = 0;
+		current_state = menu_states::s_mainMenu;
+		std::cout << "constructed main menu" << std::endl;
 	}
 
 	void draw(sf::RenderWindow & window) override;

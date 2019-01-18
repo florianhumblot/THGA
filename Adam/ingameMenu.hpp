@@ -11,7 +11,6 @@ class inGameMenu: public Menu
 private:
 	float width;
 	float heigth;
-	int selectedItem;
 	sf::Font font;
 	sf::Text pauseScreen[pauseOptions];
 	sf::Sprite sprite;
@@ -30,7 +29,7 @@ public:
 		pauseScreen[0].setString("Continue Game");
 		pauseScreen[0].setFillColor(sf::Color::Red);
 		pauseScreen[0].setCharacterSize(80);
-		pauseScreen[0].setPosition(sf::Vector2f((width / 2) * 0.85, (pauseOptions + 1) * 60));
+		pauseScreen[0].setPosition(sf::Vector2f((width / 2) * 0.85, (pauseOptions + 1) * 50));
 
 		pauseScreen[1].setFont(font);
 		pauseScreen[1].setString("Load Game");
@@ -50,7 +49,9 @@ public:
 		pauseScreen[3].setCharacterSize(80);
 		pauseScreen[3].setPosition(sf::Vector2f((width / 2) * 0.85, (pauseOptions + 1) * 80));
 
+		current_state = menu_states::s_ingameMenu;
 		selectedItem = 0;
+		std::cout << " constructed ingame menu" << std::endl;
 	}
 
 	void draw(sf::RenderWindow & window) override;

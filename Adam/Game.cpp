@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Game.hpp"
 
-Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
+Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 
 	window(w),
 	player(player),
@@ -73,45 +73,97 @@ void Game::handleInput() {
 				}
 				switch (ev.type)
 				{
-				case sf::Event::KeyPressed:
-					switch (ev.key.code)
+					case sf::Event::KeyPressed:
 					{
-						case sf::Keyboard::Up:
-							currentMenu->moveUp();
-							break;
+						switch (ev.key.code)
+						{
+							case sf::Keyboard::Up:
+							{
+								currentMenu->moveUp();
+								break;
+							}
+							case sf::Keyboard::Down:
+							{
+								currentMenu->moveDown();
+								break;
+							}
+							case sf::Keyboard::Enter:
+							{
+								switch (currentMenu->selectedItem)
+								{
+									case 0:
+									{
+										if (currentMenu->chooseTile == currentMenu->s_mainMenu)
+										{
+											currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y);
+										}
+										else if (currentMenu->chooseTile == currentMenu->s_ingameMenu)
+										{
+											state = STATE::PLAYING;
+										}
+										break;
+									}
+									case 1:
+									{
+										if (currentMenu->current_state == currentMenu->s_mainMenu)
+										{
+											state = STATE::PLAYING;
+										}
+										else if (currentMenu->current_state == currentMenu->s_newGameMenu)
+										{
+											std::cout << "warrior has been chosen" << '\n';
+											state = STATE::PLAYING;
+										}
+										else if (currentMenu->chooseTile == currentMenu->s_ingameMenu)
+										{
+											std::cout << "option not made yet" << '\n';
+										}
 
-						case sf::Keyboard::Down:
-							currentMenu->moveDown();
-							break;
+										break;
+									}
+									case 2:
+									{
+										if (currentMenu->chooseTile == currentMenu->s_mainMenu)
+										{
+											std::cout << "not made yet";
+										}
+										else if (currentMenu->chooseTile == currentMenu->s_newGameMenu)
+										{
+											std::cout << "hunter has been chosen" << '\n';
+											state = STATE::PLAYING;
 
-						case sf::Keyboard::Enter:
-							// change menu
-							currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y);
-							break;
+										}
+										else if (currentMenu->chooseTile == currentMenu->s_ingameMenu)
+										{
 
-						case sf::Keyboard::BackSpace:
-							// change menu
-							currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
-							break;
-						case sf::Keyboard::P:
-							// change menu
-							state = STATE::PLAYING;
-							break;
-						case sf::Keyboard::O:
-								// ingameMenu hack
-							currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y);
-					
+										}
+										break;
+									}
+									case 3:
+									{
+
+										break;
+									}
+									case 4:
+									{
+										window.close();
+										break;
+									}
+
+								}
+								break;
+							}
+							case sf::Keyboard::Escape:
+							{
+
+								break;
+							}
+						}
+						break;
 					}
 				}
-
-				window.draw(bgMain);
-				currentMenu->draw(window);
-				window.display();
-				break;
 			}
 		}
-
-
 
 		case STATE::PLAYING:
 		{
@@ -232,7 +284,10 @@ void Game::render() {
 
 	case STATE::MENU:
 	{
-
+		window.clear();
+		window.draw(bgMain);
+		currentMenu->draw(window);
+		window.display();
 		break;
 	}
 
@@ -264,5 +319,4 @@ void Game::render() {
 	}
 	}
 	return;
-
 }

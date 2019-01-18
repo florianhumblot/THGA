@@ -65,12 +65,11 @@ private:
 
 public:
 
-	Game(sf::RenderWindow &w, Character &player, mainMenu &mainmenu, HUD &hud);
+	Game(sf::RenderWindow &w, Character &player, HUD &hud);
 
 	void handleInput();
 	void update();
 	void render();
-
 	sf::RenderWindow & getWindow() {
 		return window;
 	}
