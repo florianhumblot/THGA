@@ -15,9 +15,9 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
 	menuTex = sf::Texture();
-	Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/tiles2.png");
+	Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/underground_cave_c.png");
 	bg = Sprite(tex);
-	Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/background2.png");
+	Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/underground_cave_b.png");
 	bg2 = Sprite(tex2);
 	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
 	bgMain = Sprite(menuTex);
@@ -25,9 +25,9 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
 
 	main_camera.setCenter(player.getPosition());
-	main_camera.setSize(1600, 900);
+	main_camera.setSize(700, 350);
 
-	enemy = std::make_shared<Enemy>(v2(1900, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
+	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.025, 0.025), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(bg);
 	this->world_physics = Adam::physics(&player, cln_h);
@@ -47,7 +47,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	gravity = v2(0, 1);
 	Collision::CreateTextureAndBitmask(slimeChar, "assets/slimeTest.png");
 	for (int i = 0; i < 5; i++) {
-		Character* n = new Character(sf::Vector2f(500 + 100 * i, 1500), sf::Vector2f(5.f, 5.f), "assets/slimeTest.png", sf::Vector2f(0, 0));
+		Character* n = new Character(sf::Vector2f(500 + 100 * i, 1500), sf::Vector2f(0.025, 0.025), "assets/slimeTest.png", sf::Vector2f(0, 0));
 		enemies.push_back(n);
 		world_physics.moveables.push_back(n);
 	}
@@ -131,7 +131,7 @@ void Game::handleInput() {
 
 				if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
 				{
-					player.setVelocity(sf::Vector2f(player.getVelocity().x, -14));
+					player.setVelocity(sf::Vector2f(player.getVelocity().x, -9));
 					player.update_exp(2);
 					player.update_info();
 					hud.update();
@@ -156,7 +156,7 @@ void Game::handleInput() {
 					player.current_direction = Character::direction::RIGHT;
 					player.setTexture(char_alpha);
 				}
-				player.setVelocity(sf::Vector2f(8, player.getVelocity().y));
+				player.setVelocity(sf::Vector2f(4, player.getVelocity().y));
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
@@ -164,7 +164,7 @@ void Game::handleInput() {
 					player.current_direction = Character::direction::LEFT;
 					player.setTexture(char_alpha_invert);
 				}
-				player.setVelocity(sf::Vector2f(-8, player.getVelocity().y));
+				player.setVelocity(sf::Vector2f(-4, player.getVelocity().y));
 			}
 			else
 			{
