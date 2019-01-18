@@ -12,7 +12,7 @@ AnimationManager::AnimationManager(const std::string & s)
 	//size_t size_x, size_y;
 	while (in >> object >> action >> path) {
 		sf::Texture t;
-		Animation a;
+		Animation a(action);
 		Collision::CreateTextureAndBitmask(t, "assets/" + path);
 		auto pos = animations.find(object);
 		if (pos != animations.end()) {

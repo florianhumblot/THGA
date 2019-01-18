@@ -24,6 +24,9 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
 
+	playerAnimation = AnimationManager("assets/animations/animations.txt");
+	currentAnimation = playerAnimation.animations["gunwoman"]["IDLEleft"];
+	
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(1600, 900);
 
@@ -47,13 +50,13 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	gravity = v2(0, 1);
 	Collision::CreateTextureAndBitmask(slimeChar, "assets/slimeTest.png");
 	for (int i = 0; i < 5; i++) {
-		Character* n = new Character(sf::Vector2f(500 + 100 * i, 1500), sf::Vector2f(5.f, 5.f), "assets/slimeTest.png", sf::Vector2f(0, 0));
+		Character* n = new Character(sf::Vector2f(500 + 100 * i, 1500), sf::Vector2f(5.f, 5.f), "assets/slimeTest.png", sf::Vector2f(0, 0), playerAnimation.animations["gunwoman"]);
 		enemies.push_back(n);
 		world_physics.moveables.push_back(n);
 	}
 	world_physics.moveables.push_back(&*enemy);
 
-	state = STATE::MENU;
+	state = STATE::PLAYING;
 }
 
 
@@ -151,24 +154,31 @@ void Game::handleInput() {
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
-				if (player.current_direction != Character::direction::RIGHT)
-				{
-					player.current_direction = Character::direction::RIGHT;
-					player.setTexture(char_alpha);
+				if (player.getCurrentAnimation() != player.getAnimation("WALKleft")) {
+					player.setAnimation("WALKleft");
+		//			player.setAnimation("WALKleft");
 				}
+				player.setScale(sf::Vector2f(-1, 1));
 				player.setVelocity(sf::Vector2f(8, player.getVelocity().y));
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
-				if (player.current_direction != Character::direction::LEFT) {
-					player.current_direction = Character::direction::LEFT;
-					player.setTexture(char_alpha_invert);
+				if (player.getCurrentAnimation() != player.getAnimation("WALKleft")) {
+					player.setAnimation("WALKleft");
+			//		player.setAnimation("WALKleft");
 				}
+				player.setScale(sf::Vector2f(1, 1));
 				player.setVelocity(sf::Vector2f(-8, player.getVelocity().y));
 			}
 			else
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
+				if (player.getVelocity().y == 0) {
+					if (player.getCurrentAnimation() != player.getAnimation("IDLEleft")) {
+						player.setAnimation("IDLEleft");
+						player.setAnimation("IDLEleft");
+					}
+				}
 			}
 
 			
@@ -210,13 +220,20 @@ void Game::update() {
 
 
 
-	case STATE::PLAYING:
-	{
-		world_physics.step_x_moveables();
-		world_physics.step_y_moveables();
-		if (player.getPosition().y > 4000) player.setPosition(v2(100, 100));
-	}
-	break;
+
+		case STATE::PLAYING:
+		{
+			if (Clock.getElapsedTime().asMilliseconds() >= 100) {
+				player.setTexture(player.currentAnimation.nextFrame());
+				Clock.restart();
+			}
+
+			world_physics.step_x_moveables();
+			world_physics.step_y_moveables();
+			if (player.getPosition().y > 4000) player.setPosition(v2(100, 100));
+		}
+		break;
+
 	}
 
 	/*	for (auto & object : enemies) {
@@ -233,8 +250,10 @@ void Game::render() {
 	case STATE::MENU:
 	{
 
+
 		break;
 	}
+
 
 	case STATE::PLAYING:
 	{
