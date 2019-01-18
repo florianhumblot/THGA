@@ -1,15 +1,30 @@
 #include "pch.h"
 #include "Character.h"
-
 Character::Character(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, statistic mana_c, statistic health_c, statistic exp_c): 
-	movable(position, scale, textureFile, velocity)
+	movable(position, scale, textureFile, velocity),
+	Animateable(std::map<std::string, Animation> { {"IDLEleft", Animation()}})
 {
+	animations["IDLEleft"].addFrame(textureFile);
 	mana = mana_c;
 	health = health_c;
 	exp = exp_c;
 	Collision::CreateTextureAndBitmask(texture, textureFile);
-	std::cout << position.x << " <charPosX";
+	std::cout << " texturefile constructor called! \n";
 }
+
+Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic mana_c, statistic health_c, statistic exp_c):
+	Animateable(animations),
+	movable(position, scale, animations["IDLEleft"].textures[0], velocity)
+{
+	animations["IDLEleft"].print();
+	mana = mana_c;
+	health = health_c;
+	exp = exp_c;
+	//texture = texture;
+	std::cout << " animations constructor called! \n";
+
+}
+
 
 Character::~Character()
 {

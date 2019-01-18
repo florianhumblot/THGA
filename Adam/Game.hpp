@@ -8,11 +8,13 @@
 //#include "statistic.h"
 #include "physics.h"
 #include "HUD.hpp"
+
+#include "AnimationManager.h"
+
 #include "menu.hpp"
 #include "newGameMenu.hpp"
 #include "Enemy.hpp"
 #include "ingameMenu.hpp"
-
 #include "AI.hpp"
 
 using namespace std;
@@ -43,6 +45,10 @@ private:
 	sf::Sprite bgMain;
 
 	sf::Texture slimeChar;
+	
+	sf::Clock Clock;
+	AnimationManager playerAnimation;
+	Animation currentAnimation;
 
 	Adam::collision_handler cln_h;
 	Adam::physics world_physics;

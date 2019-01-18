@@ -25,6 +25,9 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
 
+	playerAnimation = AnimationManager("assets/animations/animations.txt");
+//	currentAnimation = playerAnimation.animations["gunwoman"]["IDLEleft"];
+	
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(700, 350);
 
@@ -41,9 +44,9 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	
 	currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
 
-	ai = std::make_shared<AI>();
+//	std::cout << pos.x << " <posx ";
 
-	std::cout << pos.x << " <posx ";
+	ai = std::make_shared<AI>();
 
 	gravity = v2(0, 1);
 	Collision::CreateTextureAndBitmask(slimeChar, "assets/slimeTest.png");
@@ -54,7 +57,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	}
 	world_physics.moveables.push_back(&*enemy);
 
-	state = STATE::MENU;
+	state = STATE::PLAYING;
 }
 
 
@@ -94,6 +97,7 @@ void Game::handleInput() {
 								{
 									case 0:
 									{
+
 										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
 										{
 											currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y);
@@ -204,24 +208,31 @@ void Game::handleInput() {
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
-				if (player.current_direction != Character::direction::RIGHT)
-				{
-					player.current_direction = Character::direction::RIGHT;
-					player.setTexture(char_alpha);
+				if (player.getCurrentAnimation() != player.getAnimation("WALKleft")) {
+					player.setAnimation("WALKleft");
 				}
+
+				player.setScale(sf::Vector2f(-0.20, 0.20));
 				player.setVelocity(sf::Vector2f(4, player.getVelocity().y));
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
-				if (player.current_direction != Character::direction::LEFT) {
-					player.current_direction = Character::direction::LEFT;
-					player.setTexture(char_alpha_invert);
+				if (player.getCurrentAnimation() != player.getAnimation("WALKleft")) {
+					player.setAnimation("WALKleft");
 				}
+				player.setScale(sf::Vector2f(0.20, 0.20));
+
 				player.setVelocity(sf::Vector2f(-4, player.getVelocity().y));
+
 			}
 			else
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
+				if (player.getVelocity().y == 0) {
+					if (player.getCurrentAnimation() != player.getAnimation("IDLEleft")) {
+						player.setAnimation("IDLEleft");
+					}
+				}
 			}
 
 			
@@ -263,13 +274,20 @@ void Game::update() {
 
 
 
-	case STATE::PLAYING:
-	{
-		world_physics.step_x_moveables();
-		world_physics.step_y_moveables();
-		if (player.getPosition().y > 4000) player.setPosition(v2(100, 100));
-	}
-	break;
+		case STATE::PLAYING:
+		{
+			if (Clock.getElapsedTime().asMilliseconds() >= 100) {
+				player.setTexture(player.currentAnimation.nextFrame());
+			//	std::cout << sf::Sprite(player).getGlobalBounds().height << ", :w";
+				Clock.restart();
+			}
+
+			world_physics.step_x_moveables();
+			world_physics.step_y_moveables();
+			if (player.getPosition().y > 4000) player.setPosition(v2(100, 100));
+		}
+		break;
+
 	}
 
 	/*	for (auto & object : enemies) {
@@ -285,12 +303,15 @@ void Game::render() {
 
 	case STATE::MENU:
 	{
+
 		window.clear();
 		window.draw(bgMain);
 		currentMenu->draw(window);
 		window.display();
+
 		break;
 	}
+
 
 	case STATE::PLAYING:
 	{

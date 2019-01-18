@@ -3,10 +3,18 @@
 
 movable::movable(sf::Vector2f &position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity):
 	drawable(position, scale, textureFile)
+//	velocity(velocity)
 {
 	velocity = velocity;
-	std::cout << position.x << ", <movablePosx ";
 }
+
+movable::movable(sf::Vector2f &position, sf::Vector2f scale, sf::Texture texture, sf::Vector2f velocity):
+	drawable(position, scale, texture)
+//	velocity(velocity)
+{
+	velocity = velocity;
+}
+
 
 void movable::setVelocity(sf::Vector2f newVel) {
 	velocity = newVel;
@@ -21,4 +29,15 @@ void movable::move(sf::Vector2f direction) {
 void movable::move() {
 	position += velocity;
 	sprite.setPosition(position);
+}
+
+void movable::setScale(sf::Vector2f scale)
+{
+	if (scale.x < 0) {
+		sprite.setOrigin(texture.getSize().x, 0);
+	}
+	else {
+		sprite.setOrigin(sf::Vector2f(0, 0));
+	}
+	sprite.setScale(scale);
 }

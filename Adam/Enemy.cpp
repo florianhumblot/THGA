@@ -6,7 +6,7 @@ Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, const std::string & text
 {
 	health = health_c;
 	Collision::CreateTextureAndBitmask(texture, textureFile);
-	std::cout << position.x << " <charPosX";
+//	std::cout << position.x << " <charPosX";
 
 	if (!font.loadFromFile("fonts/stranger.ttf"))
 	{
