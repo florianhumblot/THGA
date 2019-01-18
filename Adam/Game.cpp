@@ -124,17 +124,17 @@ void Game::handleInput() {
 									}
 									case 2:
 									{
-										if (currentMenu->selectedItem == Menu::menu_states::s_mainMenu)
+										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
 										{
 											std::cout << "not made yet";
 										}
-										else if (currentMenu->selectedItem == Menu::menu_states::s_newGameMenu)
+										else if (currentMenu->current_state == Menu::menu_states::s_newGameMenu)
 										{
 											std::cout << "hunter has been chosen" << '\n';
 											state = STATE::PLAYING;
 
 										}
-										else if (currentMenu->selectedItem == Menu::menu_states::s_ingameMenu)
+										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
 										{
 
 										}
@@ -154,9 +154,9 @@ void Game::handleInput() {
 								}
 								break;
 							}
-							case sf::Keyboard::Escape:
+							case sf::Keyboard::BackSpace:
 							{
-
+								currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
 								break;
 							}
 						}
