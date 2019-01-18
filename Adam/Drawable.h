@@ -1,7 +1,5 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "Collision.h"
-#include <iostream>
 
 class drawable {
 protected:

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "mainMenu.hpp"
 
 void mainMenu::draw(sf::RenderWindow & window)
@@ -37,7 +38,7 @@ void mainMenu::moveDown()
 	menuChoices[selectedItem].setFillColor(sf::Color::Red);
 }
 
-void mainMenu::chooseTile(int & tileSelect)
+void mainMenu::chooseTile(int & selectTile)
 {
 
 }

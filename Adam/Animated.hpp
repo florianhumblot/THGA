@@ -1,5 +1,7 @@
 #pragma once
+#include "pch.h"
 #include "Animation.h"
+#include <iostream>
 class Animateable {
 protected:
 	std::map<std::string, Animation> animations;
@@ -7,7 +9,7 @@ protected:
 public:
 	Animation currentAnimation;
 	Animateable(std::map<std::string, Animation> animations);
-	Animateable() {};
+	Animateable() {}
 	Animation getAnimation(std::string animation);
 	Animation getCurrentAnimation();
 	void setAnimation(std::string animation);

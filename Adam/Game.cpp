@@ -1,6 +1,7 @@
+#include "pch.h"
 #include "Game.hpp"
 
-Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
+Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 
 	window(w),
 	player(player),
@@ -14,9 +15,9 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
 	menuTex = sf::Texture();
-	Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/tiles2.png");
+	Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/underground_cave_c.png");
 	bg = Sprite(tex);
-	Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/background2.png");
+	Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/underground_cave_b.png");
 	bg2 = Sprite(tex2);
 	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
 	bgMain = Sprite(menuTex);
@@ -27,9 +28,9 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 //	currentAnimation = playerAnimation.animations["gunwoman"]["IDLEleft"];
 	
 	main_camera.setCenter(player.getPosition());
-	main_camera.setSize(1600, 900);
+	main_camera.setSize(700, 350);
 
-	enemy = std::make_shared<Enemy>(v2(1600, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
+	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.025, 0.025), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(bg);
 	this->world_physics = Adam::physics(&player, cln_h);
@@ -44,10 +45,12 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 
 //	std::cout << pos.x << " <posx ";
 
+	ai = std::make_shared<AI>();
+
 	gravity = v2(0, 1);
 	Collision::CreateTextureAndBitmask(slimeChar, "assets/slimeTest.png");
 	for (int i = 0; i < 5; i++) {
-		Character* n = new Character(sf::Vector2f(500 + 100 * i, 1500), sf::Vector2f(5.f, 5.f), "assets/slimeTest.png", sf::Vector2f(0, 0));
+		Character* n = new Character(sf::Vector2f(500 + 100 * i, 1500), sf::Vector2f(0.025, 0.025), "assets/slimeTest.png", sf::Vector2f(0, 0));
 		enemies.push_back(n);
 		world_physics.moveables.push_back(n);
 	}
@@ -73,45 +76,97 @@ void Game::handleInput() {
 				}
 				switch (ev.type)
 				{
-				case sf::Event::KeyPressed:
-					switch (ev.key.code)
+					case sf::Event::KeyPressed:
 					{
-						case sf::Keyboard::Up:
-							currentMenu->moveUp();
-							break;
+						switch (ev.key.code)
+						{
+							case sf::Keyboard::Up:
+							{
+								currentMenu->moveUp();
+								break;
+							}
+							case sf::Keyboard::Down:
+							{
+								currentMenu->moveDown();
+								break;
+							}
+							case sf::Keyboard::Enter:
+							{
+								switch (currentMenu->selectedItem)
+								{
+									case 0:
+									{
+										if (currentMenu->chooseTile == Menu::menu_states::s_mainMenu)
+										{
+											currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y);
+										}
+										else if (currentMenu->chooseTile == Menu::menu_states::s_mainMenu)
+										{
+											state = STATE::PLAYING;
+										}
+										break;
+									}
+									case 1:
+									{
+										if (currentMenu->current_state == currentMenu->s_mainMenu)
+										{
+											state = STATE::PLAYING;
+										}
+										else if (currentMenu->current_state == currentMenu->s_newGameMenu)
+										{
+											std::cout << "warrior has been chosen" << '\n';
+											state = STATE::PLAYING;
+										}
+										else if (currentMenu->chooseTile == currentMenu->s_ingameMenu)
+										{
+											std::cout << "option not made yet" << '\n';
+										}
 
-						case sf::Keyboard::Down:
-							currentMenu->moveDown();
-							break;
+										break;
+									}
+									case 2:
+									{
+										if (currentMenu->chooseTile == currentMenu->s_mainMenu)
+										{
+											std::cout << "not made yet";
+										}
+										else if (currentMenu->chooseTile == currentMenu->s_newGameMenu)
+										{
+											std::cout << "hunter has been chosen" << '\n';
+											state = STATE::PLAYING;
 
-						case sf::Keyboard::Enter:
-							// change menu
-							currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y);
-							break;
+										}
+										else if (currentMenu->chooseTile == currentMenu->s_ingameMenu)
+										{
 
-						case sf::Keyboard::BackSpace:
-							// change menu
-							currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
-							break;
-						case sf::Keyboard::P:
-							// change menu
-							state = STATE::PLAYING;
-							break;
-						case sf::Keyboard::O:
-								// ingameMenu hack
-							currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y);
-					
+										}
+										break;
+									}
+									case 3:
+									{
+
+										break;
+									}
+									case 4:
+									{
+										window.close();
+										break;
+									}
+
+								}
+								break;
+							}
+							case sf::Keyboard::Escape:
+							{
+
+								break;
+							}
+						}
+						break;
 					}
 				}
-
-				window.draw(bgMain);
-				currentMenu->draw(window);
-				window.display();
-				break;
 			}
 		}
-
-
 
 		case STATE::PLAYING:
 		{
@@ -131,7 +186,7 @@ void Game::handleInput() {
 
 				if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
 				{
-					player.setVelocity(sf::Vector2f(player.getVelocity().x, -14));
+					player.setVelocity(sf::Vector2f(player.getVelocity().x, -9));
 					player.update_exp(2);
 					player.update_info();
 					hud.update();
@@ -154,8 +209,9 @@ void Game::handleInput() {
 				if (player.getCurrentAnimation() != player.getAnimation("WALKleft")) {
 					player.setAnimation("WALKleft");
 				}
+
 				player.setScale(sf::Vector2f(-1, 1));
-				player.setVelocity(sf::Vector2f(8, player.getVelocity().y));
+				player.setVelocity(sf::Vector2f(4, player.getVelocity().y));
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
@@ -163,7 +219,9 @@ void Game::handleInput() {
 					player.setAnimation("WALKleft");
 				}
 				player.setScale(sf::Vector2f(1, 1));
-				player.setVelocity(sf::Vector2f(-8, player.getVelocity().y));
+
+				player.setVelocity(sf::Vector2f(-4, player.getVelocity().y));
+
 			}
 			else
 			{
@@ -175,6 +233,10 @@ void Game::handleInput() {
 				}
 			}
 
+			
+			ai->shouldFollow_followDirection(*enemy, player);
+			
+			/*
 			if (enemy->current_direction == Enemy::direction::RIGHT) {
 				enemy->updatePosition(8);
 			}
@@ -187,7 +249,7 @@ void Game::handleInput() {
 			}
 			else if ((enemy->getPosition() - player.getPosition()).x >= -100) {
 				enemy->updateFollowPosition(1);
-			}
+			}*/
 
 			
 
@@ -240,6 +302,10 @@ void Game::render() {
 	case STATE::MENU:
 	{
 
+		window.clear();
+		window.draw(bgMain);
+		currentMenu->draw(window);
+		window.display();
 
 		break;
 	}
@@ -260,6 +326,7 @@ void Game::render() {
 
 
 		}
+		enemy->update_info_pos(window);
 		window.draw(ground);
 		window.setView(main_HUD);
 		hud.draw(window);
@@ -272,5 +339,4 @@ void Game::render() {
 	}
 	}
 	return;
-
 }

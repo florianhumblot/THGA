@@ -1,9 +1,8 @@
 #pragma once
-#include <vector>
-#include <SFML/Graphics.hpp>
 #include "Collision.h"
 class Animation
 {
+private:
 	bool animation_done;
 	int current_frame;
 	std::string name = "default";

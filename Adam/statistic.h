@@ -1,12 +1,10 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
-
 class statistic
 {
 private:
 
-	sf::Font font;
+//	sf::Font font;
 	sf::Text text;
 
 public:

@@ -1,12 +1,7 @@
 #ifndef _GAME_HPP
 #define _GAME_HPP
 
-#include <SFML/Graphics.hpp>
-#include <functional>
-#include "Windows.h"
 #include "Collision.h"
-#include <iostream>
-#include <cmath>
 #include "Character.h"
 #include "Movable.h"
 #include "mainMenu.hpp"
@@ -20,7 +15,7 @@
 #include "newGameMenu.hpp"
 #include "Enemy.hpp"
 #include "ingameMenu.hpp"
-
+#include "AI.hpp"
 
 using namespace std;
 using namespace sf;
@@ -60,6 +55,8 @@ private:
 
 	std::shared_ptr<Enemy> enemy;
 
+	std::shared_ptr<AI> ai;
+
 	std::shared_ptr<Menu> currentMenu;
 
 	int tellerEnemy = 0;
@@ -74,12 +71,11 @@ private:
 
 public:
 
-	Game(sf::RenderWindow &w, Character &player, mainMenu &mainmenu, HUD &hud);
+	Game(sf::RenderWindow &w, Character &player, HUD &hud);
 
 	void handleInput();
 	void update();
 	void render();
-
 	sf::RenderWindow & getWindow() {
 		return window;
 	}

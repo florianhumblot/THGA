@@ -1,7 +1,5 @@
 #ifndef NEWGAMEMENU_HPP
 #define NEWGAMEMENU_HPP
-#include <SFML/Graphics.hpp>
-#include <iostream>
 
 #include "menu.hpp"
 
@@ -12,7 +10,6 @@ class newGameMenu : public Menu
 private:
 	float width;
 	float heigth;
-	int selectedItem;
 	sf::Font font;
 	sf::Text menuChoices[newGameTiles];
 	sf::Sprite sprite;
@@ -52,6 +49,7 @@ public:
 		menuChoices[3].setPosition(sf::Vector2f((width / 2) * 0.85, (newGameTiles + 1) * 120));
 
 		selectedItem = 1;
+		current_state = menu_states::s_newGameMenu;
 	}
 
 	void draw(sf::RenderWindow & window) override;

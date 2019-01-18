@@ -1,8 +1,8 @@
 #ifndef INGAMEMENU_HPP
 #define INGAMEMENU_HPP
-#include <SFML/Graphics.hpp>
-#include <iostream>
+
 #include "menu.hpp"
+#include "Character.h"
 
 #define pauseOptions 4
 
@@ -11,13 +11,14 @@ class inGameMenu: public Menu
 private:
 	float width;
 	float heigth;
-	int selectedItem;
 	sf::Font font;
 	sf::Text pauseScreen[pauseOptions];
 	sf::Sprite sprite;
 	sf::Texture texture;
+	Character &player;
 public:
-	inGameMenu(float width, float heigth)
+	inGameMenu(float width, float heigth):
+		player(player)
 	{
 		if (!font.loadFromFile("fonts/stranger.ttf"))
 		{
@@ -48,7 +49,9 @@ public:
 		pauseScreen[3].setCharacterSize(80);
 		pauseScreen[3].setPosition(sf::Vector2f((width / 2) * 0.85, (pauseOptions + 1) * 80));
 
+		current_state = menu_states::s_ingameMenu;
 		selectedItem = 0;
+		std::cout << " constructed ingame menu" << std::endl;
 	}
 
 	void draw(sf::RenderWindow & window) override;
