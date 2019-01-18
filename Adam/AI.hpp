@@ -1,7 +1,6 @@
 #pragma once
 #include "Movable.h"
 #include "Enemy.hpp"
-#include <SFML/Graphics.hpp>
 
 class AI {
 
