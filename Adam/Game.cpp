@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Game.hpp"
+#include "Menu.hpp"
 
 Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 
@@ -96,11 +97,12 @@ void Game::handleInput() {
 								{
 									case 0:
 									{
-										if (currentMenu->chooseTile == Menu::menu_states::s_mainMenu)
+
+										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
 										{
 											currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y);
 										}
-										else if (currentMenu->chooseTile == Menu::menu_states::s_mainMenu)
+										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
 										{
 											state = STATE::PLAYING;
 										}
@@ -108,16 +110,16 @@ void Game::handleInput() {
 									}
 									case 1:
 									{
-										if (currentMenu->current_state == currentMenu->s_mainMenu)
+										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
 										{
 											state = STATE::PLAYING;
 										}
-										else if (currentMenu->current_state == currentMenu->s_newGameMenu)
+										else if (currentMenu->current_state == Menu::menu_states::s_newGameMenu)
 										{
 											std::cout << "warrior has been chosen" << '\n';
 											state = STATE::PLAYING;
 										}
-										else if (currentMenu->chooseTile == currentMenu->s_ingameMenu)
+										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
 										{
 											std::cout << "option not made yet" << '\n';
 										}
@@ -126,17 +128,17 @@ void Game::handleInput() {
 									}
 									case 2:
 									{
-										if (currentMenu->chooseTile == currentMenu->s_mainMenu)
+										if (currentMenu->selectedItem == Menu::menu_states::s_mainMenu)
 										{
 											std::cout << "not made yet";
 										}
-										else if (currentMenu->chooseTile == currentMenu->s_newGameMenu)
+										else if (currentMenu->selectedItem == Menu::menu_states::s_newGameMenu)
 										{
 											std::cout << "hunter has been chosen" << '\n';
 											state = STATE::PLAYING;
 
 										}
-										else if (currentMenu->chooseTile == currentMenu->s_ingameMenu)
+										else if (currentMenu->selectedItem == Menu::menu_states::s_ingameMenu)
 										{
 
 										}
@@ -210,7 +212,7 @@ void Game::handleInput() {
 					player.setAnimation("WALKleft");
 				}
 
-				player.setScale(sf::Vector2f(-1, 1));
+				player.setScale(sf::Vector2f(-0.20, 0.20));
 				player.setVelocity(sf::Vector2f(4, player.getVelocity().y));
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -218,7 +220,7 @@ void Game::handleInput() {
 				if (player.getCurrentAnimation() != player.getAnimation("WALKleft")) {
 					player.setAnimation("WALKleft");
 				}
-				player.setScale(sf::Vector2f(1, 1));
+				player.setScale(sf::Vector2f(0.20, 0.20));
 
 				player.setVelocity(sf::Vector2f(-4, player.getVelocity().y));
 
