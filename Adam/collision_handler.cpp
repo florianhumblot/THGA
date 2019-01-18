@@ -1,7 +1,6 @@
+#include "pch.h"
 #include "collision_handler.h"
 #include "Collision.h"
-#include <iostream>
-#include "SFML/Graphics.hpp"
 
 namespace Adam
 {

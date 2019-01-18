@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "ingameMenu.hpp"
 
 void inGameMenu::draw(sf::RenderWindow & window)

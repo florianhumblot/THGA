@@ -1,7 +1,5 @@
 #ifndef NEWGAMEMENU_HPP
 #define NEWGAMEMENU_HPP
-#include <SFML/Graphics.hpp>
-#include <iostream>
 
 #include "menu.hpp"
 

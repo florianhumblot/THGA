@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Game.hpp"
 
 Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
@@ -29,7 +30,7 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(1600, 900);
 
-	enemy = std::make_shared<Enemy>(v2(1600, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
+	enemy = std::make_shared<Enemy>(v2(1900, 100), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(bg);
 	this->world_physics = Adam::physics(&player, cln_h);
@@ -41,6 +42,8 @@ Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :
 
 	
 	currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
+
+	ai = std::make_shared<AI>();
 
 	std::cout << pos.x << " <posx ";
 
@@ -178,6 +181,10 @@ void Game::handleInput() {
 				}
 			}
 
+			
+			ai->shouldFollow_followDirection(*enemy, player);
+			
+			/*
 			if (enemy->current_direction == Enemy::direction::RIGHT) {
 				enemy->updatePosition(8);
 			}
@@ -190,7 +197,7 @@ void Game::handleInput() {
 			}
 			else if ((enemy->getPosition() - player.getPosition()).x >= -100) {
 				enemy->updateFollowPosition(1);
-			}
+			}*/
 
 			
 
@@ -263,6 +270,7 @@ void Game::render() {
 
 
 		}
+		enemy->update_info_pos(window);
 		window.draw(ground);
 		window.setView(main_HUD);
 		hud.draw(window);

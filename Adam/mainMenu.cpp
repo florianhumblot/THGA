@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "mainMenu.hpp"
 
 void mainMenu::draw(sf::RenderWindow & window)

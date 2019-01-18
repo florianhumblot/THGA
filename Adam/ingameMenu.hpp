@@ -1,8 +1,8 @@
 #ifndef INGAMEMENU_HPP
 #define INGAMEMENU_HPP
-#include <SFML/Graphics.hpp>
-#include <iostream>
+
 #include "menu.hpp"
+#include "Character.h"
 
 #define pauseOptions 4
 
@@ -16,8 +16,10 @@ private:
 	sf::Text pauseScreen[pauseOptions];
 	sf::Sprite sprite;
 	sf::Texture texture;
+	Character &player;
 public:
-	inGameMenu(float width, float heigth)
+	inGameMenu(float width, float heigth):
+		player(player)
 	{
 		if (!font.loadFromFile("fonts/stranger.ttf"))
 		{
@@ -28,7 +30,7 @@ public:
 		pauseScreen[0].setString("Continue Game");
 		pauseScreen[0].setFillColor(sf::Color::Red);
 		pauseScreen[0].setCharacterSize(80);
-		pauseScreen[0].setPosition(sf::Vector2f((width / 2) * 0.85, (pauseOptions + 1) * 50));
+		pauseScreen[0].setPosition(sf::Vector2f((width / 2) * 0.85, (pauseOptions + 1) * 60));
 
 		pauseScreen[1].setFont(font);
 		pauseScreen[1].setString("Load Game");

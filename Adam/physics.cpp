@@ -1,5 +1,5 @@
+#include "pch.h"
 #include "physics.h"
-#include <iostream>
 
 namespace Adam
 {
