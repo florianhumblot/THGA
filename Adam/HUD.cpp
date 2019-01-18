@@ -1,5 +1,5 @@
+#include "pch.h"
 #include "HUD.hpp"
-#include "iostream"
 HUD::HUD(Character & character) : character(character)
 {
 	if (!font.loadFromFile("fonts/stranger.ttf"))

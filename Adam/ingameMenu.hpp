@@ -1,7 +1,6 @@
 #ifndef INGAMEMENU_HPP
 #define INGAMEMENU_HPP
-#include <SFML/Graphics.hpp>
-#include <iostream>
+
 #include "menu.hpp"
 #include "Character.h"
 

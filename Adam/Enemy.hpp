@@ -1,7 +1,6 @@
 #ifndef  _ENEMY_HPP
 #define _ENEMY_HPP
 
-#include <SFML/Graphics.hpp>
 #include "Collision.h"
 #include "statistic.h"
 #include "Movable.h"

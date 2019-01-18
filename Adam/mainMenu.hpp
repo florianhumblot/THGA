@@ -1,7 +1,5 @@
 #ifndef _MAINMENU_HPP
 #define _MAINMENU_HPP
-#include <SFML/Graphics.hpp>
-#include <iostream>
 
 #include "menu.hpp"
 

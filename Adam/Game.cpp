@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Game.hpp"
 
 Game::Game(sf::RenderWindow &w, Character &player, mainMenu &menu, HUD &hud) :

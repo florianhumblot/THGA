@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Enemy.hpp"
 
 Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, statistic health_c) :

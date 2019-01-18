@@ -1,12 +1,7 @@
 #ifndef _GAME_HPP
 #define _GAME_HPP
 
-#include <SFML/Graphics.hpp>
-#include <functional>
-#include "Windows.h"
 #include "Collision.h"
-#include <iostream>
-#include <cmath>
 #include "Character.h"
 #include "Movable.h"
 #include "mainMenu.hpp"
