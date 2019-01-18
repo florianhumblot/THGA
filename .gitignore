@@ -3,6 +3,9 @@
 .vs/
 Debug/
 x64/
+*.vcxproj
+*.vcxproj.filters
+*.user
 
 # Prerequisites
 *.d
@@ -37,3 +40,5 @@ x64/
 *.out
 *.app
 
+Adam/Adam.vcxproj
+Adam/Adam.vcxproj.filters

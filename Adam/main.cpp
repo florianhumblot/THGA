@@ -1,24 +1,39 @@
-#include <SFML/Graphics.hpp>
+#include "pch.h"
+#include "mainMenu.hpp"
+#include "Collision.h"
+#include "Character.h"
+#include "Game.hpp"
+#include "HUD.hpp"
+#include "statistic.h"
+
+using namespace std;
+using namespace sf;
+
+#define v2i sf::Vector2i
+#define v2 sf::Vector2f
+
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	RenderWindow window(VideoMode(1920, 1080, 32), "APPLICATION");
+
+	float dt = 1.f / 60.f; //fixed physics step
+	float accumulator = 0.f; //total to consume from
+	float ft = 0.0f; //frame time 
+	sf::Clock timer;
+
+	Character player(v2(200, 200), v2(0.15, 0.15), "assets/char_alpha.png", v2(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
+	HUD hud(player);
+	mainMenu menu(window.getSize().x, window.getSize().y);
+	Game game(window, player, menu, hud);
 
 	while (window.isOpen())
 	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
-
-		window.clear();
-		window.draw(shape);
-		window.display();
+		game.handleInput();
+		game.update();
+		game.render();
 	}
+	cout << "done";
 
 	return 0;
 }
