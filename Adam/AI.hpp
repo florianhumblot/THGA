@@ -9,7 +9,7 @@ public:
 
 	}
 
-	int shouldFollow_followDirection(Enemy & p1, movable & p2);
+	void shouldFollow_followDirection(Enemy & p1, movable & p2);
 	
 
 
