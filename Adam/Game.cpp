@@ -30,7 +30,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(700, 350);
 
-	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.025, 0.025), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
+	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(bg);
 	this->world_physics = Adam::physics(&player, cln_h);
@@ -217,6 +217,8 @@ void Game::handleInput() {
 			{
 				if (player.getCurrentAnimation() != player.getAnimation("WALKright")) {
 					player.setAnimation("WALKright");
+					player.setTexture(player.currentAnimation.nextFrame());
+
 				}
 
 				player.setScale(sf::Vector2f(0.2, 0.2));
@@ -226,6 +228,8 @@ void Game::handleInput() {
 			{
 				if (player.getCurrentAnimation() != player.getAnimation("WALKright")) {
 					player.setAnimation("WALKright");
+					player.setTexture(player.currentAnimation.nextFrame());
+
 				}
 				player.setScale(sf::Vector2f(-0.2, 0.2));
 
@@ -238,10 +242,11 @@ void Game::handleInput() {
 				if (player.getVelocity().y == 0) {
 					if (player.getCurrentAnimation() != player.getAnimation("IDLEright")) {
 						player.setAnimation("IDLEright");
+						player.setTexture(player.currentAnimation.nextFrame());
 					}
 				}
 			}
-
+		
 			
 			ai->shouldFollow_followDirection(*enemy, player);
 			
