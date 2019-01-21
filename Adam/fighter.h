@@ -19,5 +19,5 @@ public:
 	virtual void update_info(int new_lvl) {}
 	virtual void update_info_pos(sf::RenderWindow & window) {}
 	virtual void updateFollowPosition(int x) {}
-
+	virtual void fight() {}
 };

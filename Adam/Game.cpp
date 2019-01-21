@@ -346,11 +346,13 @@ void Game::render() {
 		if (cln_h2.collides_with_world(&player))
 		{
 			player.health.sub(1);
-			hud.update();
-			if (player.health.is_zero())
-			{
-				player.setPosition(sf::Vector2f(890, 690));
-			}
+			
+		}
+		hud.update();
+		if (player.health.is_zero())
+		{
+			player.setPosition(sf::Vector2f(890, 690));
+			player.health.current = player.health.max;
 		}
 		enemy->update_info_pos(window);
 		window.draw(ground);
