@@ -57,7 +57,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	}
 	world_physics.moveables.push_back(&*enemy);
 
-	state = STATE::PLAYING;
+	state = STATE::MENU;
 }
 
 
@@ -146,7 +146,15 @@ void Game::handleInput() {
 									}
 									case 3:
 									{
+										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
+										{
+											std::cout << "option menu not made yet" << std::endl;
+										}
+										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
+										{
+											std::cout << "option menu not made yet" << std::endl;
 
+										}
 										break;
 									}
 									case 4:

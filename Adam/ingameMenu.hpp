@@ -3,6 +3,7 @@
 
 #include "menu.hpp"
 #include "Character.h"
+#include "game.hpp"
 
 #define pauseOptions 4
 
@@ -29,25 +30,26 @@ public:
 		pauseScreen[0].setString("Continue Game");
 		pauseScreen[0].setFillColor(sf::Color::Red);
 		pauseScreen[0].setCharacterSize(80);
-		pauseScreen[0].setPosition(sf::Vector2f((width / 2) * 0.85, (pauseOptions + 1) * 50));
+		pauseScreen[0].setPosition(sf::Vector2f((player.getPosition().x), (player.getPosition().y)));
 
 		pauseScreen[1].setFont(font);
 		pauseScreen[1].setString("Load Game");
 		pauseScreen[1].setFillColor(sf::Color::White);
 		pauseScreen[1].setCharacterSize(80);
-		pauseScreen[1].setPosition(sf::Vector2f((width / 2) * 0.85, (pauseOptions + 1) * 60));
+		pauseScreen[1].setPosition(sf::Vector2f((player.getPosition().x), (player.getPosition().y)+10));
 
 		pauseScreen[2].setFont(font);
 		pauseScreen[2].setString("Options");
 		pauseScreen[2].setFillColor(sf::Color::White);
 		pauseScreen[2].setCharacterSize(80);
-		pauseScreen[2].setPosition(sf::Vector2f((width / 2) * 0.85, (pauseOptions + 1) * 70));
+		pauseScreen[2].setPosition(sf::Vector2f((player.getPosition().x), (player.getPosition().y) + 20));
 
 		pauseScreen[3].setFont(font);
 		pauseScreen[3].setString("Quit Game");
 		pauseScreen[3].setFillColor(sf::Color::White);
 		pauseScreen[3].setCharacterSize(80);
-		pauseScreen[3].setPosition(sf::Vector2f((width / 2) * 0.85, (pauseOptions + 1) * 80));
+		pauseScreen[3].setPosition(sf::Vector2f((player.getPosition().x), (player.getPosition().y) + 30));
+
 
 		current_state = menu_states::s_ingameMenu;
 		selectedItem = 0;
