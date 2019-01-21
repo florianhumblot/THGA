@@ -10,12 +10,14 @@ void AI::shouldFollow_followDirection(Enemy & p1, movable & p2) {
 		//p1.fight();
 	//}
 	/*else*/ if ((p1.getPosition() - p2.getPosition()).x <= 400 && (p1.getPosition() - p2.getPosition()).x >= 25) {
-		p1.updateFollowPosition(-1);
+		std::cout << "update left " << p1.getPosition().x << "\n";
+ 		p1.updateFollowPosition(-1);
 	}
 	//else if ((p1.getPosition() - p2.getPosition()).x >= -40 && (p1.getPosition() - p2.getPosition()).x <= 0) {
 		//p1.fight();
 	//}
 	else if ((p1.getPosition() - p2.getPosition()).x >= -400 && (p1.getPosition() - p2.getPosition()).x <= -25) {
+		std::cout << "update right " << p1.getPosition().x << "\n";
 		p1.updateFollowPosition(1);
 	}
 	// if they are not close to eachother
