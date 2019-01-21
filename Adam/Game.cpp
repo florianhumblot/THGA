@@ -173,8 +173,10 @@ void Game::handleInput() {
 						}
 						break;
 					}
+					break;
 				}
 			}
+			break;
 		}
 
 		case STATE::PLAYING:
@@ -209,7 +211,8 @@ void Game::handleInput() {
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
-				window.close();
+				state = STATE::MENU;
+				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
 			}
 
 
