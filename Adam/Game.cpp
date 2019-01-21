@@ -15,9 +15,9 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
 	menuTex = sf::Texture();
-	Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/underground_cave_c.png");
+	Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/UBGv2.png");
 	bg = Sprite(tex);
-	Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/underground_cave_b.png");
+	Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/underground_cave_bv2.png");
 	bg2 = Sprite(tex2);
 	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
 	bgMain = Sprite(menuTex);
