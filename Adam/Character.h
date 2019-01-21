@@ -5,7 +5,7 @@
 #include "Animated.hpp"
 #include "fighter.h"
 
-class Character : public movable , public Animateable, public fighter
+class Character :  public Animateable, public fighter
 {
 
 	
@@ -20,7 +20,7 @@ public:
 
 	
 	void update_info();
-	void update_info_pos(sf::RenderWindow & windwo, sf::Vector2f character_pos);
+	void update_info_pos(sf::RenderWindow & window, sf::Vector2f character_pos);
 	void update_exp(int amount);
 	Character() {}
 	Character(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity,

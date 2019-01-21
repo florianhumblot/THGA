@@ -1,6 +1,7 @@
 #pragma once
 #include "Movable.h"
 #include "Enemy.hpp"
+#include "fighter.h"
 
 class AI {
 
@@ -9,7 +10,7 @@ public:
 
 	}
 
-	void shouldFollow_followDirection(Enemy & p1, movable & p2);
+	void shouldFollow_followDirection(fighter & p1, movable & p2);
 	
 
 
