@@ -23,7 +23,7 @@ int main()
 	float ft = 0.0f; //frame time 
 	sf::Clock timer;
 
-	Character player(v2(890, 690), v2(0.20, 0.20), ani.animations["gunwoman"], v2(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
+	Character player(v2(890, 690), v2(0.2, 0.2), ani.animations["mage"], v2(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
 //	Character player(v2(890, 690), v2(0.025, 0.025), "assets/char_alpha.png", v2(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
 	HUD hud(player);
 	Game game(window, player, hud);
