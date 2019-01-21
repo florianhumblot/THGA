@@ -32,7 +32,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(700, 350);
 
-	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
+	enemy = std::make_shared<Enemy>(v2(2060, 700), v2(0.2, 0.2), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(bg);
 	this->world_physics = Adam::physics(&player, cln_h);
@@ -178,8 +178,10 @@ void Game::handleInput() {
 						}
 						break;
 					}
+					break;
 				}
 			}
+			break;
 		}
 
 		case STATE::PLAYING:
@@ -214,7 +216,8 @@ void Game::handleInput() {
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
-				window.close();
+				state = STATE::MENU;
+				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
 			}
 
 
