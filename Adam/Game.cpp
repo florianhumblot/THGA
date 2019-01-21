@@ -217,6 +217,8 @@ void Game::handleInput() {
 			{
 				if (player.getCurrentAnimation() != player.getAnimation("WALKright")) {
 					player.setAnimation("WALKright");
+					player.setTexture(player.currentAnimation.nextFrame());
+
 				}
 
 				player.setScale(sf::Vector2f(0.2, 0.2));
@@ -226,6 +228,8 @@ void Game::handleInput() {
 			{
 				if (player.getCurrentAnimation() != player.getAnimation("WALKright")) {
 					player.setAnimation("WALKright");
+					player.setTexture(player.currentAnimation.nextFrame());
+
 				}
 				player.setScale(sf::Vector2f(-0.2, 0.2));
 
@@ -238,10 +242,11 @@ void Game::handleInput() {
 				if (player.getVelocity().y == 0) {
 					if (player.getCurrentAnimation() != player.getAnimation("IDLEright")) {
 						player.setAnimation("IDLEright");
+						player.setTexture(player.currentAnimation.nextFrame());
 					}
 				}
 			}
-
+		
 			
 			ai->shouldFollow_followDirection(*enemy, player);
 			

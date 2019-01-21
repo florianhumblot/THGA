@@ -41,4 +41,3 @@ void drawable::setTexture(sf::Texture & texture) {
 	sprite.setTexture(texture);
 	texture = texture;
 }
-
