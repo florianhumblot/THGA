@@ -18,11 +18,11 @@ def resize_images(dir):
         for f in files:
             if f != 'animations.txt':
                 basewidth = 192
-                img = Image.open(os.path.join(path, f))
-                wpercent = (basewidth / float(img.size[0]))
                 hsize = 192
+                img = Image.open(os.path.join(path, f))
                 img = img.resize((basewidth, hsize), PIL.Image.ANTIALIAS)
-                img.save(os.path.join(path, f))
+                cropped = img.crop((36, 22, 160, 158))
+                cropped.save(os.path.join(path, f))
 
 
 
