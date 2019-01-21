@@ -6,7 +6,7 @@
 #include "Movable.h"
 #include "fighter.h"
 
-class Enemy : public movable, public fighter
+class Enemy : public fighter
 {
 private:
 	sf::Font font;
@@ -23,14 +23,14 @@ public:
 
 	enum class direction { LEFT, RIGHT };
 	direction current_direction = direction::RIGHT;
-	void update_info(int new_lvl);
-	void update_info_pos(sf::RenderWindow & window);
+	void update_info(int new_lvl) override;
+	void update_info_pos(sf::RenderWindow & window) override;
 	Enemy() {}
 	Enemy(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 
-	void take_damage(int amount);
+	void take_damage(int amount) ;
 
-	void updateFollowPosition(int x);
+	void updateFollowPosition(int x) override;
 
 	~Enemy();
 	//	operator sf::Sprite() { return sprite; }
