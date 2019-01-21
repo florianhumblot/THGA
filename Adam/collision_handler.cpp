@@ -19,7 +19,8 @@ namespace Adam
 
 	bool collision_handler::collides_with_world(movable *object)
 	{
-		return Collision::PixelPerfectTest(*collision_layer, *object);
+		return Collision::PixelPerfectTest(*collision_layer, object->getBox());
+		//return Collision::PixelPerfectTest(*collision_layer, *object);
 	}
 
 	bool collision_handler::collides_with_sprite(sf::Sprite & object1, sf::Sprite & object2)
