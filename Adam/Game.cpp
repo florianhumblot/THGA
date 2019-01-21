@@ -57,7 +57,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	}
 	world_physics.moveables.push_back(&*enemy);
 
-	state = STATE::PLAYING;
+	state = STATE::MENU;
 }
 
 

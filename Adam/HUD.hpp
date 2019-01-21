@@ -18,8 +18,14 @@ private:
 public:
 	HUD(Character & character);
 	~HUD();
+
+	// updates values
 	void update();
+
+	// sets scale, texture and position
 	void bar_status(int index);
+
+	// draw HUD on window
 	void draw(sf::RenderWindow & window);
 };
 #endif // !HUD_HPP

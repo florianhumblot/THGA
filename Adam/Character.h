@@ -3,8 +3,9 @@
 #include "statistic.h"
 #include "Movable.h"
 #include "Animated.hpp"
+#include "fighter.h"
 
-class Character : public movable , public Animateable
+class Character : public movable , public Animateable, public fighter
 {
 
 	
@@ -12,9 +13,9 @@ class Character : public movable , public Animateable
 	sf::Text text[4];
 	std::string t[4];
 public:
-	int lvl = 1;
+	//int lvl = 1;
 	statistic mana;
-	statistic health;
+	//statistic health;
 	statistic exp;
 
 	
