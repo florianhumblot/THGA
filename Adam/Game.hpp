@@ -34,7 +34,9 @@ private:
 	sf::View main_HUD;
 	Sprite bg;
 	Sprite bg2;
+	Sprite bg3;
 	sf::Texture tex2;
+	sf::Texture tex3;
 	sf::Texture char_alpha;
 	sf::Texture char_alpha_invert;
 	sf::Texture menuTex;
@@ -42,6 +44,7 @@ private:
 	sf::Sprite background;
 	sf::Sprite ground;
 	sf::Sprite bgMain;
+	sf::Sprite damage_ground;
 
 	sf::Texture slimeChar;
 	
@@ -51,6 +54,9 @@ private:
 
 	Adam::collision_handler cln_h;
 	Adam::physics world_physics;
+
+	Adam::collision_handler cln_h2;
+	Adam::physics world_damage_physics;
 
 	std::shared_ptr<Enemy> enemy;
 
