@@ -27,7 +27,6 @@ class Game {
 private:
 	std::vector<Character*> enemies;
 	sf::RenderWindow & window;
-	mainMenu & menu;
 	HUD & hud;
 	sf::CircleShape shape;
 	sf::View main_camera;

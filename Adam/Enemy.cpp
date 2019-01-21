@@ -60,3 +60,10 @@ void Enemy::take_damage(int amount)
 		//killed!
 	}
 }
+
+void Enemy::updateFollowPosition(int x) {
+	// make the enemy move (x is 0, 1, or -1)
+	setVelocity(sf::Vector2f(4 * x, getVelocity().y));
+
+
+}

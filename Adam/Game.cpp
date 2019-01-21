@@ -6,7 +6,6 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 
 	window(w),
 	player(player),
-	menu(menu),
 	hud(hud)
 
 {
@@ -238,23 +237,6 @@ void Game::handleInput() {
 			
 			ai->shouldFollow_followDirection(*enemy, player);
 			
-			/*
-			if (enemy->current_direction == Enemy::direction::RIGHT) {
-				enemy->updatePosition(8);
-			}
-			else {
-				enemy->updatePosition(-8);
-			}
-
-			if ((enemy->getPosition() - player.getPosition()).x <= 100) {
-				enemy->updateFollowPosition(-1);
-			}
-			else if ((enemy->getPosition() - player.getPosition()).x >= -100) {
-				enemy->updateFollowPosition(1);
-			}*/
-
-			
-
 
 			break;
 		}
