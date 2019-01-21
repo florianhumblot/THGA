@@ -30,7 +30,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(700, 350);
 
-	enemy = std::make_shared<Enemy>(v2(2060, 700), v2(0.2, 0.2), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
+	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.025, 0.025), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(bg);
 	this->world_physics = Adam::physics(&player, cln_h);
@@ -151,7 +151,7 @@ void Game::handleInput() {
 										}
 										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
 										{
-											window.close();
+											std::cout << "option menu not made yet" << std::endl;
 
 										}
 										break;
@@ -173,10 +173,8 @@ void Game::handleInput() {
 						}
 						break;
 					}
-					break;
 				}
 			}
-			break;
 		}
 
 		case STATE::PLAYING:
@@ -206,13 +204,12 @@ void Game::handleInput() {
 			if (Keyboard::isKeyPressed(Keyboard::O))
 			{
 				state = STATE::MENU;
-				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
+				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y);
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
-				state = STATE::MENU;
-				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
+				window.close();
 			}
 
 
@@ -220,8 +217,6 @@ void Game::handleInput() {
 			{
 				if (player.getCurrentAnimation() != player.getAnimation("WALKright")) {
 					player.setAnimation("WALKright");
-					player.setTexture(player.currentAnimation.nextFrame());
-
 				}
 
 				player.setScale(sf::Vector2f(0.2, 0.2));
@@ -231,8 +226,6 @@ void Game::handleInput() {
 			{
 				if (player.getCurrentAnimation() != player.getAnimation("WALKright")) {
 					player.setAnimation("WALKright");
-					player.setTexture(player.currentAnimation.nextFrame());
-
 				}
 				player.setScale(sf::Vector2f(-0.2, 0.2));
 
@@ -245,11 +238,10 @@ void Game::handleInput() {
 				if (player.getVelocity().y == 0) {
 					if (player.getCurrentAnimation() != player.getAnimation("IDLEright")) {
 						player.setAnimation("IDLEright");
-						player.setTexture(player.currentAnimation.nextFrame());
 					}
 				}
 			}
-		
+
 			
 			ai->shouldFollow_followDirection(*enemy, player);
 			
@@ -301,26 +293,11 @@ void Game::render() {
 
 	case STATE::MENU:
 	{
-		if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
-		{
-			window.clear();
-			window.draw(background);
-			window.draw(sf::Sprite(player));
-			window.draw(sf::Sprite(*enemy));
-			currentMenu->draw(window);
-			window.display();
-		}
-		else
-		{
-			window.clear();
-			window.draw(bgMain);
-			currentMenu->draw(window);
-			window.display();
-		}
-		//window.clear();
-		//window.draw(bgMain);
-		//currentMenu->draw(window);
-		//window.display();
+
+		window.clear();
+		window.draw(bgMain);
+		currentMenu->draw(window);
+		window.display();
 
 		break;
 	}
