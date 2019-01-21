@@ -15,10 +15,12 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
 	menuTex = sf::Texture();
-	Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/underground_cave_c.png");
+	Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/UBGv2.png");
 	bg = Sprite(tex);
-	Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/underground_cave_b.png");
+	Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/underground_cave_bv2.png");
 	bg2 = Sprite(tex2);
+	Collision::CreateTextureAndBitmask(tex3, "assets/backgrounds/underground_cave_spikesLayer.png");
+	bg3 = Sprite(tex3);
 	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
 	bgMain = Sprite(menuTex);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
@@ -33,10 +35,12 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(bg);
+	this->cln_h2 = Adam::collision_handler(bg3);
 	this->world_physics = Adam::physics(&player, cln_h);
 
 	background.setTexture(tex2);
 	ground.setTexture(tex);
+	damage_background.setTexture(tex3);
 	bgMain.setTexture(menuTex);
 	pos = player.getPosition();
 
@@ -204,7 +208,8 @@ void Game::handleInput() {
 			if (Keyboard::isKeyPressed(Keyboard::O))
 			{
 				state = STATE::MENU;
-				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y);
+				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
+				
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
@@ -296,10 +301,26 @@ void Game::render() {
 	case STATE::MENU:
 	{
 
-		window.clear();
-		window.draw(bgMain);
-		currentMenu->draw(window);
-		window.display();
+		if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
+		{
+			window.clear();
+			window.draw(background);
+			window.draw(sf::Sprite(player));
+			window.draw(sf::Sprite(*enemy));
+			currentMenu->draw(window);
+			window.display();
+		}
+		else
+		{
+			window.clear();
+			window.draw(bgMain);
+			currentMenu->draw(window);
+			window.display();
+		}
+		//window.clear();
+		//window.draw(bgMain);
+		//currentMenu->draw(window);
+		//window.display();
 
 		break;
 	}
@@ -319,6 +340,10 @@ void Game::render() {
 			window.draw(enemy->operator sf::Sprite());
 
 
+		}
+		if (cln_h2.collides_with_world(&player)) 
+		{
+			player.health.sub(1);
 		}
 		enemy->update_info_pos(window);
 		window.draw(ground);
