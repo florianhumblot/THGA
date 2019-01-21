@@ -19,6 +19,8 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	bg = Sprite(tex);
 	Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/underground_cave_bv2.png");
 	bg2 = Sprite(tex2);
+	Collision::CreateTextureAndBitmask(tex3, "assets/backgrounds/underground_cave_spikesLayer.png");
+	bg3 = Sprite(tex3);
 	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
 	bgMain = Sprite(menuTex);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
@@ -33,10 +35,12 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.025, 0.025), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(bg);
+	this->cln_h2 = Adam::collision_handler(bg3);
 	this->world_physics = Adam::physics(&player, cln_h);
 
 	background.setTexture(tex2);
 	ground.setTexture(tex);
+	damage_background.setTexture(tex3);
 	bgMain.setTexture(menuTex);
 	pos = player.getPosition();
 
@@ -317,6 +321,10 @@ void Game::render() {
 			window.draw(enemy->operator sf::Sprite());
 
 
+		}
+		if (cln_h2.collides_with_world(&player)) 
+		{
+			player.health.sub(1);
 		}
 		enemy->update_info_pos(window);
 		window.draw(ground);
