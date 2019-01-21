@@ -303,6 +303,8 @@ void Game::render() {
 		{
 			window.clear();
 			window.draw(background);
+			window.draw(ground);
+			window.draw(damage_background);
 			window.draw(sf::Sprite(player));
 			window.draw(sf::Sprite(*enemy));
 			currentMenu->draw(window);
@@ -345,6 +347,7 @@ void Game::render() {
 		}
 		enemy->update_info_pos(window);
 		window.draw(ground);
+		window.draw(damage_background);
 		window.setView(main_HUD);
 		hud.draw(window);
 		auto center = Collision::GetSpriteCenter(player);
