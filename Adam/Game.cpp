@@ -309,6 +309,8 @@ void Game::render() {
 		{
 			window.clear();
 			window.draw(background);
+			window.draw(ground);
+			window.draw(damage_ground);
 			window.draw(sf::Sprite(player));
 			window.draw(sf::Sprite(*enemy));
 			currentMenu->draw(window);
@@ -345,7 +347,9 @@ void Game::render() {
 
 
 		}
-
+		if (cln_h2.collides_with_world(&player)) {
+			player.health.sub(1);
+		}
 		enemy->update_info_pos(window);
 		window.draw(ground);
 		window.draw(damage_ground);
