@@ -18,7 +18,7 @@ void inGameMenu::moveUp()
 	}
 	else
 	{
-		selectedItem = pauseOptions;
+		selectedItem = pauseOptions -1;
 	}
 	pauseScreen[selectedItem].setFillColor(sf::Color::Red);
 }
