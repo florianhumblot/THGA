@@ -155,7 +155,7 @@ void Game::handleInput() {
 										}
 										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
 										{
-											std::cout << "option menu not made yet" << std::endl;
+											window.close();
 
 										}
 										break;
@@ -214,7 +214,9 @@ void Game::handleInput() {
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
-				window.close();
+				//window.close();
+				state = STATE::MENU;
+				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
 			}
 
 
