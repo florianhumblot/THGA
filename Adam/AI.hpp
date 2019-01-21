@@ -10,7 +10,7 @@ public:
 
 	}
 
-	void shouldFollow_followDirection(fighter & p1, movable & p2);
+	void shouldFollow_followDirection(fighter * p1, movable & p2);
 	
 
 

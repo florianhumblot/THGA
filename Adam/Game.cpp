@@ -248,8 +248,8 @@ void Game::handleInput() {
 			}
 
 			
-			ai->shouldFollow_followDirection(*enemy, player);
-			enemy->setVelocity(sf::Vector2f(4 , enemy->getVelocity().y));
+			ai->shouldFollow_followDirection(enemy.get(), player);
+			//enemy->setVelocity(sf::Vector2f(4 , enemy->getVelocity().y));
 			//enemy->setVelocity(sf::Vector2f(-4, enemy->getVelocity().y));
 			
 
