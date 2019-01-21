@@ -30,26 +30,26 @@ public:
 		pauseScreen[0].setFont(font);
 		pauseScreen[0].setString("Continue Game");
 		pauseScreen[0].setFillColor(sf::Color::Red);
-		pauseScreen[0].setCharacterSize(80);
-		pauseScreen[0].setPosition(sf::Vector2f((player.getPosition().x)-100, (player.getPosition().y)-100));
+		pauseScreen[0].setCharacterSize(55);
+		pauseScreen[0].setPosition(sf::Vector2f((player.getPosition().x)-100, (player.getPosition().y)-85));
 
 		pauseScreen[1].setFont(font);
 		pauseScreen[1].setString("Load Game");
 		pauseScreen[1].setFillColor(sf::Color::White);
-		pauseScreen[1].setCharacterSize(80);
-		pauseScreen[1].setPosition(sf::Vector2f((player.getPosition().x), (player.getPosition().y)-50));
+		pauseScreen[1].setCharacterSize(55);
+		pauseScreen[1].setPosition(sf::Vector2f((player.getPosition().x)-100, (player.getPosition().y)-45));
 
 		pauseScreen[2].setFont(font);
 		pauseScreen[2].setString("Options");
 		pauseScreen[2].setFillColor(sf::Color::White);
-		pauseScreen[2].setCharacterSize(80);
-		pauseScreen[2].setPosition(sf::Vector2f((player.getPosition().x), (player.getPosition().y)));
+		pauseScreen[2].setCharacterSize(55);
+		pauseScreen[2].setPosition(sf::Vector2f((player.getPosition().x)-100, (player.getPosition().y)-5));
 
 		pauseScreen[3].setFont(font);
 		pauseScreen[3].setString("Quit Game");
 		pauseScreen[3].setFillColor(sf::Color::White);
-		pauseScreen[3].setCharacterSize(80);
-		pauseScreen[3].setPosition(sf::Vector2f((player.getPosition().x), (player.getPosition().y)+50));
+		pauseScreen[3].setCharacterSize(55);
+		pauseScreen[3].setPosition(sf::Vector2f((player.getPosition().x)-100, (player.getPosition().y)+40));
 
 
 		current_state = menu_states::s_ingameMenu;
