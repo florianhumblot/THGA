@@ -151,7 +151,7 @@ void Game::handleInput() {
 										}
 										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
 										{
-											std::cout << "option menu not made yet" << std::endl;
+											window.close();
 
 										}
 										break;
@@ -293,11 +293,26 @@ void Game::render() {
 
 	case STATE::MENU:
 	{
-
-		window.clear();
-		window.draw(bgMain);
-		currentMenu->draw(window);
-		window.display();
+		if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
+		{
+			window.clear();
+			window.draw(background);
+			window.draw(sf::Sprite(player));
+			window.draw(sf::Sprite(*enemy));
+			currentMenu->draw(window);
+			window.display();
+		}
+		else
+		{
+			window.clear();
+			window.draw(bgMain);
+			currentMenu->draw(window);
+			window.display();
+		}
+		//window.clear();
+		//window.draw(bgMain);
+		//currentMenu->draw(window);
+		//window.display();
 
 		break;
 	}
