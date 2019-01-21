@@ -8,7 +8,7 @@
 
 class Enemy : public movable, public fighter
 {
-
+private:
 	sf::Font font;
 	sf::Text text[2];
 	std::string t[2];
@@ -28,38 +28,9 @@ public:
 	Enemy() {}
 	Enemy(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 
-	
-	/*void updatePosition(int x) { 
-		if (state == STATE::IDLE) {
-			//if (teller % 6 == 0) {
-				setVelocity(sf::Vector2f(x, getVelocity().y));
-				teller++;
-			//}
-			//else {
-				//setVelocity(sf::Vector2f(0, getVelocity().y));
-			//}
-
-			if (teller++ > 80) {
-				if (current_direction == Enemy::direction::RIGHT) {
-					current_direction = Enemy::direction::LEFT;
-				}
-				else {
-					current_direction = Enemy::direction::RIGHT;
-				}
-				teller = 0;
-			}
-		}
-		
-		
-	}*/
-
 	void take_damage(int amount);
 
-	void updateFollowPosition(int x) {
-		setVelocity(sf::Vector2f(4 * x, getVelocity().y));
-
-
-	}
+	void updateFollowPosition(int x);
 
 	~Enemy();
 	//	operator sf::Sprite() { return sprite; }

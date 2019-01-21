@@ -6,7 +6,6 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 
 	window(w),
 	player(player),
-	menu(menu),
 	hud(hud)
 
 {
@@ -146,7 +145,15 @@ void Game::handleInput() {
 									}
 									case 3:
 									{
+										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
+										{
+											std::cout << "option menu not made yet" << std::endl;
+										}
+										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
+										{
+											std::cout << "option menu not made yet" << std::endl;
 
+										}
 										break;
 									}
 									case 4:
@@ -238,23 +245,6 @@ void Game::handleInput() {
 			
 			ai->shouldFollow_followDirection(*enemy, player);
 			
-			/*
-			if (enemy->current_direction == Enemy::direction::RIGHT) {
-				enemy->updatePosition(8);
-			}
-			else {
-				enemy->updatePosition(-8);
-			}
-
-			if ((enemy->getPosition() - player.getPosition()).x <= 100) {
-				enemy->updateFollowPosition(-1);
-			}
-			else if ((enemy->getPosition() - player.getPosition()).x >= -100) {
-				enemy->updateFollowPosition(1);
-			}*/
-
-			
-
 
 			break;
 		}
