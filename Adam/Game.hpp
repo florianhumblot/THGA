@@ -16,6 +16,7 @@
 #include "Enemy.hpp"
 #include "ingameMenu.hpp"
 #include "AI.hpp"
+#include "fighter.h"
 
 using namespace std;
 using namespace sf;
@@ -52,7 +53,7 @@ private:
 	Adam::collision_handler cln_h;
 	Adam::physics world_physics;
 
-	std::shared_ptr<Enemy> enemy;
+	std::shared_ptr<fighter> enemy;
 
 	std::shared_ptr<AI> ai;
 

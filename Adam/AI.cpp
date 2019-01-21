@@ -2,7 +2,7 @@
 #include "AI.hpp"
 
 
-void AI::shouldFollow_followDirection(Enemy & p1, movable & p2) {
+void AI::shouldFollow_followDirection(fighter & p1, movable & p2) {
 	//Check if p1 and p2 are close to each other
 	// if so, fight
 	// or make enemy move towarts the player
