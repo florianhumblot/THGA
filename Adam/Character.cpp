@@ -4,6 +4,7 @@ Character::Character(sf::Vector2f position, sf::Vector2f scale, const std::strin
 	movable(position, scale, textureFile, velocity),
 	Animateable(std::map<std::string, Animation> { {"IDLEright", Animation()}})
 {
+	fighter(health_c, 1);
 	animations["IDLEright"].addFrame(textureFile);
 	mana = mana_c;
 	health = health_c;

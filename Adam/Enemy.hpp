@@ -4,8 +4,9 @@
 #include "Collision.h"
 #include "statistic.h"
 #include "Movable.h"
+#include "fighter.h"
 
-class Enemy : public movable
+class Enemy : public movable, public fighter
 {
 private:
 	sf::Font font;
@@ -17,8 +18,8 @@ private:
 	STATE state = STATE::IDLE;
 
 public:
-	int lvl = 1;
-	statistic health;
+	//int lvl = 1;
+	//statistic health;
 
 	enum class direction { LEFT, RIGHT };
 	direction current_direction = direction::RIGHT;

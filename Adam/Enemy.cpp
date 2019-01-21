@@ -4,6 +4,7 @@
 Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, statistic health_c) :
 	movable(position, scale, textureFile, velocity)
 {
+	fighter(health_c, 1);
 	health = health_c;
 	Collision::CreateTextureAndBitmask(texture, textureFile);
 //	std::cout << position.x << " <charPosX";
