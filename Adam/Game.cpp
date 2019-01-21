@@ -204,7 +204,7 @@ void Game::handleInput() {
 			if (Keyboard::isKeyPressed(Keyboard::O))
 			{
 				state = STATE::MENU;
-				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y);
+				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
