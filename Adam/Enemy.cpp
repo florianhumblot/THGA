@@ -20,7 +20,7 @@ Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, const std::string & text
 		text[i].setFont(font);
 		text[i].setOutlineColor(sf::Color::Black);
 		text[i].setOutlineThickness(2.0f);
-		text[i].setCharacterSize(12);
+		text[i].setCharacterSize(10);
 		text[i].setString(t[i]);
 	}
 	text[0].setFillColor(sf::Color::Red);
