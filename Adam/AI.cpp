@@ -2,21 +2,36 @@
 #include "AI.hpp"
 
 
-int AI::shouldFollow_followDirection(Enemy & p1, movable & p2) {
+void AI::shouldFollow_followDirection(fighter * p1, fighter & p2) {
+
 	//Check if p1 and p2 are close to each other
 	// if so, make enemy move towarts the player
-	if ((p1.getPosition() - p2.getPosition()).x <= 400 && (p1.getPosition() - p2.getPosition()).x >= 25) {
-		p1.updateFollowPosition(-1);
-		return -1;
+	if ((p1->getPosition() - p2.getPosition()).x <= 50 && (p1->getPosition() - p2.getPosition()).x >= 0) {
+		p1->updateFollowPosition(0);
+		p2.health.sub(1);
+		p1->fight();
 	}
-	else if ((p1.getPosition() - p2.getPosition()).x >= -400 && (p1.getPosition() - p2.getPosition()).x <= -25) {
-		p1.updateFollowPosition(1);
-		return 1;
+	else if ((p1->getPosition() - p2.getPosition()).x <= 400 && (p1->getPosition() - p2.getPosition()).x >= 50) {
+		std::cout << "left \n";
+		p1->updateFollowPosition(-1);
+		return;
 	}
-	// if they are not close to eachother
-	// make sure the enemy's velocity is zero
-	p1.updateFollowPosition(0);
-	return 0;
+	else if ((p1->getPosition() - p2.getPosition()).x >= -50 && (p1->getPosition() - p2.getPosition()).x <= -0) {
+		p1->updateFollowPosition(0);
+		p2.health.sub(1);
+		p1->fight();
+	}
+	else if ((p1->getPosition() - p2.getPosition()).x >= -400 && (p1->getPosition() - p2.getPosition()).x <= -50) {
+		std::cout << "right \n";
+		p1->updateFollowPosition(1);
+		return;
+	}
+	else {
+		// if they are not close to eachother
+		// make sure the enemy's velocity is zero
+		p1->updateFollowPosition(0);
+	}
+
 }
 
 void walkRandomly(npc & p1) {
@@ -28,5 +43,4 @@ void walkRandomly(npc & p1) {
 	}
 	int dir = p1.getDirection();
 	p1.move(sf::Vector2f(dir, 0));
-
 }

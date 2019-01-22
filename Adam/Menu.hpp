@@ -3,8 +3,6 @@
 
 class Menu {
 
-
-
 public:
 	int selectedItem;
 	

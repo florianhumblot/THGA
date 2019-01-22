@@ -8,7 +8,6 @@ protected:
 public:
 	enum class direction { LEFT, RIGHT };
 	direction current_direction = direction::RIGHT;
-	movable(sf::Vector2f &position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity);
 	movable(sf::Vector2f &position, sf::Vector2f scale, sf::Texture texture, sf::Vector2f velocity);
 
 	movable() {}
