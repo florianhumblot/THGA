@@ -9,11 +9,8 @@ AnimationManager::AnimationManager(const std::string & s)
 		std::cout << "Couldn't open " << s << std::endl;
 	}
 	std::string object, action, path = "";
-	//size_t size_x, size_y;
 	while (in >> object >> action >> path) {
-		sf::Texture t;
 		Animation a(action);
-		Collision::CreateTextureAndBitmask(t, "assets/" + path);
 		auto pos = animations.find(object);
 		if (pos != animations.end()) {
 			auto pos2 = pos->second.find(action);
@@ -26,7 +23,7 @@ AnimationManager::AnimationManager(const std::string & s)
 		}else{
 			animations[object][action] = a;
 		}
-		animations[object][action].addFrame(t);
+		animations[object][action].addFrame("assets/" + path);
 	}
 }
 
