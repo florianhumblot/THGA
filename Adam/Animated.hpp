@@ -11,7 +11,7 @@ public:
 	Animateable(std::map<std::string, Animation> animations);
 	Animateable() {}
 	Animation getAnimation(std::string animation);
-	Animation getCurrentAnimation();
+	std::string getCurrentAnimation();
 	void setAnimation(std::string animation);
 	~Animateable() {}
 };

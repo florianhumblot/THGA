@@ -11,8 +11,8 @@ Animation Animateable::getAnimation(std::string animation) {
 	return animations[animation];
 }
 
-Animation Animateable::getCurrentAnimation() {
-	return currentAnimation;
+std::string Animateable::getCurrentAnimation() {
+	return currentAnimation.name;
 }
 
 void Animateable::setAnimation(std::string animation) {

@@ -5,8 +5,8 @@ class Animation
 private:
 	bool animation_done;
 	int current_frame;
-	std::string name = "default";
 public:
+	std::string name = "default";
 	std::vector<sf::Texture> textures;
 	Animation() :animation_done(false), current_frame(0), textures()  {};
 	Animation(std::string name) :name(name), animation_done(false), current_frame(0), textures() {};

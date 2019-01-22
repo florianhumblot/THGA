@@ -222,7 +222,7 @@ void Game::handleInput() {
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
-				if (player.getCurrentAnimation() != player.getAnimation("WALKright")) {
+				if (player.getCurrentAnimation() != "WALKright") {
 					player.setAnimation("WALKright");
 				}
 
@@ -231,7 +231,7 @@ void Game::handleInput() {
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
-				if (player.getCurrentAnimation() != player.getAnimation("WALKright")) {
+				if (player.getCurrentAnimation() != "WALKright") {
 					player.setAnimation("WALKright");
 				}
 				player.setScale(sf::Vector2f(-0.2, 0.2));
@@ -243,7 +243,7 @@ void Game::handleInput() {
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 				if (player.getVelocity().y == 0) {
-					if (player.getCurrentAnimation() != player.getAnimation("IDLEright")) {
+					if (player.getCurrentAnimation() != "IDLEright") {
 						player.setAnimation("IDLEright");
 					}
 				}
