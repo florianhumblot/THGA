@@ -1,11 +1,12 @@
 #include "pch.h"
 #include "Enemy.hpp"
 
-Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, const sf::Texture & tex, sf::Vector2f velocity, statistic health_c):
-	fighter(position, scale, tex, velocity, health_c, 1)
+Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c):
+	fighter(position, scale, animations["IDLEright"].textures[0], velocity, health_c, 1),
+	Animateable(animations)
 {
 	health = health_c;
-	texture = tex;
+	texture = animations["IDLEright"].textures[0];
 
 	if (!font.loadFromFile("fonts/stranger.ttf"))
 	{
@@ -63,3 +64,4 @@ void Enemy::updateFollowPosition(int x) {
 
 
 }
+

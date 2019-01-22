@@ -52,7 +52,7 @@ private:
 	Adam::collision_handler cln_h2;
 	Adam::physics world_physics;
 
-	std::shared_ptr<fighter> enemy;
+	std::shared_ptr<Enemy> enemy;
 
 	std::shared_ptr<AI> ai;
 
@@ -63,7 +63,7 @@ private:
 
 public:
 
-	Game(sf::RenderWindow &w, Character &player, HUD &hud);
+	Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani);
 
 	void handleInput();
 	void update();
