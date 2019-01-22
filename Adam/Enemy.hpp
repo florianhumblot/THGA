@@ -7,7 +7,7 @@
 #include "fighter.h"
 #include "Animated.hpp"
 
-class Enemy : public fighter, public Animateable
+class Enemy : public fighter
 {
 private:
 	sf::Font font;

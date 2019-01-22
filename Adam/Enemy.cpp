@@ -2,8 +2,8 @@
 #include "Enemy.hpp"
 
 Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c):
-	fighter(position, scale, animations["IDLEright"].textures[0], velocity, health_c, 1),
-	Animateable(animations)
+	fighter(position, scale, animations["IDLEright"].textures[0], velocity, animations, health_c, 1)
+	//Animateable(animations)
 {
 	health = health_c;
 	texture = animations["IDLEright"].textures[0];

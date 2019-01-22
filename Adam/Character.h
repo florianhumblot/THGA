@@ -5,7 +5,7 @@
 #include "Animated.hpp"
 #include "fighter.h"
 
-class Character :  public Animateable, public fighter
+class Character :  public fighter
 {
 
 	

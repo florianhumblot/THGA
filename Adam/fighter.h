@@ -3,8 +3,9 @@
 #include "statistic.h"
 #include "Movable.h"
 #include "fighter.h"
+#include "Animated.hpp"
 
-class fighter : public movable
+class fighter : public movable, public Animateable
 {
 public:
 	int lvl;
@@ -13,7 +14,7 @@ public:
 	sf::Texture AABB;
 
 	fighter();
-	fighter(sf::Vector2f &position, sf::Vector2f scale, sf::Texture texture, sf::Vector2f velocity, statistic health_c = statistic(100, 100), int lvl_c = 1);
+	fighter(sf::Vector2f &position, sf::Vector2f scale, sf::Texture texture, sf::Vector2f velocity, std::map<std::string, Animation> animations, statistic health_c = statistic(100, 100), int lvl_c = 1);
 
 	virtual void update_info(int new_lvl) {}
 	virtual void update_info_pos(sf::RenderWindow & window) {}
@@ -23,6 +24,9 @@ public:
 		
 		if (Collision::PixelPerfectTest(makeFightBox(), opponent->getBox())) {
 			updateFollowPosition(0);
+			if (getCurrentAnimation() != "SLASHINGright") {
+				setAnimation("SLASHINGright");
+			}
 			opponent->health.sub(1);
 			return true;
 		}
