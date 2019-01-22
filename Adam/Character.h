@@ -7,11 +7,6 @@
 
 class Character :  public Animateable, public fighter
 {
-
-	
-	sf::Font font;
-	sf::Text text[4];
-	std::string t[4];
 public:
 	statistic mana;
 	statistic exp;
