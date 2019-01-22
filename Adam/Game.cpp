@@ -2,7 +2,7 @@
 #include "Game.hpp"
 #include "Menu.hpp"
 
-Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
+Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani) :
 
 	window(w),
 	player(player),
@@ -29,7 +29,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);
 
-	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), char_alpha, v2(0, 0), statistic(200, 200));
+	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(bg);
 	this->cln_h2 = Adam::collision_handler(bg3);
@@ -256,6 +256,7 @@ void Game::update() {
 		{
 			if (Clock.getElapsedTime().asMilliseconds() >= 100) {
 				player.setTexture(player.currentAnimation.nextFrame());
+				enemy->setTexture(enemy->currentAnimation.nextFrame());
 				Clock.restart();
 			}
 

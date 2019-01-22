@@ -63,7 +63,7 @@ private:
 
 public:
 
-	Game(sf::RenderWindow &w, Character &player, HUD &hud);
+	Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani);
 
 	void handleInput();
 	void update();

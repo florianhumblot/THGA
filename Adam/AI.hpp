@@ -1,5 +1,6 @@
 #pragma once
 #include "fighter.h"
+#include "Enemy.hpp"
 
 class AI {
 
@@ -8,7 +9,7 @@ public:
 
 	}
 
-	void shouldFollow_followDirection(fighter * p1, fighter & p2);
+	void shouldFollow_followDirection(Enemy * p1, fighter & p2);
 	
 
 
