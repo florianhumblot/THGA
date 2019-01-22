@@ -12,7 +12,6 @@ class Enemy : public fighter, public Animateable
 private:
 	sf::Font font;
 	sf::Text text[2];
-	std::string t[2];
 	int teller = 0;
 
 	enum class STATE { IDLE, FOLLOWING };

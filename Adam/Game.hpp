@@ -17,6 +17,7 @@
 #include "ingameMenu.hpp"
 #include "AI.hpp"
 #include "fighter.h"
+#include "levelManager.h"
 
 using namespace std;
 using namespace sf;
@@ -29,27 +30,28 @@ private:
 	std::vector<Character*> enemies;
 	sf::RenderWindow & window;
 	HUD & hud;
+	levelManager lvls;
 	sf::View main_camera;
-	sf::Texture tex;
+	//sf::Texture tex;
 	sf::View main_HUD;
-	Sprite bg;
-	Sprite bg2;
-	Sprite bg3;
-	sf::Texture tex2;
-	sf::Texture tex3;
+	//Sprite bg;
+	//Sprite bg2;
+	//Sprite bg3;
+	//sf::Texture tex2;
+	//sf::Texture tex3;
 	sf::Texture char_alpha;
 	sf::Texture char_alpha_invert;
 	sf::Texture menuTex;
 	Character & player;
-	sf::Sprite background;
-	sf::Sprite damage_background;
-	sf::Sprite ground;
+	//sf::Sprite background;
+	//sf::Sprite damage_background;
+	//sf::Sprite ground;
 	sf::Sprite bgMain;
 
 	sf::Clock Clock;
 
 	Adam::collision_handler cln_h;
-	Adam::collision_handler cln_h2;
+	//Adam::collision_handler cln_h2;
 	Adam::physics world_physics;
 
 	std::shared_ptr<Enemy> enemy;
