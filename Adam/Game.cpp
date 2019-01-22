@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Game.hpp"
 #include "Menu.hpp"
+#include "npc.hpp"
 
 Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 
@@ -31,6 +32,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	main_camera.setSize(700, 350);
 
 	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.025, 0.025), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
+	np = std::make_shared<npc>(v2(890, 690), v2(0.25, 0.25), playerAnimation.animations["mage"], v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(bg);
 	this->world_physics = Adam::physics(&player, cln_h);
@@ -49,12 +51,9 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 
 	gravity = v2(0, 1);
 	Collision::CreateTextureAndBitmask(slimeChar, "assets/slimeTest.png");
-	for (int i = 0; i < 5; i++) {
-		Character* n = new Character(sf::Vector2f(500 + 100 * i, 1500), sf::Vector2f(0.025, 0.025), "assets/slimeTest.png", sf::Vector2f(0, 0));
-		enemies.push_back(n);
-		world_physics.moveables.push_back(n);
-	}
+
 	world_physics.moveables.push_back(&*enemy);
+	world_physics.moveables.push_back(&*np);
 
 	state = STATE::MENU;
 }
@@ -217,6 +216,7 @@ void Game::handleInput() {
 			{
 				if (player.getCurrentAnimation() != player.getAnimation("WALKright")) {
 					player.setAnimation("WALKright");
+					player.setTexture(player.currentAnimation.nextFrame());
 				}
 
 				player.setScale(sf::Vector2f(0.2, 0.2));
@@ -226,6 +226,7 @@ void Game::handleInput() {
 			{
 				if (player.getCurrentAnimation() != player.getAnimation("WALKright")) {
 					player.setAnimation("WALKright");
+					player.setTexture(player.currentAnimation.nextFrame());
 				}
 				player.setScale(sf::Vector2f(-0.2, 0.2));
 
@@ -238,13 +239,13 @@ void Game::handleInput() {
 				if (player.getVelocity().y == 0) {
 					if (player.getCurrentAnimation() != player.getAnimation("IDLEright")) {
 						player.setAnimation("IDLEright");
+						player.setTexture(player.currentAnimation.nextFrame());
 					}
 				}
 			}
 
 			
 			ai->shouldFollow_followDirection(*enemy, player);
-			
 
 			break;
 		}
@@ -307,17 +308,12 @@ void Game::render() {
 	{
 		window.clear();
 		window.draw(background);
-		//sf::Vector2f pos_info = sf::Vector2f(player.getPosition().x, player.getPosition().y - 100);
-		//player.update_info_pos(window,pos_info);
+
 		window.draw(sf::Sprite(player));
-		window.draw(sf::Sprite(*enemy));
-		for (auto & enemy : enemies) {
-			//				std::cout << enemy->getPosition().y << ", <POSy " << enemy->getPosition().x << ", <POSx ";
-			//				std::cout << enemy->getVelocity().y << ", <VEL \n";
-			window.draw(enemy->operator sf::Sprite());
+		window.draw(np->operator sf::Sprite());
+		window.draw(enemy->operator sf::Sprite());
 
-
-		}
+		std::cout << "  ";
 		enemy->update_info_pos(window);
 		window.draw(ground);
 		window.setView(main_HUD);

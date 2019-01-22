@@ -54,6 +54,8 @@ private:
 
 	std::shared_ptr<Enemy> enemy;
 
+	std::shared_ptr<npc> np;
+
 	std::shared_ptr<AI> ai;
 
 	std::shared_ptr<Menu> currentMenu;

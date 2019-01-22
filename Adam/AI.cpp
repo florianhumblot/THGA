@@ -18,3 +18,15 @@ int AI::shouldFollow_followDirection(Enemy & p1, movable & p2) {
 	p1.updateFollowPosition(0);
 	return 0;
 }
+
+void walkRandomly(npc & p1) {
+	p1.updateState();
+	if (p1.isWalking()) {
+		if ((p1.originPosition.x - p1.getPosition().x > 100) || p1.originPosition.x - p1.getPosition().x < -100) {
+			p1.walkTheOtherWay();
+		}
+	}
+	int dir = p1.getDirection();
+	p1.move(sf::Vector2f(dir, 0));
+
+}
