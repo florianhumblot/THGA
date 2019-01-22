@@ -8,8 +8,7 @@ void AI::shouldFollow_followDirection(fighter * p1, fighter & p2) {
 	// if so, make enemy move towarts the player
 	if ((p1->getPosition() - p2.getPosition()).x <= 50 && (p1->getPosition() - p2.getPosition()).x >= 0) {
 		p1->updateFollowPosition(0);
-		p2.health.sub(1);
-		p1->fight();
+		p1->fight(p2);
 	}
 	else if ((p1->getPosition() - p2.getPosition()).x <= 400 && (p1->getPosition() - p2.getPosition()).x >= 50) {
 		std::cout << "left \n";
@@ -18,8 +17,7 @@ void AI::shouldFollow_followDirection(fighter * p1, fighter & p2) {
 	}
 	else if ((p1->getPosition() - p2.getPosition()).x >= -50 && (p1->getPosition() - p2.getPosition()).x <= -0) {
 		p1->updateFollowPosition(0);
-		p2.health.sub(1);
-		p1->fight();
+		p1->fight(p2);
 	}
 	else if ((p1->getPosition() - p2.getPosition()).x >= -400 && (p1->getPosition() - p2.getPosition()).x <= -50) {
 		std::cout << "right \n";

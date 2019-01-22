@@ -312,6 +312,7 @@ void Game::render() {
 			
 			}
 			hud.update();
+			player.checkDead();
 			if (player.health.is_zero())
 			{
 				player.setPosition(sf::Vector2f(890, 690));
