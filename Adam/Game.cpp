@@ -222,6 +222,12 @@ void Game::handleInput() {
 				player.setVelocity(sf::Vector2f(-4, player.getVelocity().y));
 
 			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
+			{
+				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
+				player.fight(enemy.get());
+				std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
+			}
 			else
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
@@ -233,7 +239,7 @@ void Game::handleInput() {
 			}
 
 			
-			ai->shouldFollow_followDirection(enemy.get(), player);
+			ai->shouldFollow_followDirection(enemy.get(), &player);
 			
 
 			break;
@@ -262,6 +268,9 @@ void Game::update() {
 
 			world_physics.step_x_moveables();
 			world_physics.step_y_moveables();
+
+			player.checkDead();
+			enemy.get()->checkDead();
 
 		}
 		break;
@@ -313,12 +322,12 @@ void Game::render() {
 			
 			}
 			hud.update();
-			player.checkDead();
-			if (player.health.is_zero())
+			
+			/*if (player.health.is_zero())
 			{
 				player.setPosition(sf::Vector2f(890, 690));
 				player.health.current = player.health.max;
-			}
+			}*/
 			enemy->update_info_pos(window);
 			window.draw(ground);
 			window.draw(damage_background);
