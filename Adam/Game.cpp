@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Game.hpp"
 #include "Menu.hpp"
+#include "npc.hpp"
 
 Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani) :
 
@@ -29,6 +30,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);
 
+	np = std::make_shared<npc>(v2(890, 690), v2(0.25, 0.25), ani.animations["skull"], v2(0, 0), statistic(200, 200));
 	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(bg);
@@ -47,6 +49,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	ai = std::make_shared<AI>();
 
 	world_physics.moveables.push_back(&*enemy);
+	world_physics.moveables.push_back(&*np);
 
 	state = STATE::MENU;
 }
@@ -205,8 +208,9 @@ void Game::handleInput() {
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
-				if (player.getCurrentAnimation() != "WALKright") {
+				if (player.getCurrentAnimation() != std::string("WALKright")) {
 					player.setAnimation("WALKright");
+					player.setTexture(player.currentAnimation.nextFrame());
 				}
 
 				player.setScale(sf::Vector2f(0.2, 0.2));
@@ -214,8 +218,9 @@ void Game::handleInput() {
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
-				if (player.getCurrentAnimation() != "WALKright") {
+				if (player.getCurrentAnimation() != std::string("WALKright")) {
 					player.setAnimation("WALKright");
+					player.setTexture(player.currentAnimation.nextFrame());
 				}
 				player.setScale(sf::Vector2f(-0.2, 0.2));
 
@@ -232,16 +237,16 @@ void Game::handleInput() {
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 				if (player.getVelocity().y == 0) {
-					if (player.getCurrentAnimation() != "IDLEright") {
+					if (player.getCurrentAnimation() != std::string("IDLEright")) {
 						player.setAnimation("IDLEright");
+						player.setTexture(player.currentAnimation.nextFrame());
 					}
 				}
 			}
 
-			
 			ai->shouldFollow_followDirection(enemy.get(), &player);
-			
 
+			
 			break;
 		}
 	}
@@ -279,66 +284,65 @@ void Game::update() {
 }
 
 void Game::render() {
-	switch (state) 
+	switch (state)
 	{
 
-		case STATE::MENU:
-		{
+	case STATE::MENU:
+	{
 
-			if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
-			{
-				window.clear();
-				window.draw(background);
-				window.draw(ground);
-				window.draw(damage_background);
-				window.draw(sf::Sprite(player));
-				window.draw(sf::Sprite(*enemy));
-				currentMenu->draw(window);
-				window.display();
-			}
-			else
-			{
-				window.clear();
-				window.draw(bgMain);
-				currentMenu->draw(window);
-				window.display();
-			}
-			break;
-		}
-
-
-		case STATE::PLAYING:
+		if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
 		{
 			window.clear();
 			window.draw(background);
-			window.draw(sf::Sprite(player));
-			window.draw(sf::Sprite(*enemy));
-			for (auto & enemy : enemies) {
-				window.draw(enemy->operator sf::Sprite());
-			}
-			if (cln_h2.collides_with_world(&player))
-			{
-				player.health.sub(1);
-			
-			}
-			hud.update();
-			
-			/*if (player.health.is_zero())
-			{
-				player.setPosition(sf::Vector2f(890, 690));
-				player.health.current = player.health.max;
-			}*/
-			enemy->update_info_pos(window);
 			window.draw(ground);
 			window.draw(damage_background);
-			window.setView(main_HUD);
-			hud.draw(window);
-			auto center = Collision::GetSpriteCenter(player);
-			main_camera.setCenter(center);
-			window.setView(main_camera);
+			window.draw(sf::Sprite(player));
+			window.draw(sf::Sprite(*enemy));
+			currentMenu->draw(window);
 			window.display();
-			break;
 		}
+		else
+		{
+			window.clear();
+			window.draw(bgMain);
+			currentMenu->draw(window);
+			window.display();
+		}
+		break;
+	}
+
+
+	case STATE::PLAYING:
+	{
+		window.clear();
+		window.draw(background);
+		window.draw(sf::Sprite(player));
+		window.draw(sf::Sprite(*enemy));
+		for (auto & enemy : enemies) {
+			window.draw(enemy->operator sf::Sprite());
+		}
+		if (cln_h2.collides_with_world(&player))
+		{
+			player.health.sub(1);
+
+		}
+		hud.update();
+		if (player.health.is_zero())
+		{
+			player.setPosition(sf::Vector2f(890, 690));
+			player.health.current = player.health.max;
+		}
+		enemy->update_info_pos(window);
+		window.draw(ground);
+		window.draw(damage_background);
+		window.setView(main_HUD);
+		hud.draw(window);
+		auto center = Collision::GetSpriteCenter(player);
+		main_camera.setCenter(center);
+		window.setView(main_camera);
+		window.display();
+		break;
+	}
 	}
 	return;
 }
