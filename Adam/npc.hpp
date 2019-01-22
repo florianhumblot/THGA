@@ -4,9 +4,9 @@
 #include "statistic.h"
 #include <cstdlib>
 
-class npc : public movable, Animateable{
+class npc : public movable, public Animateable{
 	statistic health;
-	enum class STATE {IDLE, FOLLOWING, WALKINGRIGHT, WALKINGLEFT};
+	enum class STATE {IDLE, FOLLOWING, WALKING};
 	STATE state = STATE::IDLE;
 public:
 	sf::Vector2f originPosition;

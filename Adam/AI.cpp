@@ -45,11 +45,28 @@ void AI::shouldFollow_followDirection(Enemy * p1, fighter & p2) {
 
 void AI::walkRandomly(npc * p1) {
 	p1->updateState();
+	std::cout << p1->isWalking();
 	if (p1->isWalking()) {
-		if ((p1->originPosition.x - p1->getPosition().x > 100) || p1->originPosition.x - p1->getPosition().x < -100) {
-			p1->walkTheOtherWay();
+		if (p1->originPosition.x - p1->getPosition().x > 100) {
+			p1->setScale(sf::Vector2f(0.2, 0.2));
+			p1->current_direction = movable::direction::RIGHT;
+			if (p1->getCurrentAnimation() != "WALKright") {
+				p1->setAnimation("WALKright");
+			}
+		} else if (p1->originPosition.x - p1->getPosition().x < -100) {
+			p1->setScale(sf::Vector2f(-0.2, 0.2));
+			p1->current_direction = movable::direction::LEFT;
+			if (p1->getCurrentAnimation() != "WALKright") {
+				p1->setAnimation("WALKright");
+			}
 		}
+		if (p1->getVelocity().x == 0) {
+	//		p1->walkTheOtherWay();
+			p1->setVelocity(sf::Vector2f(0, -9));
+		}
+		int dir = p1->getDirection();
+		p1->setVelocity(sf::Vector2f(dir, p1->getVelocity().y));
+
 	}
-	int dir = p1->getDirection();
-	p1->move(sf::Vector2f(dir, 0));
+	
 }
