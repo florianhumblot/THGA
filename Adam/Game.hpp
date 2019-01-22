@@ -29,7 +29,6 @@ private:
 	std::vector<Character*> enemies;
 	sf::RenderWindow & window;
 	HUD & hud;
-	sf::CircleShape shape;
 	sf::View main_camera;
 	sf::Texture tex;
 	sf::View main_HUD;
@@ -47,11 +46,7 @@ private:
 	sf::Sprite ground;
 	sf::Sprite bgMain;
 
-	sf::Texture slimeChar;
-	
 	sf::Clock Clock;
-	AnimationManager playerAnimation;
-	Animation currentAnimation;
 
 	Adam::collision_handler cln_h;
 	Adam::collision_handler cln_h2;
@@ -63,15 +58,8 @@ private:
 
 	std::shared_ptr<Menu> currentMenu;
 
-	int tellerEnemy = 0;
-
-	v2 pos;
-	v2 gravity;
-
 	enum class STATE { MENU, PLAYING, GAMEOVER };
 	enum STATE state;
-
-
 
 public:
 

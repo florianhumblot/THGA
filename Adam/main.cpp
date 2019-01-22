@@ -10,21 +10,12 @@
 using namespace std;
 using namespace sf;
 
-#define v2i sf::Vector2i
-#define v2 sf::Vector2f
-
-
 int main()
 {
-	RenderWindow window(VideoMode(1920, 1080, 32), "APPLICATION");
+	RenderWindow window(VideoMode(1920, 1080, 32), "Project: ADAM");
 	AnimationManager ani("assets/animations/animations.txt");
-	float dt = 1.f / 60.f; //fixed physics step
-	float accumulator = 0.f; //total to consume cou
-	float ft = 0.0f; //frame time 
-	sf::Clock timer;
 
-	Character player(v2(890, 690), v2(0.2, 0.2), ani.animations["mage"], v2(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
-//	Character player(v2(890, 690), v2(0.025, 0.025), "assets/char_alpha.png", v2(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
+	Character player(sf::Vector2f(890, 690), sf::Vector2f(0.2, 0.2), ani.animations["mage"], sf::Vector2f(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
 	HUD hud(player);
 	Game game(window, player, hud);
 
@@ -34,7 +25,6 @@ int main()
 		game.update();
 		game.render();
 	}
-	cout << "done";
 
 	return 0;
 }

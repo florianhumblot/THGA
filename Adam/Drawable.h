@@ -13,7 +13,6 @@ public:
 	drawable() {
 		AABB.loadFromFile("assets/AABB.png");
 	}
-	drawable(sf::Vector2f &position, sf::Vector2f scale, const std::string & textureFile);
 	drawable(sf::Vector2f &position, sf::Vector2f scale, sf::Texture texture);
 	~drawable() {}
 	sf::Vector2f getPosition();
@@ -29,7 +28,6 @@ public:
 	}
 
 	operator sf::Sprite() { 
-	//	std::cout << texture.getSize().y << "\n"; 
 		return sprite; 
 	}
 

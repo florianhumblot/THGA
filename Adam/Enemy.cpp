@@ -1,17 +1,15 @@
 #include "pch.h"
 #include "Enemy.hpp"
 
-Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, statistic health_c):
-	//movable(position, scale, textureFile, velocity)
-	fighter(position, scale, textureFile, velocity, health_c, 1)
+Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, const sf::Texture & tex, sf::Vector2f velocity, statistic health_c):
+	fighter(position, scale, tex, velocity, health_c, 1)
 {
 	health = health_c;
-	Collision::CreateTextureAndBitmask(texture, textureFile);
-//	std::cout << position.x << " <charPosX";
+	texture = tex;
 
 	if (!font.loadFromFile("fonts/stranger.ttf"))
 	{
-		//std::cout << "error loading font" << std::endl;
+		std::cout << "error loading font" << std::endl;
 	}
 	update_info(3);
 
@@ -49,8 +47,6 @@ void Enemy::update_info_pos(sf::RenderWindow & window)
 	for (unsigned int j = 0; j < 2; j++)
 	{
 		text[j].setPosition(sf::Vector2f(position.x, position.y - 30 + j * 12));
-		window.draw(text[j]);
-		//std::cout << ;
 	}
 }
 
@@ -58,7 +54,6 @@ void Enemy::take_damage(int amount)
 {
 	health.current = health.current - amount;
 	if (health.is_zero()) {
-		//killed!
 	}
 }
 

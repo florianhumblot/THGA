@@ -18,22 +18,19 @@ private:
 	STATE state = STATE::IDLE;
 
 public:
-	//int lvl = 1;
-	//statistic health;
 
 	enum class direction { LEFT, RIGHT };
 	direction current_direction = direction::RIGHT;
 	void update_info(int new_lvl) override;
 	void update_info_pos(sf::RenderWindow & window) override;
 	Enemy() {}
-	Enemy(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
+	Enemy(sf::Vector2f position, sf::Vector2f scale, const sf::Texture & tex, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 
 	void take_damage(int amount) ;
 
 	void updateFollowPosition(int x) override;
 
 	~Enemy();
-	//	operator sf::Sprite() { return sprite; }
 };
 
 #endif

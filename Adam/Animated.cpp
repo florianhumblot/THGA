@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Animated.hpp"
 
-Animateable::Animateable(std::map<std::string, Animation> animations):
+Animateable::Animateable(std::map<std::string, Animation> & animations):
 	animations(animations)
 {
 	currentAnimation = animations.begin()->second;

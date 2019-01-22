@@ -1,6 +1,4 @@
 #pragma once
-#include "Movable.h"
-#include "Enemy.hpp"
 #include "fighter.h"
 
 class AI {

@@ -9,7 +9,6 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	hud(hud)
 
 {
-
 	window.setVerticalSyncEnabled(true);
 	window.setKeyRepeatEnabled(false);
 	char_alpha = sf::Texture();
@@ -26,13 +25,11 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
 
-	playerAnimation = AnimationManager("assets/animations/animations.txt");
-//	currentAnimation = playerAnimation.animations["gunwoman"]["IDLEleft"];
 	
 	main_camera.setCenter(player.getPosition());
-	main_camera.setSize(700, 350);
+	main_camera.setSize(640, 360);
 
-	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), "assets/char_alpha.png", v2(0, 0), statistic(200, 200));
+	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), char_alpha, v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(bg);
 	this->cln_h2 = Adam::collision_handler(bg3);
@@ -42,22 +39,13 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud) :
 	ground.setTexture(tex);
 	damage_background.setTexture(tex3);
 	bgMain.setTexture(menuTex);
-	pos = player.getPosition();
 
 	
 	currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
 
-//	std::cout << pos.x << " <posx ";
 
 	ai = std::make_shared<AI>();
 
-	gravity = v2(0, 1);
-	Collision::CreateTextureAndBitmask(slimeChar, "assets/slimeTest.png");
-	for (int i = 0; i < 5; i++) {
-		Character* n = new Character(sf::Vector2f(500 + 100 * i, 1500), sf::Vector2f(0.025, 0.025), "assets/slimeTest.png", sf::Vector2f(0, 0));
-		enemies.push_back(n);
-		world_physics.moveables.push_back(n);
-	}
 	world_physics.moveables.push_back(&*enemy);
 
 	state = STATE::MENU;
@@ -183,8 +171,6 @@ void Game::handleInput() {
 
 		case STATE::PLAYING:
 		{
-			v2 current_pos = player.getPosition();
-
 			Event ev;
 			while (window.pollEvent(ev))
 			{
@@ -200,9 +186,6 @@ void Game::handleInput() {
 				if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
 				{
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -9));
-					player.update_exp(2);
-					player.update_info();
-					hud.update();
 				}
 			}
 			if (Keyboard::isKeyPressed(Keyboard::O))
@@ -251,8 +234,6 @@ void Game::handleInput() {
 
 			
 			ai->shouldFollow_followDirection(enemy.get(), player);
-			//enemy->setVelocity(sf::Vector2f(4 , enemy->getVelocity().y));
-			//enemy->setVelocity(sf::Vector2f(-4, enemy->getVelocity().y));
 			
 
 			break;
@@ -264,110 +245,89 @@ void Game::handleInput() {
 
 void Game::update() {
 
-	switch (state) {
-
-	case STATE::MENU:
+	switch (state) 
 	{
-		break;
-	}
-
-
+		case STATE::MENU:
+		{
+			break;
+		}
 
 		case STATE::PLAYING:
 		{
 			if (Clock.getElapsedTime().asMilliseconds() >= 100) {
 				player.setTexture(player.currentAnimation.nextFrame());
-			//	std::cout << sf::Sprite(player).getGlobalBounds().height << ", :w";
 				Clock.restart();
 			}
 
 			world_physics.step_x_moveables();
 			world_physics.step_y_moveables();
-			if (player.getPosition().y > 4000) player.setPosition(v2(100, 100));
+
 		}
 		break;
 
 	}
-
-	/*	for (auto & object : enemies) {
-			object.setVelocity(object.getVelocity() + gravity);
-			object.move();
-		}*/
-
-
 }
 
 void Game::render() {
-	switch (state) {
-
-	case STATE::MENU:
+	switch (state) 
 	{
 
-		if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
+		case STATE::MENU:
+		{
+
+			if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
+			{
+				window.clear();
+				window.draw(background);
+				window.draw(ground);
+				window.draw(damage_background);
+				window.draw(sf::Sprite(player));
+				window.draw(sf::Sprite(*enemy));
+				currentMenu->draw(window);
+				window.display();
+			}
+			else
+			{
+				window.clear();
+				window.draw(bgMain);
+				currentMenu->draw(window);
+				window.display();
+			}
+			break;
+		}
+
+
+		case STATE::PLAYING:
 		{
 			window.clear();
 			window.draw(background);
-			window.draw(ground);
-			window.draw(damage_background);
 			window.draw(sf::Sprite(player));
 			window.draw(sf::Sprite(*enemy));
-			currentMenu->draw(window);
-			window.display();
-		}
-		else
-		{
-			window.clear();
-			window.draw(bgMain);
-			currentMenu->draw(window);
-			window.display();
-		}
-		//window.clear();
-		//window.draw(bgMain);
-		//currentMenu->draw(window);
-		//window.display();
-
-		break;
-	}
-
-
-	case STATE::PLAYING:
-	{
-		window.clear();
-		window.draw(background);
-		//sf::Vector2f pos_info = sf::Vector2f(player.getPosition().x, player.getPosition().y - 100);
-		//player.update_info_pos(window,pos_info);
-		window.draw(sf::Sprite(player));
-		window.draw(sf::Sprite(*enemy));
-		for (auto & enemy : enemies) {
-			//				std::cout << enemy->getPosition().y << ", <POSy " << enemy->getPosition().x << ", <POSx ";
-			//				std::cout << enemy->getVelocity().y << ", <VEL \n";
-			window.draw(enemy->operator sf::Sprite());
-
-
-		}
-		if (cln_h2.collides_with_world(&player))
-		{
-			player.health.sub(1);
+			for (auto & enemy : enemies) {
+				window.draw(enemy->operator sf::Sprite());
+			}
+			if (cln_h2.collides_with_world(&player))
+			{
+				player.health.sub(1);
 			
+			}
+			hud.update();
+			if (player.health.is_zero())
+			{
+				player.setPosition(sf::Vector2f(890, 690));
+				player.health.current = player.health.max;
+			}
+			enemy->update_info_pos(window);
+			window.draw(ground);
+			window.draw(damage_background);
+			window.setView(main_HUD);
+			hud.draw(window);
+			auto center = Collision::GetSpriteCenter(player);
+			main_camera.setCenter(center);
+			window.setView(main_camera);
+			window.display();
+			break;
 		}
-		hud.update();
-		if (player.health.is_zero())
-		{
-			player.setPosition(sf::Vector2f(890, 690));
-			player.health.current = player.health.max;
-		}
-		enemy->update_info_pos(window);
-		window.draw(ground);
-		window.draw(damage_background);
-		window.setView(main_HUD);
-		hud.draw(window);
-		auto center = Collision::GetSpriteCenter(player);
-		main_camera.setCenter(center);
-		window.setView(main_camera);
-		window.display();
-		break;
-
-	}
 	}
 	return;
 }

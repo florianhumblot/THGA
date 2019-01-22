@@ -1,16 +1,8 @@
 #include "pch.h"
 #include "Movable.h"
 
-movable::movable(sf::Vector2f &position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity):
-	drawable(position, scale, textureFile)
-//	velocity(velocity)
-{
-	velocity = velocity;
-}
-
 movable::movable(sf::Vector2f &position, sf::Vector2f scale, sf::Texture texture, sf::Vector2f velocity):
 	drawable(position, scale, texture)
-//	velocity(velocity)
 {
 	velocity = velocity;
 }

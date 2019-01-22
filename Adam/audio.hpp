@@ -1,7 +1,7 @@
 #ifndef AUDIO_HPP
 #define AUDIO_HPP
 
-#include <SFML/Audio.hpp>
+#include "pch.h"
 
 class Audio
 {
