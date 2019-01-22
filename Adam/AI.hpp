@@ -3,6 +3,7 @@
 #include "Enemy.hpp"
 #include "npc.hpp"
 #include "fighter.h"
+#include "Enemy.hpp"
 
 
 class AI {
@@ -12,8 +13,7 @@ public:
 
 	}
 
-
-	int walk_randomly(npc & p1);
-	void shouldFollow_followDirection(fighter * p1, fighter & p2);
+	void walkRandomly(npc * p1);
+	void shouldFollow_followDirection(Enemy * p1, fighter & p2);
 
 };

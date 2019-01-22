@@ -1,16 +1,6 @@
 #include "pch.h"
 #include "npc.hpp"
 
-
-npc::npc(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity,  statistic health_c ):
-	movable(position, scale, textureFile, velocity),
-	Animateable(std::map<std::string, Animation> { {"IDLEright", Animation()}}),
-	originPosition(position)
-{
-	animations["IDLEright"].addFrame(textureFile);
-	health = health_c;
-}
-
 npc::npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic health_c) :
 	Animateable(animations),
 	movable(position, scale, animations["IDLEright"].textures[0], velocity),

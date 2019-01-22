@@ -1,12 +1,13 @@
 #ifndef  _ENEMY_HPP
 #define _ENEMY_HPP
-
+#include "pch.h"
 #include "Collision.h"
 #include "statistic.h"
 #include "Movable.h"
 #include "fighter.h"
+#include "Animated.hpp"
 
-class Enemy : public fighter
+class Enemy : public fighter, public Animateable
 {
 private:
 	sf::Font font;
@@ -24,12 +25,11 @@ public:
 	void update_info(int new_lvl) override;
 	void update_info_pos(sf::RenderWindow & window) override;
 	Enemy() {}
-	Enemy(sf::Vector2f position, sf::Vector2f scale, const sf::Texture & tex, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
+	Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 
 	void take_damage(int amount) ;
 
 	void updateFollowPosition(int x) override;
-
 	~Enemy();
 };
 

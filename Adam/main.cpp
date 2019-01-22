@@ -17,8 +17,8 @@ int main()
 
 	Character player(sf::Vector2f(890, 690), sf::Vector2f(0.2, 0.2), ani.animations["mage"], sf::Vector2f(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
 	HUD hud(player);
-	Game game(window, player, hud);
-
+	Game game(window, player, hud, ani);
+	
 	while (window.isOpen())
 	{
 		game.handleInput();

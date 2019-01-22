@@ -10,7 +10,6 @@ class npc : public movable, Animateable{
 	STATE state = STATE::IDLE;
 public:
 	sf::Vector2f originPosition;
-	npc(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 	npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 	npc() {}
 	~npc();
