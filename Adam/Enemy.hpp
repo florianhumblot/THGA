@@ -11,7 +11,7 @@ class Enemy : public fighter, public Animateable
 {
 private:
 	sf::Font font;
-	sf::Text text[2];
+	std::array<sf::Text, 2> text;
 	int teller = 0;
 
 	enum class STATE { IDLE, FOLLOWING };
@@ -28,10 +28,9 @@ public:
 
 	bool fight(fighter * opponent) override;
 
-	void take_damage(int amount) ;
-
 	void updateFollowPosition(int x) override;
 	void die();
+	void draw(sf::RenderTarget &w);
 	~Enemy();
 };
 

@@ -18,11 +18,20 @@ bool fighter::fight(fighter * opponent) {
 
 	if (Collision::PixelPerfectTest(makeFightBox(), opponent->getBox())) {
 		updateFollowPosition(0);
-		opponent->health.sub(1);
+		opponent->take_damage(lvl*2);
 		return true;
 	}
 	return false;
 
+}
+
+
+void fighter::take_damage(int amount)
+{
+	if (!checkDead()) {
+		health.current = health.current - amount;
+	}
+	
 }
 
 sf::Sprite fighter::makeFightBox() {
