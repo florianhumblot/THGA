@@ -24,13 +24,26 @@ namespace Adam
 
 		for (auto & moveable : moveables)
 		{
-
+			//handle collision for every moveable with the world
 			clh->handle_collision(clh->collides_with_world(moveable), 
 			[&]() 
 			{
 				moveable->move(sf::Vector2f(-moveable->getVelocity().x, 0));
 				moveable->setVelocity(sf::Vector2f(0, moveable->getVelocity().y));
 			});
+
+			//handle collision for current moveable with every other moveable
+			for (auto & other_moveable : moveables)
+			{
+				if (moveable == other_moveable) continue;
+
+				clh->handle_collision(clh->collides_with_sprite(moveable->getBox(), other_moveable->getBox()),
+				[&]()
+				{
+					moveable->move(sf::Vector2f(-moveable->getVelocity().x, 0));
+					moveable->setVelocity(sf::Vector2f(0, moveable->getVelocity().y));
+				});
+			}
 		}
 	}
 
