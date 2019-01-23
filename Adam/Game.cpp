@@ -140,7 +140,8 @@ void Game::handleInput() {
 										}
 										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
 										{
-
+											currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
+											std::cout << "terug naar menu";
 										}
 										break;
 									}
