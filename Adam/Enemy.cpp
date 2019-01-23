@@ -7,7 +7,7 @@ Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, An
 {
 	health = health_c;
 	texture = animations["IDLEright"].textures[0];
-
+	setAnimation("IDLEright");
 	if (!font.loadFromFile("fonts/stranger.ttf"))
 	{
 		std::cout << "error loading font" << std::endl;
@@ -42,17 +42,48 @@ void Enemy::update_info_pos(sf::RenderWindow & window)
 	text[1].setPosition(sf::Vector2f(position.x, position.y - 30 + 12));
 }
 
+bool Enemy::fight(fighter * opponent) {
+	if (!checkDead()) {
+		if (fighter::fight(opponent)) {
+			if (getCurrentAnimation() != "SLASHINGright") {
+				setAnimation("SLASHINGright");
+			}
+			if (fighter::checkDead()) {
+				setPosition(sf::Vector2f(890, 690));
+				health.current = health.max;
+			}
+			return true;
+		}
+	}
+	return false;
+}
+
+
 void Enemy::take_damage(int amount)
 {
-	health.current = health.current - amount;
-	if (health.is_zero()) {
+	if (checkDead()) {
+		return;
 	}
+	health.current = health.current - amount;
 }
 
 void Enemy::updateFollowPosition(int x) {
-	// make the enemy move (x is 0, 1, or -1)
-	setVelocity(sf::Vector2f(4 * x, getVelocity().y));
+	if (!checkDead()) {
+		// make the enemy move (x is 0, 1, or -1)
+		setVelocity(sf::Vector2f(4 * x, getVelocity().y));
+	}
+}
 
-
+void Enemy::die()
+{
+	if (getCurrentAnimation() != std::string("DYINGright")) {
+		setAnimation("DYINGright");
+		setTexture(currentAnimation.nextFrame());
+	}
+	else {
+		if (currentAnimationIsDone()) {
+			setTexture(currentAnimation.textures.back());
+		}
+	}
 }
 

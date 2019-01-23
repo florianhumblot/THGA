@@ -26,9 +26,12 @@ public:
 	Enemy() {}
 	Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 
+	bool fight(fighter * opponent) override;
+
 	void take_damage(int amount) ;
 
 	void updateFollowPosition(int x) override;
+	void die();
 	~Enemy();
 };
 

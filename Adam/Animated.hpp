@@ -11,6 +11,7 @@ public:
 	Animation getAnimation(std::string animation);
 	std::string getCurrentAnimation();
 	void setAnimation(std::string animation);
+	bool currentAnimationIsDone() { return currentAnimation.isDone(); }
 	~Animateable() {}
 };
 

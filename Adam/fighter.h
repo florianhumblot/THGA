@@ -3,6 +3,7 @@
 #include "statistic.h"
 #include "Movable.h"
 #include "fighter.h"
+#include "Animated.hpp"
 
 class fighter : public movable
 {
@@ -19,31 +20,10 @@ public:
 	virtual void update_info_pos(sf::RenderWindow & window) {}
 	virtual void updateFollowPosition(int x) {}
 	
-	bool fight(fighter * opponent) {
-		
-		if (Collision::PixelPerfectTest(makeFightBox(), opponent->getBox())) {
-			updateFollowPosition(0);
-			opponent->health.sub(1);
-			return true;
-		}
-		return false;
-		
-	}
-	
+	virtual bool fight(fighter * opponent);
+	virtual void die() = 0;
 
-	sf::Sprite makeFightBox() {
-		auto temp = sf::Sprite();
-		temp.setPosition(position);
-		temp.setTexture(AABB);
-		temp.setScale(scale);
-		return temp;		
-	}
+	sf::Sprite makeFightBox();
 
-	void checkDead() {
-		if (health.is_zero())
-		{
-			setPosition(sf::Vector2f(890, 690));
-			health.current = health.max;
-		}
-	}
+	bool checkDead();
 };
