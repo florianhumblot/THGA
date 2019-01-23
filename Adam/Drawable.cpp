@@ -32,3 +32,7 @@ void drawable::setTexture(sf::Texture & texture) {
 	texture = texture;
 }
 
+void drawable::draw(sf::RenderTarget &w) {
+	w.draw(sprite);
+}
+
