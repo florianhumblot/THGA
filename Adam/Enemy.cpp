@@ -2,8 +2,8 @@
 #include "Enemy.hpp"
 
 Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c):
-	fighter(position, scale, animations["IDLEright"].textures[0], velocity, animations, health_c, 1)
-	//Animateable(animations)
+	fighter(position, scale, animations["IDLEright"].textures[0], velocity, health_c, 1),
+	Animateable(animations)
 {
 	health = health_c;
 	texture = animations["IDLEright"].textures[0];
@@ -41,6 +41,21 @@ void Enemy::update_info_pos(sf::RenderWindow & window)
 	text[0].setPosition(sf::Vector2f(position.x, position.y - 30));
 	text[1].setPosition(sf::Vector2f(position.x, position.y - 30 + 12));
 }
+
+bool Enemy::fight(fighter * opponent) {
+	if (fighter::fight(opponent)) {
+		if (getCurrentAnimation() != "SLASHINGright") {
+			setAnimation("SLASHINGright");
+		}
+		if (fighter::checkDead()) {
+			setPosition(sf::Vector2f(890, 690));
+			health.current = health.max;
+		}
+		return true;
+	}
+	return false;
+}
+
 
 void Enemy::take_damage(int amount)
 {
