@@ -21,6 +21,7 @@ public:
 	virtual void updateFollowPosition(int x) {}
 	
 	virtual bool fight(fighter * opponent);
+	void take_damage(int amount);
 	virtual void die() = 0;
 
 	sf::Sprite makeFightBox();
