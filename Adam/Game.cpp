@@ -233,7 +233,7 @@ void Game::handleInput() {
 				player.fight(enemy.get());
 				std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
 			}
-			else
+			else if( player.currentAnimation.isDone() || player.getCurrentAnimation() == std::string("WALKright"))
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 				if (player.getVelocity().y == 0) {
@@ -243,6 +243,7 @@ void Game::handleInput() {
 					}
 				}
 			}
+
 			if (!enemy.get()->checkDead()) {
 				ai->shouldFollow_followDirection(enemy.get(), &player);
 			}
