@@ -20,7 +20,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
 	lvls.make_lvl("lvl1");
-	
+
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);
 
@@ -181,11 +181,18 @@ void Game::handleInput() {
 						window.close();
 						break;
 					}
+
 				}
 
 				if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
 				{
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -9));
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
+				{
+					player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
+					player.fight(enemy.get());
+					std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
 				}
 			}
 			if (Keyboard::isKeyPressed(Keyboard::O))
@@ -224,12 +231,7 @@ void Game::handleInput() {
 				player.setVelocity(sf::Vector2f(-4, player.getVelocity().y));
 
 			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
-			{
-				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
-				player.fight(enemy.get());
-				std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
-			}
+			
 			else if( player.currentAnimation.isDone() || player.getCurrentAnimation() == std::string("WALKright"))
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));

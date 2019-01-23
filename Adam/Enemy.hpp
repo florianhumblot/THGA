@@ -21,7 +21,7 @@ public:
 
 	enum class direction { LEFT, RIGHT };
 	direction current_direction = direction::RIGHT;
-	void update_info(int new_lvl) override;
+	void update_info() override;
 	void update_info_pos(sf::RenderWindow & window) override;
 	Enemy() {}
 	Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
