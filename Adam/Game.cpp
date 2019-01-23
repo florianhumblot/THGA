@@ -356,6 +356,7 @@ void Game::render() {
 		player.draw(window);
 		window.draw(lvls.ground);
 		window.draw(lvls.damage_background);
+		window.draw(lvls.foreground_bounce);
 		window.setView(main_HUD);
 		hud.draw(window);
 		auto center = Collision::GetSpriteCenter(player);
