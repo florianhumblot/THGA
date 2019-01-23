@@ -32,26 +32,20 @@ private:
 	HUD & hud;
 	levelManager lvls;
 	sf::View main_camera;
-	//sf::Texture tex;
+
 	sf::View main_HUD;
-	//Sprite bg;
-	//Sprite bg2;
-	//Sprite bg3;
-	//sf::Texture tex2;
-	//sf::Texture tex3;
+
 	sf::Texture char_alpha;
 	sf::Texture char_alpha_invert;
 	sf::Texture menuTex;
 	Character & player;
-	//sf::Sprite background;
-	//sf::Sprite damage_background;
-	//sf::Sprite ground;
-	sf::Sprite bgMain;
 
+	sf::Sprite bgMain;
+	int bounce_velocity = 1;
 	sf::Clock Clock;
 
 	Adam::collision_handler cln_h;
-	//Adam::collision_handler cln_h2;
+
 	Adam::physics world_physics;
 
 	std::shared_ptr<Enemy> enemy;
