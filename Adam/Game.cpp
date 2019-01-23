@@ -7,8 +7,8 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 
 	window(w),
 	player(player),
-	hud(hud)
-
+	hud(hud),
+	ani(ani)
 {
 	window.setVerticalSyncEnabled(true);
 	window.setKeyRepeatEnabled(false);
@@ -112,6 +112,9 @@ void Game::handleInput() {
 										{
 											std::cout << "warrior has been chosen" << '\n';
 											state = STATE::PLAYING;
+											player.setAnimationMap(ani.animations["knight"]);
+											player.setAnimation("IDLEright");
+											player.setTexture(player.currentAnimation.nextFrame());
 										}
 										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
 										{
@@ -130,6 +133,9 @@ void Game::handleInput() {
 										{
 											std::cout << "hunter has been chosen" << '\n';
 											state = STATE::PLAYING;
+											player.setAnimationMap(ani.animations["mage"]);
+											player.setAnimation("IDLEright");
+											player.setTexture(player.currentAnimation.nextFrame());
 
 										}
 										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)

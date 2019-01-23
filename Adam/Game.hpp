@@ -61,7 +61,7 @@ private:
 	std::shared_ptr<AI> ai;
 
 	std::shared_ptr<Menu> currentMenu;
-
+	AnimationManager & ani;
 	enum class STATE { MENU, PLAYING, GAMEOVER };
 	enum STATE state;
 

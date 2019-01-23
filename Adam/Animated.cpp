@@ -18,3 +18,8 @@ std::string Animateable::getCurrentAnimation() {
 void Animateable::setAnimation(std::string animation) {
 	currentAnimation = animations[animation];
 }
+
+void Animateable::setAnimationMap(std::map<std::string, Animation> newAnimations)
+{
+	animations = newAnimations;
+}
