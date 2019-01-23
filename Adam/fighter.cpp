@@ -34,9 +34,5 @@ sf::Sprite fighter::makeFightBox() {
 }
 
 bool fighter::checkDead() {
-	if (health.is_zero())
-	{
-		return true;
-	}
-	return false;
+	return health.is_zero();
 }

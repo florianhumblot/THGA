@@ -206,7 +206,7 @@ void Game::handleInput() {
 			}
 
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !player.checkDead())
 			{
 				if (player.getCurrentAnimation() != std::string("WALKright")) {
 					player.setAnimation("WALKright");
@@ -216,7 +216,7 @@ void Game::handleInput() {
 				player.setScale(sf::Vector2f(0.2, 0.2));
 				player.setVelocity(sf::Vector2f(4, player.getVelocity().y));
 			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !player.checkDead())
 			{
 				if (player.getCurrentAnimation() != std::string("WALKright")) {
 					player.setAnimation("WALKright");
@@ -227,7 +227,7 @@ void Game::handleInput() {
 				player.setVelocity(sf::Vector2f(-4, player.getVelocity().y));
 
 			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 				player.fight(enemy.get());
@@ -237,7 +237,7 @@ void Game::handleInput() {
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 				if (player.getVelocity().y == 0) {
-					if (player.getCurrentAnimation() != std::string("IDLEright")) {
+					if (player.getCurrentAnimation() != std::string("IDLEright") && player.getCurrentAnimation() != std::string("DYINGright")) {
 						player.setAnimation("IDLEright");
 						player.setTexture(player.currentAnimation.nextFrame());
 					}
@@ -280,13 +280,22 @@ void Game::update() {
 
 			}
 			hud.update();
-			if (player.health.is_zero())
-			{
-				player.setPosition(sf::Vector2f(890, 690));
-				player.health.current = player.health.max;
-			}
+			
 			enemy->update_info_pos(window);
-			player.checkDead();
+			if (player.checkDead()) {
+				if (player.getCurrentAnimation() != std::string("DYINGright")) {
+					player.setAnimation("DYINGright");
+					player.setTexture(player.currentAnimation.nextFrame());
+				}
+				else {
+					if (player.currentAnimationIsDone()) {
+						player.respawn();
+						player.setAnimation("IDLEright");
+						player.setTexture(player.currentAnimation.nextFrame());
+					}
+				}
+				
+			}
 			enemy.get()->checkDead();
 
 		}
