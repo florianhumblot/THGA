@@ -41,7 +41,8 @@ void AI::shouldFollow_followDirection(Enemy * p1, fighter * p2) {
 
 void AI::walkRandomly(npc * p1) {
 	p1->updateState();
-	std::cout << p1->isWalking();
+	int dir = p1->getDirection();
+
 	if (p1->isWalking()) {
 		if (p1->originPosition.x - p1->getPosition().x > 100) {
 			p1->setScale(sf::Vector2f(0.2, 0.2));
@@ -56,16 +57,24 @@ void AI::walkRandomly(npc * p1) {
 				p1->setAnimation("WALKright");
 			}
 		}
-		if (p1->getVelocity().x == 0) {
-	//		p1->walkTheOtherWay();
+		std::cout << p1->lastDirection;
+
+		if (p1->getVelocity().x == 0 && p1->lastDirection != 0) {
+		//	std::cout << p1->lastDirection;
+			p1->walkTheOtherWay();
 			p1->setVelocity(sf::Vector2f(0, -9));
 		}
-		int dir = p1->getDirection();
 		p1->setVelocity(sf::Vector2f(dir, p1->getVelocity().y));
+		p1->lastDirection = 1;
 
 	}
 	else {
-		p1->setVelocity(sf::Vector2f(0,0));
+		if (p1->getCurrentAnimation() != "IDLEright") {
+			p1->setAnimation("IDLEright");
+		}
+		p1->setVelocity(sf::Vector2f(0,p1->getVelocity().y));
+		p1->lastDirection = 0;
 	}
+
 	
 }

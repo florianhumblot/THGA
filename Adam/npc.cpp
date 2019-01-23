@@ -16,7 +16,7 @@ npc::~npc()
 
 void npc::updateState() {
 	int chance = rand();
-	if (chance % 100 < 5) {
+	if (chance % 1000 < 5) {
 		if (state == STATE::IDLE) {
 			state = STATE::WALKING;
 			walkTheOtherWay();

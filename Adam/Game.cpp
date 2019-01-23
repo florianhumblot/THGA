@@ -30,7 +30,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);
 
-	np = std::make_shared<npc>(v2(890, 690), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
+	np = std::make_shared<npc>(v2(890, 690), v2(0.2, 0.2), ani.animations["boy"], v2(0, 0), statistic(200, 200));
 	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(lvls.bg);
