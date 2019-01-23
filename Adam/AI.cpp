@@ -8,7 +8,6 @@ void AI::shouldFollow_followDirection(Enemy * p1, fighter * p2) {
 	// if so, make enemy move towarts the player
 	if ((p1->getPosition() - p2->getPosition()).x <= 200 && (p1->getPosition() - p2->getPosition()).x > 10) {
 		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
-			std::cout << "left \n";
 			if (!p1->fight(p2)) {
 				if (p1->getCurrentAnimation() != "WALKright") {
 					p1->setAnimation("WALKright");
