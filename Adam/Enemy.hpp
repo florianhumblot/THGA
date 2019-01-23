@@ -28,8 +28,6 @@ public:
 
 	bool fight(fighter * opponent) override;
 
-	void take_damage(int amount) ;
-
 	void updateFollowPosition(int x) override;
 	void die();
 	void draw(sf::RenderTarget &w);

@@ -45,7 +45,6 @@ void Enemy::update_info_pos(sf::RenderWindow & window)
 bool Enemy::fight(fighter * opponent) {
 	if (getCurrentAnimation() != "SLASHINGright") {
 		setAnimation("SLASHINGright");
-		setTexture(currentAnimation.nextFrame());
 	}
 	if (!checkDead()) {
 		if (fighter::fight(opponent)) {
@@ -60,14 +59,6 @@ bool Enemy::fight(fighter * opponent) {
 	return false;
 }
 
-
-void Enemy::take_damage(int amount)
-{
-	if (checkDead()) {
-		return;
-	}
-	health.current = health.current - amount;
-}
 
 void Enemy::updateFollowPosition(int x) {
 	if (!checkDead()) {

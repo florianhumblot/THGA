@@ -42,7 +42,7 @@ levelManager::levelManager()
 			}
 		}
 	}
-	print();
+	//print();
 }
 
 void levelManager::print()

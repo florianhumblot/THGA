@@ -3,7 +3,6 @@
 #include "Enemy.hpp"
 #include "npc.hpp"
 #include "fighter.h"
-#include "Enemy.hpp"
 
 
 class AI {

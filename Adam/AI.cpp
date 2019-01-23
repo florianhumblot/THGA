@@ -7,45 +7,35 @@ void AI::shouldFollow_followDirection(Enemy * p1, fighter * p2) {
 	//Check if p1 and p2 are close to each other
 	// if so, make enemy move towarts the player
 	if ((p1->getPosition() - p2->getPosition()).x <= 200 && (p1->getPosition() - p2->getPosition()).x > 10) {
-		std::cout << "left \n";
-		if (p1->fight(p2)) {
+		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
 			std::cout << "left \n";
-			if (p1->getCurrentAnimation() != "SLASHINGright") {
-				p1->setAnimation("SLASHINGright");
-				p1->setTexture(p1->currentAnimation.nextFrame());
-			}
-		}
-		else {
-			if (p1->getCurrentAnimation() != "WALKright") {
-				p1->setAnimation("WALKright");
-				p1->setTexture(p1->currentAnimation.nextFrame());
+			if (!p1->fight(p2)) {
+				if (p1->getCurrentAnimation() != "WALKright") {
+					p1->setAnimation("WALKright");
+					p1->setTexture(p1->currentAnimation.nextFrame());
+				}
+
+				p1->updateFollowPosition(-1);
 			}
 
-			p1->updateFollowPosition(-1);
+			p1->setScale(sf::Vector2f(-0.2, 0.2));
 		}
-		p1->setScale(sf::Vector2f(-0.2, 0.2));
 		
 		return;
 	}
 	else if ((p1->getPosition() - p2->getPosition()).x >= -200 && (p1->getPosition() - p2->getPosition()).x < 10) {
-		if (p1->fight(p2)) {
-			std::cout << "right \n";
-			if (p1->getCurrentAnimation() != "SLASHINGright") {
-				p1->setAnimation("SLASHINGright");
-				p1->setTexture(p1->currentAnimation.nextFrame());
-			}
-		}
-		else {
-			std::cout << "right \n";
-			if (p1->getCurrentAnimation() != "WALKright") {
-				p1->setAnimation("WALKright");
-				p1->setTexture(p1->currentAnimation.nextFrame());
-			}
-			p1->updateFollowPosition(1);
-		}
-		p1->setScale(sf::Vector2f(0.2, 0.2));
-		
+		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
+			if (!p1->fight(p2)) {
+				if (p1->getCurrentAnimation() != "WALKright") {
+					p1->setAnimation("WALKright");
+					p1->setTexture(p1->currentAnimation.nextFrame());
+				}
 
+				p1->updateFollowPosition(1);
+			}
+			p1->setScale(sf::Vector2f(0.2, 0.2));
+		}
+		
 		return;
 	}
 	else {
