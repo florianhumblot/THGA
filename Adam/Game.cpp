@@ -2,6 +2,7 @@
 #include "Game.hpp"
 #include "Menu.hpp"
 #include "npc.hpp"
+#include "audio.hpp"
 
 Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani) :
 
