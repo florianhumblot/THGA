@@ -13,5 +13,6 @@ public:
 	void setAnimation(std::string animation);
 	bool currentAnimationIsDone() { return currentAnimation.isDone(); }
 	~Animateable() {}
+	void setAnimationMap(std::map<std::string, Animation> newAnimations);
 };
 
