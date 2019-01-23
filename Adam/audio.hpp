@@ -10,12 +10,13 @@ private:
 	sf::Music music;
 	sf::Sound sound;
 	std::string pathName;
+	std::vector<Audio> audioGroup;
 public:
-	Audio(std::string &pathName, sf::SoundBuffer &buffer, sf::Sound &sound);
+	Audio(const std::string &pathName);
 
-	Audio(std::string &pathName, sf::SoundBuffer &buffer,sf::Music &music);
+	Audio(const std::string &pathName);
 
-	void playShortSound(std::string &pathName);
+
 };
 
 
