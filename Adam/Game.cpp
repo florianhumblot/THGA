@@ -30,7 +30,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);
 
-	np = std::make_shared<npc>(v2(890, 690), v2(0.25, 0.25), ani.animations["skull"], v2(0, 0), statistic(200, 200));
+	np = std::make_shared<npc>(v2(890, 690), v2(0.2, 0.2), ani.animations["boy"], v2(0, 0), statistic(200, 200));
 	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(lvls.bg);
@@ -245,8 +245,8 @@ void Game::handleInput() {
 			}
 
 			ai->shouldFollow_followDirection(enemy.get(), &player);
+			ai->walkRandomly(np.get());
 
-			
 			break;
 		}
 	}
@@ -265,9 +265,10 @@ void Game::update() {
 
 		case STATE::PLAYING:
 		{
-			if (Clock.getElapsedTime().asMilliseconds() >= 100) {
+			if (Clock.getElapsedTime().asMilliseconds() >= 50) {
 				player.setTexture(player.currentAnimation.nextFrame());
 				enemy->setTexture(enemy->currentAnimation.nextFrame());
+				np->setTexture(np->currentAnimation.nextFrame());
 				Clock.restart();
 			}
 
@@ -329,6 +330,7 @@ void Game::render() {
 		window.draw(lvls.background);
 		window.draw(sf::Sprite(player));
 		window.draw(sf::Sprite(*enemy));
+		window.draw(sf::Sprite(*np));
 		for (auto & enemy : enemies) {
 			window.draw(enemy->operator sf::Sprite());
 		}

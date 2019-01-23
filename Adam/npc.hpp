@@ -4,11 +4,12 @@
 #include "statistic.h"
 #include <cstdlib>
 
-class npc : public movable, Animateable{
+class npc : public movable, public Animateable{
 	statistic health;
-	enum class STATE {IDLE, FOLLOWING, WALKINGRIGHT, WALKINGLEFT};
+	enum class STATE {IDLE, FOLLOWING, WALKING};
 	STATE state = STATE::IDLE;
 public:
+	int lastDirection;
 	sf::Vector2f originPosition;
 	npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 	npc() {}
