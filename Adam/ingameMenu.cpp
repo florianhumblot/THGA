@@ -22,7 +22,7 @@ inGameMenu::inGameMenu(float width, float heigth, Character &player) :
 	pauseScreen[1].setPosition(sf::Vector2f((player.getPosition().x) - 100, (player.getPosition().y) - 50));
 
 	pauseScreen[2].setFont(font);
-	pauseScreen[2].setString("Options");
+	pauseScreen[2].setString("return Main Menu");
 	pauseScreen[2].setFillColor(sf::Color::White);
 	pauseScreen[2].setCharacterSize(80);
 	pauseScreen[2].setPosition(sf::Vector2f((player.getPosition().x) - 100, (player.getPosition().y)));
