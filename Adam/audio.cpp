@@ -1,6 +1,6 @@
 #include "audio.hpp"
 
-Audio::Audio(std::string &pathName, sf::SoundBuffer &buffer, sf::Sound &sound)
+Audio::Audio(const std::string &pathName)
 {
 	if (!buffer.loadFromFile(pathName))
 	{
@@ -9,16 +9,11 @@ Audio::Audio(std::string &pathName, sf::SoundBuffer &buffer, sf::Sound &sound)
 	sound.setBuffer(buffer);
 }
 
-Audio::Audio(std::string &pathName, sf::SoundBuffer &buffer, sf::Music &music)
+Audio::Audio(const std::string &pathName)
 {
 	if (!buffer.loadFromFile(pathName))
 	{
 		std::cout << "Error loading sound from stream." << std::endl;
 	}
 	music.
-}
-
-void playShortSound(std::string &pathName)
-{
-
 }
