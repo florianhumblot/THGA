@@ -23,6 +23,9 @@ sf::Texture & Animation::nextFrame()
 		current_frame = -1;
 		animation_done = true;
 	}
+	if (animation_done && name == "DYINGright") {
+		return textures.back();
+	}
 	return textures[++current_frame];
 }
 

@@ -31,6 +31,7 @@ public:
 	void take_damage(int amount) ;
 
 	void updateFollowPosition(int x) override;
+	void die();
 	~Enemy();
 };
 

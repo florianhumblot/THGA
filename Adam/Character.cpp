@@ -30,6 +30,21 @@ bool Character::fight(fighter * opponent) {
 	return false;
 }
 
+void Character::die()
+{
+	if (getCurrentAnimation() != std::string("DYINGright")) {
+		setAnimation("DYINGright");
+		setTexture(currentAnimation.nextFrame());
+	}
+	else {
+		if (currentAnimationIsDone()) {
+			respawn();
+			setAnimation("IDLEright");
+			setTexture(currentAnimation.nextFrame());
+		}
+	}
+}
+
 
 Character::~Character()
 {
