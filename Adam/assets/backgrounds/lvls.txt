@@ -5,3 +5,7 @@ lvl1 foreground_bounce assets/backgrounds/UBGbounce.png
 lvl1 spawnpoint_player (890,690)
 lvl1 spawnpoint_enemy (390,690)
 lvl1 spawnpoint_enemy (350,490)
+lvl2 background assets/backgrounds/lvl2bg.png
+lvl2 foreground assets/backgrounds/fglvl2.png
+lvl2 foreground_dmg assets/backgrounds/emptylvl.png
+lvl2 foreground_bounce assets/backgrounds/fgbouncelvl2.png
