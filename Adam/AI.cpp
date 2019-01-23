@@ -11,6 +11,7 @@ void AI::shouldFollow_followDirection(Enemy * p1, fighter * p2) {
 		if (!p1->fight(p2)) {
 			if (p1->getCurrentAnimation() != "WALKright") {
 				p1->setAnimation("WALKright");
+				p1->setTexture(p1->currentAnimation.nextFrame());
 			}
 
 			p1->updateFollowPosition(-1);
@@ -25,12 +26,14 @@ void AI::shouldFollow_followDirection(Enemy * p1, fighter * p2) {
 			std::cout << "right \n";
 			if (p1->getCurrentAnimation() != "SLASHINGright") {
 				p1->setAnimation("SLASHINGright");
+				p1->setTexture(p1->currentAnimation.nextFrame());
 			}
 		}
 		else {
 			std::cout << "right \n";
 			if (p1->getCurrentAnimation() != "WALKright") {
 				p1->setAnimation("WALKright");
+				p1->setTexture(p1->currentAnimation.nextFrame());
 			}
 			p1->updateFollowPosition(1);
 		}
@@ -57,12 +60,14 @@ void AI::walkRandomly(npc * p1) {
 			p1->current_direction = movable::direction::RIGHT;
 			if (p1->getCurrentAnimation() != "WALKright") {
 				p1->setAnimation("WALKright");
+				p1->setTexture(p1->currentAnimation.nextFrame());
 			}
 		} else if (p1->originPosition.x - p1->getPosition().x < -100) {
 			p1->setScale(sf::Vector2f(-0.2, 0.2));
 			p1->current_direction = movable::direction::LEFT;
 			if (p1->getCurrentAnimation() != "WALKright") {
 				p1->setAnimation("WALKright");
+				p1->setTexture(p1->currentAnimation.nextFrame());
 			}
 		}
 		std::cout << p1->lastDirection;
@@ -79,6 +84,7 @@ void AI::walkRandomly(npc * p1) {
 	else {
 		if (p1->getCurrentAnimation() != "IDLEright") {
 			p1->setAnimation("IDLEright");
+			p1->setTexture(p1->currentAnimation.nextFrame());
 		}
 		p1->setVelocity(sf::Vector2f(0,p1->getVelocity().y));
 		p1->lastDirection = 0;
