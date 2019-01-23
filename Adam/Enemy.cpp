@@ -45,6 +45,7 @@ void Enemy::update_info_pos(sf::RenderWindow & window)
 bool Enemy::fight(fighter * opponent) {
 	if (getCurrentAnimation() != "SLASHINGright") {
 		setAnimation("SLASHINGright");
+		setTexture(currentAnimation.nextFrame());
 	}
 	if (!checkDead()) {
 		if (fighter::fight(opponent)) {
