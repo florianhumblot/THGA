@@ -1,1 +1,7 @@
-lvl1 assets/backgrounds/underground_cave_bv2.png assets/backgrounds/UBGv2.png assets/backgrounds/underground_cave_spikesLayer.png 890,690
+lvl1 background assets/backgrounds/underground_cave_bv2.png 
+lvl1 foreground assets/backgrounds/UBGv2.png 
+lvl1 foreground_dmg assets/backgrounds/underground_cave_spikesLayer.png 
+lvl1 foreground_bounce assets/backgrounds/UBGbounce.png 
+lvl1 spawnpoint_player (890,690)
+lvl1 spawnpoint_enemy (390,690)
+lvl1 spawnpoint_enemy (350,490)

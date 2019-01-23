@@ -280,6 +280,11 @@ void Game::update() {
 				player.health.sub(1);
 
 			}
+			if (Collision::PixelPerfectTest(lvls.fg_bounce, player))
+			{
+				player.setVelocity(sf::Vector2f(player.getVelocity().x, -19));
+
+			}
 			hud.update();
 			
 			enemy->update_info_pos(window);
@@ -337,6 +342,7 @@ void Game::render() {
 		}
 		window.draw(lvls.ground);
 		window.draw(lvls.damage_background);
+		window.draw(lvls.foreground_bounce);
 		window.setView(main_HUD);
 		hud.draw(window);
 		auto center = Collision::GetSpriteCenter(player);
