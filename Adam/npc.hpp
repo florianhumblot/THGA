@@ -8,6 +8,8 @@ class npc : public movable, public Animateable{
 	statistic health;
 	enum class STATE {IDLE, FOLLOWING, WALKING};
 	STATE state = STATE::IDLE;
+	sf::Font font;
+	sf::Text text = sf::Text();
 public:
 	int lastDirection;
 	sf::Vector2f originPosition;
@@ -18,9 +20,7 @@ public:
 	bool isWalking();
 	void walkTheOtherWay();
 	int getDirection();
-	friend operator sf::RenderTarget::draw(npc &n)() {
-		this->draw(n.sf::Sprite());
-	}
+	void draw(sf::RenderTarget & w);
 
 };
 

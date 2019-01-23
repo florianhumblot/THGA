@@ -19,6 +19,7 @@ public:
 	void setPosition(sf::Vector2f newPos);
 	void setTexture(const std::string & textureFile);
 	void setTexture(sf::Texture & texture);
+	void draw(sf::RenderTarget &w);
 	sf::Sprite getBox() {
 		auto temp = sf::Sprite();
 		temp.setPosition(position);

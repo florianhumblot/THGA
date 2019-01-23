@@ -7,6 +7,14 @@ npc::npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animat
 	originPosition(position)
 {
 	health = health_c;
+	if (!font.loadFromFile("fonts/stranger.ttf"))
+	{
+		std::cout << "error loading font" << std::endl;
+	}
+	text.setFont(font);
+	text.setOutlineColor(sf::Color::Black);
+	text.setOutlineThickness(2.0f);
+	text.setCharacterSize(10);
 }
 
 
@@ -53,3 +61,8 @@ int npc::getDirection() {
 	return 0;
 }
 
+void npc::draw(sf::RenderTarget & w) {
+	drawable::draw(w);
+	text.setPosition(sf::Vector2f(getPosition().x, getPosition().y + 10));
+	w.draw(text);
+}

@@ -329,12 +329,13 @@ void Game::render() {
 	{
 		window.clear();
 		window.draw(lvls.background);
-		window.draw(sf::Sprite(player));
-		window.draw(sf::Sprite(*enemy));
-		window.draw(sf::Sprite(*np));
-		for (auto & enemy : enemies) {
-			window.draw(enemy->operator sf::Sprite());
-		}
+		np->draw(window);
+		enemy->draw(window);
+		player.draw(window);
+	//	window.draw(sf::Sprite(player));
+	//	window.draw(sf::Sprite(*enemy));
+	//	window.draw(sf::Sprite(*np));
+
 		window.draw(lvls.ground);
 		window.draw(lvls.damage_background);
 		window.setView(main_HUD);

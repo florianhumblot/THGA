@@ -87,3 +87,13 @@ void Enemy::die()
 	}
 }
 
+void Enemy::draw(sf::RenderTarget &w) {
+	drawable::draw(w);
+	int j = -2;
+	for (auto & txt: text) {
+		txt.setPosition(sf::Vector2f(getPosition().x, getPosition().y + j * 10));
+		w.draw(txt);
+		j++;
+	}
+}
+
