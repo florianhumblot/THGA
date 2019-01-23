@@ -291,6 +291,7 @@ void Game::update() {
 					bounce_velocity++;
 				}
 			}
+			np->updateText(player);
 			hud.update();
 			
 			enemy->update_info_pos(window);
@@ -343,10 +344,6 @@ void Game::render() {
 		np->draw(window);
 		enemy->draw(window);
 		player.draw(window);
-	//	window.draw(sf::Sprite(player));
-	//	window.draw(sf::Sprite(*enemy));
-	//	window.draw(sf::Sprite(*np));
-
 		window.draw(lvls.ground);
 		window.draw(lvls.damage_background);
 		window.draw(lvls.foreground_bounce);
