@@ -5,6 +5,7 @@
 
 namespace Adam
 {
+	
 	class physics
 	{
 	public:
