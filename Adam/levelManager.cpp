@@ -12,8 +12,8 @@ levelManager::levelManager()
 		int count = 0;
 		while (lvls_file >> lvl >> name >> item)
 		{
-			if (lvl == "lvl1")
-			{
+			//if (lvl == "lvl1")
+			//{
 				if (name == "background")
 				{
 					lvls[lvl]["background"] = item;
@@ -39,10 +39,10 @@ levelManager::levelManager()
 					spawnpoints_enemys[lvl][count++] = item;
 
 				}
-			}
+			//}
 		}
 	}
-	//print();
+	print();
 }
 
 void levelManager::print()
