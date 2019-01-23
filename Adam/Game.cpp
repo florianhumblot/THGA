@@ -2,7 +2,6 @@
 #include "Game.hpp"
 #include "Menu.hpp"
 #include "npc.hpp"
-#include "audio.hpp"
 
 Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani) :
 
@@ -16,12 +15,6 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
 	menuTex = sf::Texture();
-	//Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/UBGv2.png");
-	//bg = Sprite(tex);
-	//Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/underground_cave_bv2.png");
-	//bg2 = Sprite(tex2);
-	//Collision::CreateTextureAndBitmask(tex3, "assets/backgrounds/underground_cave_spikesLayer.png");
-	//bg3 = Sprite(tex3);
 	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
 	bgMain = Sprite(menuTex);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
@@ -35,12 +28,8 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(lvls.bg);
-	//this->cln_h2 = Adam::collision_handler(bg3);
 	this->world_physics = Adam::physics(&player, cln_h);
 
-	//background.setTexture(tex2);
-	//ground.setTexture(tex);
-	//damage_background.setTexture(tex3);
 	bgMain.setTexture(menuTex);
 
 	
@@ -113,6 +102,9 @@ void Game::handleInput() {
 										{
 											std::cout << "warrior has been chosen" << '\n';
 											state = STATE::PLAYING;
+											player.setAnimationMap(ani.animations["knight"]);
+											player.setAnimation("IDLEright");
+											player.setTexture(player.currentAnimation.nextFrame());
 										}
 										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
 										{
@@ -131,11 +123,15 @@ void Game::handleInput() {
 										{
 											std::cout << "hunter has been chosen" << '\n';
 											state = STATE::PLAYING;
+											player.setAnimationMap(ani.animations["mage"]);
+											player.setAnimation("IDLEright");
+											player.setTexture(player.currentAnimation.nextFrame());
 
 										}
 										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
 										{
-
+											currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
+											std::cout << "terug naar menu";
 										}
 										break;
 									}
@@ -246,8 +242,12 @@ void Game::handleInput() {
 					}
 				}
 			}
-			if (!enemy.get()->checkDead()) {
-				ai->shouldFollow_followDirection(enemy.get(), &player);
+
+			if (aiClock.getElapsedTime().asMilliseconds() >= 300) {
+				if (!enemy.get()->checkDead()) {
+					ai->shouldFollow_followDirection(enemy.get(), &player);
+				}
+				aiClock.restart();
 			}
 			ai->walkRandomly(np.get());
 
@@ -297,7 +297,6 @@ void Game::update() {
 					bounce_velocity++;
 				}
 			}
-			np->updateText(player);
 			hud.update();
 			
 			enemy->update_info_pos(window);
@@ -347,15 +346,13 @@ void Game::render() {
 	{
 		window.clear();
 		window.draw(lvls.background);
-		window.draw(sf::Sprite(player));
-		window.draw(sf::Sprite(*enemy));
-		window.draw(sf::Sprite(*np));
-		for (auto & enemy : enemies) {
-			window.draw(enemy->operator sf::Sprite());
-		}
 		np->draw(window);
 		enemy->draw(window);
 		player.draw(window);
+	//	window.draw(sf::Sprite(player));
+	//	window.draw(sf::Sprite(*enemy));
+	//	window.draw(sf::Sprite(*np));
+
 		window.draw(lvls.ground);
 		window.draw(lvls.damage_background);
 		window.draw(lvls.foreground_bounce);

@@ -18,7 +18,7 @@ bool fighter::fight(fighter * opponent) {
 
 	if (Collision::PixelPerfectTest(makeFightBox(), opponent->getBox())) {
 		updateFollowPosition(0);
-		opponent->take_damage(lvl*2);
+		opponent->take_damage(20+lvl*lvl);
 		opponent->update_info();
 		return true;
 	}
