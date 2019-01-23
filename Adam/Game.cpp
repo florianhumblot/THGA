@@ -15,12 +15,6 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
 	menuTex = sf::Texture();
-	//Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/UBGv2.png");
-	//bg = Sprite(tex);
-	//Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/underground_cave_bv2.png");
-	//bg2 = Sprite(tex2);
-	//Collision::CreateTextureAndBitmask(tex3, "assets/backgrounds/underground_cave_spikesLayer.png");
-	//bg3 = Sprite(tex3);
 	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
 	bgMain = Sprite(menuTex);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
@@ -34,12 +28,8 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(lvls.bg);
-	//this->cln_h2 = Adam::collision_handler(bg3);
 	this->world_physics = Adam::physics(&player, cln_h);
 
-	//background.setTexture(tex2);
-	//ground.setTexture(tex);
-	//damage_background.setTexture(tex3);
 	bgMain.setTexture(menuTex);
 
 	
@@ -290,6 +280,15 @@ void Game::update() {
 			{
 				player.setVelocity(sf::Vector2f(player.getVelocity().x, -19));
 
+			}
+			if (Collision::PixelPerfectTest(lvls.fg_bounce, player))
+			{
+				player.setVelocity(sf::Vector2f(player.getVelocity().x, -2 * bounce_velocity));
+
+				if (bounce_velocity < 11)
+				{
+					bounce_velocity++;
+				}
 			}
 			hud.update();
 			

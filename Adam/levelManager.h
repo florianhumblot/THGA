@@ -4,7 +4,7 @@ class levelManager
 {
 private:
 	
-	sf::Sprite fg;
+	
 	
 
 	sf::Texture tex;
@@ -15,6 +15,7 @@ private:
 
 
 public:
+	sf::Sprite fg;
 	sf::Vector2f spawnpoint_player;
 	sf::Sprite bg;
 	sf::Sprite fg_dmg;
