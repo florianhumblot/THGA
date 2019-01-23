@@ -244,8 +244,9 @@ void Game::handleInput() {
 					}
 				}
 			}
-
-			ai->shouldFollow_followDirection(enemy.get(), &player);
+			if (!enemy.get()->checkDead()) {
+				ai->shouldFollow_followDirection(enemy.get(), &player);
+			}
 			ai->walkRandomly(np.get());
 
 			break;
@@ -284,21 +285,12 @@ void Game::update() {
 			
 			enemy->update_info_pos(window);
 			if (player.checkDead()) {
-				if (player.getCurrentAnimation() != std::string("DYINGright")) {
-					player.setAnimation("DYINGright");
-					player.setTexture(player.currentAnimation.nextFrame());
-				}
-				else {
-					if (player.currentAnimationIsDone()) {
-						player.respawn();
-						player.setAnimation("IDLEright");
-						player.setTexture(player.currentAnimation.nextFrame());
-					}
-				}
-				
+				player.die();
 			}
-			enemy.get()->checkDead();
-
+			if (enemy.get()->checkDead()) {
+				enemy.get()->die();
+			}
+			
 		}
 		break;
 
