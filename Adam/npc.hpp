@@ -18,5 +18,9 @@ public:
 	bool isWalking();
 	void walkTheOtherWay();
 	int getDirection();
+	friend operator sf::RenderTarget::draw(npc &n)() {
+		this->draw(n.sf::Sprite());
+	}
+
 };
 

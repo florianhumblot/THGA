@@ -33,12 +33,13 @@ bool npc::isWalking() {
 void npc::walkTheOtherWay() {
 	if (current_direction == direction::LEFT) {
 		current_direction = direction::RIGHT;
-		setScale(sf::Vector2f(-0.2, 0.2));
+	//	std::cout << "moving the other way, right \n";
+		setScale(sf::Vector2f(0.2, 0.2));
 
 	}
 	else if (current_direction == direction::LEFT) {
 		current_direction = direction::RIGHT;
-		setScale(sf::Vector2f(0.2, 0.2));
+		setScale(sf::Vector2f(-0.2, 0.2));
 
 	}
 }
@@ -51,3 +52,4 @@ int npc::getDirection() {
 	}
 	return 0;
 }
+
