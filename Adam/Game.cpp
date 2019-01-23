@@ -281,6 +281,21 @@ void Game::update() {
 				player.health.sub(1);
 
 			}
+			if (Collision::PixelPerfectTest(lvls.fg_bounce, player))
+			{
+				player.setVelocity(sf::Vector2f(player.getVelocity().x, -19));
+
+			}
+			if (Collision::PixelPerfectTest(lvls.fg_bounce, player))
+			{
+				player.setVelocity(sf::Vector2f(player.getVelocity().x, -2 * bounce_velocity));
+
+				if (bounce_velocity < 11)
+				{
+					bounce_velocity++;
+				}
+			}
+			np->updateText(player);
 			hud.update();
 			
 			enemy->update_info_pos(window);
@@ -336,6 +351,9 @@ void Game::render() {
 		for (auto & enemy : enemies) {
 			window.draw(enemy->operator sf::Sprite());
 		}
+		np->draw(window);
+		enemy->draw(window);
+		player.draw(window);
 		window.draw(lvls.ground);
 		window.draw(lvls.damage_background);
 		window.setView(main_HUD);

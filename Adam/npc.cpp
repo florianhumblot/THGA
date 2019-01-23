@@ -13,8 +13,9 @@ npc::npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animat
 	}
 	text.setFont(font);
 	text.setOutlineColor(sf::Color::Black);
-	text.setOutlineThickness(2.0f);
-	text.setCharacterSize(10);
+	text.setOutlineThickness(1.0f);
+	text.setScale(sf::Vector2f(0.1, 0.1));
+	text.setCharacterSize(200);
 }
 
 
@@ -31,6 +32,20 @@ void npc::updateState() {
 		} else if (state == STATE::WALKING) {
 			state = STATE::IDLE;
 		}
+	}
+}
+
+void npc::setText(std::string str) {
+	text.setString(str);
+}
+void npc::updateText(Character &p) {
+	sf::Vector2f plPos = p.getPosition();
+	if (plPos.x - position.x < 50 && plPos.x - position.x > -50) {
+		std::cout << "talk ";
+		setText("no munnie?");
+	}
+	else {
+		setText("");
 	}
 }
 
@@ -63,6 +78,6 @@ int npc::getDirection() {
 
 void npc::draw(sf::RenderTarget & w) {
 	drawable::draw(w);
-	text.setPosition(sf::Vector2f(getPosition().x, getPosition().y + 10));
+	text.setPosition(sf::Vector2f(getPosition().x, getPosition().y - 10));
 	w.draw(text);
 }

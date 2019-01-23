@@ -8,7 +8,6 @@ void AI::shouldFollow_followDirection(Enemy * p1, fighter * p2) {
 	// if so, make enemy move towarts the player
 	if ((p1->getPosition() - p2->getPosition()).x <= 200 && (p1->getPosition() - p2->getPosition()).x > 10) {
 		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
-			std::cout << "left \n";
 			if (!p1->fight(p2)) {
 				if (p1->getCurrentAnimation() != "WALKright") {
 					p1->setAnimation("WALKright");
@@ -65,10 +64,8 @@ void AI::walkRandomly(npc * p1) {
 			p1->current_direction = movable::direction::LEFT;
 
 		}
-		std::cout << p1->lastDirection;
 
 		if (p1->getVelocity().x == 0 && p1->lastDirection != 0) {
-		//	std::cout << p1->lastDirection;
 			p1->walkTheOtherWay();
 			p1->setVelocity(sf::Vector2f(0, -9));
 		}		p1->setVelocity(sf::Vector2f(dir, p1->getVelocity().y));

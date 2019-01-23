@@ -2,6 +2,7 @@
 #include "Movable.h"
 #include "Animated.hpp"
 #include "statistic.h"
+#include "Character.h"
 #include <cstdlib>
 
 class npc : public movable, public Animateable{
@@ -17,7 +18,9 @@ public:
 	npc() {}
 	~npc();
 	void updateState();
-	bool isWalking();
+	void setText(std::string str);
+	void updateText(Character &p);
+	bool isWalking(); 
 	void walkTheOtherWay();
 	int getDirection();
 	void draw(sf::RenderTarget & w);
