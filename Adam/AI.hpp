@@ -13,7 +13,7 @@ public:
 
 	}
 
+	void shouldFollow_followDirection(Enemy * p1, fighter * p2);
 	void walkRandomly(npc * p1);
-	void shouldFollow_followDirection(Enemy * p1, fighter & p2);
 
 };

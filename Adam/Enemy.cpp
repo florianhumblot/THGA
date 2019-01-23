@@ -20,7 +20,6 @@ Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, An
 		text[i].setOutlineColor(sf::Color::Black);
 		text[i].setOutlineThickness(2.0f);
 		text[i].setCharacterSize(10);
-		text[i].setString(t[i]);
 	}
 	text[0].setFillColor(sf::Color::Red);
 	text[1].setFillColor(sf::Color::White);
@@ -33,23 +32,30 @@ Enemy::~Enemy()
 
 void Enemy::update_info(int new_lvl)
 {
-	lvl = new_lvl;
-	t[0] = std::to_string(health.current) + "/" + std::to_string(health.max) + '\n';
-	t[1] = "  lvl: " + std::to_string(lvl);
-	for (unsigned int k = 0; k < 2; k++)
-	{
-		text[k].setString(t[k]);
-
-	}
+	text[0].setString(std::to_string(health.current) + "/" + std::to_string(health.max) + '\n');
+	text[1].setString("  lvl: " + std::to_string(new_lvl));
 }
 
 void Enemy::update_info_pos(sf::RenderWindow & window)
 {
-	for (unsigned int j = 0; j < 2; j++)
-	{
-		text[j].setPosition(sf::Vector2f(position.x, position.y - 30 + j * 12));
-	}
+	text[0].setPosition(sf::Vector2f(position.x, position.y - 30));
+	text[1].setPosition(sf::Vector2f(position.x, position.y - 30 + 12));
 }
+
+bool Enemy::fight(fighter * opponent) {
+	if (fighter::fight(opponent)) {
+		if (getCurrentAnimation() != "SLASHINGright") {
+			setAnimation("SLASHINGright");
+		}
+		if (fighter::checkDead()) {
+			setPosition(sf::Vector2f(890, 690));
+			health.current = health.max;
+		}
+		return true;
+	}
+	return false;
+}
+
 
 void Enemy::take_damage(int amount)
 {

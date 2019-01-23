@@ -15,31 +15,31 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
 	menuTex = sf::Texture();
-	Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/UBGv2.png");
-	bg = Sprite(tex);
-	Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/underground_cave_bv2.png");
-	bg2 = Sprite(tex2);
-	Collision::CreateTextureAndBitmask(tex3, "assets/backgrounds/underground_cave_spikesLayer.png");
-	bg3 = Sprite(tex3);
+	//Collision::CreateTextureAndBitmask(tex, "assets/backgrounds/UBGv2.png");
+	//bg = Sprite(tex);
+	//Collision::CreateTextureAndBitmask(tex2, "assets/backgrounds/underground_cave_bv2.png");
+	//bg2 = Sprite(tex2);
+	//Collision::CreateTextureAndBitmask(tex3, "assets/backgrounds/underground_cave_spikesLayer.png");
+	//bg3 = Sprite(tex3);
 	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
 	bgMain = Sprite(menuTex);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
-
+	lvls.make_lvl("lvl1");
 	
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);
 
-	np = std::make_shared<npc>(v2(890, 690), v2(0.25, 0.25), ani.animations["skull"], v2(0, 0), statistic(200, 200));
+	np = std::make_shared<npc>(v2(890, 690), v2(0.2, 0.2), ani.animations["boy"], v2(0, 0), statistic(200, 200));
 	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
 
-	this->cln_h = Adam::collision_handler(bg);
-	this->cln_h2 = Adam::collision_handler(bg3);
+	this->cln_h = Adam::collision_handler(lvls.bg);
+	//this->cln_h2 = Adam::collision_handler(bg3);
 	this->world_physics = Adam::physics(&player, cln_h);
 
-	background.setTexture(tex2);
-	ground.setTexture(tex);
-	damage_background.setTexture(tex3);
+	//background.setTexture(tex2);
+	//ground.setTexture(tex);
+	//damage_background.setTexture(tex3);
 	bgMain.setTexture(menuTex);
 
 	
@@ -206,7 +206,7 @@ void Game::handleInput() {
 			}
 
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !player.checkDead())
 			{
 				if (player.getCurrentAnimation() != std::string("WALKright")) {
 					player.setAnimation("WALKright");
@@ -216,7 +216,7 @@ void Game::handleInput() {
 				player.setScale(sf::Vector2f(0.2, 0.2));
 				player.setVelocity(sf::Vector2f(4, player.getVelocity().y));
 			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !player.checkDead())
 			{
 				if (player.getCurrentAnimation() != std::string("WALKright")) {
 					player.setAnimation("WALKright");
@@ -227,19 +227,26 @@ void Game::handleInput() {
 				player.setVelocity(sf::Vector2f(-4, player.getVelocity().y));
 
 			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
+			{
+				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
+				player.fight(enemy.get());
+				std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
+			}
 			else
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 				if (player.getVelocity().y == 0) {
-					if (player.getCurrentAnimation() != std::string("IDLEright")) {
+					if (player.getCurrentAnimation() != std::string("IDLEright") && player.getCurrentAnimation() != std::string("DYINGright")) {
 						player.setAnimation("IDLEright");
 						player.setTexture(player.currentAnimation.nextFrame());
 					}
 				}
 			}
 
-			ai->shouldFollow_followDirection(enemy.get(), player);
-			
+			ai->shouldFollow_followDirection(enemy.get(), &player);
+			ai->walkRandomly(np.get());
+
 			break;
 		}
 	}
@@ -258,14 +265,38 @@ void Game::update() {
 
 		case STATE::PLAYING:
 		{
-			if (Clock.getElapsedTime().asMilliseconds() >= 100) {
+			if (Clock.getElapsedTime().asMilliseconds() >= 50) {
 				player.setTexture(player.currentAnimation.nextFrame());
 				enemy->setTexture(enemy->currentAnimation.nextFrame());
+				np->setTexture(np->currentAnimation.nextFrame());
 				Clock.restart();
 			}
 
 			world_physics.step_x_moveables();
 			world_physics.step_y_moveables();
+			if (Collision::PixelPerfectTest(lvls.fg_dmg, player))
+			{
+				player.health.sub(1);
+
+			}
+			hud.update();
+			
+			enemy->update_info_pos(window);
+			if (player.checkDead()) {
+				if (player.getCurrentAnimation() != std::string("DYINGright")) {
+					player.setAnimation("DYINGright");
+					player.setTexture(player.currentAnimation.nextFrame());
+				}
+				else {
+					if (player.currentAnimationIsDone()) {
+						player.respawn();
+						player.setAnimation("IDLEright");
+						player.setTexture(player.currentAnimation.nextFrame());
+					}
+				}
+				
+			}
+			enemy.get()->checkDead();
 
 		}
 		break;
@@ -283,9 +314,9 @@ void Game::render() {
 		if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
 		{
 			window.clear();
-			window.draw(background);
-			window.draw(ground);
-			window.draw(damage_background);
+			window.draw(lvls.background);
+			window.draw(lvls.ground);
+			window.draw(lvls.damage_background);
 			window.draw(sf::Sprite(player));
 			window.draw(sf::Sprite(*enemy));
 			currentMenu->draw(window);
@@ -305,26 +336,15 @@ void Game::render() {
 	case STATE::PLAYING:
 	{
 		window.clear();
-		window.draw(background);
+		window.draw(lvls.background);
 		window.draw(sf::Sprite(player));
 		window.draw(sf::Sprite(*enemy));
+		window.draw(sf::Sprite(*np));
 		for (auto & enemy : enemies) {
 			window.draw(enemy->operator sf::Sprite());
 		}
-		if (cln_h2.collides_with_world(&player))
-		{
-			player.health.sub(1);
-
-		}
-		hud.update();
-		if (player.health.is_zero())
-		{
-			player.setPosition(sf::Vector2f(890, 690));
-			player.health.current = player.health.max;
-		}
-		enemy->update_info_pos(window);
-		window.draw(ground);
-		window.draw(damage_background);
+		window.draw(lvls.ground);
+		window.draw(lvls.damage_background);
 		window.setView(main_HUD);
 		hud.draw(window);
 		auto center = Collision::GetSpriteCenter(player);

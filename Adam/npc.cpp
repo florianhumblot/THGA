@@ -18,8 +18,9 @@ void npc::updateState() {
 	int chance = rand();
 	if (chance % 1000 < 5) {
 		if (state == STATE::IDLE) {
-			state = STATE::WALKINGLEFT;
-		} else if (state == STATE::WALKINGLEFT || state == STATE::WALKINGLEFT) {
+			state = STATE::WALKING;
+			walkTheOtherWay();
+		} else if (state == STATE::WALKING) {
 			state = STATE::IDLE;
 		}
 	}
@@ -30,18 +31,22 @@ bool npc::isWalking() {
 }
 
 void npc::walkTheOtherWay() {
-	if (state == STATE::WALKINGLEFT) {
-		state = STATE::WALKINGRIGHT;
+	if (current_direction == direction::LEFT) {
+		current_direction = direction::RIGHT;
+		setScale(sf::Vector2f(-0.2, 0.2));
+
 	}
-	else if (state == STATE::WALKINGRIGHT) {
-		state = STATE::WALKINGLEFT;
+	else if (current_direction == direction::LEFT) {
+		current_direction = direction::RIGHT;
+		setScale(sf::Vector2f(0.2, 0.2));
+
 	}
 }
 
 int npc::getDirection() {
-	if (state == STATE::WALKINGLEFT) {
+	if (current_direction == direction::LEFT) {
 		return -1;
-	} else if (state == STATE::WALKINGRIGHT) {
+	} else if (current_direction == direction::RIGHT) {
 		return 1;
 	}
 	return 0;

@@ -12,7 +12,6 @@ class Enemy : public fighter, public Animateable
 private:
 	sf::Font font;
 	sf::Text text[2];
-	std::string t[2];
 	int teller = 0;
 
 	enum class STATE { IDLE, FOLLOWING };
@@ -26,6 +25,8 @@ public:
 	void update_info_pos(sf::RenderWindow & window) override;
 	Enemy() {}
 	Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
+
+	bool fight(fighter * opponent) override;
 
 	void take_damage(int amount) ;
 
