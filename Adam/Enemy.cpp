@@ -43,11 +43,13 @@ void Enemy::update_info_pos(sf::RenderWindow & window)
 }
 
 bool Enemy::fight(fighter * opponent) {
+	if (getCurrentAnimation() != "SLASHINGright") {
+		setAnimation("SLASHINGright");
+		setTexture(currentAnimation.nextFrame());
+	}
 	if (!checkDead()) {
 		if (fighter::fight(opponent)) {
-			if (getCurrentAnimation() != "SLASHINGright") {
-				setAnimation("SLASHINGright");
-			}
+			
 			if (fighter::checkDead()) {
 				setPosition(sf::Vector2f(890, 690));
 				health.current = health.max;
