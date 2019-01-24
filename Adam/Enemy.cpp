@@ -94,6 +94,9 @@ void Enemy::setVelocity(sf::Vector2f newVel) {
 	if (state != STATE::DEAD) {
 		movable::setVelocity(newVel);
 	}
+	else {
+		movable::setVelocity(sf::Vector2f(0,0));
+	}
 }
 
 
