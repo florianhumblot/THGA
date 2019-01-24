@@ -4,10 +4,9 @@
 
 namespace Adam
 {
-	collision_handler::collision_handler(sf::Sprite & collision_layer)
-		:collision_layer(&collision_layer)
+	collision_handler::collision_handler(sf::Sprite & layer)
 	{
-
+		collision_layer = &layer;
 	}
 
 	collision_handler::collision_handler() {}

@@ -15,13 +15,13 @@ Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, An
 	}
 	update_info();
 
-	for (int i = 0; i < 2; i++)
+	for (auto & tex: text)
 	{
-		text[i].setFont(font);
-		text[i].setOutlineColor(sf::Color::Black);
-		text[i].setOutlineThickness(2.0f);
-		text[i].setScale(sf::Vector2f(0.1, 0.1));
-		text[i].setCharacterSize(100);
+		tex.setFont(font);
+		tex.setOutlineColor(sf::Color::Black);
+		tex.setOutlineThickness(2.0f);
+		tex.setScale(sf::Vector2f(0.1, 0.1));
+		tex.setCharacterSize(100);
 	}
 	text[0].setFillColor(sf::Color::Red);
 	text[1].setFillColor(sf::Color::White);
@@ -112,6 +112,8 @@ void Enemy::die()
 			setTexture(currentAnimation.textures.back());
 		}
 	}
+	health.zero();
+	update_info();
 }
 
 void Enemy::draw(sf::RenderTarget &w) {
