@@ -71,16 +71,15 @@ void levelManager::print()
 
 void levelManager::make_lvl(std::string lvl_name)
 {
+	Collision::removeBitmask(&tex);
+	Collision::removeBitmask(&tex3);
+	Collision::removeBitmask(&tex4);
+	Collision::removeBitmask(&tex5);
 	tex.loadFromFile(lvls[lvl_name]["foreground"]);
 	tex2.loadFromFile(lvls[lvl_name]["background"]);
 	tex3.loadFromFile(lvls[lvl_name]["foreground_dmg"]);
 	tex4.loadFromFile(lvls[lvl_name]["foreground_bounce"]);
 	tex5.loadFromFile(lvls[lvl_name]["lvl_end"]);
-	/*Collision::CreateTextureAndBitmask(tex, lvls[lvl_name]["foreground"]);
-	Collision::CreateTextureAndBitmask(tex2, lvls[lvl_name]["background"]);
-	Collision::CreateTextureAndBitmask(tex3, lvls[lvl_name]["foreground_dmg"]);
-	Collision::CreateTextureAndBitmask(tex4, lvls[lvl_name]["foreground_bounce"]);
-	Collision::CreateTextureAndBitmask(tex5, lvls[lvl_name]["lvl_end"]);*/
 
 	ground.setTexture(tex);
 	background.setTexture(tex2);
