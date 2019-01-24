@@ -11,6 +11,13 @@ class npc : public movable, public Animateable{
 	STATE state = STATE::IDLE;
 	sf::Font font;
 	sf::Text text = sf::Text();
+	struct linearDialogue {
+		std::vector<std::string> dialogue;
+		int index = 0;
+		std::string line();
+		void updateLine();
+		void reset();
+	} speach;
 public:
 	int lastDirection;
 	sf::Vector2f originPosition;
@@ -19,7 +26,9 @@ public:
 	~npc();
 	void updateState();
 	void setText(std::string str);
-	void updateText(Character &p);
+	void setDialogue(std::vector<std::string> & dia);
+	void showText(Character &p);
+	void updateText();
 	bool isWalking(); 
 	void walkTheOtherWay();
 	int getDirection();

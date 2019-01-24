@@ -6,6 +6,7 @@ npc::npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animat
 	movable(position, scale, animations["IDLEright"].textures[0], velocity),
 	originPosition(position)
 {
+	speach.dialogue = {"...", "this is standard text", "the devs were lazy", "no muny? "};
 	health = health_c;
 	if (!font.loadFromFile("fonts/stranger.ttf"))
 	{
@@ -13,7 +14,7 @@ npc::npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animat
 	}
 	text.setFont(font);
 	text.setOutlineColor(sf::Color::Black);
-	text.setOutlineThickness(1.0f);
+	text.setOutlineThickness(2.0f);
 	text.setScale(sf::Vector2f(0.1, 0.1));
 	text.setCharacterSize(200);
 }
@@ -38,16 +39,27 @@ void npc::updateState() {
 void npc::setText(std::string str) {
 	text.setString(str);
 }
-void npc::updateText(Character &p) {
+
+void npc::setDialogue(std::vector<std::string> & dia) {
+	speach.dialogue = dia;
+}
+
+void npc::showText(Character &p) {
 	sf::Vector2f plPos = p.getPosition();
 	if (plPos.x - position.x < 50 && plPos.x - position.x > -50) {
-		std::cout << "talk ";
-		setText("no munnie?");
+	//	speach.updateLine();
+		setText(speach.line());
 	}
 	else {
+		speach.reset();
 		setText("");
 	}
 }
+
+void npc::updateText() {
+	speach.updateLine();
+}
+
 
 bool npc::isWalking() {
 	return state != STATE::IDLE;
@@ -80,4 +92,18 @@ void npc::draw(sf::RenderTarget & w) {
 	drawable::draw(w);
 	text.setPosition(sf::Vector2f(getPosition().x, getPosition().y - 10));
 	w.draw(text);
+}
+
+std::string npc::linearDialogue::line(){
+	std::string currentLine = dialogue[index];
+	return currentLine;
+}
+
+void npc::linearDialogue::updateLine() {
+	index++;
+	if (index >= dialogue.size()) index = 0;
+}
+
+void npc::linearDialogue::reset() {
+	index = 0;
 }
