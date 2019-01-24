@@ -33,9 +33,10 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	this->world_physics = Adam::physics(&player, cln_h);
 
 	bgMain.setTexture(menuTex);
-
+	sf::Vector2f playerposforbg = player.getPosition();
+	bgMain.setPosition(sf::Vector2f(playerposforbg.x - 960, playerposforbg.y - 540));
 	
-	currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
+	currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y, player);
 
 
 	ai = std::make_shared<AI>();
@@ -77,91 +78,25 @@ void Game::handleInput() {
 								currentMenu->moveDown();
 								break;
 							}
+								
 							case sf::Keyboard::Enter:
 							{
-								switch (currentMenu->selectedItem)
-								{
-									case 0:
-									{
-
-										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
-										{
-											currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y);
-										}
-										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
-										{
-											state = STATE::PLAYING;
-										}
-										break;
-									}
-									case 1:
-									{
-										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
-										{
-											state = STATE::PLAYING;
-										}
-										else if (currentMenu->current_state == Menu::menu_states::s_newGameMenu)
-										{
-											std::cout << "warrior has been chosen" << '\n';
-											state = STATE::PLAYING;
-											player.setAnimationMap(ani.animations["knight"]);
-											player.setAnimation("IDLEright");
-											player.setTexture(player.currentAnimation.nextFrame());
-										}
-										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
-										{
-											std::cout << "option not made yet" << '\n';
-										}
-
-										break;
-									}
-									case 2:
-									{
-										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
-										{
-											std::cout << "not made yet";
-										}
-										else if (currentMenu->current_state == Menu::menu_states::s_newGameMenu)
-										{
-											std::cout << "hunter has been chosen" << '\n';
-											state = STATE::PLAYING;
-											player.setAnimationMap(ani.animations["mage"]);
-											player.setAnimation("IDLEright");
-											player.setTexture(player.currentAnimation.nextFrame());
-
-										}
-										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
-										{
-											currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
-											std::cout << "terug naar menu";
-										}
-										break;
-									}
-									case 3:
-									{
-										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
-										{
-											std::cout << "option menu not made yet" << std::endl;
-										}
-										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
-										{
-											window.close();
-
-										}
-										break;
-									}
-									case 4:
-									{
-										window.close();
-										break;
-									}
-
+								int menuResult = currentMenu->chooseTile(currentMenu->selectedItem, currentMenu, player, window, ani);
+								// if 0, do nothing
+								if (menuResult == 1) {
+									state = STATE::MENU;
+								} else if (menuResult == 2) {
+									main_camera.setCenter(player.getPosition());
+									main_camera.setSize(640, 360);
+									state = STATE::PLAYING;
+								} else if (menuResult == 3) {
+									state = STATE::GAMEOVER;
 								}
 								break;
 							}
 							case sf::Keyboard::BackSpace:
 							{
-								currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
+								currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y, player);
 								break;
 							}
 						}
@@ -194,7 +129,6 @@ void Game::handleInput() {
 				{
 					player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 					player.fight(enemy.get());
-					std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
 				}
 			}
 			if (Keyboard::isKeyPressed(Keyboard::O))
@@ -206,7 +140,6 @@ void Game::handleInput() {
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
-				//window.close();
 				state = STATE::MENU;
 				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
 			}
@@ -321,25 +254,9 @@ void Game::render() {
 
 	case STATE::MENU:
 	{
-
-		if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
-		{
-			window.clear();
-			window.draw(lvls.background);
-			window.draw(lvls.ground);
-			window.draw(lvls.damage_background);
-			window.draw(sf::Sprite(player));
-			window.draw(sf::Sprite(*enemy));
-			currentMenu->draw(window);
-			window.display();
-		}
-		else
-		{
-			window.clear();
-			window.draw(bgMain);
-			currentMenu->draw(window);
-			window.display();
-		}
+		window.clear();
+		currentMenu->draw(window, lvls, enemy, main_camera, bgMain, player);
+		window.display();
 		break;
 	}
 
@@ -351,10 +268,6 @@ void Game::render() {
 		np->draw(window);
 		enemy->draw(window);
 		player.draw(window);
-	//	window.draw(sf::Sprite(player));
-	//	window.draw(sf::Sprite(*enemy));
-	//	window.draw(sf::Sprite(*np));
-
 		window.draw(lvls.ground);
 		window.draw(lvls.damage_background);
 		window.draw(lvls.foreground_bounce);
