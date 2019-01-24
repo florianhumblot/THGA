@@ -189,10 +189,18 @@ void Game::handleInput()
 
 			}
 
-			if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space &&player.canJump)
+			if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
 			{
-				player.setVelocity(sf::Vector2f(player.getVelocity().x, -9));
+				player.canJump = false;
+
+				if (player.jumpCount < 2)
+				{
+					player.setVelocity(sf::Vector2f(player.getVelocity().x, -9));
+					player.jumpCount++;
+				}
 			}
+			
+
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
