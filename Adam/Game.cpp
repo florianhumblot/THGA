@@ -239,6 +239,7 @@ void Game::handleInput()
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
 		{
+			geluidje.playFireBall();
 			player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 			player.fight(enemy.get());
 			std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
