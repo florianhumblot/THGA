@@ -9,10 +9,10 @@ void Character::respawn()
 
 Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic mana_c, statistic health_c, statistic exp_c):
 	Animateable(animations),
-	fighter(position, scale, animations["IDLEright"].textures[0], velocity, health_c, 1)
+	fighter(health_c, 1),
+	movable(position, scale, animations["IDLEright"].textures[0], velocity)
 {
 	setAnimation("IDLEright");
-	setTexture(currentAnimation.nextFrame());
 	mana = mana_c;
 	exp = exp_c;
 }
@@ -20,10 +20,9 @@ Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::st
 bool Character::fight(fighter * opponent) {
 	if (getCurrentAnimation() != "SLASHINGright") {
 		setAnimation("SLASHINGright");
-		setTexture(currentAnimation.nextFrame());
 	}
 	if (fighter::fight(opponent)) {
-		
+
 		if (fighter::checkDead()) {
 			setPosition(sf::Vector2f(890, 690));
 			health.current = health.max;
@@ -31,6 +30,14 @@ bool Character::fight(fighter * opponent) {
 		return true;
 	}
 	return false;
+}
+
+sf::Sprite Character::makeFightBox() {
+	auto temp = sf::Sprite();
+	temp.setPosition(position);
+	temp.setTexture(AABB_H);
+	temp.setScale(scale);
+	return temp;
 }
 
 void Character::die()
@@ -46,6 +53,10 @@ void Character::die()
 			setTexture(currentAnimation.nextFrame());
 		}
 	}
+}
+
+sf::Sprite Character::getBox() {
+	return drawable::getBox();
 }
 
 

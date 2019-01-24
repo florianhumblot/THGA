@@ -15,12 +15,13 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
 	menuTex = sf::Texture();
+
 	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
 	bgMain = Sprite(menuTex);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
-	lvls.make_lvl("lvl1");
-	
+	lvls.make_lvl("lvl2");
+
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);
 
@@ -28,6 +29,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
 
 	this->cln_h = Adam::collision_handler(lvls.bg);
+
 	this->world_physics = Adam::physics(&player, cln_h);
 
 	bgMain.setTexture(menuTex);
@@ -50,179 +52,143 @@ void Game::handleInput() {
 	//do game stuff
 	switch (state) {
 
-		case STATE::MENU:
+	case STATE::MENU:
+	{
+		sf::Event ev;
+		while (window.pollEvent(ev))
 		{
-			sf::Event ev;
-			while (window.pollEvent(ev))
+			if (ev.type == sf::Event::Closed)
 			{
-				if (ev.type == sf::Event::Closed)
+				window.close();
+			}
+			switch (ev.type)
+			{
+			case sf::Event::KeyPressed:
+			{
+				switch (ev.key.code)
 				{
-					window.close();
+				case sf::Keyboard::Up:
+				{
+					currentMenu->moveUp();
+					break;
 				}
-				switch (ev.type)
+				case sf::Keyboard::Down:
 				{
-					case sf::Event::KeyPressed:
+					currentMenu->moveDown();
+					break;
+				}
+				case sf::Keyboard::Enter:
+				{
+					switch (currentMenu->selectedItem)
 					{
-						switch (ev.key.code)
+					case 0:
+					{
+
+						if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
 						{
-							case sf::Keyboard::Up:
-							{
-								currentMenu->moveUp();
-								break;
-							}
-							case sf::Keyboard::Down:
-							{
-								currentMenu->moveDown();
-								break;
-							}
-							case sf::Keyboard::Enter:
-							{
-								switch (currentMenu->selectedItem)
-								{
-									case 0:
-									{
-
-										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
-										{
-											currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y);
-										}
-										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
-										{
-											state = STATE::PLAYING;
-										}
-										break;
-									}
-									case 1:
-									{
-										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
-										{
-											state = STATE::PLAYING;
-										}
-										else if (currentMenu->current_state == Menu::menu_states::s_newGameMenu)
-										{
-											std::cout << "warrior has been chosen" << '\n';
-											state = STATE::PLAYING;
-											player.setAnimationMap(ani.animations["knight"]);
-											player.setAnimation("IDLEright");
-											player.setTexture(player.currentAnimation.nextFrame());
-										}
-										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
-										{
-											std::cout << "option not made yet" << '\n';
-										}
-
-										break;
-									}
-									case 2:
-									{
-										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
-										{
-											std::cout << "not made yet";
-										}
-										else if (currentMenu->current_state == Menu::menu_states::s_newGameMenu)
-										{
-											std::cout << "hunter has been chosen" << '\n';
-											state = STATE::PLAYING;
-											player.setAnimationMap(ani.animations["mage"]);
-											player.setAnimation("IDLEright");
-											player.setTexture(player.currentAnimation.nextFrame());
-
-										}
-										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
-										{
-											currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
-											std::cout << "terug naar menu";
-										}
-										break;
-									}
-									case 3:
-									{
-										if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
-										{
-											std::cout << "option menu not made yet" << std::endl;
-										}
-										else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
-										{
-											window.close();
-
-										}
-										break;
-									}
-									case 4:
-									{
-										window.close();
-										break;
-									}
-
-								}
-								break;
-							}
-							case sf::Keyboard::BackSpace:
-							{
-								currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
-								break;
-							}
+							currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y);
+						}
+						else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
+						{
+							state = STATE::PLAYING;
 						}
 						break;
 					}
-				}
-			}
-		}
+					case 1:
+					{
+						if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
+						{
+							state = STATE::PLAYING;
+						}
+						else if (currentMenu->current_state == Menu::menu_states::s_newGameMenu)
+						{
+							std::cout << "warrior has been chosen" << '\n';
+							state = STATE::PLAYING;
+							player.setAnimationMap(ani.animations["knight"]);
+							player.setAnimation("IDLEright");
+							player.setTexture(player.currentAnimation.nextFrame());
+						}
+						else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
+						{
+							std::cout << "option not made yet" << '\n';
+						}
 
-		case STATE::PLAYING:
-		{
-			Event ev;
-			while (window.pollEvent(ev))
-			{
-				switch (ev.type)
-				{
-					case Event::Closed:
+						break;
+					}
+					case 2:
+					{
+						if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
+						{
+							std::cout << "not made yet";
+						}
+						else if (currentMenu->current_state == Menu::menu_states::s_newGameMenu)
+						{
+							std::cout << "hunter has been chosen" << '\n';
+							state = STATE::PLAYING;
+							player.setAnimationMap(ani.animations["mage"]);
+							player.setAnimation("IDLEright");
+							player.setTexture(player.currentAnimation.nextFrame());
+
+						}
+						else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
+						{
+							currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
+							std::cout << "terug naar menu";
+						}
+						break;
+					}
+					case 3:
+					{
+						if (currentMenu->current_state == Menu::menu_states::s_mainMenu)
+						{
+							std::cout << "option menu not made yet" << std::endl;
+						}
+						else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
+						{
+							window.close();
+
+						}
+						break;
+					}
+					case 4:
 					{
 						window.close();
 						break;
 					}
-				}
 
-				if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
+					}
+					break;
+				}
+				case sf::Keyboard::BackSpace:
 				{
-					player.setVelocity(sf::Vector2f(player.getVelocity().x, -9));
+					currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y);
+					break;
 				}
-			}
-			if (Keyboard::isKeyPressed(Keyboard::O))
-			{
-				state = STATE::MENU;
-				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
-				
-			}
-
-			if (Keyboard::isKeyPressed(Keyboard::Escape))
-			{
-				//window.close();
-				state = STATE::MENU;
-				currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
-			}
-
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !player.checkDead())
-			{
-				if (player.getCurrentAnimation() != std::string("WALKright")) {
-					player.setAnimation("WALKright");
-					player.setTexture(player.currentAnimation.nextFrame());
 				}
-
-				player.setScale(sf::Vector2f(0.2, 0.2));
-				player.setVelocity(sf::Vector2f(4, player.getVelocity().y));
+				break;
 			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !player.checkDead())
+			}
+		}
+	}
+
+	case STATE::PLAYING:
+	{
+		Event ev;
+		while (window.pollEvent(ev))
+		{
+			switch (ev.type)
 			{
-				if (player.getCurrentAnimation() != std::string("WALKright")) {
-					player.setAnimation("WALKright");
-					player.setTexture(player.currentAnimation.nextFrame());
-				}
-				player.setScale(sf::Vector2f(-0.2, 0.2));
+			case Event::Closed:
+			{
+				window.close();
+				break;
+			}
 
-				player.setVelocity(sf::Vector2f(-4, player.getVelocity().y));
+			}
 
+			if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space &&player.canJump)
+			{
+				player.setVelocity(sf::Vector2f(player.getVelocity().x, -9));
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
 			{
@@ -230,26 +196,75 @@ void Game::handleInput() {
 				player.fight(enemy.get());
 				std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
 			}
+		}
+		if (Keyboard::isKeyPressed(Keyboard::O))
+		{
+			state = STATE::MENU;
+			currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
 
-			else if( player.currentAnimation.isDone() || player.getCurrentAnimation() == std::string("WALKright"))
-			{
-				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
-				if (player.getVelocity().y == 0) {
-					if (player.getCurrentAnimation() != std::string("IDLEright") && player.getCurrentAnimation() != std::string("DYINGright")) {
-						player.setAnimation("IDLEright");
-						player.setTexture(player.currentAnimation.nextFrame());
-					}
-				}
+		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Escape))
+		{
+			//window.close();
+			state = STATE::MENU;
+			currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
+		}
+
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !player.checkDead())
+		{
+			if (player.getCurrentAnimation() != std::string("WALKright")) {
+				player.setAnimation("WALKright");
+				player.setTexture(player.currentAnimation.nextFrame());
 			}
 
-			if (ev.type == sf::Event::KeyReleased) {
-				if (ev.key.code == sf::Keyboard::W && !player.checkDead()) {
-					np->updateText();
+			player.setScale(sf::Vector2f(0.2, 0.2));
+			player.setVelocity(sf::Vector2f(4, player.getVelocity().y));
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !player.checkDead())
+		{
+			if (player.getCurrentAnimation() != std::string("WALKright")) {
+				player.setAnimation("WALKright");
+				player.setTexture(player.currentAnimation.nextFrame());
+			}
+			player.setScale(sf::Vector2f(-0.2, 0.2));
+
+			player.setVelocity(sf::Vector2f(-4, player.getVelocity().y));
+
+		}
+
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
+		{
+			player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
+			player.fight(enemy.get());
+			std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
+		}
+
+		else if (player.currentAnimation.isDone() || player.getCurrentAnimation() == std::string("WALKright"))
+		{
+			player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
+			if (player.getVelocity().y == 0) {
+				if (player.getCurrentAnimation() != std::string("IDLEright") && player.getCurrentAnimation() != std::string("DYINGright")) {
+					player.setAnimation("IDLEright");
+					player.setTexture(player.currentAnimation.nextFrame());
 				}
 			}
+		}
 
-			if (!enemy.get()->checkDead()) {
-				ai->shouldFollow_followDirection(enemy.get(), &player);
+		if (ev.type == sf::Event::KeyReleased) {
+			if (ev.key.code == sf::Keyboard::W && !player.checkDead()) {
+				np->updateText();
+			}
+		}
+
+		if (!enemy.get()->checkDead()) {
+			ai->shouldFollow_followDirection(enemy.get(), &player);
+			if (aiClock.getElapsedTime().asMilliseconds() >= 300) {
+				if (!enemy.get()->checkDead()) {
+					ai->shouldFollow_followDirection(enemy.get(), &player);
+				}
+				aiClock.restart();
 			}
 			ai->walkRandomly(np.get());
 
@@ -258,6 +273,7 @@ void Game::handleInput() {
 	}
 
 
+	}
 }
 
 void Game::update() {
@@ -299,6 +315,7 @@ void Game::update() {
 					bounce_velocity++;
 				}
 			}
+
 			np->showText(player);
 			hud.update();
 			
@@ -352,6 +369,10 @@ void Game::render() {
 		np->draw(window);
 		enemy->draw(window);
 		player.draw(window);
+	//	window.draw(sf::Sprite(player));
+	//	window.draw(sf::Sprite(*enemy));
+	//	window.draw(sf::Sprite(*np));
+
 		window.draw(lvls.ground);
 		window.draw(lvls.damage_background);
 		window.draw(lvls.foreground_bounce);

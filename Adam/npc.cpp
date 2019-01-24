@@ -14,9 +14,9 @@ npc::npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animat
 	}
 	text.setFont(font);
 	text.setOutlineColor(sf::Color::Black);
-	text.setOutlineThickness(1.0f);
+	text.setOutlineThickness(2.0f);
 	text.setScale(sf::Vector2f(0.1, 0.1));
-	text.setCharacterSize(150);
+	text.setCharacterSize(200);
 }
 
 

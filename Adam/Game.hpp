@@ -43,6 +43,8 @@ private:
 	sf::Sprite bgMain;
 	int bounce_velocity = 1;
 	sf::Clock Clock;
+	sf::Clock aiClock;
+	
 
 	Adam::collision_handler cln_h;
 

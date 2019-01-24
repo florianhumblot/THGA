@@ -13,7 +13,21 @@ using namespace sf;
 int main()
 {
 	RenderWindow window(VideoMode(1920, 1080, 32), "Project: ADAM");
+	
+	sf::Sprite loading_screen;
+	sf::Texture loading;
+	loading.loadFromFile("assets/loading.png");
+	loading_screen.setTexture(loading);
+	window.draw(loading_screen);
+	window.display();
+
 	AnimationManager ani("assets/animations/animations.txt");
+
+	sf::Event e;
+	while (window.pollEvent(e))
+	{
+		window.clear(sf::Color::Yellow);
+	}
 
 	Character player(sf::Vector2f(890, 690), sf::Vector2f(0.2, 0.2), ani.animations["mage"], sf::Vector2f(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
 	HUD hud(player);
