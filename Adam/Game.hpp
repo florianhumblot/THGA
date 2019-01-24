@@ -18,7 +18,7 @@
 #include "AI.hpp"
 #include "fighter.h"
 #include "levelManager.h"
-
+#include "Audio.hpp"
 using namespace std;
 using namespace sf;
 
@@ -30,6 +30,8 @@ private:
 	std::vector<Character*> enemies;
 	sf::RenderWindow & window;
 	HUD & hud;
+	Audio &geluidje;
+
 	levelManager lvls;
 	sf::View main_camera;
 
@@ -39,7 +41,6 @@ private:
 	sf::Texture char_alpha_invert;
 	sf::Texture menuTex;
 	Character & player;
-
 	sf::Sprite bgMain;
 	int bounce_velocity = 1;
 	sf::Clock Clock;
@@ -63,7 +64,7 @@ private:
 
 public:
 
-	Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani);
+	Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani, Audio & geluidje);
 
 	void handleInput();
 	void update();

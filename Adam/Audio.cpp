@@ -1,11 +1,18 @@
 #include "pch.h"
 #include "audio.hpp"
 
-Audio::Audio(const std::string &pathName)
+Audio::Audio()
+{};
+
+
+void Audio::playFireBall()
 {
-	if (!buffer.loadFromFile(pathName))
+	if (!buffer.loadFromFile("audio/fireBall.wav"))
 	{
-		std::cout << "Error loading sound from memory." << std::endl;
+		std::cout << "Error loading Sound" << std::endl;
 	}
 	sound.setBuffer(buffer);
+	sound.play();
 }
+
+

@@ -2,13 +2,15 @@
 #include "Game.hpp"
 #include "Menu.hpp"
 #include "npc.hpp"
+#include "Audio.hpp"
 
-Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani) :
+Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani, Audio & geluidje) :
 
 	window(w),
 	player(player),
 	hud(hud),
-	ani(ani)
+	ani(ani),
+	geluidje(geluidje)
 {
 	window.setVerticalSyncEnabled(true);
 	window.setKeyRepeatEnabled(false);
@@ -192,6 +194,7 @@ void Game::handleInput() {
 				}
 				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
 				{
+					geluidje.playFireBall();
 					player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 					player.fight(enemy.get());
 					std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";

@@ -12,7 +12,11 @@ private:
 	std::string pathName;
 	std::vector<Audio> audioGroup;
 public:
-	Audio(const std::string &pathName);
+	Audio();
+
+	void playFireBall();
+
+
 };
 
 #endif //AUDIO_HPP
