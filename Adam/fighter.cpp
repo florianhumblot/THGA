@@ -25,9 +25,15 @@ bool fighter::fight(fighter * opponent) {
 
 void fighter::take_damage(int amount)
 {
-	if (!checkDead()) {
+	if (!checkDead()) 
+	{
 		health.current = health.current - amount;
 	}
+	else
+	{
+		health.zero();
+	}
+
 	
 }
 

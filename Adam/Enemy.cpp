@@ -112,6 +112,7 @@ void Enemy::die()
 			setTexture(currentAnimation.textures.back());
 		}
 	}
+	update_info();
 }
 
 void Enemy::draw(sf::RenderTarget &w) {
