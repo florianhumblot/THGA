@@ -21,7 +21,6 @@ int main()
 	loading_screen.setTexture(loading);
 	window.draw(loading_screen);
 	window.display();
-	Audio geluidje;
 	AnimationManager ani("assets/animations/animations.txt");
 	
 
@@ -32,6 +31,8 @@ int main()
 	}
 
 	Character player(sf::Vector2f(890, 690), sf::Vector2f(0.2, 0.2), ani.animations["mage"], sf::Vector2f(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
+	Audio geluidje(player);
+
 	HUD hud(player);
 	Game game(window, player, hud, ani, geluidje);
 	

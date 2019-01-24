@@ -163,7 +163,6 @@ void Game::handleInput()
 				}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
 			{
-				geluidje.playFireBall();
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 				player.fight(enemy.get());
 				std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
@@ -224,12 +223,14 @@ void Game::handleInput()
 
 			player.setScale(sf::Vector2f(0.2, 0.2));
 			player.setVelocity(sf::Vector2f(4, player.getVelocity().y));
+
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !player.checkDead())
 		{
 			if (player.getCurrentAnimation() != std::string("WALKright")) {
 				player.setAnimation("WALKright");
 				player.setTexture(player.currentAnimation.nextFrame());
+
 			}
 			player.setScale(sf::Vector2f(-0.2, 0.2));
 
@@ -239,7 +240,6 @@ void Game::handleInput()
 
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
 		{
-			geluidje.playFireBall();
 			player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 			player.fight(enemy.get());
 			std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
