@@ -129,7 +129,7 @@ void levelManager::check_interaction(Character & player)
 {
 	if (Collision::PixelPerfectTest(damage_background, player))
 	{
-		player.health.sub(1);
+		player.health.sub(((float)(player.health.max / 100) * 0.5f));
 
 	}
 
