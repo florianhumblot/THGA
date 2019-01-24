@@ -1,9 +1,9 @@
+#include "pch.h"
+
 #include "Audio.hpp"
-
+//
 Audio::Audio()
-{
-
-}
+{}
 
 void Audio::playSound(std::string &path)
 {

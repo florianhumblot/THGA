@@ -8,38 +8,33 @@ inGameMenu::inGameMenu(float width, float heigth, Character &player) :
 	{
 		std::cout << "error loading font" << std::endl;
 	}
-
-	pauseScreen[0].setFont(font);
+	
 	pauseScreen[0].setString("Continue Game");
-	pauseScreen[0].setFillColor(sf::Color::Red);
-	pauseScreen[0].setCharacterSize(80);
-	pauseScreen[0].setPosition(sf::Vector2f((player.getPosition().x) - 100, (player.getPosition().y) - 100));
-
-	pauseScreen[1].setFont(font);
 	pauseScreen[1].setString("Load Game");
-	pauseScreen[1].setFillColor(sf::Color::White);
-	pauseScreen[1].setCharacterSize(80);
-	pauseScreen[1].setPosition(sf::Vector2f((player.getPosition().x) - 100, (player.getPosition().y) - 50));
-
-	pauseScreen[2].setFont(font);
 	pauseScreen[2].setString("Return main menu");
-	pauseScreen[2].setFillColor(sf::Color::White);
-	pauseScreen[2].setCharacterSize(80);
-	pauseScreen[2].setPosition(sf::Vector2f((player.getPosition().x) - 100, (player.getPosition().y)));
-
-	pauseScreen[3].setFont(font);
 	pauseScreen[3].setString("Quit Game");
-	pauseScreen[3].setFillColor(sf::Color::White);
-	pauseScreen[3].setCharacterSize(80);
-	pauseScreen[3].setPosition(sf::Vector2f((player.getPosition().x) - 100, (player.getPosition().y) + 50));
+
+	for (int i = 0; i < pauseOptions; i++) {
+		pauseScreen[i].setFont(font);
+		pauseScreen[i].setCharacterSize(80);
+		pauseScreen[i].setFillColor(sf::Color::White);
+		pauseScreen[i].setPosition(sf::Vector2f((player.getPosition().x) - 100, (player.getPosition().y) + 50 *(i-2)-20));
+	}
+	pauseScreen[0].setFillColor(sf::Color::Red);
 
 
-	current_state = menu_states::s_ingameMenu;
+	setInGame();
+	//current_state = menu_states::s_ingameMenu;
 	selectedItem = 0;
 }
 
-void inGameMenu::draw(sf::RenderWindow & window)
+void inGameMenu::draw(sf::RenderWindow & window, levelManager & lvls, std::shared_ptr<Enemy> & enemy)
 {
+	window.draw(lvls.background);
+	window.draw(lvls.ground);
+	window.draw(lvls.damage_background);
+	window.draw(sf::Sprite(player));
+	window.draw(sf::Sprite(*enemy));
 	for (unsigned int i = 0; i < pauseOptions; i++)
 	{
 		window.draw(pauseScreen[i]);
@@ -74,7 +69,24 @@ void inGameMenu::moveDown()
 	pauseScreen[selectedItem].setFillColor(sf::Color::Red);
 }
 
-void inGameMenu::chooseTile(int & titleSelect)
+int inGameMenu::chooseTile(int & selectTile, std::shared_ptr<Menu> & currentMenu, Character & player, sf::Window & window, AnimationManager & ani)
 {
+	if (selectTile == 0) {
+		//state = STATE::PLAYING;
+		return 2;
+	}
+	else if (selectTile == 1) {
+		std::cout << "option not made yet" << '\n';
+	}
+	else if (selectTile == 2) {
+		currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y, player);
+		std::cout << "terug naar menu";
+		setMain();
+		//menu_states = menu_states::MAIN;
+	}
+	else if (selectTile == 3) {
+		window.close();
+	}
 
+	return 0;
 }
