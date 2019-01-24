@@ -94,6 +94,22 @@ void levelManager::make_lvl(std::string lvl_name)
 	damage_background.setTexture(tex3);
 	foreground_bounce.setTexture(tex4);
 	end.setTexture(tex5);
+	bool seen = false;
+	for (char & c : lvls[lvl_name]["spawnpoint_player"])
+	{
+		if (c != ',')
+		{
+			if (seen)
+			{
+				playerSpawn.y += c;
+			}
+			else
+			{
+				playerSpawn.x += c;
+			}
+		}
+		
+	}
 }
 
 void levelManager::next_lvl(Character & player)
@@ -107,6 +123,36 @@ void levelManager::next_lvl(Character & player)
 		current_lvl = maps.size()+1;
 	}
 
+}
+
+void levelManager::check_interaction(Character & player)
+{
+	if (Collision::PixelPerfectTest(damage_background, player))
+	{
+		player.health.sub(1);
+
+	}
+
+	if (Collision::PixelPerfectTest(end, player))
+	{
+		next_lvl(player);
+
+	}
+	if (Collision::PixelPerfectTest(foreground_bounce, player))
+	{
+		player.setVelocity(sf::Vector2f(player.getVelocity().x, -2 * bounce_velocity));
+
+		if (bounce_velocity < 9)
+		{
+			bounce_velocity += 2;
+		}
+	}
+	else {
+		if (player.getVelocity().y == 0 && bounce_velocity > 1)
+		{
+			bounce_velocity--;
+		}
+	}
 }
 
 levelManager::~levelManager()

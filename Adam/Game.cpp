@@ -307,32 +307,7 @@ void Game::update(){
 
 			world_physics.step_x_moveables();
 			world_physics.step_y_moveables();
-			if (Collision::PixelPerfectTest(lvls.damage_background, player))
-			{
-				player.health.sub(1);
-
-			}
-
-			if (Collision::PixelPerfectTest(lvls.end, player))
-			{
-				lvls.next_lvl(player);
-
-			}
-			if (Collision::PixelPerfectTest(lvls.foreground_bounce, player))
-			{
-				player.setVelocity(sf::Vector2f(player.getVelocity().x, -2 * bounce_velocity));
-
-				if (bounce_velocity < 9)
-				{
-					bounce_velocity += 2;
-				}
-			}
-			else {
-				if (player.getVelocity().y == 0 && bounce_velocity > 1)
-				{
-					bounce_velocity--;
-				}
-			}
+			lvls.check_interaction(player);
 
 			np->showText(player);
 			hud.update();

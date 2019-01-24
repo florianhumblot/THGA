@@ -7,12 +7,14 @@ class levelManager
 private:
 	std::vector<std::string> maps = {};
 	int current_lvl = maps.size()+1;
+	int bounce_velocity = 1;
 	sf::Texture tex;
 	sf::Texture tex2;
 	sf::Texture tex3;
 	sf::Texture tex4;
 	sf::Texture tex5;
 public:
+	sf::Vector2f playerSpawn = {};
 	sf::Sprite background;
 	sf::Sprite damage_background;
 	sf::Sprite ground;
@@ -26,6 +28,7 @@ public:
 	void print();
 	void make_lvl(std::string lvl_name);
 	void next_lvl(Character & player);
+	void check_interaction(Character & player);
 	~levelManager();
 };
 

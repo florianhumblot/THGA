@@ -42,7 +42,6 @@ private:
 	sf::Texture menuTex;
 	Character & player;
 	sf::Sprite bgMain;
-	int bounce_velocity = 1;
 	sf::Clock Clock;
 	sf::Clock aiClock;
 	
