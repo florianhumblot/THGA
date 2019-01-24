@@ -12,7 +12,10 @@ void Audio::playSound(std::string &path)
 		std::cout << "error" << std::endl;
 	}
 	sound.setBuffer(buffer);
-	sound.play();
+	if (!sound.getStatus()==3)
+	{
+		sound.play();
+	}
 }
 
 
@@ -25,6 +28,8 @@ void Audio::playSoundRandom(std::string &path)
 		std::cout << "error" << std::endl;
 	}
 	sound.setBuffer(buffer);
-	sound.getStatus();
-	sound.play();
+	if (!sound.getStatus())
+	{
+		sound.play();
+	}
 }
