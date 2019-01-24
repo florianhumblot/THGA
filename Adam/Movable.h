@@ -6,6 +6,7 @@ protected:
 	sf::Vector2f velocity;
 	
 public:
+	bool canJump = true;
 	enum class direction { LEFT, RIGHT };
 	direction current_direction = direction::RIGHT;
 	movable(sf::Vector2f &position, sf::Vector2f scale, sf::Texture texture, sf::Vector2f velocity);

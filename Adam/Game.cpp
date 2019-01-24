@@ -186,7 +186,7 @@ void Game::handleInput() {
 
 				}
 
-				if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
+				if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space &&player.canJump)
 				{
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -9));
 				}
