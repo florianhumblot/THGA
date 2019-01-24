@@ -1,6 +1,6 @@
 lvl2 background assets/backgrounds/casualBG.png
 lvl2 foreground assets/backgrounds/casualFG.png
-lvl2 foreground_dmg assets/backgrounds/emptylvl.png
+lvl2 foreground_dmg assets/backgrounds/casualWater.png
 lvl2 foreground_bounce assets/backgrounds/casualBounce.png
 lvl2 lvl_end assets/backgrounds/casualLVLend.png
 lvl2 spawnpoint_player 890,690
