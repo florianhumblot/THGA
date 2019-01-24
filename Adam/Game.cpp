@@ -22,7 +22,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	bgMain = Sprite(menuTex);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
-	lvls.make_lvl("lvl2");
+	lvls.make_lvl("lvl1");
 
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);
@@ -30,7 +30,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	np = std::make_shared<npc>(v2(890, 690), v2(0.2, 0.2), ani.animations["boy"], v2(0, 0), statistic(200, 200));
 	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
 
-	this->cln_h = Adam::collision_handler(lvls.bg);
+	this->cln_h = Adam::collision_handler(lvls.ground);
 
 	this->world_physics = Adam::physics(&player, cln_h);
 
@@ -299,23 +299,30 @@ void Game::update(){
 
 			world_physics.step_x_moveables();
 			world_physics.step_y_moveables();
-			if (Collision::PixelPerfectTest(lvls.fg_dmg, player))
+			if (Collision::PixelPerfectTest(lvls.damage_background, player))
 			{
 				player.health.sub(1);
 
 			}
-			if (Collision::PixelPerfectTest(lvls.fg_bounce, player))
+
+			if (Collision::PixelPerfectTest(lvls.end, player))
 			{
-				player.setVelocity(sf::Vector2f(player.getVelocity().x, -19));
+				lvls.next_lvl(player);
 
 			}
-			if (Collision::PixelPerfectTest(lvls.fg_bounce, player))
+			if (Collision::PixelPerfectTest(lvls.foreground_bounce, player))
 			{
 				player.setVelocity(sf::Vector2f(player.getVelocity().x, -2 * bounce_velocity));
 
-				if (bounce_velocity < 11)
+				if (bounce_velocity < 9)
 				{
-					bounce_velocity++;
+					bounce_velocity += 2;
+				}
+			}
+			else {
+				if (player.getVelocity().y == 0 && bounce_velocity > 1)
+				{
+					bounce_velocity--;
 				}
 			}
 
@@ -349,6 +356,8 @@ void Game::render() {
 			window.draw(lvls.background);
 			window.draw(lvls.ground);
 			window.draw(lvls.damage_background);
+			window.draw(lvls.foreground_bounce);
+			window.draw(lvls.end);
 			window.draw(sf::Sprite(player));
 			window.draw(sf::Sprite(*enemy));
 			currentMenu->draw(window);
@@ -379,6 +388,7 @@ void Game::render() {
 		window.draw(lvls.ground);
 		window.draw(lvls.damage_background);
 		window.draw(lvls.foreground_bounce);
+		window.draw(lvls.end);
 		window.setView(main_HUD);
 		hud.draw(window);
 		auto center = Collision::GetSpriteCenter(player);
