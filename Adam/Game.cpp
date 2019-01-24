@@ -230,6 +230,7 @@ void Game::handleInput() {
 				player.fight(enemy.get());
 				std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
 			}
+
 			else if( player.currentAnimation.isDone() || player.getCurrentAnimation() == std::string("WALKright"))
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
@@ -238,6 +239,12 @@ void Game::handleInput() {
 						player.setAnimation("IDLEright");
 						player.setTexture(player.currentAnimation.nextFrame());
 					}
+				}
+			}
+
+			if (ev.type == sf::Event::KeyReleased) {
+				if (ev.key.code == sf::Keyboard::W && !player.checkDead()) {
+					np->updateText();
 				}
 			}
 
@@ -292,7 +299,7 @@ void Game::update() {
 					bounce_velocity++;
 				}
 			}
-			np->updateText(player);
+			np->showText(player);
 			hud.update();
 			
 			enemy->update_info_pos(window);
