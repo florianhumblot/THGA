@@ -11,7 +11,7 @@ public:
 	movable(sf::Vector2f &position, sf::Vector2f scale, sf::Texture texture, sf::Vector2f velocity);
 
 	movable() {}
-	void setVelocity(sf::Vector2f newVel);
+	virtual void setVelocity(sf::Vector2f newVel);
 	sf::Vector2f getVelocity();
 	void move(sf::Vector2f direction);
 	void move();

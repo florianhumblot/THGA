@@ -20,7 +20,7 @@ public:
 	void setTexture(const std::string & textureFile);
 	void setTexture(sf::Texture & texture);
 	void draw(sf::RenderTarget &w);
-	sf::Sprite getBox() {
+	virtual sf::Sprite getBox() {
 		auto temp = sf::Sprite();
 		temp.setPosition(position);
 		temp.setTexture(AABB);
