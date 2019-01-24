@@ -2,8 +2,9 @@
 #include "Enemy.hpp"
 
 Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c):
-	fighter(position, scale, animations["IDLEright"].textures[0], velocity, health_c, 1),
-	Animateable(animations)
+	fighter(health_c, 1),
+	Animateable(animations),
+	movable(position, scale, animations["IDLEright"].textures[0], velocity)
 {
 	health = health_c;
 	texture = animations["IDLEright"].textures[0];
@@ -71,8 +72,34 @@ void Enemy::updateFollowPosition(int x) {
 	}
 }
 
+sf::Sprite Enemy::makeFightBox() {
+	auto temp = sf::Sprite();
+	temp.setPosition(position);
+	temp.setTexture(AABB_H);
+	temp.setScale(scale);
+	return temp;
+}
+
+sf::Sprite Enemy::getBox() {
+	if (state != STATE::DEAD) {
+		return drawable::getBox();
+	}
+	else {
+		return sf::Sprite();
+	}
+		
+}
+
+void Enemy::setVelocity(sf::Vector2f newVel) {
+	if (state != STATE::DEAD) {
+		movable::setVelocity(newVel);
+	}
+}
+
+
 void Enemy::die()
 {
+	state = STATE::DEAD;
 	if (getCurrentAnimation() != std::string("DYINGright")) {
 		setAnimation("DYINGright");
 		setTexture(currentAnimation.nextFrame());

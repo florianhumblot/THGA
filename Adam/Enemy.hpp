@@ -7,14 +7,14 @@
 #include "fighter.h"
 #include "Animated.hpp"
 
-class Enemy : public fighter, public Animateable
+class Enemy : public fighter, public Animateable, public movable
 {
 private:
 	sf::Font font;
 	std::array<sf::Text, 2> text;
 	int teller = 0;
 
-	enum class STATE { IDLE, FOLLOWING };
+	enum class STATE { IDLE, FOLLOWING, DEAD };
 	STATE state = STATE::IDLE;
 
 public:
@@ -27,6 +27,11 @@ public:
 	Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 
 	bool fight(fighter * opponent) override;
+
+	sf::Sprite makeFightBox() override;
+
+	sf::Sprite getBox() override;
+	virtual void setVelocity(sf::Vector2f newVel) override;
 
 	void updateFollowPosition(int x) override;
 	void die();

@@ -5,7 +5,7 @@
 #include "Animated.hpp"
 #include "fighter.h"
 
-class Character :  public fighter, public Animateable
+class Character :  public fighter, public Animateable, public movable
 {
 public:
 	statistic mana;
@@ -16,6 +16,9 @@ public:
 	void respawn();
 
 	bool fight(fighter * opponent) override;
+
+	sf::Sprite getBox() override;
+	sf::Sprite makeFightBox() override;
 
 	void die();
 

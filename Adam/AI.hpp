@@ -2,7 +2,7 @@
 #include "Movable.h"
 #include "Enemy.hpp"
 #include "npc.hpp"
-#include "fighter.h"
+#include "Character.h"
 
 
 class AI {
@@ -12,7 +12,7 @@ public:
 
 	}
 
-	void shouldFollow_followDirection(Enemy * p1, fighter * p2);
+	void shouldFollow_followDirection(Enemy * p1, Character * p2);
 	void walkRandomly(npc * p1);
 
 };
