@@ -22,7 +22,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	bgMain = Sprite(menuTex);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
-	lvls.make_lvl("lvl1");
+	lvls.next_lvl(player);
 
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);

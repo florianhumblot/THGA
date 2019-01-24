@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "levelManager.h"
 #include "Collision.h"
+#include "algorithm"
 
 levelManager::levelManager()
 {
+	std::string prev = "";
 	std::string line;
 	std::ifstream lvls_file("assets/backgrounds/lvls.txt");
 	if (lvls_file.is_open())
@@ -39,11 +41,17 @@ levelManager::levelManager()
 			else if (name == "spawnpoint_enemy")
 			{
 				spawnpoints_enemys[lvl][count++] = item;
-
 			}
+			if (prev != lvl)
+			{
+				prev = lvl;
+				maps.push_back(lvl);
+			}
+			
 		}
 	}
-	print();
+	//print();
+	
 }
 
 void levelManager::print()
@@ -90,9 +98,15 @@ void levelManager::make_lvl(std::string lvl_name)
 
 void levelManager::next_lvl(Character & player)
 {
-	
-	make_lvl("lvl2");
+
+	make_lvl(maps[current_lvl]);
 	player.respawn();
+	current_lvl--;
+	if (current_lvl <0)
+	{
+		current_lvl = maps.size()+1;
+	}
+
 }
 
 levelManager::~levelManager()

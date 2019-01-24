@@ -5,6 +5,8 @@
 class levelManager
 {
 private:
+	std::vector<std::string> maps = {};
+	int current_lvl = maps.size()+1;
 	sf::Texture tex;
 	sf::Texture tex2;
 	sf::Texture tex3;

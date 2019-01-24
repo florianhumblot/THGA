@@ -112,6 +112,7 @@ void Enemy::die()
 			setTexture(currentAnimation.textures.back());
 		}
 	}
+	health.zero();
 	update_info();
 }
 
