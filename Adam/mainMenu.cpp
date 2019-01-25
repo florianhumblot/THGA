@@ -125,5 +125,8 @@ int mainMenu::chooseTile(int & selectTile, std::shared_ptr<Menu> &currentMenu, C
 	else if (selectTile == 3) {
 		std::cout << "option menu not made yet" << std::endl;
 	}
+	else if (selectTile == 4) {
+		window.close();
+	}
 	return 0;
 }
