@@ -22,6 +22,8 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	bgMain = Sprite(menuTex);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
+
+	tex.loadFromFile("assets/slimeTest.png");
 	lvls.next_lvl(player);
 
 	main_camera.setCenter(player.getPosition());
@@ -89,6 +91,7 @@ void Game::handleInput()
 					if (menuResult == 1) {
 						state = STATE::MENU;
 					}
+
 					else if (menuResult == 2) {
 						main_camera.setCenter(player.getPosition());
 						main_camera.setSize(640, 360);
@@ -216,8 +219,18 @@ void Game::handleInput()
 			}
 		}
 
-		if (!enemy.get()->checkDead())
-		{
+		if (ev.type == sf::Event::MouseButtonReleased) {
+			if (ev.key.code == sf::Mouse::Left && !player.checkDead()) {
+				sf::Vector2i i = sf::Mouse::getPosition(window);
+				sf::Vector2f conf = window.mapPixelToCoords(i, main_camera);
+				std::shared_ptr<projectile> prj = player.shootProjectile(conf);
+				projectiles.push_back(prj);
+
+			}
+		}
+
+		if (!enemy.get()->checkDead()) {
+
 			ai->shouldFollow_followDirection(enemy.get(), &player);
 			if (aiClock.getElapsedTime().asMilliseconds() >= 300)
 			{
@@ -263,10 +276,27 @@ void Game::update() {
 
 		world_physics.step_x_moveables();
 		world_physics.step_y_moveables();
-		lvls.check_interaction(player);
+		lvls.check_interaction(player,window);
 
 		np->showText(player);
 		hud.update();
+
+
+		std::shared_ptr<projectile> tobedeleted;
+
+		for (auto prj : projectiles) {
+			if (prj->isDeath()) {
+				tobedeleted = prj;
+			}
+			prj->updateLive(1);
+			prj->setTexture(prj->currentAnimation.nextFrame());
+			prj->move();
+		}
+		projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), tobedeleted), projectiles.end());
+
+		np->showText(player);
+		hud.update();
+			
 
 		enemy->update_info_pos(window);
 		if (player.checkDead()) {
@@ -278,6 +308,7 @@ void Game::update() {
 		if (player.getPosition().y > 30000) {
 			player.respawn();
 			player.setVelocity(sf::Vector2f(0, 0));
+
 		}
 
 	}
@@ -306,10 +337,16 @@ void Game::render() {
 		np->draw(window);
 		enemy->draw(window);
 		player.draw(window);
+
+
 		window.draw(lvls.ground);
 		window.draw(lvls.damage_background);
 		window.draw(lvls.foreground_bounce);
+		for (auto prj : projectiles) {
+			prj->draw(window);
+		}
 		window.draw(lvls.end);
+
 		window.setView(main_HUD);
 		hud.draw(window);
 		auto center = Collision::GetSpriteCenter(player);

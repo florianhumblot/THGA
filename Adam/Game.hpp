@@ -4,6 +4,7 @@
 #include "Collision.h"
 #include "Character.h"
 #include "Movable.h"
+#include "projectile.hpp"
 #include "mainMenu.hpp"
 //#include "statistic.h"
 #include "physics.h"
@@ -55,6 +56,9 @@ private:
 	std::shared_ptr<Enemy> enemy;
 
 	std::shared_ptr<npc> np;
+
+	std::vector<std::shared_ptr<projectile>> projectiles;
+	sf::Texture tex;
 
 	std::shared_ptr<AI> ai;
 	

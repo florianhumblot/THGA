@@ -1,11 +1,15 @@
 #include "pch.h"
 #include "projectile.hpp"
 
-projectile::projectile(sf::Vector2f position, sf::Vector2f scale, const std::string & textureFile, sf::Vector2f velocity, float dmg = 0):
-	movable(position, scale, textureFile,velocity)
+projectile::projectile(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, float dmg = 0):
+	movable(position, scale, animations["FIREBALLright"].textures[0], velocity),
+	Animateable(animations),
+	dmg(dmg)
 {
-	dmg = dmg;
+	death = false;
 }
+
+
 
 void projectile::setDamage(float dmg) {
 	dmg = dmg;

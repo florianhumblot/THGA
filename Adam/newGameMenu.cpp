@@ -117,6 +117,17 @@ int newGameMenu::chooseTile(std::shared_ptr<Menu> & currentMenu, Character & pla
 		player.setAnimationMap(ani.animations["knight"]);
 		player.setAnimation("IDLEright", Animation::intervals::idle);
 		player.setTexture(player.currentAnimation.nextFrame());
+		player.setTexture(player.currentAnimation.nextFrame());
+		player.setProjectile([&](sf::Vector2f pos1, sf::Vector2f pos2, std::map<std::string, Animation> animations) {
+			sf::Vector2f direction(pos2.x - pos1.x, pos2.y - pos1.y);
+			direction.y = (direction.y * 5) / direction.x;
+			direction.x = 5;
+			sf::Texture tex;
+			std::shared_ptr<projectile> prj = std::make_shared<projectile>(projectile(pos1, sf::Vector2f(1.0, 1.0), animations, direction, 10.0));
+			prj->setTexture(tex);
+			prj->setAnimation("AXEright", Animation::intervals::idle);
+			return prj;
+		}, ani.animations["projectile"]);
 		//menu_states = menu_states::INGAME;
 		setInGame();
 		//gameStarted = 1;
@@ -128,6 +139,17 @@ int newGameMenu::chooseTile(std::shared_ptr<Menu> & currentMenu, Character & pla
 		player.setAnimationMap(ani.animations["mage"]);
 		player.setAnimation("IDLEright", Animation::intervals::idle);
 		player.setTexture(player.currentAnimation.nextFrame());
+		player.setProjectile([&](sf::Vector2f pos1, sf::Vector2f pos2, std::map<std::string, Animation> animations) {
+			sf::Vector2f direction(pos2.x - pos1.x, pos2.y - pos1.y);
+			direction.y = (direction.y * 5) / direction.x;
+			direction.x = 5;
+			sf::Texture tex;
+			std::shared_ptr<projectile> prj = std::make_shared<projectile>(projectile(pos1, sf::Vector2f(1.0, 1.0), animations, direction, 10.0));
+			prj->setTexture(tex);
+			prj->setAnimation("FIREBALLright", Animation::intervals::idle);
+			return prj;
+			}, ani.animations["projectile"]);
+
 		//menu_states = menu_states::INGAME;
 		setInGame();
 		//gameStarted = 1;

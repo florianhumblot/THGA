@@ -7,27 +7,22 @@
 /// levelManager
 /// \details
 /// Managed the info of lvls (lvl map ,spawnpoints)
-class levelManager
+class levelManager 
 {
 private:
 	std::vector<std::string> maps = {};
+	std::map<std::string, std::map<int, sf::Vector2f> > spawnpoints_enemys;
+	std::map<std::string, std::map<int, sf::Vector2f> > spawnpoints_npcs;
 	int current_lvl = maps.size()+1;
 	int bounce_velocity = 1;
-	sf::Texture tex;
-	sf::Texture tex2;
-	sf::Texture tex3;
-	sf::Texture tex4;
-	sf::Texture tex5;
-	sf::Texture tex6;
+	sf::Texture tex, tex2, tex3, tex4, tex5, tex6;
+	sf::Sprite loading_screen;
+	sf::Texture loading;
 public:
 	sf::Vector2f playerSpawn = {};
-	sf::Sprite background;
-	sf::Sprite damage_background;
-	sf::Sprite ground;
-	sf::Sprite foreground_bounce;
-	sf::Sprite end;
-	sf::Sprite infinity;
-	std::map<std::string, std::map<int, std::string> > spawnpoints_enemys;
+	sf::Sprite background, damage_background, ground, foreground_bounce, end, infinity;
+	std::vector<sf::Vector2f> current_lvl_enemys;
+	std::vector<sf::Vector2f> current_lvl_npcs;
 	std::map<std::string, std::map<std::string, std::string> > lvls;
 
 	/// \brief
@@ -68,6 +63,6 @@ public:
 	/// checks interaction
 	/// details
 	/// Checks interaction between player and certain layers of lvl.
-	void check_interaction(Character & player);
+	void check_interaction(Character & player, sf::RenderWindow & window);
 };
 

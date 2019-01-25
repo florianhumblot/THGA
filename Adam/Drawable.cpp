@@ -12,6 +12,17 @@ drawable::drawable(sf::Vector2f &position, sf::Vector2f scale, sf::Texture textu
 	AABB.loadFromFile("assets/AABB.png");
 }
 
+drawable::drawable(sf::Vector2f &position, sf::Vector2f scale, const std::string &textureFile) :
+	position(position),
+	scale(scale)
+	//texture(texture)
+{
+	Collision::CreateTextureAndBitmask(texture, textureFile);
+	sprite.setPosition(position);
+	sprite.setTexture(texture, true);
+	sprite.setScale(scale);
+	AABB.loadFromFile("assets/AABB.png");
+}
 
 sf::Vector2f drawable::getPosition() {
 	return position;
@@ -28,7 +39,7 @@ void drawable::setTexture(const std::string & textureFile) {
 }
 
 void drawable::setTexture(sf::Texture & texture) {
-	sprite.setTexture(texture);
+	sprite.setTexture(texture, true);
 	texture = texture;
 }
 
