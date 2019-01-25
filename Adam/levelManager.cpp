@@ -5,6 +5,8 @@
 
 levelManager::levelManager()
 {
+	loading.loadFromFile("assets/loading.png");
+	loading_screen.setTexture(loading);
 	std::string prev = "";
 	std::string line;
 	std::ifstream lvls_file("assets/backgrounds/lvls.txt");
@@ -44,7 +46,11 @@ levelManager::levelManager()
 			}
 			else if (name == "spawnpoint_enemy")
 			{
-				spawnpoints_enemys[lvl][count++] = item;
+				spawnpoints_enemys[lvl][count++] = to_vector(item);
+			}
+			else if (name == "spawnpoint_npc")
+			{
+				spawnpoints_npcs[lvl][count++] = to_vector(item);
 			}
 			if (prev != lvl)
 			{
@@ -66,7 +72,7 @@ void levelManager::print()
 		{
 			std::cout << info.first << " = " << info.second << '\n';
 		}
-
+/*
 		for (auto & s : spawnpoints_enemys)
 		{
 			std::cout << s.first << " enemys spawnpoints: \n";
@@ -74,7 +80,7 @@ void levelManager::print()
 			{
 				std::cout << in.first << " = " << in.second << '\n';
 			}
-		}
+		}*/
 
 	}
 
@@ -130,6 +136,15 @@ void levelManager::make_lvl(std::string lvl_name)
 	foreground_bounce.setTexture(tex4, 1);
 	end.setTexture(tex5, 1);
 	infinity.setTexture(tex6, 1);
+	for ( int i = 0; i < spawnpoints_enemys[lvl_name].size(); i++)
+	{
+		current_lvl_enemys.push_back(spawnpoints_enemys[lvl_name][i]);
+	}
+
+	for (int i = 0; i < spawnpoints_npcs[lvl_name].size(); i++)
+	{
+		current_lvl_npcs.push_back(spawnpoints_npcs[lvl_name][i]);
+	}
 
 	playerSpawn = to_vector(lvls[lvl_name]["spawnpoint_player"]);
 }
@@ -148,7 +163,7 @@ void levelManager::next_lvl(Character & player)
 
 }
 
-void levelManager::check_interaction(Character & player)
+void levelManager::check_interaction(Character & player, sf::RenderWindow & window)
 {
 	if (Collision::PixelPerfectTest(damage_background, player))
 	{
@@ -164,6 +179,10 @@ void levelManager::check_interaction(Character & player)
 
 	if (Collision::PixelPerfectTest(end, player))
 	{
+		/*window.clear();
+		window.setView(hud);
+		window.draw(loading_screen);
+		window.display();*/
 		next_lvl(player);
 
 	}

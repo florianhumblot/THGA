@@ -8,14 +8,14 @@
 class Audio
 {
 private:
-	std::map<std::string, std::vector<sf::Sound>>soundCollection;
+	std::map<std::string, std::vector<sf::SoundBuffer>>soundCollection;
 	sf::SoundBuffer buffer;
 	sf::Music music;
 	sf::Sound sound;
 public:
 	Audio(const std::string &filePath);
 
-	void playSound(std::string &key);
+	void playSound(const std::string &key);
 
 };
 #endif //AUDIO_HPP

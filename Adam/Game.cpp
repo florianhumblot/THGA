@@ -184,7 +184,7 @@ void Game::handleInput()
 				player.setAnimation("WALKright", Animation::intervals::walk);
 				player.setTexture(player.currentAnimation.nextFrame());
 			}
-
+			geluidje.playSound("footStep");
 			player.setScale(sf::Vector2f(0.2, 0.2));
 			player.setVelocity(sf::Vector2f(4, player.getVelocity().y));
 
@@ -276,7 +276,7 @@ void Game::update() {
 
 		world_physics.step_x_moveables();
 		world_physics.step_y_moveables();
-		lvls.check_interaction(player);
+		lvls.check_interaction(player,window);
 
 		np->showText(player);
 		hud.update();
@@ -338,13 +338,13 @@ void Game::render() {
 		enemy->draw(window);
 		player.draw(window);
 
-		for (auto prj : projectiles) {
-			prj->draw(window);
-		}
 
 		window.draw(lvls.ground);
 		window.draw(lvls.damage_background);
 		window.draw(lvls.foreground_bounce);
+		for (auto prj : projectiles) {
+			prj->draw(window);
+		}
 		window.draw(lvls.end);
 
 		window.setView(main_HUD);
