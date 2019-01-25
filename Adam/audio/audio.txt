@@ -1,41 +1,41 @@
-sound Fireball_1 audio/Fireball_1.wav
-sound Fireball_2 audio/Fireball_2.wav
-sound Fireball_3 audio/Fireball_3.wav
-sound Fireball_4 audio/Fireball_4.wav
-sound footStep_1 audio/footStep_1.wav
-sound footStep_2 audio/footStep_2.wav
-sound footStep_3 audio/footStep_3.wav
-sound footStep_4 audio/footStep_4.wav
-sound footStep_5 audio/footStep_5.wav
-sound footStep_6 audio/footStep_6.wav
-sound footStep_7 audio/footStep_7.wav
-sound footStep_8 audio/footStep_8.wav
-sound footStep_9 audio/footStep_9.wav
-sound footStep_10 audio/footStep_10.wav
-sound Sword_1 audio/Sword_1.wav
-sound Sword_2 audio/Sword_2.wav
-sound Sword_3 audio/Sword_3.wav
-sound Sword_4 audio/Sword_4.wav
-sound Sword_5 audio/Sword_5.wav
-sound Sword_6 audio/Sword_6.wav
-sound maleAttack_1 audio/maleAttack_1.wav
-sound maleAttack_2 audio/maleAttack_2.wav
-sound maleAttack_3 audio/maleAttack_3.wav
-sound maleAttack_4 audio/maleAttack_4.wav
-sound maleAttack_5 audio/maleAttack_5.wav
-sound maleAttack_6 audio/maleAttack_6.wav
-sound maleAttack_7 audio/maleAttack_7.wav
-sound maleAttack_8 audio/maleAttack_8.wav
-sound maleAttack_9 audio/maleAttack_9.wav
-sound maleAttack_10 audio/maleAttack_10.wav
-sound MaleHurtPain_1 audio/maleHurtPain_1.wave
-sound MaleHurtPain_2 audio/maleHurtPain_2.wave
-sound MaleHurtPain_3 audio/maleHurtPain_3.wave
-sound MaleHurtPain_4 audio/maleHurtPain_4.wave
-sound MaleHurtPain_5 audio/maleHurtPain_5.wave
-sound MaleHurtPain_6 audio/maleHurtPain_6.wave
-sound MaleHurtPain_7 audio/maleHurtPain_7.wave
-sound MaleHurtPain_8 audio/maleHurtPain_8.wave
-sound MaleHurtPain_9 audio/maleHurtPain_9.wave
-sound MaleHurtPain_10 audio/maleHurtPain_10.wave
-sound MaleHurtPain_11 audio/maleHurtPain_11.wave
+Fireball audio/Fireball_1.wav
+Fireball audio/Fireball_2.wav
+Fireball audio/Fireball_3.wav
+Fireball audio/Fireball_4.wav
+footStep audio/footStep_1.wav
+footStep audio/footStep_2.wav
+footStep audio/footStep_3.wav
+footStep audio/footStep_4.wav
+footStep audio/footStep_5.wav
+footStep audio/footStep_6.wav
+footStep audio/footStep_7.wav
+footStep audio/footStep_8.wav
+footStep audio/footStep_9.wav
+footStep audio/footStep_10.wav
+Sword audio/Sword_1.wav
+Sword audio/Sword_2.wav
+Sword audio/Sword_3.wav
+Sword audio/Sword_4.wav
+Sword audio/Sword_5.wav
+Sword audio/Sword_6.wav
+maleAttack audio/maleAttack_1.wav
+maleAttack audio/maleAttack_2.wav
+maleAttack audio/maleAttack_3.wav
+maleAttack audio/maleAttack_4.wav
+maleAttack audio/maleAttack_5.wav
+maleAttack audio/maleAttack_6.wav
+maleAttack audio/maleAttack_7.wav
+maleAttack audio/maleAttack_8.wav
+maleAttack audio/maleAttack_9.wav
+maleAttack audio/maleAttack_10.wav
+MaleHurtPain audio/maleHurtPain_1.wav
+MaleHurtPain audio/maleHurtPain_2.wav
+MaleHurtPain audio/maleHurtPain_3.wav
+MaleHurtPain audio/maleHurtPain_4.wav
+MaleHurtPain audio/maleHurtPain_5.wav
+MaleHurtPain audio/maleHurtPain_6.wav
+MaleHurtPain audio/maleHurtPain_7.wav
+MaleHurtPain audio/maleHurtPain_8.wave
+MaleHurtPain audio/maleHurtPain_9.wave
+MaleHurtPain audio/maleHurtPain_10.wave
+MaleHurtPain audio/maleHurtPain_11.wave

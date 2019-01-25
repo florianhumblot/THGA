@@ -146,6 +146,7 @@ void Game::handleInput()
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 				player.fight(enemy.get());
 				std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
+
 			}
 		}
 		if (Keyboard::isKeyPressed(Keyboard::O))
