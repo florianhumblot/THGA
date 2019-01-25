@@ -13,7 +13,7 @@ using namespace sf;
 
 int main()
 {
-	RenderWindow window(VideoMode(1920, 1080, 32), "Project: ADAM");
+	RenderWindow window(VideoMode(1920, 1080, 32), "Project: ADAM", sf::Style::None);
 	
 	sf::Sprite loading_screen;
 	sf::Texture loading;
