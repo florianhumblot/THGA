@@ -35,7 +35,7 @@ MaleHurtPain audio/maleHurtPain_4.wav
 MaleHurtPain audio/maleHurtPain_5.wav
 MaleHurtPain audio/maleHurtPain_6.wav
 MaleHurtPain audio/maleHurtPain_7.wav
-MaleHurtPain audio/maleHurtPain_8.wave
-MaleHurtPain audio/maleHurtPain_9.wave
-MaleHurtPain audio/maleHurtPain_10.wave
-MaleHurtPain audio/maleHurtPain_11.wave
+MaleHurtPain audio/maleHurtPain_8.wav
+MaleHurtPain audio/maleHurtPain_9.wav
+MaleHurtPain audio/maleHurtPain_10.wav
+MaleHurtPain audio/maleHurtPain_11.wav
