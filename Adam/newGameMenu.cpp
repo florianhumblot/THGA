@@ -115,7 +115,7 @@ int newGameMenu::chooseTile(std::shared_ptr<Menu> & currentMenu, Character & pla
 		std::cout << "warrior has been chosen" << '\n';
 		//state = STATE::PLAYING;
 		player.setAnimationMap(ani.animations["knight"]);
-		player.setAnimation("IDLEright");
+		player.setAnimation("IDLEright", Animation::intervals::idle);
 		player.setTexture(player.currentAnimation.nextFrame());
 		//menu_states = menu_states::INGAME;
 		setInGame();
@@ -126,7 +126,7 @@ int newGameMenu::chooseTile(std::shared_ptr<Menu> & currentMenu, Character & pla
 		std::cout << "hunter has been chosen" << '\n';
 		//state = STATE::PLAYING;
 		player.setAnimationMap(ani.animations["mage"]);
-		player.setAnimation("IDLEright");
+		player.setAnimation("IDLEright", Animation::intervals::idle);
 		player.setTexture(player.currentAnimation.nextFrame());
 		player.setProjectile([&](sf::Vector2f pos1, sf::Vector2f pos2, std::map<std::string, Animation> animations) {
 			sf::Vector2f direction(pos2.x - pos1.x, pos2.y - pos1.y);

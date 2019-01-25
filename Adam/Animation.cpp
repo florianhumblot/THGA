@@ -29,6 +29,12 @@ sf::Texture & Animation::nextFrame()
 	return textures[++current_frame];
 }
 
+sf::Texture & Animation::getCurrentFrame()
+{
+	return textures[current_frame];
+}
+
+
 void Animation::reset_animation()
 {
 	animation_done = false;

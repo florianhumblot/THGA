@@ -2,34 +2,44 @@
 
 #include "Audio.hpp"
 //
-Audio::Audio()
-{}
-
-void Audio::playSound(std::string &path)
+Audio::Audio(const std::string &filePath)
 {
-	if (!buffer.loadFromFile(path))
+	std::ifstream soundFile(filePath, std::ios::in | std::ios::binary);
+	if(!soundFile)
 	{
-		std::cout << "error" << std::endl;
+		std::cout << "ERROR: SoundFile couldn't be opened!" << std::endl;
 	}
-	sound.setBuffer(buffer);
-	if (!sound.getStatus()==3)
+	std::string factorySound, path = "";
+	while (soundFile >> factorySound >> path)
 	{
-		sound.play();
+		sf::SoundBuffer b;
+		sf::Sound s;
+		if (b.loadFromFile(path))
+		{
+			std::cout << "Audio File Buffer error" << std::endl;
+		}
+		s.setBuffer(b);
+		if (soundCollection.count(factorySound))
+		{
+			soundCollection[factorySound].push_back(s);
+
+		}
+		else
+		{
+			soundCollection[factorySound] = { s };
+		}
+
 	}
 }
 
-
-void Audio::playSoundRandom(std::string &path)
+void Audio::playSound(std::string &key)
 {
-	int random = rand() % 10 + 1;
-	std::string number = std::to_string(random);
-	if (!buffer.loadFromFile(path + number))
-	{
-		std::cout << "error playing random sound" << std::endl;
-	}
-	sound.setBuffer(buffer);
+
 	if (!sound.getStatus()==3)
 	{
+		int random = rand() % soundCollection[key].size() + 1;
+		sound = soundCollection[key][random];
 		sound.play();
 	}
+	
 }
