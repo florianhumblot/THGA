@@ -8,7 +8,7 @@ Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, An
 {
 	health = health_c;
 	texture = animations["IDLEright"].textures[0];
-	setAnimation("IDLEright");
+	setAnimation("IDLEright", Animation::intervals::idle);
 	if (!font.loadFromFile("fonts/stranger.ttf"))
 	{
 		std::cout << "error loading font" << std::endl;
@@ -49,7 +49,7 @@ bool Enemy::fight(fighter * opponent) {
 	if (!checkDead()) {
 		if (fighter::fight(opponent)) {
 			if (getCurrentAnimation() != std::string("SLASHINGright")) {
-				setAnimation("SLASHINGright");
+				setAnimation("SLASHINGright", Animation::intervals::attack);
 				std::cout << getCurrentAnimation() << std::endl;
 				setTexture(currentAnimation.nextFrame());
 
@@ -104,7 +104,7 @@ void Enemy::die()
 {
 	state = STATE::DEAD;
 	if (getCurrentAnimation() != std::string("DYINGright")) {
-		setAnimation("DYINGright");
+		setAnimation("DYINGright", Animation::intervals::dying);
 		setTexture(currentAnimation.nextFrame());
 	}
 	else {
