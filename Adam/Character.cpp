@@ -27,6 +27,9 @@ bool Character::fight(fighter * opponent) {
 			setPosition(sf::Vector2f(890, 690));
 			health.current = health.max;
 		}
+		else if (opponent->checkDead()) {
+			update_exp(40);
+		}
 		return true;
 	}
 	return false;
