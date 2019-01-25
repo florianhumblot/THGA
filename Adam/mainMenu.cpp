@@ -104,28 +104,28 @@ void mainMenu::moveDown()
 	menuChoices[selectedItem].setFillColor(sf::Color::Red);
 }
 
-int mainMenu::chooseTile(int & selectTile, std::shared_ptr<Menu> &currentMenu, Character & player, sf::Window & window, AnimationManager & ani)
+int mainMenu::chooseTile(std::shared_ptr<Menu> &currentMenu, Character & player, sf::Window & window, AnimationManager & ani)
 {
-	if (selectTile == 0) {
+	if (selectedItem == 0) {
 		currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y, player);
 		//menu_states = menu_states::NEWGAME;
 		setNewGame();
 		std::cout << "set newGAMe \n";
 	}
-	else if (selectTile == 1) {
+	else if (selectedItem == 1) {
 		//state = STATE::PLAYING;
 		std::cout << "set ingame \n";
 		//menu_states = menu_states::INGAME;
 		setInGame();
 		return 2;
 	}
-	else if (selectTile == 2) {
+	else if (selectedItem == 2) {
 		std::cout << "not made yet";
 	}
-	else if (selectTile == 3) {
+	else if (selectedItem == 3) {
 		std::cout << "option menu not made yet" << std::endl;
 	}
-	else if (selectTile == 4) {
+	else if (selectedItem == 4) {
 		window.close();
 	}
 	return 0;

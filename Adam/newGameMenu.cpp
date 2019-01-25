@@ -106,12 +106,12 @@ void newGameMenu::moveDown()
 	menuChoices[selectedItem].setFillColor(sf::Color::Yellow);
 }
 
-int newGameMenu::chooseTile(int & selectTile, std::shared_ptr<Menu> & currentMenu, Character & player, sf::Window & window, AnimationManager & ani)
+int newGameMenu::chooseTile(std::shared_ptr<Menu> & currentMenu, Character & player, sf::Window & window, AnimationManager & ani)
 {
-	if (selectTile == 0) {
+	if (selectedItem == 0) {
 		
 	}
-	else if (selectTile == 1) {
+	else if (selectedItem == 1) {
 		std::cout << "warrior has been chosen" << '\n';
 		//state = STATE::PLAYING;
 		player.setAnimationMap(ani.animations["knight"]);
@@ -122,7 +122,7 @@ int newGameMenu::chooseTile(int & selectTile, std::shared_ptr<Menu> & currentMen
 		//gameStarted = 1;
 		return 2;
 	}
-	else if (selectTile == 2) {
+	else if (selectedItem == 2) {
 		std::cout << "hunter has been chosen" << '\n';
 		//state = STATE::PLAYING;
 		player.setAnimationMap(ani.animations["mage"]);
@@ -133,7 +133,7 @@ int newGameMenu::chooseTile(int & selectTile, std::shared_ptr<Menu> & currentMen
 		//gameStarted = 1;
 		return 2;
 	}
-	else if (selectTile == 3) {
+	else if (selectedItem == 3) {
 		std::cout << "option menu not made yet" << std::endl;
 	}
 	return 0;

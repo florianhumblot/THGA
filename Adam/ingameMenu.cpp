@@ -69,22 +69,22 @@ void inGameMenu::moveDown()
 	pauseScreen[selectedItem].setFillColor(sf::Color::Red);
 }
 
-int inGameMenu::chooseTile(int & selectTile, std::shared_ptr<Menu> & currentMenu, Character & player, sf::Window & window, AnimationManager & ani)
+int inGameMenu::chooseTile(std::shared_ptr<Menu> & currentMenu, Character & player, sf::Window & window, AnimationManager & ani)
 {
-	if (selectTile == 0) {
+	if (selectedItem == 0) {
 		//state = STATE::PLAYING;
 		return 2;
 	}
-	else if (selectTile == 1) {
+	else if (selectedItem == 1) {
 		std::cout << "option not made yet" << '\n';
 	}
-	else if (selectTile == 2) {
+	else if (selectedItem == 2) {
 		currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y, player);
 		std::cout << "terug naar menu";
 		setMain();
 		//menu_states = menu_states::MAIN;
 	}
-	else if (selectTile == 3) {
+	else if (selectedItem == 3) {
 		window.close();
 	}
 

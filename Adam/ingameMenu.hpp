@@ -21,7 +21,7 @@ public:
 	void draw(sf::RenderWindow & window, levelManager & lvls, std::shared_ptr<Enemy> & enemy) override;
 	void moveUp() override;
 	void moveDown() override;
-	int chooseTile(int & selectTile, std::shared_ptr<Menu> & currentMenu, Character & player, sf::Window & window, AnimationManager & ani) override;
+	int chooseTile(std::shared_ptr<Menu> & currentMenu, Character & player, sf::Window & window, AnimationManager & ani) override;
 };
 
 

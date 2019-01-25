@@ -84,7 +84,7 @@ void Game::handleInput()
 				}
 				case sf::Keyboard::Enter:
 				{
-					int menuResult = currentMenu->chooseTile(currentMenu->selectedItem, currentMenu, player, window, ani);
+					int menuResult = currentMenu->chooseTile(currentMenu, player, window, ani);
 					// if 0, do nothing
 					if (menuResult == 1) {
 						state = STATE::MENU;
@@ -261,6 +261,10 @@ void Game::update() {
 		}
 		if (enemy.get()->checkDead()) {
 			enemy.get()->die();
+		}
+		if (player.getPosition().y > 30000) {
+			player.respawn();
+			player.setVelocity(sf::Vector2f(0, 0));
 		}
 
 	}

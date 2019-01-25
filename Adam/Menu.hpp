@@ -31,7 +31,7 @@ public:
 	}
 	virtual void moveUp() = 0;
 	virtual void moveDown() = 0;
-	virtual int chooseTile(int & tileSelect, std::shared_ptr<Menu> & currentMenu, Character & player, sf::Window & window, AnimationManager & ani) = 0;
+	virtual int chooseTile(std::shared_ptr<Menu> & currentMenu, Character & player, sf::Window & window, AnimationManager & ani) = 0;
 
 	void setInGame() {
 		menu_states = menu_states::INGAME;
