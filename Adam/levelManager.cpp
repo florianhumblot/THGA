@@ -110,11 +110,11 @@ void levelManager::make_lvl(std::string lvl_name)
 	tex4.loadFromFile(lvls[lvl_name]["foreground_bounce"]);
 	tex5.loadFromFile(lvls[lvl_name]["lvl_end"]);
 
-	ground.setTexture(tex);
-	background.setTexture(tex2);
-	damage_background.setTexture(tex3);
-	foreground_bounce.setTexture(tex4);
-	end.setTexture(tex5);
+	ground.setTexture(tex,1);
+	background.setTexture(tex2,1);
+	damage_background.setTexture(tex3,1);
+	foreground_bounce.setTexture(tex4,1);
+	end.setTexture(tex5,1);
 	
 	playerSpawn = to_vector(lvls[lvl_name]["spawnpoint_player"]);
 }
@@ -125,9 +125,9 @@ void levelManager::next_lvl(Character & player)
 	make_lvl(maps[current_lvl]);
 	player.respawn();
 	current_lvl--;
-	if (current_lvl <0)
+	if (current_lvl < 0)
 	{
-		current_lvl = maps.size();
+		current_lvl = maps.size()-1;
 	}
 
 }

@@ -1,7 +1,8 @@
+/// @file
+
 #pragma once
 #include "Character.h"
 
-/// @file
 
 //! I'm the only one that actually uses this namespace :(
 namespace Adam
