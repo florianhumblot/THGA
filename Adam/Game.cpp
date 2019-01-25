@@ -21,7 +21,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
 	lvls.make_lvl("lvl2");
-
+	tex.loadFromFile("assets/slimeTest.png");
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);
 
@@ -128,6 +128,18 @@ void Game::handleInput() {
 							player.setAnimationMap(ani.animations["mage"]);
 							player.setAnimation("IDLEright");
 							player.setTexture(player.currentAnimation.nextFrame());
+							player.setProjectile([&](sf::Vector2f pos1, sf::Vector2f pos2, std::map<std::string, Animation> animations) {
+								sf::Vector2f direction(pos2.x - pos1.x, pos2.y - pos1.y);
+								direction.y = (direction.y * 5) / direction.x;
+								direction.x = 5;
+								sf::Texture tex ;
+								if (!tex.loadFromFile("assets/slimeTest.png")) {
+									std::cout << "erororororo ";
+								}
+								std::shared_ptr<projectile> prj = std::make_shared<projectile>(projectile(pos1, sf::Vector2f(0.1, 0.1), animations, direction, 10.0));
+								prj->setTexture(tex);
+								return prj;
+							}, ani.animations["knight"]);
 
 						}
 						else if (currentMenu->current_state == Menu::menu_states::s_ingameMenu)
@@ -258,6 +270,16 @@ void Game::handleInput() {
 			}
 		}
 
+		if (ev.type == sf::Event::MouseButtonReleased) {
+			if (ev.key.code == sf::Mouse::Left && !player.checkDead()) {
+				sf::Vector2i i = sf::Mouse::getPosition(window);
+				sf::Vector2f conf = window.mapPixelToCoords(i, main_camera);
+				std::shared_ptr<projectile> prj = player.shootProjectile(conf);
+				projectiles.push_back(prj);
+
+			}
+		}
+
 		if (!enemy.get()->checkDead()) {
 			ai->shouldFollow_followDirection(enemy.get(), &player);
 			if (aiClock.getElapsedTime().asMilliseconds() >= 300) {
@@ -316,6 +338,18 @@ void Game::update() {
 				}
 			}
 
+			std::shared_ptr<projectile> tobedeleted;
+
+			for (auto prj : projectiles) {
+				if (prj->isDeath()) {
+					tobedeleted = prj;
+				}
+				prj->updateLive(1);
+				prj->setTexture(prj->currentAnimation.nextFrame());
+				prj->move();
+			}
+			projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), tobedeleted), projectiles.end());
+
 			np->showText(player);
 			hud.update();
 			
@@ -369,13 +403,14 @@ void Game::render() {
 		np->draw(window);
 		enemy->draw(window);
 		player.draw(window);
-	//	window.draw(sf::Sprite(player));
-	//	window.draw(sf::Sprite(*enemy));
-	//	window.draw(sf::Sprite(*np));
 
 		window.draw(lvls.ground);
 		window.draw(lvls.damage_background);
 		window.draw(lvls.foreground_bounce);
+		for (auto prj : projectiles) {
+			prj->draw(window);
+		}
+
 		window.setView(main_HUD);
 		hud.draw(window);
 		auto center = Collision::GetSpriteCenter(player);

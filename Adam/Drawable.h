@@ -14,6 +14,7 @@ public:
 		AABB.loadFromFile("assets/AABB.png");
 	}
 	drawable(sf::Vector2f &position, sf::Vector2f scale, sf::Texture texture);
+	drawable(sf::Vector2f &position, sf::Vector2f scale, const std::string &textureFile);
 	~drawable() {}
 	sf::Vector2f getPosition();
 	void setPosition(sf::Vector2f newPos);

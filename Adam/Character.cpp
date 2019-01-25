@@ -7,7 +7,7 @@ void Character::respawn()
 	health.current = health.max;
 }
 
-Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic mana_c, statistic health_c, statistic exp_c):
+Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic mana_c, statistic health_c, statistic exp_c) :
 	Animateable(animations),
 	fighter(health_c, 1),
 	movable(position, scale, animations["IDLEright"].textures[0], velocity)
@@ -38,6 +38,19 @@ sf::Sprite Character::makeFightBox() {
 	temp.setTexture(AABB_H);
 	temp.setScale(scale);
 	return temp;
+}
+
+void Character::setProjectile(std::function<std::shared_ptr<projectile>(sf::Vector2f, sf::Vector2f, std::map<std::string, Animation> animations)> newP, std::map<std::string, Animation> & animations ) {
+	projectileAnimations = animations;
+	shoot = newP;
+}
+
+std::shared_ptr<projectile> Character::shootProjectile(sf::Vector2f direction) {
+	sf::Vector2f shootPos;
+//	if (current_direction == direction::LEFT) {
+//		shootPos = getBox().getPosition
+//	}
+	return shoot(getPosition(), sf::Vector2f(direction.x, direction.y ), projectileAnimations);
 }
 
 void Character::die()
