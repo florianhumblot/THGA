@@ -3,8 +3,13 @@
 
 void Character::respawn()
 {
-	setPosition(sf::Vector2f(890, 690));
+	setPosition(spawn);
 	health.current = health.max;
+}
+
+void Character::set_spawn(sf::Vector2f new_spawn)
+{
+	spawn = new_spawn;
 }
 
 Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic mana_c, statistic health_c, statistic exp_c):
