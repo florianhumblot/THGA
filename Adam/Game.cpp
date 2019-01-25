@@ -132,7 +132,7 @@ void Game::handleInput()
 			{
 				player.canJump = false;
 
-				if (player.jumpCount < 2)
+				if (!player.checkDead() && player.jumpCount < 2)
 				{
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -9));
 					player.jumpCount++;
