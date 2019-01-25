@@ -132,13 +132,12 @@ void levelManager::make_lvl(std::string lvl_name)
 	infinity.setTexture(tex6, 1);
 
 	playerSpawn = to_vector(lvls[lvl_name]["spawnpoint_player"]);
-	std::cout << playerSpawn.x << "d" << playerSpawn.y;
 }
 
 void levelManager::next_lvl(Character & player)
 {
 
-	make_lvl(maps[--current_lvl]);
+	make_lvl(maps[current_lvl]);
 	player.set_spawn(playerSpawn);
 	player.respawn();
 	current_lvl--;
