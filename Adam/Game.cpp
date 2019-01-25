@@ -13,6 +13,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	geluidje(geluidje)
 {
 	window.setVerticalSyncEnabled(true);
+	window.setFramerateLimit(45);
 	window.setKeyRepeatEnabled(false);
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();

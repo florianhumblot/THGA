@@ -25,10 +25,10 @@ void Audio::playSoundRandom(std::string &path)
 	std::string number = std::to_string(random);
 	if (!buffer.loadFromFile(path + number))
 	{
-		std::cout << "error" << std::endl;
+		std::cout << "error playing random sound" << std::endl;
 	}
 	sound.setBuffer(buffer);
-	if (!sound.getStatus())
+	if (!sound.getStatus()==3)
 	{
 		sound.play();
 	}
