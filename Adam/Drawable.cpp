@@ -19,7 +19,7 @@ drawable::drawable(sf::Vector2f &position, sf::Vector2f scale, const std::string
 {
 	Collision::CreateTextureAndBitmask(texture, textureFile);
 	sprite.setPosition(position);
-	sprite.setTexture(texture);
+	sprite.setTexture(texture, true);
 	sprite.setScale(scale);
 	AABB.loadFromFile("assets/AABB.png");
 }
@@ -39,7 +39,7 @@ void drawable::setTexture(const std::string & textureFile) {
 }
 
 void drawable::setTexture(sf::Texture & texture) {
-	sprite.setTexture(texture);
+	sprite.setTexture(texture, true);
 	texture = texture;
 }
 

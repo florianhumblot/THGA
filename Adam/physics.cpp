@@ -60,7 +60,7 @@ namespace Adam
 				[&]() {
 				while (clh->collides_with_world(moveable))
 				{
-					if (!moveable->canJump) moveable->canJump = true;
+					if (!moveable->canJump) { moveable->canJump = true; moveable->jumpCount = 0; }
 					moveable->move(sf::Vector2f(0, -1));
 				}
 				moveable->setVelocity(sf::Vector2f(moveable->getVelocity().x, 0));

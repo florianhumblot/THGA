@@ -37,6 +37,11 @@ namespace Collision
 			return mask;
 		}
 
+		void removeMask(const sf::Texture* tex)
+		{
+			Bitmasks.erase(tex);
+		}
+
 		sf::Uint8* CreateMask(const sf::Texture* tex, const sf::Image& img) {
 			sf::Uint8* mask = new sf::Uint8[tex->getSize().y*tex->getSize().x];
 
@@ -55,6 +60,11 @@ namespace Collision
 	};
 
 	BitmaskManager Bitmasks;
+
+	void removeBitmask(const sf::Texture* tex)
+	{
+		Bitmasks.removeMask(tex);
+	}
 
 	bool PixelPerfectTest(const sf::Sprite& Object1, const sf::Sprite& Object2, sf::Uint8 AlphaLimit) {
 		sf::FloatRect Intersection;

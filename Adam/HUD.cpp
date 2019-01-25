@@ -30,11 +30,6 @@ HUD::HUD(Character & character) : character(character)
 	text[3].setFillColor(sf::Color::White);
 }
 
-HUD::~HUD()
-{
-
-}
-
 void HUD::update()
 {
 	bar_length[0] = int((100.0 / (float)character.health.max) * (float)character.health.current);

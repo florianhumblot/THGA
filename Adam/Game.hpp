@@ -19,6 +19,7 @@
 #include "AI.hpp"
 #include "fighter.h"
 #include "levelManager.h"
+#include "Audio.hpp"
 
 using namespace std;
 using namespace sf;
@@ -40,6 +41,7 @@ private:
 	sf::Texture char_alpha_invert;
 	sf::Texture menuTex;
 	Character & player;
+	Audio & geluidje;
 
 	sf::Sprite bgMain;
 	int bounce_velocity = 1;
@@ -59,6 +61,7 @@ private:
 	sf::Texture tex;
 
 	std::shared_ptr<AI> ai;
+	
 
 	std::shared_ptr<Menu> currentMenu;
 	AnimationManager & ani;
@@ -67,7 +70,7 @@ private:
 
 public:
 
-	Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani);
+	Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani, Audio & geluidje);
 
 	void handleInput();
 	void update();

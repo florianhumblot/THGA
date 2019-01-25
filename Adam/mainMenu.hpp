@@ -12,15 +12,16 @@ private:
 	float heigth;
 	sf::Font font;
 	sf::Text menuChoices[numberOfTiles];
+	
 
 
 public:
-	mainMenu(float width, float heigth);
+	mainMenu(float width, float heigth, Character &player);
 
-	void draw(sf::RenderWindow & window) override;
+	void draw(sf::RenderWindow & window, sf::View & main_camera, sf::Sprite & bgMain, Character & player) override;
 	void moveUp() override;
 	void moveDown() override;
-	void chooseTile(int & tileSelect) override;
+	int chooseTile(std::shared_ptr<Menu> &currentMenu, Character & player, sf::Window & window, AnimationManager & ani) override;
 
 };
 

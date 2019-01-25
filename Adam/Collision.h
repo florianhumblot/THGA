@@ -37,40 +37,43 @@ it freely, subject to the following restrictions:
 #define COLLISION_H
 
 namespace Collision {
-	//////
+
+	/// \details
 	/// Test for a collision between two sprites by comparing the alpha values of overlapping pixels
 	/// Supports scaling and rotation
 	/// AlphaLimit: The threshold at which a pixel becomes "solid". If AlphaLimit is 127, a pixel with
 	/// alpha value 128 will cause a collision and a pixel with alpha value 126 will not.
-	/// 
 	/// This functions creates bitmasks of the textures of the two sprites by
 	/// downloading the textures from the graphics card to memory -> SLOW!
 	/// You can avoid this by using the "CreateTextureAndBitmask" function
-	//////
 	bool PixelPerfectTest(const sf::Sprite& Object1, const sf::Sprite& Object2, sf::Uint8 AlphaLimit = 0);
 
-	//////
+	/// \details
+	/// Not part of the original code provided by the original author.
+	/// Provides a way to remove a bitmask from the bitmask manager, useful when changing the texture of
+	/// an object that already had a bitmask, it needs to be removed and re-added.
+	void removeBitmask(const sf::Texture* tex);
+
+	/// /details
 	/// Replaces Texture::loadFromFile
 	/// Load an imagefile into the given texture and create a bitmask for it
 	/// This is much faster than creating the bitmask for a texture on the first run of "PixelPerfectTest"
-	/// 
-	/// The function returns false if the file could not be opened for some reason
-	//////
+	/// The function returns false if the file could not be opened for some reason.
 	bool CreateTextureAndBitmask(sf::Texture &LoadInto, const std::string& Filename);
 
-	//////
+	/// \details
 	/// Test for collision using circle collision dection
 	/// Radius is averaged from the dimensions of the sprite so
-	/// roughly circular objects will be much more accurate
-	//////
+	/// roughly circular objects will be much more accurate.
 	bool CircleTest(const sf::Sprite& Object1, const sf::Sprite& Object2);
 
-	//////
+	/// \details
 	/// Test for bounding box collision using the Separating Axis Theorem
 	/// Supports scaling and rotation
-	//////
 	bool BoundingBoxTest(const sf::Sprite& Object1, const sf::Sprite& Object2);
 
+	/// \details
+	/// Helper function to get the center of an SFML sprite.
 	sf::Vector2f GetSpriteCenter(const sf::Sprite& Object);
 }
 

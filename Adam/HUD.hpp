@@ -2,7 +2,12 @@
 #define HUD_HPP
 
 #include "Character.h"
+///@file
 
+/// \brief
+/// HUD
+/// \details
+/// The HUD shows the status of the player: health, mana, experience, lvl.
 class HUD
 {
 private:
@@ -15,16 +20,31 @@ private:
 	Character & character;
 	int bar_length[4] = {100,100,100,60};
 public:
-	HUD(Character & character);
-	~HUD();
 
-	// updates values
+	/// \brief
+	/// constructor
+	/// \details
+	/// The constructor initialize a Character(player).
+	/// The standard values of the character are set.
+	HUD(Character & character);
+
+	/// \brief
+	/// updates HUD info
+	/// \details
+	/// Updates the current & max value of each stat on the HUD.
+	/// Calls bar_satus function for each stat on the HUD.
 	void update();
 
-	// sets scale, texture and position
+	/// \brief
+	/// bar length
+	/// \details
+	/// Sets the scale, texture and position of the bar of a stat based on the max & current value.
 	void bar_status(int index);
 
-	// draw HUD on window
+	/// \brief
+	/// show info on HUD
+	/// \details
+	/// Draws for each stat the text & bar.
 	void draw(sf::RenderWindow & window);
 };
 #endif // !HUD_HPP
