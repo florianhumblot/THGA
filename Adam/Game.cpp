@@ -215,7 +215,6 @@ void Game::handleInput()
 				}
 				aiClock.restart();
 			}
-			ai->walkRandomly(np.get());
 
 			break;
 		}
@@ -235,6 +234,8 @@ void Game::update() {
 
 	case STATE::PLAYING:
 	{
+		ai->walkRandomly(np.get());
+
 		if (Clock.getElapsedTime().asMilliseconds() >= 50) {
 			player.setTexture(player.currentAnimation.nextFrame());
 			enemy->setTexture(enemy->currentAnimation.nextFrame());
