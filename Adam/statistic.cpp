@@ -74,5 +74,5 @@ void statistic::update_max(int points)
 
 void statistic::print()
 {
-	//std::cout << current << "/" << max << '\n';
+	std::cout << "current: " << current << ", max: " << max << '. \n';
 }

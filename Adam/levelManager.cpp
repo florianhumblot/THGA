@@ -51,7 +51,6 @@ levelManager::levelManager()
 		}
 	}
 	//print();
-	
 }
 
 void levelManager::print()
@@ -77,9 +76,31 @@ void levelManager::print()
 
 }
 
+sf::Vector2f levelManager::to_vector(std::string vec) {
+	bool seen = false;
+	sf::Vector2f new_vec;
+	for (char & c : vec)
+	{
+		if (c != ',')
+		{
+			if (seen)
+			{
+				new_vec.y += c;
+			}
+			else
+			{
+				new_vec.x += c;
+			}
+		}
+
+	}
+	return new_vec;
+}
+
 void levelManager::make_lvl(std::string lvl_name)
 {
 	Collision::removeBitmask(&tex);
+	Collision::removeBitmask(&tex2);
 	Collision::removeBitmask(&tex3);
 	Collision::removeBitmask(&tex4);
 	Collision::removeBitmask(&tex5);
@@ -94,22 +115,8 @@ void levelManager::make_lvl(std::string lvl_name)
 	damage_background.setTexture(tex3);
 	foreground_bounce.setTexture(tex4);
 	end.setTexture(tex5);
-	bool seen = false;
-	for (char & c : lvls[lvl_name]["spawnpoint_player"])
-	{
-		if (c != ',')
-		{
-			if (seen)
-			{
-				playerSpawn.y += c;
-			}
-			else
-			{
-				playerSpawn.x += c;
-			}
-		}
-		
-	}
+	
+	playerSpawn = to_vector(lvls[lvl_name]["spawnpoint_player"]);
 }
 
 void levelManager::next_lvl(Character & player)
@@ -120,7 +127,7 @@ void levelManager::next_lvl(Character & player)
 	current_lvl--;
 	if (current_lvl <0)
 	{
-		current_lvl = maps.size()+1;
+		current_lvl = maps.size();
 	}
 
 }
@@ -155,6 +162,3 @@ void levelManager::check_interaction(Character & player)
 	}
 }
 
-levelManager::~levelManager()
-{
-}
