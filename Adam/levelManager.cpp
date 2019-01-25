@@ -34,6 +34,10 @@ levelManager::levelManager()
 			{
 				lvls[lvl]["lvl_end"] = item;
 			}
+			else if (name == "infinity")
+			{
+				lvls[lvl]["infinity"] = item;
+			}
 			else if (name == "spawnpoint_player")
 			{
 				lvls[lvl]["spawnpoint_player"] = item;
@@ -79,21 +83,29 @@ void levelManager::print()
 sf::Vector2f levelManager::to_vector(std::string vec) {
 	bool seen = false;
 	sf::Vector2f new_vec;
+	std::string tmp = "";
 	for (char & c : vec)
 	{
 		if (c != ',')
 		{
 			if (seen)
 			{
-				new_vec.y += c;
+				tmp += c;
 			}
 			else
 			{
-				new_vec.x += c;
+				tmp += c;
 			}
+		}
+		else
+		{
+			seen = true;
+			new_vec.x = std::stof(tmp);
+			tmp = "";
 		}
 
 	}
+	new_vec.y = std::stof(tmp);
 	return new_vec;
 }
 
@@ -104,18 +116,21 @@ void levelManager::make_lvl(std::string lvl_name)
 	Collision::removeBitmask(&tex3);
 	Collision::removeBitmask(&tex4);
 	Collision::removeBitmask(&tex5);
+	Collision::removeBitmask(&tex6);
 	tex.loadFromFile(lvls[lvl_name]["foreground"]);
 	tex2.loadFromFile(lvls[lvl_name]["background"]);
 	tex3.loadFromFile(lvls[lvl_name]["foreground_dmg"]);
 	tex4.loadFromFile(lvls[lvl_name]["foreground_bounce"]);
 	tex5.loadFromFile(lvls[lvl_name]["lvl_end"]);
+	tex6.loadFromFile(lvls[lvl_name]["infinity"]);
 
-	ground.setTexture(tex,1);
-	background.setTexture(tex2,1);
-	damage_background.setTexture(tex3,1);
-	foreground_bounce.setTexture(tex4,1);
-	end.setTexture(tex5,1);
-	
+	ground.setTexture(tex, 1);
+	background.setTexture(tex2, 1);
+	damage_background.setTexture(tex3, 1);
+	foreground_bounce.setTexture(tex4, 1);
+	end.setTexture(tex5, 1);
+	infinity.setTexture(tex6, 1);
+
 	playerSpawn = to_vector(lvls[lvl_name]["spawnpoint_player"]);
 }
 
@@ -123,6 +138,7 @@ void levelManager::next_lvl(Character & player)
 {
 
 	make_lvl(maps[current_lvl]);
+	player.set_spawn(playerSpawn);
 	player.respawn();
 	current_lvl--;
 	if (current_lvl < 0)
@@ -137,6 +153,12 @@ void levelManager::check_interaction(Character & player)
 	if (Collision::PixelPerfectTest(damage_background, player))
 	{
 		player.health.sub(((float)(player.health.max / 100) * 0.5f));
+
+	}
+
+	if (Collision::PixelPerfectTest(infinity, player))
+	{
+		player.respawn();
 
 	}
 

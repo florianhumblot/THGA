@@ -8,7 +8,7 @@
 class Audio
 {
 private:
-	std::map<std::string,sf::SoundBuffer>collection;
+	std::map<std::string, sf::SoundBuffer>soundCollection;
 	sf::SoundBuffer buffer;
 	sf::Music music;
 	sf::Sound sound;
