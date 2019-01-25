@@ -40,7 +40,12 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2) {
 	else {
 		// if they are not close to eachother
 		// make sure the enemy's velocity is zero
-		p1->updateFollowPosition(0);
+		if (p1->getCurrentAnimation() != std::string("IDLEright")) {
+			p1->setAnimation("IDLEright");
+			p1->setTexture(p1->currentAnimation.nextFrame());
+			p1->updateFollowPosition(0);
+		}
+		
 	}
 
 }
