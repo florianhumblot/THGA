@@ -1,18 +1,35 @@
 #include "pch.h"
-#include "audio.hpp"
 
+#include "Audio.hpp"
+//
 Audio::Audio()
-{};
+{}
 
-
-void Audio::playFireBall()
+void Audio::playSound(std::string &path)
 {
-	if (!buffer.loadFromFile("audio/fireBall.wav"))
+	if (!buffer.loadFromFile(path))
 	{
-		std::cout << "Error loading Sound" << std::endl;
+		std::cout << "error" << std::endl;
 	}
 	sound.setBuffer(buffer);
-	sound.play();
+	if (!sound.getStatus()==3)
+	{
+		sound.play();
+	}
 }
 
 
+void Audio::playSoundRandom(std::string &path)
+{
+	int random = rand() % 10 + 1;
+	std::string number = std::to_string(random);
+	if (!buffer.loadFromFile(path + number))
+	{
+		std::cout << "error" << std::endl;
+	}
+	sound.setBuffer(buffer);
+	if (!sound.getStatus())
+	{
+		sound.play();
+	}
+}
