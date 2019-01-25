@@ -342,7 +342,6 @@ void Game::render() {
 			prj->draw(window);
 		}
 
-
 		window.draw(lvls.ground);
 		window.draw(lvls.damage_background);
 		window.draw(lvls.foreground_bounce);
