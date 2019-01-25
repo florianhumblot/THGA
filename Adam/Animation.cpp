@@ -31,7 +31,12 @@ sf::Texture & Animation::nextFrame()
 
 sf::Texture & Animation::getCurrentFrame()
 {
-	return textures[current_frame];
+	if (current_frame == textures.size()) {
+		return textures.back();
+	}
+	else {
+		return textures[(current_frame == -1 ) ? 0 : current_frame];
+	}
 }
 
 
