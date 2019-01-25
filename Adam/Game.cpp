@@ -144,7 +144,19 @@ void Game::handleInput()
 			else if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::K && !player.checkDead())
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
-				player.fight(enemy.get());
+				//player.fight(enemy.get());
+				if (player.fight(enemy.get()))
+				{
+					if (player.getPosition().x < enemy.get()->getPosition().x)
+					{
+						enemy.get()->setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
+					}
+					else
+					{
+						enemy.get()->setVelocity(sf::Vector2f(player.getVelocity().x - 4, -4));
+					}
+
+				}
 				std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
 			}
 		}
