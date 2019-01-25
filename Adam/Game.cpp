@@ -13,7 +13,6 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	geluidje(geluidje)
 {
 	window.setVerticalSyncEnabled(true);
-	window.setFramerateLimit(45);
 	window.setKeyRepeatEnabled(false);
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
@@ -141,10 +140,22 @@ void Game::handleInput()
 			}
 
 
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
+			else if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::K && !player.checkDead())
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
-				player.fight(enemy.get());
+				//player.fight(enemy.get());
+				if (player.fight(enemy.get()))
+				{
+					if (player.getPosition().x < enemy.get()->getPosition().x)
+					{
+						enemy.get()->setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
+					}
+					else
+					{
+						enemy.get()->setVelocity(sf::Vector2f(player.getVelocity().x - 4, -4));
+					}
+
+				}
 				std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
 
 			}
@@ -156,7 +167,7 @@ void Game::handleInput()
 
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Escape))
+     	if (Keyboard::isKeyPressed(Keyboard::Escape))
 		{
 			//window.close();
 			state = STATE::MENU;
@@ -167,7 +178,7 @@ void Game::handleInput()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !player.checkDead())
 		{
 			if (player.getCurrentAnimation() != std::string("WALKright")) {
-				player.setAnimation("WALKright");
+				player.setAnimation("WALKright", Animation::intervals::walk);
 				player.setTexture(player.currentAnimation.nextFrame());
 			}
 
@@ -178,7 +189,7 @@ void Game::handleInput()
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !player.checkDead())
 		{
 			if (player.getCurrentAnimation() != std::string("WALKright")) {
-				player.setAnimation("WALKright");
+				player.setAnimation("WALKright", Animation::intervals::walk);
 				player.setTexture(player.currentAnimation.nextFrame());
 
 			}
@@ -188,19 +199,12 @@ void Game::handleInput()
 
 		}
 
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
-		{
-			player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
-			player.fight(enemy.get());
-			std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
-		}
-
 		else if (player.currentAnimation.isDone() || player.getCurrentAnimation() == std::string("WALKright"))
 		{
 			player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 			if (player.getVelocity().y == 0) {
 				if (player.getCurrentAnimation() != std::string("IDLEright") && player.getCurrentAnimation() != std::string("DYINGright")) {
-					player.setAnimation("IDLEright");
+					player.setAnimation("IDLEright", Animation::intervals::idle);
 					player.setTexture(player.currentAnimation.nextFrame());
 				}
 			}
@@ -223,7 +227,6 @@ void Game::handleInput()
 				}
 				aiClock.restart();
 			}
-			ai->walkRandomly(np.get());
 
 			break;
 		}
@@ -243,11 +246,19 @@ void Game::update() {
 
 	case STATE::PLAYING:
 	{
-		if (Clock.getElapsedTime().asMilliseconds() >= 50) {
-			player.setTexture(player.currentAnimation.nextFrame());
-			enemy->setTexture(enemy->currentAnimation.nextFrame());
-			np->setTexture(np->currentAnimation.nextFrame());
-			Clock.restart();
+		ai->walkRandomly(np.get());
+
+		if (player.updateAnimation())
+		{
+			player.setTexture(player.currentAnimation.getCurrentFrame());
+		}
+		if (enemy->updateAnimation())
+		{
+			enemy->setTexture(enemy->currentAnimation.getCurrentFrame());
+		}
+		if (np->updateAnimation())
+		{
+			np->setTexture(np->currentAnimation.getCurrentFrame());
 		}
 
 		world_physics.step_x_moveables();

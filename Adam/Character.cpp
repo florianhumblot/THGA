@@ -3,8 +3,13 @@
 
 void Character::respawn()
 {
-	setPosition(sf::Vector2f(890, 690));
+	setPosition(spawn);
 	health.current = health.max;
+}
+
+void Character::set_spawn(sf::Vector2f new_spawn)
+{
+	spawn = new_spawn;
 }
 
 Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic mana_c, statistic health_c, statistic exp_c):
@@ -12,14 +17,16 @@ Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::st
 	fighter(health_c, 1),
 	movable(position, scale, animations["IDLEright"].textures[0], velocity)
 {
-	setAnimation("IDLEright");
+	setAnimation("IDLEright", Animation::intervals::idle);
+	setTexture(currentAnimation.nextFrame());
 	mana = mana_c;
 	exp = exp_c;
 }
 
 bool Character::fight(fighter * opponent) {
 	if (getCurrentAnimation() != "SLASHINGright") {
-		setAnimation("SLASHINGright");
+		setAnimation("SLASHINGright", Animation::intervals::attack);
+		setTexture(currentAnimation.nextFrame());
 	}
 	if (fighter::fight(opponent)) {
 
@@ -46,13 +53,13 @@ sf::Sprite Character::makeFightBox() {
 void Character::die()
 {
 	if (getCurrentAnimation() != std::string("DYINGright")) {
-		setAnimation("DYINGright");
+		setAnimation("DYINGright", Animation::intervals::dying);
 		setTexture(currentAnimation.nextFrame());
 	}
 	else {
 		if (currentAnimationIsDone()) {
 			respawn();
-			setAnimation("IDLEright");
+			setAnimation("IDLEright", Animation::intervals::idle);
 			setTexture(currentAnimation.nextFrame());
 		}
 	}

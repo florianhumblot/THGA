@@ -10,10 +10,12 @@ class Character :  public fighter, public Animateable, public movable
 public:
 	statistic mana;
 	statistic exp;
+	sf::Vector2f spawn = sf::Vector2f(890,690);
 
 	void update_exp(int amount);
 	Character() {}
 	void respawn();
+	void set_spawn(sf::Vector2f new_spawn);
 
 	bool fight(fighter * opponent) override;
 

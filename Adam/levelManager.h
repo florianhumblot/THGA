@@ -18,6 +18,7 @@ private:
 	sf::Texture tex3;
 	sf::Texture tex4;
 	sf::Texture tex5;
+	sf::Texture tex6;
 public:
 	sf::Vector2f playerSpawn = {};
 	sf::Sprite background;
@@ -25,6 +26,7 @@ public:
 	sf::Sprite ground;
 	sf::Sprite foreground_bounce;
 	sf::Sprite end;
+	sf::Sprite infinity;
 	std::map<std::string, std::map<int, std::string> > spawnpoints_enemys;
 	std::map<std::string, std::map<std::string, std::string> > lvls;
 
