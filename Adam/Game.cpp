@@ -140,7 +140,7 @@ void Game::handleInput()
 			}
 
 
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
+			else if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::K && !player.checkDead())
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 				player.fight(enemy.get());
@@ -154,7 +154,7 @@ void Game::handleInput()
 
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Escape))
+     	if (Keyboard::isKeyPressed(Keyboard::Escape))
 		{
 			//window.close();
 			state = STATE::MENU;
@@ -184,13 +184,6 @@ void Game::handleInput()
 
 			player.setVelocity(sf::Vector2f(-4, player.getVelocity().y));
 
-		}
-
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !player.checkDead())
-		{
-			player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
-			player.fight(enemy.get());
-			std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
 		}
 
 		else if (player.currentAnimation.isDone() || player.getCurrentAnimation() == std::string("WALKright"))
