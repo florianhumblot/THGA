@@ -18,6 +18,7 @@ Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::st
 	movable(position, scale, animations["IDLEright"].textures[0], velocity)
 {
 	setAnimation("IDLEright");
+	setTexture(currentAnimation.nextFrame());
 	mana = mana_c;
 	exp = exp_c;
 }
@@ -25,6 +26,7 @@ Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::st
 bool Character::fight(fighter * opponent) {
 	if (getCurrentAnimation() != "SLASHINGright") {
 		setAnimation("SLASHINGright");
+		setTexture(currentAnimation.nextFrame());
 	}
 	if (fighter::fight(opponent)) {
 
