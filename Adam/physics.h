@@ -21,7 +21,7 @@ namespace Adam
 	public:
 		collision_handler * clh;						//pointer to its' collision_handler
 		std::vector<movable*> moveables;				/*!< Vector of pointers to every movable in the game. */
-		sf::Vector2f gravity = sf::Vector2f(0, 1);		/*!< Fixed gravity vector. */
+		sf::Vector2f gravity = sf::Vector2f(0, 0.5f);		/*!< Fixed gravity vector. */
 
 		//empty default constructor
 		physics();

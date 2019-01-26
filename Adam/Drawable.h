@@ -67,4 +67,19 @@ public:
 		return sprite; 
 	}
 
+	void setOrigin(const sf::Vector2f && origin)
+	{
+		sprite.setOrigin(origin);
+	}
+
+	sf::Vector2u getSize()
+	{
+		return texture.getSize();
+	}
+
+	void setRotation(float angle)
+	{
+		sprite.setRotation(angle);
+	}
+
 };

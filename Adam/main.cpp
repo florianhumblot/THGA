@@ -38,7 +38,7 @@ int main()
 	
 	while (window.isOpen())
 	{
-		game.handleInput();
+		if (window.hasFocus()) game.handleInput();
 		game.update();
 		game.render();
 
