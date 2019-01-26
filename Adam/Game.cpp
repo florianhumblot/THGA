@@ -14,10 +14,6 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	cln_h(lvls.ground),
 	world_physics(&player, cln_h)
 {
-	window.setVerticalSyncEnabled(true);
-	//window.setFramerateLimit(60);
-	window.setKeyRepeatEnabled(false);
-	window.setMouseCursorVisible(false);
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
 	menuTex = sf::Texture();
