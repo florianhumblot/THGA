@@ -47,7 +47,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 
 	world_physics.moveables.push_back(&*enemy);
 	world_physics.moveables.push_back(&*np);
-
+	geluidje.playMusic("audio/music1.wav", 50.0);
 	state = STATE::MENU;
 }
 
@@ -131,10 +131,10 @@ void Game::handleInput()
 			if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
 			{
 				player.canJump = false;
-
 				if (!player.checkDead() && player.jumpCount < 2)
 				{
-					geluidje.playSound("jump", 75.0);
+					geluidje.playSoundTwo("jump", 75.0);
+					//geluidje.playSound("jump", 75.0);
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -6));
 					player.jumpCount++;
 				}
@@ -184,6 +184,8 @@ void Game::handleInput()
 				player.setTexture(player.currentAnimation.nextFrame());
 			}
 			//geluidje.playSound("footStep", 25.0);
+			//geluidje.playSoundTwo("footStep", 25.0);
+
 			player.setScale(sf::Vector2f(0.2, 0.2));
 			player.setVelocity(sf::Vector2f(3, player.getVelocity().y));
 
@@ -238,11 +240,20 @@ void Game::handleInput()
 				projectiles.push_back(prj);
 				if (player.role == "mage")
 				{
-					geluidje.playSound("Fireball", 75.0);
+					//geluidje.playSound("Fireball", 75.0);
+					geluidje.playSoundTwo("Fireball", 75.0);
 				}
 				else
 				{
-					geluidje.playSound("Sword", 75.0);
+				//	geluidje.playSound("Sword", 75.0);
+					geluidje.playSoundTwo("Sword", 75.0);
+					geluidje.playSoundTwo("Fireball", 75.0);
+					geluidje.playSoundTwo("jump", 77.0);
+					geluidje.playSoundTwo("jump", 77.0);
+					geluidje.playSoundTwo("MaleHurtPain", 77.0);
+					geluidje.playSoundTwo("maleAttack", 77.0);
+
+
 				}
 				if (player.getCurrentAnimation() != "SLASHINGright") {
 					player.setAnimation("SLASHINGright", Animation::intervals::attack);
