@@ -296,7 +296,10 @@ void Game::update() {
 
 		world_physics.step_x_moveables();
 		world_physics.step_y_moveables();
-		lvl.check_interaction(player);
+		if (lvl.check_interaction(player)) {
+			cln_h.collision_layer = &lvl.getLevel()->getLayer("foreground");
+			world_physics.clh = &cln_h;
+		}
 
 		np->showText(player);
 		hud.update();

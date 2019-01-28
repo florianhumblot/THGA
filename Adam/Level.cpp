@@ -25,10 +25,10 @@ void Level::draw(sf::RenderTarget & w)
 void Level::addSprite(const std::string & name, const std::string & location)
 {
 	std::cout << "Loading sprite: " << name << " at: " << location << std::endl;
-
-	Collision::CreateTextureAndBitmask(sprites[name].second, location);
 	sprites[name].second.setSmooth(true);
+	Collision::CreateTextureAndBitmask(sprites[name].second, location);
 	sprites[name].first.setTexture(sprites[name].second);
+
 }
 
 void Level::enemy_factory(std::string s)
@@ -36,11 +36,11 @@ void Level::enemy_factory(std::string s)
 	std::ifstream lvls_file(s);
 	if (lvls_file.is_open())
 	{
-		std::string png, health, posx , posy = "";
+		std::string png, health, posx, posy = "";
 
 		while (lvls_file >> png >> posx >> posy >> health)
 		{
-			enemies.push_back(Enemy(sf::Vector2f(stoi(posx),stoi(posy)), sf::Vector2f(0.2, 0.2), ani->animations[png], sf::Vector2f(0, 0), statistic(std::stoi(health), std::stoi(health))));
+			enemies.push_back(Enemy(sf::Vector2f(stoi(posx), stoi(posy)), sf::Vector2f(0.2, 0.2), ani->animations[png], sf::Vector2f(0, 0), statistic(std::stoi(health), std::stoi(health))));
 		}
 
 	}
@@ -84,4 +84,6 @@ std::string Level::get_next_level()
 {
 	return next_level_name;
 }
+
+
 

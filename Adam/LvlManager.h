@@ -1,5 +1,8 @@
 #pragma once
+#include "pch.h"
 #include "Level.h"
+#include "collision_handler.h"
+#include "physics.h"
 class LvlManager
 {
 	std::shared_ptr<AnimationManager> ani;
@@ -13,6 +16,6 @@ public:
 	void make_lvl(std::string lvl_name);
 	Level * getLevel();
 	sf::Vector2f to_vector(const std::string & vec);
-	void check_interaction(Character & player);
+	bool check_interaction(Character & player);
 };
 
