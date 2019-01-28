@@ -3,12 +3,14 @@
 #include "vector"
 #include "Enemy.hpp"
 #include "npc.hpp"
+#include "AnimationManager.h"
 
 class Level
 {
 private:
+	AnimationManager & ani;
 	std::string name;
-	std::vector<Enemy> ennemies;
+	std::vector<Enemy> enemies;
 	std::vector<npc> npcs;
 	int level;
 	int bounce_velocity = 1;
@@ -19,8 +21,8 @@ public:
 	~Level();
 	void draw(sf::RenderTarget &w);
 	void addSprite(const std::string & name, const std::string & location);
-
-
+	void enemy_factory(std::string s);
+	void npc_factory(std::string s);
 	
 
 };
