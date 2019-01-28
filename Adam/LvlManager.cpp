@@ -2,8 +2,9 @@
 #include "LvlManager.h"
 
 
-LvlManager::LvlManager()
+LvlManager::LvlManager(AnimationManager & ani) : ani(ani)
 {
+
 	std::ifstream lvls_file("assets/backgrounds/lvls.txt");
 	if (lvls_file.is_open())
 	{

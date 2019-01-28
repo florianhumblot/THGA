@@ -2,9 +2,10 @@
 #include "Level.h"
 class LvlManager
 {
+	AnimationManager & ani;
 	std::map<std::string, Level> levels;
 public:
-	LvlManager();
+	LvlManager(AnimationManager & ani);
 	~LvlManager();
 
 	std::string current_level;
