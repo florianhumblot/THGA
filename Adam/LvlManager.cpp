@@ -13,7 +13,18 @@ LvlManager::LvlManager()
 			if (level == levels.end()) {
 				levels[level_name] = Level();
 			}
-			levels[level_name].addSprite(level_part, location);
+			if (level_part == std::string("npcs")) {
+				continue;
+			}
+			else if (level_part == std::string("enemies")) {
+				continue;
+			}
+			else if (level_part == std::string("spawnpoint_player") || level_part == std::string("spawnpoint_npc") || level_part == std::string("spawnpoint_enemy")) {
+				continue;
+			}
+			else {
+				levels[level_name].addSprite(level_part, location);
+			}
 		}
 
 	}
