@@ -2,10 +2,10 @@
 #include "Level.h"
 class LvlManager
 {
-	AnimationManager & ani;
+	std::shared_ptr<AnimationManager> ani;
 	std::map<std::string, Level> levels;
 public:
-	LvlManager(AnimationManager & ani);
+	LvlManager(std::shared_ptr<AnimationManager> ani);
 	~LvlManager();
 
 	std::string current_level;

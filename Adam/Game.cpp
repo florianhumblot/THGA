@@ -12,7 +12,8 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	ani(ani),
 	geluidje(geluidje),
 	cln_h(lvls.ground),
-	world_physics(&player, cln_h)
+	world_physics(&player, cln_h),
+	lvl(std::make_shared<AnimationManager>(ani))
 {
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();

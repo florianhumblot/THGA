@@ -20,6 +20,7 @@
 #include "fighter.h"
 #include "levelManager.h"
 #include "Audio.hpp"
+#include "LvlManager.h"
 
 using namespace std;
 using namespace sf;
@@ -35,6 +36,7 @@ private:
 	std::vector<std::shared_ptr<projectile>> projectiles;
 
 	levelManager lvls;
+	LvlManager lvl;
 	HUD & hud;
 	bool rerender = false;
 	sf::View main_camera;

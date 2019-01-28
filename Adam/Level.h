@@ -8,7 +8,7 @@
 class Level
 {
 private:
-	AnimationManager & ani;
+	std::shared_ptr<AnimationManager> ani;
 	std::string name;
 	std::vector<Enemy> enemies;
 	std::vector<npc> npcs;
@@ -17,7 +17,8 @@ private:
 	sf::Vector2f player_spawn_point = {};
 	std::map<std::string, std::pair<sf::Sprite, sf::Texture>> sprites;
 public:
-	Level();
+	explicit Level(std::shared_ptr<AnimationManager>);
+	Level() {};
 	~Level();
 	void draw(sf::RenderTarget &w);
 	void addSprite(const std::string & name, const std::string & location);
