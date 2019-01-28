@@ -13,11 +13,9 @@ private:
 	std::vector<std::string> maps = {};
 	std::map<std::string, std::map<int, sf::Vector2f> > spawnpoints_enemys;
 	std::map<std::string, std::map<int, sf::Vector2f> > spawnpoints_npcs;
-	int current_lvl = maps.size()+1;
+	int current_lvl;
 	int bounce_velocity = 1;
-	sf::Texture tex, tex2, tex3, tex4, tex5, tex6;
-	sf::Sprite loading_screen;
-	sf::Texture loading;
+	sf::Texture foregroundTexture, backgroundTexture, dmgTexture, bounceTexture, lvlEndTexture, infinityTexture;
 public:
 	sf::Vector2f playerSpawn = {};
 	sf::Sprite background, damage_background, ground, foreground_bounce, end, infinity;

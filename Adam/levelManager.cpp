@@ -5,8 +5,7 @@
 
 levelManager::levelManager()
 {
-	loading.loadFromFile("assets/loading.png");
-	loading_screen.setTexture(loading);
+	current_lvl = maps.size() + 1;
 	std::string prev = "";
 	std::string line;
 	std::ifstream lvls_file("assets/backgrounds/lvls.txt");
@@ -16,35 +15,8 @@ levelManager::levelManager()
 		int count = 0;
 		while (lvls_file >> lvl >> name >> item)
 		{
-			if (name == "background")
-			{
-				lvls[lvl]["background"] = item;
-			}
-			else if (name == "foreground")
-			{
-				lvls[lvl]["foreground"] = item;
-			}
-			else if (name == "foreground_dmg")
-			{
-				lvls[lvl]["foreground_dmg"] = item;
-			}
-			else if (name == "foreground_bounce")
-			{
-				lvls[lvl]["foreground_bounce"] = item;
-			}
-			else if (name == "lvl_end")
-			{
-				lvls[lvl]["lvl_end"] = item;
-			}
-			else if (name == "infinity")
-			{
-				lvls[lvl]["infinity"] = item;
-			}
-			else if (name == "spawnpoint_player")
-			{
-				lvls[lvl]["spawnpoint_player"] = item;
-			}
-			else if (name == "spawnpoint_enemy")
+				lvls[lvl][name] = item;
+			if (name == "spawnpoint_enemy")
 			{
 				spawnpoints_enemys[lvl][count++] = to_vector(item);
 			}
@@ -72,40 +44,21 @@ void levelManager::print()
 		{
 			std::cout << info.first << " = " << info.second << '\n';
 		}
-/*
-		for (auto & s : spawnpoints_enemys)
-		{
-			std::cout << s.first << " enemys spawnpoints: \n";
-			for (auto & in : s.second)
-			{
-				std::cout << in.first << " = " << in.second << '\n';
-			}
-		}*/
-
 	}
 
 }
 
 sf::Vector2f levelManager::to_vector(std::string vec) {
-	bool seen = false;
 	sf::Vector2f new_vec;
 	std::string tmp = "";
 	for (char & c : vec)
 	{
 		if (c != ',')
 		{
-			if (seen)
-			{
-				tmp += c;
-			}
-			else
-			{
-				tmp += c;
-			}
+			tmp += c;
 		}
 		else
 		{
-			seen = true;
 			new_vec.x = std::stof(tmp);
 			tmp = "";
 		}
@@ -117,25 +70,25 @@ sf::Vector2f levelManager::to_vector(std::string vec) {
 
 void levelManager::make_lvl(std::string lvl_name)
 {
-	Collision::removeBitmask(&tex);
-	Collision::removeBitmask(&tex2);
-	Collision::removeBitmask(&tex3);
-	Collision::removeBitmask(&tex4);
-	Collision::removeBitmask(&tex5);
-	Collision::removeBitmask(&tex6);
-	tex.loadFromFile(lvls[lvl_name]["foreground"]);
-	tex2.loadFromFile(lvls[lvl_name]["background"]);
-	tex3.loadFromFile(lvls[lvl_name]["foreground_dmg"]);
-	tex4.loadFromFile(lvls[lvl_name]["foreground_bounce"]);
-	tex5.loadFromFile(lvls[lvl_name]["lvl_end"]);
-	tex6.loadFromFile(lvls[lvl_name]["infinity"]);
+	Collision::removeBitmask(&foregroundTexture);
+	Collision::removeBitmask(&backgroundTexture);
+	Collision::removeBitmask(&dmgTexture);
+	Collision::removeBitmask(&bounceTexture);
+	Collision::removeBitmask(&lvlEndTexture);
+	Collision::removeBitmask(&infinityTexture);
+	foregroundTexture.loadFromFile(lvls[lvl_name]["foreground"]);
+	backgroundTexture.loadFromFile(lvls[lvl_name]["background"]);
+	dmgTexture.loadFromFile(lvls[lvl_name]["foreground_dmg"]);
+	bounceTexture.loadFromFile(lvls[lvl_name]["foreground_bounce"]);
+	lvlEndTexture.loadFromFile(lvls[lvl_name]["lvl_end"]);
+	infinityTexture.loadFromFile(lvls[lvl_name]["infinity"]);
 
-	ground.setTexture(tex, 1);
-	background.setTexture(tex2, 1);
-	damage_background.setTexture(tex3, 1);
-	foreground_bounce.setTexture(tex4, 1);
-	end.setTexture(tex5, 1);
-	infinity.setTexture(tex6, 1);
+	ground.setTexture(foregroundTexture, 1);
+	background.setTexture(backgroundTexture, 1);
+	damage_background.setTexture(dmgTexture, 1);
+	foreground_bounce.setTexture(bounceTexture, 1);
+	end.setTexture(lvlEndTexture, 1);
+	infinity.setTexture(infinityTexture, 1);
 	for ( int i = 0; i < spawnpoints_enemys[lvl_name].size(); i++)
 	{
 		current_lvl_enemys.push_back(spawnpoints_enemys[lvl_name][i]);
@@ -179,12 +132,8 @@ void levelManager::check_interaction(Character & player, sf::RenderWindow & wind
 
 	if (Collision::PixelPerfectTest(end, player))
 	{
-		/*window.clear();
-		window.setView(hud);
-		window.draw(loading_screen);
-		window.display();*/
+	
 		next_lvl(player);
-
 	}
 	if (Collision::PixelPerfectTest(foreground_bounce, player))
 	{
