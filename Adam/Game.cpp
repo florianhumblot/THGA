@@ -296,7 +296,7 @@ void Game::update() {
 
 		world_physics.step_x_moveables();
 		world_physics.step_y_moveables();
-		lvl.getLevel()->check_interaction(player);
+		lvl.check_interaction(player);
 
 		np->showText(player);
 		hud.update();

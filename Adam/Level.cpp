@@ -75,36 +75,13 @@ void Level::set_player_spawn_point(sf::Vector2f & spawn_point)
 	player_spawn_point = spawn_point;
 }
 
-void Level::check_interaction(Character & player) {
-	if (Collision::PixelPerfectTest(sprites["foreground_dmg"].first, player))
-	{
-		player.health.sub(((float)(player.health.max / 100) * 0.5f));
-
-	}
-
-	if (Collision::PixelPerfectTest(sprites["inifinity"].first, player))
-	{
-		player.respawn();
-
-	}
-
-	if (Collision::PixelPerfectTest(sprites["lvl_end"].first, player))
-	{
-		//next_lvl(player);
-	}
-	if (Collision::PixelPerfectTest(sprites["foreground_bounce"].first, player))
-	{
-		player.setVelocity(sf::Vector2f(player.getVelocity().x, -2 * bounce_velocity));
-
-		if (bounce_velocity < 9)
-		{
-			bounce_velocity += 2;
-		}
-	}
-	else {
-		if (player.getVelocity().y == 0 && bounce_velocity > 1)
-		{
-			bounce_velocity--;
-		}
-	}
+void Level::set_next_level(const std::string & next_level)
+{
+	next_level_name = next_level;
 }
+
+std::string Level::get_next_level()
+{
+	return next_level_name;
+}
+

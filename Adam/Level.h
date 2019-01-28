@@ -13,10 +13,12 @@ private:
 	std::vector<Enemy> enemies;
 	std::vector<npc> npcs;
 	int level;
-	int bounce_velocity = 1;
 	sf::Vector2f player_spawn_point = {};
 	std::unordered_map<std::string, std::pair<sf::Sprite, sf::Texture>> sprites;
+	std::string next_level_name;
 public:
+	int bounce_velocity = 1;
+	
 	explicit Level(std::shared_ptr<AnimationManager>);
 	Level() {};
 	~Level();
@@ -27,6 +29,7 @@ public:
 	sf::Sprite & getLayer(const std::string & name);
 	void setCharacterSpawn(Character & player);
 	void set_player_spawn_point(sf::Vector2f & spawn_point);
-	void check_interaction(Character & player);
+	void set_next_level(const std::string & next_level_name);
+	std::string get_next_level();
 };
 

@@ -13,5 +13,6 @@ public:
 	void make_lvl(std::string lvl_name);
 	Level * getLevel();
 	sf::Vector2f to_vector(const std::string & vec);
+	void check_interaction(Character & player);
 };
 
