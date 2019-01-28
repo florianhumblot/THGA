@@ -333,10 +333,6 @@ void Game::update() {
 	break;
 
 	}
-	
-	auto center = Collision::GetSpriteCenter(player);
-	main_camera.setCenter(center);
-	window.setView(main_camera);
 	rerender = true;
 }
 
@@ -378,6 +374,10 @@ void Game::render() {
 			window.draw(cursor);
 			window.setView(main_HUD);
 			hud.draw(window);
+
+			auto center = Collision::GetSpriteCenter(player);
+			main_camera.setCenter(center);
+			window.setView(main_camera);
 			
 			rerender = false;
 			
