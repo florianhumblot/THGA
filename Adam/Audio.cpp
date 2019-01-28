@@ -22,7 +22,7 @@ Audio::Audio(const std::string &filePath)
 		if (soundCollection.count(factorySound))
 		{
 			soundCollection[factorySound].push_back(b);
-			std::cout << " pushing back sound into vector" << path << std::endl;
+			std::cout << " pushing back sound into vector " << path << std::endl;
 		}
 		else
 		{
@@ -35,16 +35,25 @@ Audio::Audio(const std::string &filePath)
 	sound.setBuffer(soundCollection["Fireball"][1]);
 }
 
-void Audio::playSound(const std::string &key)
+void Audio::playSound(const std::string &key, const float volume)
 {
 
 	std::cout << "in function playSound " << std::endl;
 	if (sound.getStatus()!=sf::SoundSource::Status::Playing)
 	{
 	
-		int random = rand() %  (soundCollection[key].size()-1);
-		sound.setBuffer(soundCollection[key][random]);
-		std::cout << key << ' ' << random << ' '  << std::endl;
+		
+		if (soundCollection[key].size() == 1)
+		{
+			sound.setBuffer(soundCollection[key][0]);
+		}
+		else
+		{
+			int random = rand() % (soundCollection[key].size() - 1);
+			sound.setBuffer(soundCollection[key][random]);
+			std::cout << key << ' ' << random << ' ' << std::endl;
+		}
+		sound.setVolume(volume);
 		sound.play();
 	}
 	

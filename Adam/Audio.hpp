@@ -15,7 +15,7 @@ private:
 public:
 	Audio(const std::string &filePath);
 
-	void playSound(const std::string &key);
+	void playSound(const std::string &key, const float volume);
 
 };
 #endif //AUDIO_HPP

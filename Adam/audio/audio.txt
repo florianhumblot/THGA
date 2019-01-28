@@ -39,3 +39,4 @@ MaleHurtPain audio/maleHurtPain_8.wav
 MaleHurtPain audio/maleHurtPain_9.wav
 MaleHurtPain audio/maleHurtPain_10.wav
 MaleHurtPain audio/maleHurtPain_11.wav
+jump audio/scifiJump_01.wav

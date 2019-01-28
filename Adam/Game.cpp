@@ -134,6 +134,7 @@ void Game::handleInput()
 
 				if (!player.checkDead() && player.jumpCount < 2)
 				{
+					geluidje.playSound("jump", 65.0);
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -6));
 					player.jumpCount++;
 				}
@@ -146,7 +147,7 @@ void Game::handleInput()
 				//player.fight(enemy.get());
 				if (player.fight(enemy.get()))
 				{
-					geluidje.playSound("maleAttack");
+					geluidje.playSound("maleAttack", 75.0);
 					if (player.getPosition().x < enemy.get()->getPosition().x)
 					{
 						enemy.get()->setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
@@ -182,7 +183,7 @@ void Game::handleInput()
 				player.setAnimation("WALKright", Animation::intervals::walk);
 				player.setTexture(player.currentAnimation.nextFrame());
 			}
-			geluidje.playSound("footStep");
+			geluidje.playSound("footStep", 25.0);
 			player.setScale(sf::Vector2f(0.2, 0.2));
 			player.setVelocity(sf::Vector2f(3, player.getVelocity().y));
 
@@ -194,7 +195,7 @@ void Game::handleInput()
 				player.setTexture(player.currentAnimation.nextFrame());
 
 			}
-			geluidje.playSound("footStep");
+			geluidje.playSound("footStep", 25.0);
 			player.setScale(sf::Vector2f(-0.2, 0.2));
 
 			player.setVelocity(sf::Vector2f(-3, player.getVelocity().y));
