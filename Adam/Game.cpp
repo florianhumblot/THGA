@@ -146,6 +146,7 @@ void Game::handleInput()
 				//player.fight(enemy.get());
 				if (player.fight(enemy.get()))
 				{
+					geluidje.playSound("maleAttack");
 					if (player.getPosition().x < enemy.get()->getPosition().x)
 					{
 						enemy.get()->setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
@@ -193,6 +194,7 @@ void Game::handleInput()
 				player.setTexture(player.currentAnimation.nextFrame());
 
 			}
+			geluidje.playSound("footStep");
 			player.setScale(sf::Vector2f(-0.2, 0.2));
 
 			player.setVelocity(sf::Vector2f(-3, player.getVelocity().y));
