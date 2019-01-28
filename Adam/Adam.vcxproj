@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{09BC51D3-F562-4978-B5E7-67120379C21F}</ProjectGuid>
     <RootNamespace>Adam</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -87,9 +87,25 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>D:\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>openal32.lib;
+sfml-graphics-s-d.lib
+;sfml-audio-s-d.lib;
+opengl32.lib
+;freetype.lib
+flac.lib
+;vorbisenc.lib
+;vorbisfile.lib;
+vorbis.lib
+;ogg.lib;
+sfml-system-s-d.lib
+;winmm.lib
+;sfml-window-s-d.lib;
+gdi32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -138,7 +154,56 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AI.cpp" />
+    <ClCompile Include="Animated.cpp" />
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="collision_handler.cpp" />
+    <ClCompile Include="Drawable.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="fighter.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="ingameMenu.cpp" />
+    <ClCompile Include="levelManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainMenu.cpp" />
+    <ClCompile Include="Movable.cpp" />
+    <ClCompile Include="newGameMenu.cpp" />
+    <ClCompile Include="npc.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="physics.cpp" />
+    <ClCompile Include="projectile.cpp" />
+    <ClCompile Include="statistic.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AI.hpp" />
+    <ClInclude Include="Animated.hpp" />
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationManager.h" />
+    <ClInclude Include="Audio.hpp" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="Collision.h" />
+    <ClInclude Include="collision_handler.h" />
+    <ClInclude Include="Drawable.h" />
+    <ClInclude Include="Enemy.hpp" />
+    <ClInclude Include="fighter.h" />
+    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="HUD.hpp" />
+    <ClInclude Include="ingameMenu.hpp" />
+    <ClInclude Include="levelManager.h" />
+    <ClInclude Include="mainMenu.hpp" />
+    <ClInclude Include="Menu.hpp" />
+    <ClInclude Include="Movable.h" />
+    <ClInclude Include="newGameMenu.hpp" />
+    <ClInclude Include="npc.hpp" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="physics.h" />
+    <ClInclude Include="projectile.hpp" />
+    <ClInclude Include="statistic.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
