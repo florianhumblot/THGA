@@ -14,7 +14,7 @@ public:
 	statistic mana;
 	statistic exp;
 	sf::Vector2f spawn = sf::Vector2f(890,690);
-
+	std::string role;
 	void update_exp(int amount);
 	Character() {}
 	void respawn();

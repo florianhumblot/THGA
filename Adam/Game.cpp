@@ -134,7 +134,7 @@ void Game::handleInput()
 
 				if (!player.checkDead() && player.jumpCount < 2)
 				{
-					geluidje.playSound("jump", 65.0);
+					geluidje.playSound("jump", 75.0);
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -6));
 					player.jumpCount++;
 				}
@@ -183,7 +183,7 @@ void Game::handleInput()
 				player.setAnimation("WALKright", Animation::intervals::walk);
 				player.setTexture(player.currentAnimation.nextFrame());
 			}
-			geluidje.playSound("footStep", 25.0);
+			//geluidje.playSound("footStep", 25.0);
 			player.setScale(sf::Vector2f(0.2, 0.2));
 			player.setVelocity(sf::Vector2f(3, player.getVelocity().y));
 
@@ -195,7 +195,7 @@ void Game::handleInput()
 				player.setTexture(player.currentAnimation.nextFrame());
 
 			}
-			geluidje.playSound("footStep", 25.0);
+			//geluidje.playSound("footStep", 25.0);
 			player.setScale(sf::Vector2f(-0.2, 0.2));
 
 			player.setVelocity(sf::Vector2f(-3, player.getVelocity().y));
@@ -236,7 +236,14 @@ void Game::handleInput()
 
 				prj->setOrigin(sf::Vector2f(prj->getSize().x /2, prj->getSize().y /2));
 				projectiles.push_back(prj);
-
+				if (player.role == "mage")
+				{
+					geluidje.playSound("Fireball", 75.0);
+				}
+				else
+				{
+					geluidje.playSound("Sword", 75.0);
+				}
 				if (player.getCurrentAnimation() != "SLASHINGright") {
 					player.setAnimation("SLASHINGright", Animation::intervals::attack);
 					player.setTexture(player.currentAnimation.nextFrame());
