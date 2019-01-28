@@ -14,6 +14,12 @@ Level::~Level()
 
 void Level::draw(sf::RenderTarget & w)
 {
+	w.draw(sprites["background"].first);
+	w.draw(sprites["foreground"].first);
+	w.draw(sprites["foreground_dmg"].first);
+	w.draw(sprites["foreground_bounce"].first);
+	w.draw(sprites["lvl_end"].first);
+	w.draw(sprites["infinity"].first);
 }
 
 void Level::addSprite(const std::string & name, const std::string & location)
