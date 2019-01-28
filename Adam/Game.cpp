@@ -332,6 +332,11 @@ void Game::update() {
 	break;
 
 	}
+	
+	auto center = Collision::GetSpriteCenter(player);
+	main_camera.setCenter(center);
+	window.setView(main_camera);
+	rerender = true;
 }
 
 void Game::render() {
@@ -350,35 +355,37 @@ void Game::render() {
 	case STATE::PLAYING:
 	{
 
+		if (rerender) {
+			window.clear();
+			window.draw(lvls.background);
+			np->draw(window);
+			enemy->draw(window);
+			player.draw(window);
 
-		window.clear();
-		window.draw(lvls.background);
-		np->draw(window);
-		enemy->draw(window);
-		player.draw(window);
 
 
-
-		window.draw(lvls.ground);
-		window.draw(lvls.damage_background);
-		window.draw(lvls.foreground_bounce);
-		for (auto prj : projectiles) {
-			prj->draw(window);
+			window.draw(lvls.ground);
+			window.draw(lvls.damage_background);
+			window.draw(lvls.foreground_bounce);
+			for (auto prj : projectiles) {
+				prj->draw(window);
+			}
+			window.draw(lvls.end);
+			auto mouse_pos = sf::Mouse::getPosition(window);
+			auto mouse_pos_relative_to_view = window.mapPixelToCoords(mouse_pos);
+			cursor.setPosition(mouse_pos_relative_to_view);
+			window.draw(cursor);
+			window.setView(main_HUD);
+			hud.draw(window);
+			
+			rerender = false;
+			
+			window.display();
 		}
-		window.draw(lvls.end);
+		
 
-		window.setView(main_HUD);
-		hud.draw(window);
-		auto center = Collision::GetSpriteCenter(player);
-		main_camera.setCenter(center);
-		window.setView(main_camera);
-
-		auto mouse_pos = sf::Mouse::getPosition(window);
-		auto mouse_pos_relative_to_view = window.mapPixelToCoords(mouse_pos);
-		cursor.setPosition(mouse_pos_relative_to_view);
-		window.draw(cursor);
-
-		window.display();
+		
+		
 		break;
 	}
 	}

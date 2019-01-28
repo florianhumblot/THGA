@@ -52,8 +52,8 @@ void render_loading_screen(sf::RenderWindow & w, bool & loaded)
 
 int main()
 {
-	RenderWindow window(VideoMode(1920, 1080, 32), "Project: ADAM");
-	window.setFramerateLimit(60);
+	RenderWindow window(VideoMode(1600, 900, 32), "Project: ADAM");
+	//window.setFramerateLimit(60);
 	window.setKeyRepeatEnabled(false);
 	window.setMouseCursorVisible(false);
 
@@ -81,12 +81,18 @@ int main()
 	render_loading_screen(window, loaded);
 
 	t.join(); //wait for objects to finish constructing before moving on
-
-	
+	sf::Clock clock;
+	sf::Clock renderClock;
+	float MS_TIME = 16;
+	float FRAME_TIME = 10;
 	while (window.isOpen())
 	{
-		if (window.hasFocus()) game.object.handleInput();
-		game.object.update();
+
+		if (clock.getElapsedTime().asMilliseconds() >= MS_TIME) {
+			if (window.hasFocus()) game.object.handleInput();
+			game.object.update();
+			clock.restart();
+		}
 		game.object.render();
 
 	}

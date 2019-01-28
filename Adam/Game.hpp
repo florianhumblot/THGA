@@ -36,7 +36,7 @@ private:
 
 	levelManager lvls;
 	HUD & hud;
-
+	bool rerender = false;
 	sf::View main_camera;
 	sf::View main_HUD;
 
