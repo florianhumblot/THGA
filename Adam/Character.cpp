@@ -57,10 +57,6 @@ void Character::setProjectile(std::function<std::shared_ptr<projectile>(sf::Vect
 }
 
 std::shared_ptr<projectile> Character::shootProjectile(sf::Vector2f direction) {
-	sf::Vector2f shootPos;
-//	if (current_direction == direction::LEFT) {
-//		shootPos = getBox().getPosition
-//	}
 	return shoot(getPosition(), sf::Vector2f(direction.x, direction.y ), projectileAnimations);
 }
 

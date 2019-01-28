@@ -29,41 +29,44 @@ using namespace sf;
 
 class Game {
 private:
-	std::vector<Character*> enemies;
 	sf::RenderWindow & window;
-	HUD & hud;
-	levelManager lvls;
-	sf::View main_camera;
 
+	std::vector<Character*> enemies;
+	std::vector<std::shared_ptr<projectile>> projectiles;
+
+	levelManager lvls;
+	HUD & hud;
+
+	sf::View main_camera;
 	sf::View main_HUD;
 
 	sf::Texture char_alpha;
 	sf::Texture char_alpha_invert;
 	sf::Texture menuTex;
+	sf::Texture mouse_texture;
+
 	Character & player;
 	Audio & geluidje;
 
 	sf::Sprite bgMain;
+	sf::Sprite cursor;
 	int bounce_velocity = 1;
+
 	sf::Clock Clock;
 	sf::Clock aiClock;
-	
 
 	Adam::collision_handler cln_h;
-
 	Adam::physics world_physics;
 
 	std::shared_ptr<Enemy> enemy;
-
 	std::shared_ptr<npc> np;
+	std::shared_ptr<Menu> currentMenu;
 
-	std::vector<std::shared_ptr<projectile>> projectiles;
 	sf::Texture tex;
 
 	std::shared_ptr<AI> ai;
 	
 
-	std::shared_ptr<Menu> currentMenu;
 	AnimationManager & ani;
 	enum class STATE { MENU, PLAYING, GAMEOVER };
 	enum STATE state;
@@ -75,12 +78,10 @@ public:
 	void handleInput();
 	void update();
 	void render();
+
 	sf::RenderWindow & getWindow() {
 		return window;
 	}
-
-
-
 };
 
 

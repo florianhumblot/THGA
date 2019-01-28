@@ -10,10 +10,10 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	player(player),
 	hud(hud),
 	ani(ani),
-	geluidje(geluidje)
+	geluidje(geluidje),
+	cln_h(lvls.ground),
+	world_physics(&player, cln_h)
 {
-	window.setVerticalSyncEnabled(true);
-	window.setKeyRepeatEnabled(false);
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
 	menuTex = sf::Texture();
@@ -32,13 +32,13 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	np = std::make_shared<npc>(v2(890, 690), v2(0.2, 0.2), ani.animations["boy"], v2(0, 0), statistic(200, 200));
 	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
 
-	this->cln_h = Adam::collision_handler(lvls.ground);
-
-	this->world_physics = Adam::physics(&player, cln_h);
-
 	bgMain.setTexture(menuTex);
 	sf::Vector2f playerposforbg = player.getPosition();
 	bgMain.setPosition(sf::Vector2f(playerposforbg.x - 960, playerposforbg.y - 540));
+
+	mouse_texture.loadFromFile("assets/cursor.png");
+	cursor.setTexture(mouse_texture);
+	cursor.setScale(sf::Vector2f(0.03f,0.03f));
 
 	currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y, player);
 
@@ -113,9 +113,6 @@ void Game::handleInput()
 		}
 	}
 
-
-
-
 	case STATE::PLAYING:
 	{
 		Event ev;
@@ -137,7 +134,7 @@ void Game::handleInput()
 
 				if (!player.checkDead() && player.jumpCount < 2)
 				{
-					player.setVelocity(sf::Vector2f(player.getVelocity().x, -9));
+					player.setVelocity(sf::Vector2f(player.getVelocity().x, -6));
 					player.jumpCount++;
 				}
 			}
@@ -186,7 +183,7 @@ void Game::handleInput()
 			}
 			geluidje.playSound("footStep");
 			player.setScale(sf::Vector2f(0.2, 0.2));
-			player.setVelocity(sf::Vector2f(4, player.getVelocity().y));
+			player.setVelocity(sf::Vector2f(3, player.getVelocity().y));
 
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !player.checkDead())
@@ -198,7 +195,7 @@ void Game::handleInput()
 			}
 			player.setScale(sf::Vector2f(-0.2, 0.2));
 
-			player.setVelocity(sf::Vector2f(-4, player.getVelocity().y));
+			player.setVelocity(sf::Vector2f(-3, player.getVelocity().y));
 
 		}
 
@@ -219,12 +216,30 @@ void Game::handleInput()
 			}
 		}
 
-		if (ev.type == sf::Event::MouseButtonReleased) {
+		if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Button::Left) {
+
 			if (ev.key.code == sf::Mouse::Left && !player.checkDead()) {
-				sf::Vector2i i = sf::Mouse::getPosition(window);
-				sf::Vector2f conf = window.mapPixelToCoords(i, main_camera);
-				std::shared_ptr<projectile> prj = player.shootProjectile(conf);
+				auto mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+				auto delta = mouse_pos - player.getPosition();
+				float angle_r = atan2(delta.y, delta.x);
+				auto angle_degrees = angle_r * (180 / 3.14);
+				std::cout << angle_r << std::endl;
+				auto delta_normalized = delta / sqrt(pow(delta.x, 2) + pow(delta.y, 2));
+				sf::Vector2f shoot_vector(delta_normalized * 15.f);
+
+				std::shared_ptr<projectile> prj = player.shootProjectile(shoot_vector); //TODO: expensive operation, drops FPS
+				prj->setRotation(angle_degrees);
+				prj->setVelocity(shoot_vector);
+
+				prj->setOrigin(sf::Vector2f(prj->getSize().x /2, prj->getSize().y /2));
 				projectiles.push_back(prj);
+
+				if (player.getCurrentAnimation() != "SLASHINGright") {
+					player.setAnimation("SLASHINGright", Animation::intervals::attack);
+					player.setTexture(player.currentAnimation.nextFrame());
+				}
+				if (mouse_pos.x < player.getPosition().x) player.setScale(sf::Vector2f(-0.2, 0.2));
+				else player.setScale(sf::Vector2f(0.2, 0.2));
 
 			}
 		}
@@ -261,6 +276,10 @@ void Game::update() {
 	{
 		ai->walkRandomly(np.get());
 
+		if (np->updateAnimation())
+		{
+			np->setTexture(np->currentAnimation.getCurrentFrame());
+		}
 		if (player.updateAnimation())
 		{
 			player.setTexture(player.currentAnimation.getCurrentFrame());
@@ -268,10 +287,6 @@ void Game::update() {
 		if (enemy->updateAnimation())
 		{
 			enemy->setTexture(enemy->currentAnimation.getCurrentFrame());
-		}
-		if (np->updateAnimation())
-		{
-			np->setTexture(np->currentAnimation.getCurrentFrame());
 		}
 
 		world_physics.step_x_moveables();
@@ -332,11 +347,14 @@ void Game::render() {
 
 	case STATE::PLAYING:
 	{
+
+
 		window.clear();
 		window.draw(lvls.background);
 		np->draw(window);
 		enemy->draw(window);
 		player.draw(window);
+
 
 
 		window.draw(lvls.ground);
@@ -352,6 +370,12 @@ void Game::render() {
 		auto center = Collision::GetSpriteCenter(player);
 		main_camera.setCenter(center);
 		window.setView(main_camera);
+
+		auto mouse_pos = sf::Mouse::getPosition(window);
+		auto mouse_pos_relative_to_view = window.mapPixelToCoords(mouse_pos);
+		cursor.setPosition(mouse_pos_relative_to_view);
+		window.draw(cursor);
+
 		window.display();
 		break;
 	}
