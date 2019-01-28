@@ -7,8 +7,8 @@ Animation::~Animation()
 
 void Animation::addFrame(const std::string & location)
 {
-	textures.emplace_back(sf::Texture());
-	textures.back().setSmooth(true);
+	sf::Texture t;
+	textures.emplace_back(t);
 	Collision::CreateTextureAndBitmask(textures.back(), location);
 }
 
