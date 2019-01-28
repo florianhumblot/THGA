@@ -25,11 +25,9 @@ void Level::draw(sf::RenderTarget & w)
 void Level::addSprite(const std::string & name, const std::string & location)
 {
 	std::cout << "Loading sprite: " << name << " at: " << location << std::endl;
-	auto pos = sprites.find(name);
-	if (pos == sprites.end()) {
-		sprites[name] = std::make_pair(sf::Sprite(), sf::Texture());
-	}
-	sprites[name].second.loadFromFile(location);
+
+	Collision::CreateTextureAndBitmask(sprites[name].second, location);
+	sprites[name].second.setSmooth(true);
 	sprites[name].first.setTexture(sprites[name].second);
 }
 
@@ -62,6 +60,10 @@ void Level::npc_factory(std::string s)
 
 	}
 }
+sf::Sprite & Level::getLayer(const std::string & name)
+{
+	return sprites[name].first;
+}
 void Level::setCharacterSpawn(Character & player)
 {
 	player.set_spawn(player_spawn_point);
@@ -71,4 +73,38 @@ void Level::setCharacterSpawn(Character & player)
 void Level::set_player_spawn_point(sf::Vector2f & spawn_point)
 {
 	player_spawn_point = spawn_point;
+}
+
+void Level::check_interaction(Character & player) {
+	if (Collision::PixelPerfectTest(sprites["foreground_dmg"].first, player))
+	{
+		player.health.sub(((float)(player.health.max / 100) * 0.5f));
+
+	}
+
+	if (Collision::PixelPerfectTest(sprites["inifinity"].first, player))
+	{
+		player.respawn();
+
+	}
+
+	if (Collision::PixelPerfectTest(sprites["lvl_end"].first, player))
+	{
+		next_lvl(player);
+	}
+	if (Collision::PixelPerfectTest(sprites["foreground_bounce"].first, player))
+	{
+		player.setVelocity(sf::Vector2f(player.getVelocity().x, -2 * bounce_velocity));
+
+		if (bounce_velocity < 9)
+		{
+			bounce_velocity += 2;
+		}
+	}
+	else {
+		if (player.getVelocity().y == 0 && bounce_velocity > 1)
+		{
+			bounce_velocity--;
+		}
+	}
 }

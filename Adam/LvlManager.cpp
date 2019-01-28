@@ -9,6 +9,7 @@ LvlManager::LvlManager(std::shared_ptr<AnimationManager> ani) : ani(ani)
 	{
 		std::string level_name, level_part, location = "";
 		while (lvls_file >> level_name >> level_part >> location) {
+			std::cout << "Level name: " << level_name << std::endl; 
 			auto level = levels.find(level_name);
 			if (level == levels.end()) {
 				Level L(ani);
@@ -43,9 +44,9 @@ void LvlManager::make_lvl(std::string lvl_name)
 
 }
 
-std::shared_ptr<Level> LvlManager::getLevel()
+Level * LvlManager::getLevel()
 {
-	return std::make_shared<Level>(levels[current_level]);
+	return &levels[current_level];
 }
 
 sf::Vector2f LvlManager::to_vector(const std::string & vec)

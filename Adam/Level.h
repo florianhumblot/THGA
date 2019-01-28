@@ -15,7 +15,7 @@ private:
 	int level;
 	int bounce_velocity = 1;
 	sf::Vector2f player_spawn_point = {};
-	std::map<std::string, std::pair<sf::Sprite, sf::Texture>> sprites;
+	std::unordered_map<std::string, std::pair<sf::Sprite, sf::Texture>> sprites;
 public:
 	explicit Level(std::shared_ptr<AnimationManager>);
 	Level() {};
@@ -24,9 +24,9 @@ public:
 	void addSprite(const std::string & name, const std::string & location);
 	void enemy_factory(std::string s);
 	void npc_factory(std::string s);
-	
+	sf::Sprite & getLayer(const std::string & name);
 	void setCharacterSpawn(Character & player);
 	void set_player_spawn_point(sf::Vector2f & spawn_point);
-
+	void check_interaction(Character & player);
 };
 

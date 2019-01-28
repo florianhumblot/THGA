@@ -11,9 +11,10 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	hud(hud),
 	ani(ani),
 	geluidje(geluidje),
-	cln_h(lvls.ground),
-	world_physics(&player, cln_h),
-	lvl(std::make_shared<AnimationManager>(ani))
+	lvl(std::make_shared<AnimationManager>(ani)),
+	cln_h(lvl.getLevel()->getLayer("foreground")),
+	world_physics(&player, cln_h)
+	
 {
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
@@ -25,8 +26,8 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
 
 	tex.loadFromFile("assets/slimeTest.png");
-	lvls.next_lvl(player);
-
+	//lvls.next_lvl(player);
+	lvl.getLevel()->setCharacterSpawn(player);
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);
 
@@ -295,7 +296,7 @@ void Game::update() {
 
 		world_physics.step_x_moveables();
 		world_physics.step_y_moveables();
-		lvls.check_interaction(player,window);
+		lvl.getLevel()->check_interaction(player);
 
 		np->showText(player);
 		hud.update();
@@ -356,35 +357,37 @@ void Game::render() {
 
 	case STATE::PLAYING:
 	{
-
+		
 		if (rerender) {
+			
 			window.clear();
-			window.draw(lvls.background);
+			auto level = lvl.getLevel();
+			window.draw(level->getLayer("background"));
 			np->draw(window);
 			enemy->draw(window);
 			player.draw(window);
 
+			window.draw(level->getLayer("foreground"));
 
+			window.draw(level->getLayer("foreground_dmg"));
+			window.draw(level->getLayer("foreground_bounce"));
 
-			window.draw(lvls.ground);
-			window.draw(lvls.damage_background);
-			window.draw(lvls.foreground_bounce);
 			for (auto prj : projectiles) {
 				prj->draw(window);
 			}
-			window.draw(lvls.end);
+
+			window.draw(level->getLayer("lvl_end"));
+
 			auto mouse_pos = sf::Mouse::getPosition(window);
 			auto mouse_pos_relative_to_view = window.mapPixelToCoords(mouse_pos);
 			cursor.setPosition(mouse_pos_relative_to_view);
 			window.draw(cursor);
 			window.setView(main_HUD);
 			hud.draw(window);
-			
 			rerender = false;
-			
 			window.display();
+
 		}
-		
 
 		
 		
