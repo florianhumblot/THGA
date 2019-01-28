@@ -90,7 +90,7 @@ void Level::check_interaction(Character & player) {
 
 	if (Collision::PixelPerfectTest(sprites["lvl_end"].first, player))
 	{
-		next_lvl(player);
+		//next_lvl(player);
 	}
 	if (Collision::PixelPerfectTest(sprites["foreground_bounce"].first, player))
 	{
