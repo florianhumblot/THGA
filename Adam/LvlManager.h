@@ -11,7 +11,7 @@ public:
 	std::string current_level;
 
 	void make_lvl(std::string lvl_name);
-
+	std::shared_ptr<Level> getLevel();
 	sf::Vector2f to_vector(const std::string & vec);
 };
 

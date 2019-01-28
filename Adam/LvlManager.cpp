@@ -43,6 +43,11 @@ void LvlManager::make_lvl(std::string lvl_name)
 
 }
 
+std::shared_ptr<Level> LvlManager::getLevel()
+{
+	return std::make_shared<Level>(levels[current_level]);
+}
+
 sf::Vector2f LvlManager::to_vector(const std::string & vec)
 {
 	{
