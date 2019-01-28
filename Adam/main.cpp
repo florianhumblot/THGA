@@ -40,7 +40,7 @@ void render_loading_screen(sf::RenderWindow & w, bool & loaded)
 	loader.setPosition(sf::Vector2f(w.getSize().x / 2, w.getSize().y / 2));
 	loader.setScale(sf::Vector2f(0.2, 0.2));
 
-	int i = 0;
+	w.setFramerateLimit(60);
 	while (!loaded)
 	{
 		w.clear();
@@ -48,6 +48,7 @@ void render_loading_screen(sf::RenderWindow & w, bool & loaded)
 		loader.rotate(10);
 		w.display();
 	}
+	w.setFramerateLimit(0);
 }
 
 int main()
