@@ -56,3 +56,13 @@ void Level::npc_factory(std::string s)
 
 	}
 }
+void Level::setCharacterSpawn(Character & player)
+{
+	player.set_spawn(player_spawn_point);
+	player.respawn();
+}
+
+void Level::set_player_spawn_point(sf::Vector2f & spawn_point)
+{
+	player_spawn_point = spawn_point;
+}

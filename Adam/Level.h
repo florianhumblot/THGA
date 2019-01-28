@@ -24,6 +24,8 @@ public:
 	void enemy_factory(std::string s);
 	void npc_factory(std::string s);
 	
+	void setCharacterSpawn(Character & player);
+	void set_player_spawn_point(sf::Vector2f & spawn_point);
 
 };
 
