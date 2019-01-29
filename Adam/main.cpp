@@ -71,7 +71,7 @@ int main()
 	{
 		ani.construct("assets/animations/animations.txt");
 		geluidje.construct("audio/audio.txt");
-		player.construct(sf::Vector2f(890, 690), sf::Vector2f(0.2, 0.2), ani.object.animations["mage"], sf::Vector2f(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
+		player.construct(sf::Vector2f(890, 690), sf::Vector2f(0.2, 0.2), ani.object.animations["mage"], sf::Vector2f(0, 0), 5, statistic(200, 200), statistic(300, 300), statistic(80, 0));
 		hud.construct(player.object);
 		game.construct(window, player.object, hud.object, ani.object, geluidje.object);
 
