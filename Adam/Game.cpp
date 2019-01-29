@@ -133,8 +133,7 @@ void Game::handleInput()
 				player.canJump = false;
 				if (!player.checkDead() && player.jumpCount < 2)
 				{
-					geluidje.playSoundTwo("jump", 75.0);
-					//geluidje.playSound("jump", 75.0);
+					geluidje.playSoundTwo("jump", 77.0);
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -6));
 					player.jumpCount++;
 				}
@@ -147,6 +146,7 @@ void Game::handleInput()
 				//player.fight(enemy.get());
 				if (player.fight(enemy.get()))
 				{
+					geluidje.playSoundTwo("Sword", 75.0);
 					geluidje.playSound("maleAttack", 75.0);
 					if (player.getPosition().x < enemy.get()->getPosition().x)
 					{
@@ -240,17 +240,10 @@ void Game::handleInput()
 				projectiles.push_back(prj);
 				if (player.role == "mage")
 				{
-					//geluidje.playSound("Fireball", 75.0);
 					geluidje.playSoundTwo("Fireball", 75.0);
 				}
 				else
 				{
-				//	geluidje.playSound("Sword", 75.0);
-					geluidje.playSoundTwo("Sword", 75.0);
-					geluidje.playSoundTwo("Fireball", 75.0);
-					geluidje.playSoundTwo("jump", 77.0);
-					geluidje.playSoundTwo("jump", 77.0);
-					geluidje.playSoundTwo("MaleHurtPain", 77.0);
 					geluidje.playSoundTwo("maleAttack", 77.0);
 
 
@@ -268,10 +261,13 @@ void Game::handleInput()
 		if (!enemy.get()->checkDead()) {
 
 			ai->shouldFollow_followDirection(enemy.get(), &player);
+
 			if (aiClock.getElapsedTime().asMilliseconds() >= 300)
 			{
 				if (!enemy.get()->checkDead())
 				{
+					geluidje.playSoundTwo("Orc", 88.0);
+					std::cout << " ORDSOUND??" << std::endl;
 					ai->shouldFollow_followDirection(enemy.get(), &player);
 				}
 				aiClock.restart();

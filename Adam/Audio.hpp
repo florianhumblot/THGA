@@ -19,6 +19,6 @@ public:
 	void playSound(const std::string &key, const float volume);
 	void soundMaker();
 	void playSoundTwo(const std::string &key, const float volume);
-	void playMusic(const std::string & song, float volume);
+	void playMusic(const std::string & song,const float volume);
 };
 #endif //AUDIO_HPP

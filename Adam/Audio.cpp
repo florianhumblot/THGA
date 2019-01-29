@@ -98,7 +98,7 @@ void Audio::playSoundTwo(const std::string &key, const float volume)
 	
 }
 
-void Audio::playMusic(const std::string& song, float volume)
+void Audio::playMusic(const std::string& song,const float volume)
 {
 
 	if (!music.openFromFile(song))
