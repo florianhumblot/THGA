@@ -71,7 +71,7 @@ bool Enemy::fight(fighter * opponent) {
 void Enemy::updateFollowPosition(int x) {
 	if (!checkDead()) {
 		// make the enemy move (x is 0, 1, or -1)
-		setVelocity(sf::Vector2f(4 * x, getVelocity().y));
+		setVelocity(sf::Vector2f(2 * x, getVelocity().y));
 	}
 }
 

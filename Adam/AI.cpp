@@ -6,7 +6,10 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2) {
 
 	//Check if p1 and p2 are close to each other
 	// if so, make enemy move towarts the player
-	if ((p1->getPosition() - p2->getPosition()).x <= 200 && (p1->getPosition() - p2->getPosition()).x > 10) {
+	auto abs = p1->getPosition() - p2->getPosition();
+
+	if (abs.x <= 100 && abs.x > 10 && (abs.y < 5 || abs.y > -5) )
+	{
 		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
 			if (!p1->fight(p2)) {
 				if (p1->getCurrentAnimation() != "WALKright") {
@@ -22,7 +25,7 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2) {
 		
 		return;
 	}
-	else if ((p1->getPosition() - p2->getPosition()).x >= -200 && (p1->getPosition() - p2->getPosition()).x < 10) {
+	else if (abs.x >= -100 && abs.x < 10 && (abs.y < 5 || abs.y > -5) ) {
 		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
 			if (!p1->fight(p2)) {
 				if (p1->getCurrentAnimation() != "WALKright") {
