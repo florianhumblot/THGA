@@ -30,6 +30,7 @@ public:
 	/// \details
 	/// class constructor that sets the position, scale and texture.
 	drawable(sf::Vector2f &position, sf::Vector2f &scale, sf::Texture &texture);
+
 	~drawable() {}
 
 	/// \details

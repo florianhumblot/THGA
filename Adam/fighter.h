@@ -81,7 +81,7 @@ public:
 	/// \details
 	/// this is a pure virtual function.
 	/// Must be used to implement a makeFightBox function.
-	virtual sf::Sprite makeFightBox() =0;
+	virtual sf::Sprite makeFightBox() { return sf::Sprite(); }
 
 	/// \brief
 	/// check if fighter is dead
