@@ -35,7 +35,6 @@ private:
 	std::vector<Character*> enemies;
 	std::vector<std::shared_ptr<projectile>> projectiles;
 
-	levelManager lvls;
 	LvlManager lvl;
 	HUD & hud;
 	bool rerender = false;

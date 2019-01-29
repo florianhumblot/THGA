@@ -26,7 +26,6 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
 
 	tex.loadFromFile("assets/slimeTest.png");
-	//lvls.next_lvl(player);
 	lvl.getLevel()->setCharacterSpawn(player);
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);
@@ -352,7 +351,7 @@ void Game::render() {
 	case STATE::MENU:
 	{
 		window.clear();
-		currentMenu->draw(window, lvls, enemy, main_camera, bgMain, player);
+		currentMenu->draw(window, lvl, enemy, main_camera, bgMain, player);
 		window.display();
 		break;
 	}
