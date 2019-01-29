@@ -85,16 +85,19 @@ void Game::handleInput()
 				{
 				case sf::Keyboard::Up:
 				{
+					geluidje.playSoundTwo("menuMove", 25.0);
 					currentMenu->moveUp();
 					break;
 				}
 				case sf::Keyboard::Down:
 				{
+					geluidje.playSoundTwo("menuMove", 25.0);
 					currentMenu->moveDown();
 					break;
 				}
 				case sf::Keyboard::Enter:
 				{
+					geluidje.playSoundTwo("menuEnter", 25.0);
 					int menuResult = currentMenu->chooseTile(currentMenu, player, window, ani);
 					// if 0, do nothing
 					if (menuResult == 1) {
@@ -113,6 +116,7 @@ void Game::handleInput()
 				}
 				case sf::Keyboard::BackSpace:
 				{
+					geluidje.playSoundTwo("menuReturn", 25.0);
 					currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y, player);
 					break;
 				}
@@ -176,7 +180,6 @@ void Game::handleInput()
 		{
 			state = STATE::MENU;
 			currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
-
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Escape))
@@ -193,12 +196,8 @@ void Game::handleInput()
 				player.setAnimation("WALKright", Animation::intervals::walk);
 				player.setTexture(player.currentAnimation.nextFrame());
 			}
-			//geluidje.playSound("footStep", 25.0);
-			//geluidje.playSoundTwo("footStep", 25.0);
-
 			player.setScale(sf::Vector2f(0.2, 0.2));
 			player.setVelocity(sf::Vector2f(3, player.getVelocity().y));
-
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !player.checkDead())
 		{
@@ -207,11 +206,8 @@ void Game::handleInput()
 				player.setTexture(player.currentAnimation.nextFrame());
 
 			}
-			//geluidje.playSound("footStep", 25.0);
 			player.setScale(sf::Vector2f(-0.2, 0.2));
-
 			player.setVelocity(sf::Vector2f(-3, player.getVelocity().y));
-
 		}
 
 		else if (player.currentAnimation.isDone() || player.getCurrentAnimation() == std::string("WALKright"))
@@ -228,6 +224,7 @@ void Game::handleInput()
 		if (ev.type == sf::Event::KeyReleased) {
 			if (ev.key.code == sf::Keyboard::W && !player.checkDead()) {
 				for (auto & npc : npcs) {
+					geluidje.playSound("npc", 55);
 					npc.updateText();;
 				}
 				//np->updateText();
