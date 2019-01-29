@@ -11,7 +11,6 @@ void Character::set_spawn(sf::Vector2f new_spawn)
 {
 	spawn = new_spawn;
 }
-//Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, int prjSize, statistic mana_c, statistic health_c, statistic exp_c):
 Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, int prjSize, statistic mana_c, statistic health_c, statistic exp_c):
 
 	Animateable(animations),
@@ -60,9 +59,6 @@ void Character::shootProjectile(sf::Vector2f position, sf::Vector2f direction, f
 	}
 }
 
-/*std::shared_ptr<projectile> Character::shootProjectile(sf::Vector2f direction) {
-	return shoot(getPosition(), sf::Vector2f(direction.x, direction.y ), projectileAnimations);
-}*/
 
 void Character::die()
 {
