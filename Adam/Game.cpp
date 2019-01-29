@@ -151,18 +151,20 @@ void Game::handleInput()
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 				//player.fight(enemy.get());
-				if (player.fight(enemy.get()))
-				{
-					geluidje.playSound("maleAttack", 75.0);
-					if (player.getPosition().x < enemy.get()->getPosition().x)
+				for (auto & enemy : enemies) {
+					if (player.fight(&enemy))
 					{
-						enemy.get()->setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
-					}
-					else
-					{
-						enemy.get()->setVelocity(sf::Vector2f(player.getVelocity().x - 4, -4));
-					}
+						geluidje.playSound("maleAttack", 75.0);
+						if (player.getPosition().x < enemy.getPosition().x)
+						{
+							enemy.setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
+						}
+						else
+						{
+							enemy.setVelocity(sf::Vector2f(player.getVelocity().x - 4, -4));
+						}
 
+					}
 				}
 				std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
 
