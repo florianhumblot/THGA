@@ -25,7 +25,6 @@ public:
 
 	sf::Sprite getBox() override;
 	sf::Sprite makeFightBox() override;
-	sf::Sprite getHitbox() override;
 
 	void shootProjectile(sf::Vector2f position, sf::Vector2f direction, float angle);
 

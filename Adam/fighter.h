@@ -83,8 +83,6 @@ public:
 	/// Must be used to implement a makeFightBox function.
 	virtual sf::Sprite makeFightBox() =0;
 
-	virtual sf::Sprite getHitbox() = 0;
-
 	/// \brief
 	/// check if fighter is dead
 	/// \details 

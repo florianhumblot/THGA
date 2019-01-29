@@ -29,10 +29,8 @@ public:
 	bool fight(fighter * opponent) override;
 
 	sf::Sprite makeFightBox() override;
+
 	sf::Sprite getBox() override;
-	sf::Sprite getHitbox() override;
-
-
 	virtual void setVelocity(sf::Vector2f newVel) override;
 
 	void updateFollowPosition(int x) override;

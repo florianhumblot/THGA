@@ -12,7 +12,7 @@
 /// Provides an inheritable interface for the game entities to be drawn to the game window.
 /// Since the games' collision is pixel perfect overlap, we treat complex pixel shapes as boxes by using getBox().
 class drawable {
-public:
+protected:
 	sf::Sprite sprite;
 	sf::Vector2f position;
 	sf::Texture texture;
@@ -20,13 +20,11 @@ public:
 	
 public:
 	sf::Texture AABB;
-	sf::Texture HB;
 
 	/// \details
 	/// default class constructor, only loads the AABB hitbox texture from disk.
 	drawable() {
 		AABB.loadFromFile("assets/AABB.png");
-		HB.loadFromFile("assets/AABB_H.png");
 	}
 
 	/// \details
@@ -62,18 +60,6 @@ public:
 		temp.setPosition(position);
 		temp.setTexture(AABB);
 		temp.setScale(scale);
-		return temp;
-	}
-
-	sf::Sprite getHitbox()
-	{
-		auto temp = sf::Sprite();
-		temp.setTexture(HB);
-
-		if (sprite.getScale().x < 0) temp.setPosition(sf::Vector2f(position.x - (texture.getSize().x * sprite.getScale().x), position.y));
-		else temp.setPosition(position);
-
-		temp.setScale(sprite.getScale());
 		return temp;
 	}
 
