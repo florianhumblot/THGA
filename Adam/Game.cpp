@@ -362,14 +362,16 @@ void Game::update() {
 
 		hud.update();
 
-
-		std::shared_ptr<projectile> tobedeleted;
-
 		for (auto &prj : player.projectiles) {
 			if (!prj->isDeath()) {
 				prj->updateLive(1);
 				for (auto & enemie : enemies) {
-					prj->fight(&enemie);
+					if (prj->fight(&enemie)) {
+						player.update_exp(20);
+					}
+				}
+				if (Collision::PixelPerfectTest(lvl.getLevel()->getLayer("foreground"), prj->operator sf::Sprite() )) {
+					prj->updateLive(50);
 				}
 				prj->setTexture(prj->currentAnimation.nextFrame());
 				prj->move();

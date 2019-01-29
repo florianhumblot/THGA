@@ -53,11 +53,12 @@ sf::Sprite Character::makeFightBox() {
 	temp.setScale(scale);
 	return temp;
 }
-
-/*void Character::setProjectile(std::function<std::shared_ptr<projectile>(sf::Vector2f, sf::Vector2f, std::map<std::string, Animation> animations)> newP, std::map<std::string, Animation> & animations ) {
-	projectileAnimations = animations;
-	shoot = newP;
-}*/
+void Character::shootProjectile(sf::Vector2f position, sf::Vector2f direction, float angle) {
+	if (!mana.is_zero()) {
+		shooter::shootProjectile(position, direction, angle);
+		mana.sub(20);
+	}
+}
 
 /*std::shared_ptr<projectile> Character::shootProjectile(sf::Vector2f direction) {
 	return shoot(getPosition(), sf::Vector2f(direction.x, direction.y ), projectileAnimations);
