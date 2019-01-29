@@ -42,6 +42,7 @@ void projectile::revive() {
 
 bool projectile::fight(fighter * opponent) {
 	if (fighter::fight(opponent)) {
+		death = true;
 		if (opponent->checkDead()) {
 			return true;
 		}
