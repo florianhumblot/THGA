@@ -224,8 +224,11 @@ void Game::handleInput()
 		if (ev.type == sf::Event::KeyReleased) {
 			if (ev.key.code == sf::Keyboard::W && !player.checkDead()) {
 				for (auto & npc : npcs) {
-					geluidje.playSound("npc", 55);
 					npc.updateText();;
+					if (npc.getPosition().x - player.getPosition().x < 50 && npc.getPosition().x - player.getPosition().x >-50)
+					{
+						geluidje.playSound("npc", 55);
+					}
 				}
 				//np->updateText();
 			}
@@ -312,7 +315,11 @@ void Game::update() {
 	{
 		if (player.getVelocity().y == 0 && player.getVelocity().x > 2)
 		{
-			geluidje.playSoundTwo("footStep", 11.0);
+			geluidje.playSound("footStep", 11.0);
+		}
+		if (player.getVelocity().y == 0 && player.getVelocity().x < -2)
+		{
+			geluidje.playSound("footStep", 11.0);
 		}
 
 		for (auto & np : npcs) {
