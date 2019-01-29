@@ -74,3 +74,4 @@ menuEnter audio/menuEnter_2.wav
 menuReturn audio/menuReturn_1.wav
 menuReturn audio/menuReturn_2.wav
 monsterDeath audio/monsterDeath_1.wav
+gameOver audio/gameOver_1.wav

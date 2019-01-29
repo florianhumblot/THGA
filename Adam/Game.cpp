@@ -75,6 +75,7 @@ void Game::handleInput()
 		{
 			if (ev.type == sf::Event::Closed)
 			{
+				geluidje.playSound("gameOver", 100);
 				window.close();
 			}
 			switch (ev.type)
@@ -233,6 +234,7 @@ void Game::handleInput()
 				//np->updateText();
 			}
 		}
+
 
 		if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Button::Left) {
 
