@@ -9,7 +9,7 @@ class npc : public movable, public Animateable{
 	statistic health;
 	enum class STATE {IDLE, FOLLOWING, WALKING};
 	STATE state = STATE::IDLE;
-	sf::Font font;
+	
 	sf::Text text = sf::Text();
 	struct linearDialogue {
 		std::vector<std::string> dialogue;
@@ -19,6 +19,7 @@ class npc : public movable, public Animateable{
 		void reset();
 	} speach;
 public:
+	sf::Font font;
 	int lastDirection;
 	sf::Vector2f originPosition;
 	npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic health_c = statistic(100, 100));

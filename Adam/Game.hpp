@@ -18,8 +18,9 @@
 #include "ingameMenu.hpp"
 #include "AI.hpp"
 #include "fighter.h"
-#include "levelManager.h"
 #include "Audio.hpp"
+#include "LvlManager.h"
+#include "npc.hpp"
 
 using namespace std;
 using namespace sf;
@@ -31,10 +32,11 @@ class Game {
 private:
 	sf::RenderWindow & window;
 
-	std::vector<Character*> enemies;
+	std::vector<Enemy> enemies;
+	std::vector<npc> npcs;
 	std::vector<std::shared_ptr<projectile>> projectiles;
 
-	levelManager lvls;
+	LvlManager lvl;
 	HUD & hud;
 	bool rerender = false;
 	sf::View main_camera;

@@ -18,7 +18,7 @@ private:
 public:
 	inGameMenu(float width, float heigth, Character &player);
 
-	void draw(sf::RenderWindow & window, levelManager & lvls, std::shared_ptr<Enemy> & enemy) override;
+	void draw(sf::RenderWindow & window, LvlManager & lvls, std::shared_ptr<Enemy> & enemy) override;
 	void moveUp() override;
 	void moveDown() override;
 	int chooseTile(std::shared_ptr<Menu> & currentMenu, Character & player, sf::Window & window, AnimationManager & ani) override;
