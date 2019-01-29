@@ -389,15 +389,16 @@ void Game::update() {
 				enemy.die();
 			}
 		}
-		if (player.checkDead()) {
-			player.die();
-			geluidje.playSound("revive", 88);
-		}
-
 		if (player.health.current <= 0)
 		{
-			geluidje.playSound("death", 55.0);
+			geluidje.playSoundTwo("death", 55.0);
 		}
+
+		if (player.checkDead()) {
+			player.die();
+			geluidje.playSoundTwo("revive", 88);
+		}
+
 
 		if (player.getPosition().y > 30000) {
 			player.respawn();

@@ -117,6 +117,7 @@ void Enemy::die()
 	}
 	health.zero();
 	update_info();
+	sound.playSoundTwo("monsterDeath", 60);
 }
 
 void Enemy::draw(sf::RenderTarget &w) {

@@ -60,7 +60,9 @@ monster audio/monsterRoar_1.wav
 monster audio/monsterRoar_2.wav
 monster audio/monsterRoar_3.wav
 revive audio/revive_1.wav
+revive audio/revive_2.wav
 death audio/death_1.wav
+death audio/death_2.wav
 npc audio/npc_1.wav
 npc audio/npc_2.wav
 npc audio/npc_3.wav
