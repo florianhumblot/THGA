@@ -82,7 +82,7 @@ bool LvlManager::check_interaction(Character & player) {
 
 	}
 
-	if (Collision::PixelPerfectTest(levels[current_level].getLayer("inifinity"), player))
+	if (Collision::PixelPerfectTest(levels[current_level].getLayer("infinity"), player))
 	{
 		std::cout << "DEAD" << std::endl;
 		player.respawn();
