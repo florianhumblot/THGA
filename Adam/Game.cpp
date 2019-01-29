@@ -389,6 +389,7 @@ void Game::update() {
 		}
 		if (player.checkDead()) {
 			player.die();
+			geluidje.playSound("revive", 88);
 		}
 
 		if (player.health.current <= 0)
