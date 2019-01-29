@@ -5,7 +5,7 @@ lvl2 foreground_bounce assets/backgrounds/casualBounce.png
 lvl2 lvl_end assets/backgrounds/casualLVLend.png
 lvl2 infinity assets/backgrounds/casualWater.png
 lvl2 spawnpoint_player 1690,590
-lvl2 enemies assets/backgrounds/enemylvl2.txts
+lvl2 enemies assets/backgrounds/enemylvl2.txt
 lvl2 next_level lvl1
 lvl1 background assets/backgrounds/caveBG.png 
 lvl1 foreground assets/backgrounds/caveFG.png 
