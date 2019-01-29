@@ -2,7 +2,7 @@
 #include "Level.h"
 
 
-Level::Level(std::shared_ptr<AnimationManager>) : ani(ani)
+Level::Level(std::shared_ptr<AnimationManager> ani) : ani(ani)
 {
 }
 
