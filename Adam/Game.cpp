@@ -75,6 +75,7 @@ void Game::handleInput()
 		{
 			if (ev.type == sf::Event::Closed)
 			{
+				geluidje.playSound("gameOver", 100);
 				window.close();
 			}
 			switch (ev.type)
@@ -237,7 +238,6 @@ void Game::handleInput()
 		}
 
 		if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Button::Right) {
-
 			if (ev.key.code == sf::Mouse::Right && !player.checkDead()) {
 				auto mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 				auto delta = mouse_pos - player.getPosition();
