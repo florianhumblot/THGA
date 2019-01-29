@@ -83,6 +83,11 @@ sf::Sprite Character::getBox() {
 	return drawable::getBox();
 }
 
+sf::Sprite Character::getHitbox()
+{
+	return drawable::getHitbox();
+}
+
 
 Character::~Character()
 {

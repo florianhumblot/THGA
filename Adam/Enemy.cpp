@@ -130,3 +130,8 @@ void Enemy::draw(sf::RenderTarget &w) {
 	}
 }
 
+sf::Sprite Enemy::getHitbox()
+{
+	return drawable::getHitbox();
+}
+
