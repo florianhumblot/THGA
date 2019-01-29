@@ -38,7 +38,6 @@ MaleHurtPain audio/maleHurtPain_7.wav
 MaleHurtPain audio/maleHurtPain_8.wav
 MaleHurtPain audio/maleHurtPain_9.wav
 MaleHurtPain audio/maleHurtPain_10.wav
-MaleHurtPain audio/maleHurtPain_11.wav
 jump audio/jumpSound_1.wav
 jump audio/jumpSound_2.wav
 jump audio/jumpSound_3.wav
