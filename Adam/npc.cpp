@@ -90,8 +90,8 @@ int npc::getDirection() {
 
 void npc::draw(sf::RenderTarget & w) {
 	drawable::draw(w);
-	text.setPosition(sf::Vector2f(getPosition().x, getPosition().y - 10));
-	w.draw(text);
+	/*text.setPosition(sf::Vector2f(getPosition().x, getPosition().y - 10));
+	w.draw(text);*/
 }
 
 std::string npc::linearDialogue::line(){

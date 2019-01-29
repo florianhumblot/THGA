@@ -85,5 +85,15 @@ std::string Level::get_next_level()
 	return next_level_name;
 }
 
+std::vector<npc>& Level::getNPCs()
+{
+	return npcs;
+}
+
+std::vector<Enemy>& Level::getEnemies()
+{
+	return enemies;
+}
+
 
 

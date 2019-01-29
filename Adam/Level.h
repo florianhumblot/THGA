@@ -31,5 +31,7 @@ public:
 	void set_player_spawn_point(sf::Vector2f & spawn_point);
 	void set_next_level(const std::string & next_level_name);
 	std::string get_next_level();
+	std::vector<npc> & getNPCs();
+	std::vector<Enemy> & getEnemies();
 };
 

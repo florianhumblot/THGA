@@ -27,6 +27,8 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 
 	tex.loadFromFile("assets/slimeTest.png");
 	lvl.getLevel()->setCharacterSpawn(player);
+	enemies = lvl.getLevel()->getEnemies();
+	npcs = lvl.getLevel()->getNPCs();
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);
 
@@ -45,9 +47,12 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 
 
 	ai = std::make_shared<AI>();
-
-	world_physics.moveables.push_back(&*enemy);
-	world_physics.moveables.push_back(&*np);
+	for (auto & enemy : enemies) {
+		world_physics.moveables.push_back(&enemy);
+	}
+	for (auto & np : npcs) {
+		world_physics.moveables.push_back(&np);
+	}
 
 	state = STATE::MENU;
 }
@@ -247,20 +252,20 @@ void Game::handleInput()
 
 			}
 		}
+		for (auto & enemy : enemies) {
+			if (!enemy.checkDead()) {
 
-		if (!enemy.get()->checkDead()) {
-
-			ai->shouldFollow_followDirection(enemy.get(), &player);
-			if (aiClock.getElapsedTime().asMilliseconds() >= 300)
-			{
-				if (!enemy.get()->checkDead())
+				ai->shouldFollow_followDirection(&enemy, &player);
+				if (aiClock.getElapsedTime().asMilliseconds() >= 300)
 				{
-					ai->shouldFollow_followDirection(enemy.get(), &player);
+					if (!enemy.checkDead())
+					{
+						ai->shouldFollow_followDirection(&enemy, &player);
+					}
+					aiClock.restart();
 				}
-				aiClock.restart();
-			}
 
-			break;
+			}
 		}
 	}
 
@@ -278,19 +283,24 @@ void Game::update() {
 
 	case STATE::PLAYING:
 	{
-		ai->walkRandomly(np.get());
+		
 
-		if (np->updateAnimation())
-		{
-			np->setTexture(np->currentAnimation.getCurrentFrame());
+		for (auto & np : npcs) {
+			ai->walkRandomly(&np);
+			if (np.updateAnimation())
+			{
+				np.setTexture(np.currentAnimation.getCurrentFrame());
+			}
 		}
 		if (player.updateAnimation())
 		{
 			player.setTexture(player.currentAnimation.getCurrentFrame());
 		}
-		if (enemy->updateAnimation())
-		{
-			enemy->setTexture(enemy->currentAnimation.getCurrentFrame());
+		for (auto & enemy : enemies) {
+			if (enemy.updateAnimation())
+			{
+				enemy.setTexture(enemy.currentAnimation.getCurrentFrame());
+			}
 		}
 
 		world_physics.step_x_moveables();
@@ -298,9 +308,18 @@ void Game::update() {
 		if (lvl.check_interaction(player)) {
 			cln_h.collision_layer = &lvl.getLevel()->getLayer("foreground");
 			world_physics.clh = &cln_h;
+			enemies = lvl.getLevel()->getEnemies();
+			npcs = lvl.getLevel()->getNPCs();
+			world_physics.moveables.clear();
+			for (auto & enemy : enemies) {
+				world_physics.moveables.push_back(&enemy);
+			}
+			for (auto & np : npcs) {
+				world_physics.moveables.push_back(&np);
+			}
+
 		}
 
-		np->showText(player);
 		hud.update();
 
 
@@ -316,16 +335,19 @@ void Game::update() {
 		}
 		projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), tobedeleted), projectiles.end());
 
-		np->showText(player);
+		for (auto & np : npcs) {
+			np.showText(player);
+		}
 		hud.update();
 			
-
-		enemy->update_info_pos(window);
+		for (auto & enemy : enemies) {
+			enemy.update_info_pos(window);
+			if (enemy.checkDead()) {
+				enemy.die();
+			}
+		}
 		if (player.checkDead()) {
 			player.die();
-		}
-		if (enemy.get()->checkDead()) {
-			enemy.get()->die();
 		}
 		if (player.getPosition().y > 30000) {
 			player.respawn();
@@ -365,8 +387,12 @@ void Game::render() {
 			window.clear();
 			auto level = lvl.getLevel();
 			window.draw(level->getLayer("background"));
-			np->draw(window);
-			enemy->draw(window);
+			for (auto & npc : npcs) {
+				npc.draw(window);
+			}
+			for (auto & enemy : enemies) {
+				enemy.draw(window);
+			}
 			player.draw(window);
 
 			window.draw(level->getLayer("foreground"));
