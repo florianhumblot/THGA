@@ -47,7 +47,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 
 	world_physics.moveables.push_back(&*enemy);
 	world_physics.moveables.push_back(&*np);
-
+	geluidje.playMusic("audio/music1.wav", 50.0);
 	state = STATE::MENU;
 }
 
@@ -131,9 +131,10 @@ void Game::handleInput()
 			if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
 			{
 				player.canJump = false;
-
 				if (!player.checkDead() && player.jumpCount < 2)
 				{
+					geluidje.playSoundTwo("jump", 75.0);
+					//geluidje.playSound("jump", 75.0);
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -6));
 					player.jumpCount++;
 				}
@@ -146,7 +147,7 @@ void Game::handleInput()
 				//player.fight(enemy.get());
 				if (player.fight(enemy.get()))
 				{
-					geluidje.playSound("maleAttack");
+					geluidje.playSound("maleAttack", 75.0);
 					if (player.getPosition().x < enemy.get()->getPosition().x)
 					{
 						enemy.get()->setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
@@ -182,7 +183,9 @@ void Game::handleInput()
 				player.setAnimation("WALKright", Animation::intervals::walk);
 				player.setTexture(player.currentAnimation.nextFrame());
 			}
-			geluidje.playSound("footStep");
+			//geluidje.playSound("footStep", 25.0);
+			//geluidje.playSoundTwo("footStep", 25.0);
+
 			player.setScale(sf::Vector2f(0.2, 0.2));
 			player.setVelocity(sf::Vector2f(3, player.getVelocity().y));
 
@@ -194,7 +197,7 @@ void Game::handleInput()
 				player.setTexture(player.currentAnimation.nextFrame());
 
 			}
-			geluidje.playSound("footStep");
+			//geluidje.playSound("footStep", 25.0);
 			player.setScale(sf::Vector2f(-0.2, 0.2));
 
 			player.setVelocity(sf::Vector2f(-3, player.getVelocity().y));
@@ -229,14 +232,25 @@ void Game::handleInput()
 				auto delta_normalized = delta / sqrt(pow(delta.x, 2) + pow(delta.y, 2));
 				sf::Vector2f shoot_vector(delta_normalized * 15.f);
 
-				std::shared_ptr<projectile> prj = player.shootProjectile(shoot_vector); //TODO: expensive operation, drops FPS
-			//	std::shared_ptr<projectile> prj = std::make_shared<projectile>(player.getPosition(), sf::Vector2f(1,1), ani.animations["projectile"], sf::Vector2f(0,1), 10);
-				prj->setRotation(angle_degrees);
-				prj->setVelocity(shoot_vector);
+				player.shootProjectile(player.getPosition(), shoot_vector, angle_degrees); //TODO: expensive operation, drops FPS
 
-				prj->setOrigin(sf::Vector2f(prj->getSize().x /2, prj->getSize().y /2));
-				projectiles.push_back(prj);
+				if (player.role == "mage")
+				{
+					//geluidje.playSound("Fireball", 75.0);
+					geluidje.playSoundTwo("Fireball", 75.0);
+				}
+				else
+				{
+				//	geluidje.playSound("Sword", 75.0);
+					geluidje.playSoundTwo("Sword", 75.0);
+					geluidje.playSoundTwo("Fireball", 75.0);
+					geluidje.playSoundTwo("jump", 77.0);
+					geluidje.playSoundTwo("jump", 77.0);
+					geluidje.playSoundTwo("MaleHurtPain", 77.0);
+					geluidje.playSoundTwo("maleAttack", 77.0);
 
+
+				}
 				if (player.getCurrentAnimation() != "SLASHINGright") {
 					player.setAnimation("SLASHINGright", Animation::intervals::attack);
 					player.setTexture(player.currentAnimation.nextFrame());
@@ -302,15 +316,14 @@ void Game::update() {
 
 		std::shared_ptr<projectile> tobedeleted;
 
-		for (auto prj : projectiles) {
-			if (prj->isDeath()) {
-				tobedeleted = prj;
+		for (auto &prj : player.projectiles) {
+			if (!prj->isDeath()) {
+				prj->updateLive(1);
+				prj->fight(enemy.get());
+				prj->setTexture(prj->currentAnimation.nextFrame());
+				prj->move();
 			}
-			prj->updateLive(1);
-			prj->setTexture(prj->currentAnimation.nextFrame());
-			prj->move();
 		}
-		projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), tobedeleted), projectiles.end());
 
 		np->showText(player);
 		hud.update();
@@ -333,10 +346,6 @@ void Game::update() {
 	break;
 
 	}
-	
-	auto center = Collision::GetSpriteCenter(player);
-	main_camera.setCenter(center);
-	window.setView(main_camera);
 	rerender = true;
 }
 
@@ -368,8 +377,11 @@ void Game::render() {
 			window.draw(lvls.ground);
 			window.draw(lvls.damage_background);
 			window.draw(lvls.foreground_bounce);
-			for (auto prj : projectiles) {
-				prj->draw(window);
+			for (auto &prj : player.projectiles) {
+				if (!prj->isDeath()) {
+		//			std::cout << "hier tekenene \n";
+					prj->draw(window);
+				}
 			}
 			window.draw(lvls.end);
 			auto mouse_pos = sf::Mouse::getPosition(window);
@@ -378,6 +390,10 @@ void Game::render() {
 			window.draw(cursor);
 			window.setView(main_HUD);
 			hud.draw(window);
+
+			auto center = Collision::GetSpriteCenter(player);
+			main_camera.setCenter(center);
+			window.setView(main_camera);
 			
 			rerender = false;
 			

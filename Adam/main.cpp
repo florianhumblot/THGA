@@ -40,7 +40,7 @@ void render_loading_screen(sf::RenderWindow & w, bool & loaded)
 	loader.setPosition(sf::Vector2f(w.getSize().x / 2, w.getSize().y / 2));
 	loader.setScale(sf::Vector2f(0.2, 0.2));
 
-	int i = 0;
+	w.setFramerateLimit(60);
 	while (!loaded)
 	{
 		w.clear();
@@ -48,6 +48,7 @@ void render_loading_screen(sf::RenderWindow & w, bool & loaded)
 		loader.rotate(10);
 		w.display();
 	}
+	w.setFramerateLimit(0);
 }
 
 int main()
@@ -70,7 +71,7 @@ int main()
 	{
 		ani.construct("assets/animations/animations.txt");
 		geluidje.construct("audio/audio.txt");
-		player.construct(sf::Vector2f(890, 690), sf::Vector2f(0.2, 0.2), ani.object.animations["mage"], sf::Vector2f(0, 0), statistic(200, 200), statistic(300, 300), statistic(80, 0));
+		player.construct(sf::Vector2f(890, 690), sf::Vector2f(0.2, 0.2), ani.object.animations["mage"], sf::Vector2f(0, 0), 5, statistic(200, 200), statistic(300, 300), statistic(80, 0));
 		hud.construct(player.object);
 		game.construct(window, player.object, hud.object, ani.object, geluidje.object);
 
@@ -82,9 +83,7 @@ int main()
 
 	t.join(); //wait for objects to finish constructing before moving on
 	sf::Clock clock;
-	sf::Clock renderClock;
-	float MS_TIME = 16;
-	float FRAME_TIME = 10;
+	float MS_TIME = 15;
 	while (window.isOpen())
 	{
 
