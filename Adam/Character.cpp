@@ -26,6 +26,8 @@ Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::st
 }
 
 bool Character::fight(fighter * opponent) {
+	if (getCurrentAnimation() == "SLASHINGright") return false;
+
 	if (getCurrentAnimation() != "SLASHINGright") {
 		setAnimation("SLASHINGright", Animation::intervals::attack);
 		setTexture(currentAnimation.nextFrame());

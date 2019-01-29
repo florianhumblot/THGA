@@ -3,7 +3,7 @@
 #include "pch.h"
 #include "Character.h"
 #include "AnimationManager.h"
-#include "levelManager.h"
+#include "LvlManager.h"
 #include "Enemy.hpp"
 
 class Menu {
@@ -14,8 +14,8 @@ public:
 	int selectedItem;
 
 	virtual void draw(sf::RenderWindow & window, sf::View & main_camera, sf::Sprite & bgMain, Character & player) {}
-	virtual void draw(sf::RenderWindow & window, levelManager & lvls, std::shared_ptr<Enemy> & enemy) {}
-	virtual void draw(sf::RenderWindow & window, levelManager & lvls, std::shared_ptr<Enemy> & enemy, sf::View & main_camera, sf::Sprite & bgMain, Character & player);
+	virtual void draw(sf::RenderWindow & window, LvlManager & lvls, std::shared_ptr<Enemy> & enemy) {}
+	virtual void draw(sf::RenderWindow & window, LvlManager& lvls, std::shared_ptr<Enemy> & enemy, sf::View & main_camera, sf::Sprite & bgMain, Character & player);
 
 	virtual void moveUp() = 0;
 	virtual void moveDown() = 0;

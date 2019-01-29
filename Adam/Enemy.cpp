@@ -17,6 +17,7 @@ Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, An
 
 	for (auto & tex: text)
 	{
+		tex = sf::Text();
 		tex.setFont(font);
 		tex.setOutlineColor(sf::Color::Black);
 		tex.setOutlineThickness(2.0f);
@@ -46,6 +47,8 @@ void Enemy::update_info_pos(sf::RenderWindow & window)
 
 bool Enemy::fight(fighter * opponent) {
 	
+	if (getCurrentAnimation() == std::string("SLASHINGright")) return false;
+
 	if (!checkDead()) {
 		if (fighter::fight(opponent)) {
 			if (getCurrentAnimation() != std::string("SLASHINGright")) {
@@ -121,6 +124,7 @@ void Enemy::draw(sf::RenderTarget &w) {
 	int j = -2;
 	for (auto & txt: text) {
 		txt.setPosition(sf::Vector2f(getPosition().x, getPosition().y + j * 10));
+		txt.setFont(font);
 		w.draw(txt);
 		j++;
 	}

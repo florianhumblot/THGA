@@ -28,13 +28,15 @@ inGameMenu::inGameMenu(float width, float heigth, Character &player) :
 	selectedItem = 0;
 }
 
-void inGameMenu::draw(sf::RenderWindow & window, levelManager & lvls, std::shared_ptr<Enemy> & enemy)
+void inGameMenu::draw(sf::RenderWindow & window, LvlManager & lvls, std::shared_ptr<Enemy> & enemy)
 {
-	window.draw(lvls.background);
-	window.draw(lvls.ground);
-	window.draw(lvls.damage_background);
+	auto level = lvls.getLevel();
+	window.draw(level->getLayer("background"));
+	window.draw(level->getLayer("foreground"));
+	window.draw(level->getLayer("foreground_dmg"));
+	window.draw(level->getLayer("foreground_bounce"));
+
 	window.draw(sf::Sprite(player));
-	window.draw(sf::Sprite(*enemy));
 	for (unsigned int i = 0; i < pauseOptions; i++)
 	{
 		window.draw(pauseScreen[i]);
