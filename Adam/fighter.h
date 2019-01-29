@@ -3,7 +3,6 @@
 #include "statistic.h"
 #include "fighter.h"
 #include "Collision.h"
-#include "Audio.hpp"
 ///@file
 
 /// \brief
@@ -16,7 +15,7 @@ class fighter
 public:
 	int lvl;
 	statistic health;
-	Audio &sound;
+
 	sf::Texture AABB_H;
 
 	/// \brief
