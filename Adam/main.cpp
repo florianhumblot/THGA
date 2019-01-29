@@ -83,9 +83,7 @@ int main()
 
 	t.join(); //wait for objects to finish constructing before moving on
 	sf::Clock clock;
-	sf::Clock renderClock;
-	float MS_TIME = 16;
-	float FRAME_TIME = 10;
+	float MS_TIME = 15;
 	while (window.isOpen())
 	{
 
