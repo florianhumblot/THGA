@@ -242,12 +242,11 @@ void Game::handleInput()
 				auto delta_normalized = delta / sqrt(pow(delta.x, 2) + pow(delta.y, 2));
 				sf::Vector2f shoot_vector(delta_normalized * 15.f);
 
-				std::shared_ptr<projectile> prj = player.shootProjectile(shoot_vector); //TODO: expensive operation, drops FPS
-				prj->setRotation(angle_degrees);
-				prj->setVelocity(shoot_vector);
+				player.shootProjectile(player.getPosition(), shoot_vector, angle_degrees); //TODO: expensive operation, drops FPS
 
-				prj->setOrigin(sf::Vector2f(prj->getSize().x / 2, prj->getSize().y / 2));
-				projectiles.push_back(prj);
+
+//				prj->setOrigin(sf::Vector2f(prj->getSize().x / 2, prj->getSize().y / 2));
+
 				if (player.role == "mage")
 				{
 					geluidje.playSoundTwo("Fireball", 75.0);
@@ -357,15 +356,16 @@ void Game::update() {
 
 		std::shared_ptr<projectile> tobedeleted;
 
-		for (auto prj : projectiles) {
-			if (prj->isDeath()) {
-				tobedeleted = prj;
+		for (auto &prj : player.projectiles) {
+			if (!prj->isDeath()) {
+				prj->updateLive(1);
+				for (auto & enemie : enemies) {
+					prj->fight(&enemie);
+				}
+				prj->setTexture(prj->currentAnimation.nextFrame());
+				prj->move();
 			}
-			prj->updateLive(1);
-			prj->setTexture(prj->currentAnimation.nextFrame());
-			prj->move();
 		}
-		projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), tobedeleted), projectiles.end());
 
 		for (auto & np : npcs) {
 			np.showText(player);
@@ -434,8 +434,15 @@ void Game::render() {
 			window.draw(level->getLayer("foreground_dmg"));
 			window.draw(level->getLayer("foreground_bounce"));
 
-			for (auto prj : projectiles) {
-				prj->draw(window);
+		//	window.draw(lvls.ground);
+		//	window.draw(lvls.damage_background);
+		//	window.draw(lvls.foreground_bounce);
+			for (auto &prj : player.projectiles) {
+				if (!prj->isDeath()) {
+		//			std::cout << "hier tekenene \n";
+					prj->draw(window);
+				}
+
 			}
 
 			window.draw(level->getLayer("lvl_end"));
