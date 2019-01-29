@@ -1,9 +1,8 @@
 #pragma once
 
 #include "statistic.h"
-#include "Movable.h"
 #include "fighter.h"
-#include "Animated.hpp"
+#include "Collision.h"
 ///@file
 
 /// \brief

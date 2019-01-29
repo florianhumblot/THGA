@@ -14,12 +14,11 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	lvl(std::make_shared<AnimationManager>(ani)),
 	cln_h(lvl.getLevel()->getLayer("foreground")),
 	world_physics(&player, cln_h)
-	
 {
 	char_alpha = sf::Texture();
 	char_alpha_invert = sf::Texture();
 	menuTex = sf::Texture();
-	
+
 	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
 	bgMain = Sprite(menuTex);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
@@ -54,6 +53,10 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 		world_physics.moveables.push_back(&np);
 	}
 
+
+	world_physics.moveables.push_back(&*enemy);
+	world_physics.moveables.push_back(&*np);
+	geluidje.playMusic("audio/music1.wav", 20.0);
 	state = STATE::MENU;
 }
 
@@ -137,10 +140,9 @@ void Game::handleInput()
 			if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
 			{
 				player.canJump = false;
-
 				if (!player.checkDead() && player.jumpCount < 2)
 				{
-					geluidje.playSound("jump", 65.0);
+					geluidje.playSoundTwo("jump", 77.0);
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -6));
 					player.jumpCount++;
 				}
@@ -154,6 +156,7 @@ void Game::handleInput()
 				for (auto & enemy : enemies) {
 					if (player.fight(&enemy))
 					{
+						geluidje.playSoundTwo("Sword", 75.0);
 						geluidje.playSound("maleAttack", 75.0);
 						if (player.getPosition().x < enemy.getPosition().x)
 						{
@@ -166,7 +169,7 @@ void Game::handleInput()
 
 					}
 				}
-				std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
+				std::cout << "health enemï¿½: " << enemy.get()->health.current << "\n";
 
 			}
 		}
@@ -191,7 +194,9 @@ void Game::handleInput()
 				player.setAnimation("WALKright", Animation::intervals::walk);
 				player.setTexture(player.currentAnimation.nextFrame());
 			}
-			geluidje.playSound("footStep", 25.0);
+			//geluidje.playSound("footStep", 25.0);
+			//geluidje.playSoundTwo("footStep", 25.0);
+
 			player.setScale(sf::Vector2f(0.2, 0.2));
 			player.setVelocity(sf::Vector2f(3, player.getVelocity().y));
 
@@ -203,7 +208,7 @@ void Game::handleInput()
 				player.setTexture(player.currentAnimation.nextFrame());
 
 			}
-			geluidje.playSound("footStep", 25.0);
+			//geluidje.playSound("footStep", 25.0);
 			player.setScale(sf::Vector2f(-0.2, 0.2));
 
 			player.setVelocity(sf::Vector2f(-3, player.getVelocity().y));
@@ -244,7 +249,16 @@ void Game::handleInput()
 
 				prj->setOrigin(sf::Vector2f(prj->getSize().x /2, prj->getSize().y /2));
 				projectiles.push_back(prj);
+				if (player.role == "mage")
+				{
+					geluidje.playSoundTwo("Fireball", 75.0);
+				}
+				else
+				{
+					geluidje.playSoundTwo("maleAttack", 77.0);
 
+
+				}
 				if (player.getCurrentAnimation() != "SLASHINGright") {
 					player.setAnimation("SLASHINGright", Animation::intervals::attack);
 					player.setTexture(player.currentAnimation.nextFrame());
@@ -285,7 +299,7 @@ void Game::update() {
 
 	case STATE::PLAYING:
 	{
-		
+
 
 		for (auto & np : npcs) {
 			ai->walkRandomly(&np);
@@ -362,10 +376,6 @@ void Game::update() {
 	break;
 
 	}
-	
-	auto center = Collision::GetSpriteCenter(player);
-	main_camera.setCenter(center);
-	window.setView(main_camera);
 	rerender = true;
 }
 
@@ -384,9 +394,9 @@ void Game::render() {
 
 	case STATE::PLAYING:
 	{
-		
+
 		if (rerender) {
-			
+
 			window.clear();
 			auto level = lvl.getLevel();
 			window.draw(level->getLayer("background"));
@@ -415,6 +425,11 @@ void Game::render() {
 			window.draw(cursor);
 			window.setView(main_HUD);
 			hud.draw(window);
+
+			auto center = Collision::GetSpriteCenter(player);
+			main_camera.setCenter(center);
+			window.setView(main_camera);
+
 			rerender = false;
 			window.display();
 

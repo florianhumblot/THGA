@@ -22,39 +22,88 @@ Audio::Audio(const std::string &filePath)
 		if (soundCollection.count(factorySound))
 		{
 			soundCollection[factorySound].push_back(b);
-			std::cout << " pushing back sound into vector " << path << std::endl;
 		}
 		else
 		{
-			std::cout << " adding sound into vector manually" << path << std::endl;
 			soundCollection[factorySound] = { b };
 		}
-
 	}
-
 	sound.setBuffer(soundCollection["Fireball"][1]);
+	soundMaker();
 }
 
 void Audio::playSound(const std::string &key, const float volume)
 {
-
-	std::cout << "in function playSound " << std::endl;
 	if (sound.getStatus()!=sf::SoundSource::Status::Playing)
 	{
-	
-		
 		if (soundCollection[key].size() == 1)
 		{
 			sound.setBuffer(soundCollection[key][0]);
 		}
 		else
 		{
-			int random = rand() % (soundCollection[key].size() - 1);
-			sound.setBuffer(soundCollection[key][random]);
-			std::cout << key << ' ' << random << ' ' << std::endl;
+		int random = rand() % (soundCollection[key].size() - 1);
+		sound.setBuffer(soundCollection[key][random]);
+		std::cout << key << ' ' << random << ' ' << std::endl;
 		}
 		sound.setVolume(volume);
 		sound.play();
 	}
+}
+
+void Audio::soundMaker()
+{
+	for (auto &string : soundCollection)
+	{
+		for (auto &buffers : string.second)
+		{
+			sound.setBuffer(buffers);
+			if (themSounds.count(string.first))
+			{
+				themSounds[string.first].push_back(sound);
+			}
+			else
+			{
+				themSounds[string.first] = { sound };
+			}
+
+		}
+	}
+}
+
+void Audio::playSoundTwo(const std::string &key, const float volume)
+{
+	if (sound.getStatus() != sf::SoundSource::Status::Playing)
+	{
+		int random = rand() % (themSounds[key].size() - 1);
+		themSounds[key][random].setVolume(volume);
+		themSounds[key][random].play();
+	}
 	
 }
+
+void Audio::playMusic(const std::string& song,const float volume)
+{
+
+	if (!music.openFromFile(song))
+	{
+		std::cout<< "song not LOADED ERROR" << std::endl;
+	}
+	if (music.getStatus() != sf::SoundSource::Status::Playing)
+	{
+		music.setLoop(true);
+		music.setVolume(volume);
+		music.play();
+	}
+
+}
+
+bool Audio::anySound()
+{
+	if (sound.getStatus() == sf::SoundSource::Status::Playing)
+	{
+		return true;
+	}
+}
+
+
