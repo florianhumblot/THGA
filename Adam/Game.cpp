@@ -459,6 +459,8 @@ void Game::render() {
 
 			window.draw(level->getLayer("lvl_end"));
 
+			window.draw(player.getHitbox());
+
 			auto mouse_pos = sf::Mouse::getPosition(window);
 			auto mouse_pos_relative_to_view = window.mapPixelToCoords(mouse_pos);
 			cursor.setPosition(mouse_pos_relative_to_view);

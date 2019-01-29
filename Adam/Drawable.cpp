@@ -10,6 +10,7 @@ drawable::drawable(sf::Vector2f &position, sf::Vector2f &scale, sf::Texture &tex
 	sprite.setTexture(texture);
 	sprite.setScale(scale);
 	AABB.loadFromFile("assets/AABB.png");
+	HB.loadFromFile("assets/AABB_H.png");
 }
 
 sf::Vector2f drawable::getPosition() {
