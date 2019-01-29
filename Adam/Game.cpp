@@ -47,7 +47,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 
 	world_physics.moveables.push_back(&*enemy);
 	world_physics.moveables.push_back(&*np);
-	geluidje.playMusic("audio/music1.wav", 50.0);
+	geluidje.playMusic("audio/music1.wav", 20.0);
 	state = STATE::MENU;
 }
 
@@ -257,6 +257,17 @@ void Game::handleInput()
 
 			}
 		}
+		//if (enemy->getAnimation().dying )
+		//{
+		//	geluidje.playSoundTwo("monster", 55.0);
+		//}
+		//if (enemy->fight(&player))
+		//{
+		//	if (!geluidje.anySound())
+		//	{
+		//		geluidje.playSoundTwo("orc", 40.0);
+		//	}
+		//}
 
 		if (!enemy.get()->checkDead()) {
 
@@ -266,8 +277,6 @@ void Game::handleInput()
 			{
 				if (!enemy.get()->checkDead())
 				{
-					geluidje.playSoundTwo("Orc", 88.0);
-					std::cout << " ORDSOUND??" << std::endl;
 					ai->shouldFollow_followDirection(enemy.get(), &player);
 				}
 				aiClock.restart();

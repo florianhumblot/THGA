@@ -22,28 +22,20 @@ Audio::Audio(const std::string &filePath)
 		if (soundCollection.count(factorySound))
 		{
 			soundCollection[factorySound].push_back(b);
-			std::cout << " pushing back buffer into vector " << path << std::endl;
 		}
 		else
 		{
-			std::cout << " adding buffer into vector manually" << path << std::endl;
 			soundCollection[factorySound] = { b };
 		}
-
 	}
-
 	sound.setBuffer(soundCollection["Fireball"][1]);
 	soundMaker();
 }
 
 void Audio::playSound(const std::string &key, const float volume)
 {
-
-	std::cout << "in function playSound " << std::endl;
 	if (sound.getStatus()!=sf::SoundSource::Status::Playing)
 	{
-	
-		
 		if (soundCollection[key].size() == 1)
 		{
 			sound.setBuffer(soundCollection[key][0]);
@@ -57,29 +49,21 @@ void Audio::playSound(const std::string &key, const float volume)
 		sound.setVolume(volume);
 		sound.play();
 	}
-	
 }
 
 void Audio::soundMaker()
 {
 	for (auto &string : soundCollection)
 	{
-
-		std::cout << "soundmake First Loop-- " << string.first << std::endl;
 		for (auto &buffers : string.second)
 		{
-			std::cout << "soundmake SECOND Loop-- " << std::endl;
-
 			sound.setBuffer(buffers);
 			if (themSounds.count(string.first))
 			{
-				std::cout << "in IF ---" << std::endl;
 				themSounds[string.first].push_back(sound);
-
 			}
 			else
 			{
-				std::cout << "in ELSE-- " << std::endl;
 				themSounds[string.first] = { sound };
 			}
 
@@ -112,6 +96,14 @@ void Audio::playMusic(const std::string& song,const float volume)
 		music.play();
 	}
 
+}
+
+bool Audio::anySound()
+{
+	if (sound.getStatus() == sf::SoundSource::Status::Playing)
+	{
+		return true;
+	}
 }
 
 
