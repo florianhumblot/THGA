@@ -311,7 +311,10 @@ void Game::update() {
 
 	case STATE::PLAYING:
 	{
-
+		if (player.getVelocity().y == 0 && player.getVelocity().x > 2)
+		{
+			geluidje.playSoundTwo("footStep", 11.0);
+		}
 
 		for (auto & np : npcs) {
 			ai->walkRandomly(&np);
@@ -382,7 +385,6 @@ void Game::update() {
 		if (player.health.current <= 0)
 		{
 			geluidje.playSound("death", 55.0);
-
 		}
 
 		if (player.getPosition().y > 30000) {
