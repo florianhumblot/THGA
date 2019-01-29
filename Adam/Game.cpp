@@ -152,7 +152,6 @@ void Game::handleInput()
 			else if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::K && !player.checkDead())
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
-				//player.fight(enemy.get());
 				for (auto & enemy : enemies) {
 					if (player.fight(&enemy))
 					{
@@ -270,17 +269,7 @@ void Game::handleInput()
 			}
 		}
 
-		if (!enemy.get()->checkDead()) {
-
-			ai->shouldFollow_followDirection(enemy.get(), &player);
-		}
-		if (aiClock.getElapsedTime().asMilliseconds() >= 300)
-		{
-			if (!enemy.get()->checkDead())
-			{
-
-			}
-		}
+		
 		for (auto & enemy : enemies) {
 			if (!enemy.checkDead()) {
 
@@ -398,9 +387,7 @@ void Game::update() {
 			geluidje.playSound("death", 55.0);
 
 		}
-		if (enemy.get()->checkDead()) {
-			enemy.get()->die();
-		}
+
 		if (player.getPosition().y > 30000) {
 			player.respawn();
 			geluidje.playSound("revive", 88);
