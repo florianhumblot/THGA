@@ -1,19 +1,25 @@
 #pragma once
 #include "Movable.h"
 #include "Animated.hpp"
+#include "fighter.h"
 
-class projectile : public movable, public Animateable {
+class projectile : public movable, public Animateable, public fighter {
 private:
 	float dmg;
 	bool death = true;
 	int live = 50;
 public:
 	projectile() {}
-	projectile(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, float dmg);
+	projectile(sf::Vector2f &position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f &velocity, float dmg);
 	void setDamage(float dmg);
 	void setLive(int newLive);
 	float getDamage();
 	void updateLive( int minus = 1);
 	bool isDeath();
+	void revive();
+	bool fight(fighter * opponent) override;
+	sf::Sprite getBox() override;
+	sf::Sprite makeFightBox() override;
+	void die() override;
 
 };

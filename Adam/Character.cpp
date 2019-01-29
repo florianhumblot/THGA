@@ -11,12 +11,13 @@ void Character::set_spawn(sf::Vector2f new_spawn)
 {
 	spawn = new_spawn;
 }
-
-Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic mana_c, statistic health_c, statistic exp_c):
+//Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, int prjSize, statistic mana_c, statistic health_c, statistic exp_c):
+Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, int prjSize, statistic mana_c, statistic health_c, statistic exp_c):
 
 	Animateable(animations),
 	fighter(health_c, 1),
-	movable(position, scale, animations["IDLEright"].textures[0], velocity)
+	movable(position, scale, animations["IDLEright"].textures[0], velocity),
+	shooter(prjSize, animations)
 {
 	setAnimation("IDLEright", Animation::intervals::idle);
 	setTexture(currentAnimation.nextFrame());
@@ -25,7 +26,7 @@ Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::st
 }
 
 bool Character::fight(fighter * opponent) {
-	if (getCurrentAnimation() == "SLASHINGright") return false;
+	//if (getCurrentAnimation() == "SLASHINGright") return false;
 
 	if (getCurrentAnimation() != "SLASHINGright") {
 		setAnimation("SLASHINGright", Animation::intervals::attack);
@@ -52,15 +53,16 @@ sf::Sprite Character::makeFightBox() {
 	temp.setScale(scale);
 	return temp;
 }
-
-void Character::setProjectile(std::function<std::shared_ptr<projectile>(sf::Vector2f, sf::Vector2f, std::map<std::string, Animation> animations)> newP, std::map<std::string, Animation> & animations ) {
-	projectileAnimations = animations;
-	shoot = newP;
+void Character::shootProjectile(sf::Vector2f position, sf::Vector2f direction, float angle) {
+	if (!mana.is_zero()) {
+		shooter::shootProjectile(position, direction, angle);
+		mana.sub(20);
+	}
 }
 
-std::shared_ptr<projectile> Character::shootProjectile(sf::Vector2f direction) {
+/*std::shared_ptr<projectile> Character::shootProjectile(sf::Vector2f direction) {
 	return shoot(getPosition(), sf::Vector2f(direction.x, direction.y ), projectileAnimations);
-}
+}*/
 
 void Character::die()
 {

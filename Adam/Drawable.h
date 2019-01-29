@@ -1,6 +1,9 @@
 #pragma once
 #include "Collision.h"
 
+//sf::Texture AABB.load);
+//AABB.loadFromFile("assets/AABB.png")
+
 ///@file
 
 /// \brief
@@ -28,8 +31,7 @@ public:
 
 	/// \details
 	/// class constructor that sets the position, scale and texture.
-	drawable(sf::Vector2f &position, sf::Vector2f scale, sf::Texture texture);
-	drawable(sf::Vector2f &position, sf::Vector2f scale, const std::string &textureFile);
+	drawable(sf::Vector2f &position, sf::Vector2f &scale, sf::Texture &texture);
 	~drawable() {}
 
 	/// \details

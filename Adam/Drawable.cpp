@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Drawable.h"
 
-drawable::drawable(sf::Vector2f &position, sf::Vector2f scale, sf::Texture texture):
+drawable::drawable(sf::Vector2f &position, sf::Vector2f &scale, sf::Texture &texture):
 	position(position),
 	scale(scale),
 	texture(texture)
