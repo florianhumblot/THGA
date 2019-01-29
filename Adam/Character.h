@@ -16,7 +16,7 @@ public:
 	sf::Vector2f spawn = sf::Vector2f(890,690);
 
 	void update_exp(int amount);
-	Character() {}
+//	Character() : Animateable() {}
 	void respawn();
 	void set_spawn(sf::Vector2f new_spawn);
 

@@ -123,7 +123,7 @@ int newGameMenu::chooseTile(std::shared_ptr<Menu> & currentMenu, Character & pla
 			direction.y = (direction.y * 5) / direction.x;
 			direction.x = 5;
 			sf::Texture tex;
-			std::shared_ptr<projectile> prj = std::make_shared<projectile>(projectile(pos1, sf::Vector2f(1.0, 1.0), animations, direction, 10.0));
+			std::shared_ptr<projectile> prj = std::make_shared<projectile>(pos1, sf::Vector2f(1.0, 1.0), animations, direction, 10.0);
 			prj->setTexture(tex);
 			prj->setAnimation("AXEright", Animation::intervals::idle);
 			return prj;
@@ -144,7 +144,7 @@ int newGameMenu::chooseTile(std::shared_ptr<Menu> & currentMenu, Character & pla
 			direction.y = (direction.y * 5) / direction.x;
 			direction.x = 5;
 			sf::Texture tex;
-			std::shared_ptr<projectile> prj = std::make_shared<projectile>(projectile(pos1, sf::Vector2f(1.0, 1.0), animations, direction, 10.0));
+			std::shared_ptr<projectile> prj = std::make_shared<projectile>(pos1, sf::Vector2f(1.0, 1.0), animations, direction, 10.0);
 			prj->setTexture(tex);
 			prj->setAnimation("FIREBALLright", Animation::intervals::idle);
 			return prj;

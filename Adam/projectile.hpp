@@ -9,7 +9,7 @@ private:
 	int live = 50;
 public:
 	projectile() {}
-	projectile(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, float dmg);
+	projectile(sf::Vector2f &position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f &velocity, float dmg);
 	void setDamage(float dmg);
 	void setLive(int newLive);
 	float getDamage();

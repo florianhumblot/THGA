@@ -230,6 +230,7 @@ void Game::handleInput()
 				sf::Vector2f shoot_vector(delta_normalized * 15.f);
 
 				std::shared_ptr<projectile> prj = player.shootProjectile(shoot_vector); //TODO: expensive operation, drops FPS
+			//	std::shared_ptr<projectile> prj = std::make_shared<projectile>(player.getPosition(), sf::Vector2f(1,1), ani.animations["projectile"], sf::Vector2f(0,1), 10);
 				prj->setRotation(angle_degrees);
 				prj->setVelocity(shoot_vector);
 
