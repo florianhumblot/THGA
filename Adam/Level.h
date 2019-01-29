@@ -6,7 +6,7 @@
 // ==========================================================================
 
 // this file contains Doxygen lines
-///file Level.hpp
+///file Level.h
 /// \brief Container for a game level
 /// \detail
 /// This class serves as a container for a game level.
