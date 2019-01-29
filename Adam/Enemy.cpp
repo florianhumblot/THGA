@@ -46,6 +46,8 @@ void Enemy::update_info_pos(sf::RenderWindow & window)
 
 bool Enemy::fight(fighter * opponent) {
 	
+	if (getCurrentAnimation() == std::string("SLASHINGright")) return false;
+
 	if (!checkDead()) {
 		if (fighter::fight(opponent)) {
 			if (getCurrentAnimation() != std::string("SLASHINGright")) {
