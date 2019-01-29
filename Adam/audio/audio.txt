@@ -8,6 +8,16 @@ Sword audio/Sword_3.wav
 Sword audio/Sword_4.wav
 Sword audio/Sword_5.wav
 Sword audio/Sword_6.wav
+footStep audio/footStep_1.wav
+footStep audio/footStep_2.wav
+footStep audio/footStep_3.wav
+footStep audio/footStep_4.wav
+footStep audio/footStep_5.wav
+footStep audio/footStep_6.wav
+footStep audio/footStep_7.wav
+footStep audio/footStep_8.wav
+footStep audio/footStep_9.wav
+footStep audio/footStep_10.wav
 maleAttack audio/maleAttack_1.wav
 maleAttack audio/maleAttack_2.wav
 maleAttack audio/maleAttack_3.wav
@@ -28,7 +38,6 @@ MaleHurtPain audio/maleHurtPain_7.wav
 MaleHurtPain audio/maleHurtPain_8.wav
 MaleHurtPain audio/maleHurtPain_9.wav
 MaleHurtPain audio/maleHurtPain_10.wav
-MaleHurtPain audio/maleHurtPain_11.wav
 jump audio/jumpSound_1.wav
 jump audio/jumpSound_2.wav
 jump audio/jumpSound_3.wav
@@ -64,3 +73,4 @@ menuEnter audio/menuEnter_1.wav
 menuEnter audio/menuEnter_2.wav
 menuReturn audio/menuReturn_1.wav
 menuReturn audio/menuReturn_2.wav
+monsterDeath audio/monsterDeath_1.wav

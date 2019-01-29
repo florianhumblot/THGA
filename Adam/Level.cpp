@@ -41,6 +41,8 @@ void Level::enemy_factory(std::string s)
 		while (lvls_file >> png >> posx >> posy >> health)
 		{
 			enemies.push_back(Enemy(sf::Vector2f(stoi(posx), stoi(posy)), sf::Vector2f(0.2, 0.2), ani->animations[png], sf::Vector2f(0, 0), statistic(std::stoi(health), std::stoi(health))));
+			enemies.back().setAnimation("IDLEright", Animation::intervals::idle);
+			enemies.back().setTexture(enemies.back().currentAnimation.getCurrentFrame());
 		}
 
 	}
@@ -85,12 +87,12 @@ std::string Level::get_next_level()
 	return next_level_name;
 }
 
-std::vector<npc>& Level::getNPCs()
+std::vector<npc> Level::getNPCs()
 {
 	return npcs;
 }
 
-std::vector<Enemy>& Level::getEnemies()
+std::vector<Enemy> Level::getEnemies()
 {
 	return enemies;
 }
