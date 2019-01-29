@@ -153,26 +153,28 @@ void Game::handleInput()
 			}
 
 
-			else if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::K && !player.checkDead())
+			else if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Button::Left && !player.checkDead())
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
-				for (auto & enemy : enemies) {
-					if (player.fight(&enemy))
-					{
-						geluidje.playSoundTwo("Sword", 75.0);
-						geluidje.playSound("maleAttack", 75.0);
-						if (player.getPosition().x < enemy.getPosition().x)
+				if (player.getCurrentAnimation() != std::string("SLASHINGright")) {
+
+					for (auto & enemy : enemies) {
+						if (player.fight(&enemy))
 						{
-							enemy.setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
+							geluidje.playSoundTwo("Sword", 75.0);
+							geluidje.playSound("maleAttack", 75.0);
+							if (player.getPosition().x < enemy.getPosition().x)
+							{
+								enemy.setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
+							}
+							else
+							{
+								enemy.setVelocity(sf::Vector2f(player.getVelocity().x - 4, -4));
+							}
+							std::cout << "health enem�: " << enemy.health.current << "\n";
 						}
-						else
-						{
-							enemy.setVelocity(sf::Vector2f(player.getVelocity().x - 4, -4));
-						}
-						std::cout << "health enem�: " << enemy.health.current << "\n";
 					}
 				}
-				
 
 			}
 		}
@@ -231,9 +233,9 @@ void Game::handleInput()
 			}
 		}
 
-		if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Button::Left) {
+		if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Button::Right) {
 
-			if (ev.key.code == sf::Mouse::Left && !player.checkDead()) {
+			if (ev.key.code == sf::Mouse::Right && !player.checkDead()) {
 				auto mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 				auto delta = mouse_pos - player.getPosition();
 				float angle_r = atan2(delta.y, delta.x);
