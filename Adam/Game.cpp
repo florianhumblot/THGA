@@ -31,8 +31,8 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);
 
-	np = std::make_shared<npc>(v2(890, 690), v2(0.2, 0.2), ani.animations["boy"], v2(0, 0), statistic(200, 200));
-	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
+	//np = std::make_shared<npc>(v2(890, 690), v2(0.2, 0.2), ani.animations["boy"], v2(0, 0), statistic(200, 200));
+	//enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
 
 	bgMain.setTexture(menuTex);
 	sf::Vector2f playerposforbg = player.getPosition();
@@ -54,8 +54,8 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	}
 
 
-	world_physics.moveables.push_back(&*enemy);
-	world_physics.moveables.push_back(&*np);
+	//world_physics.moveables.push_back(&*enemy);
+	//world_physics.moveables.push_back(&*np);
 	geluidje.playMusic("audio/music1.wav", 20.0);
 	state = STATE::MENU;
 }
@@ -166,10 +166,10 @@ void Game::handleInput()
 						{
 							enemy.setVelocity(sf::Vector2f(player.getVelocity().x - 4, -4));
 						}
-
+						std::cout << "health enem�: " << enemy.health.current << "\n";
 					}
 				}
-				std::cout << "health enem�: " << enemy.get()->health.current << "\n";
+				
 
 			}
 		}
@@ -228,7 +228,10 @@ void Game::handleInput()
 
 		if (ev.type == sf::Event::KeyReleased) {
 			if (ev.key.code == sf::Keyboard::W && !player.checkDead()) {
-				np->updateText();
+				for (auto & npc : npcs) {
+					npc.updateText();;
+				}
+				//np->updateText();
 			}
 		}
 
