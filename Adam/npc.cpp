@@ -12,6 +12,7 @@ npc::npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animat
 	{
 		std::cout << "error loading font" << std::endl;
 	}
+	text = sf::Text();
 	text.setFont(font);
 	text.setOutlineColor(sf::Color::Black);
 	text.setOutlineThickness(2.0f);
@@ -91,6 +92,7 @@ int npc::getDirection() {
 void npc::draw(sf::RenderTarget & w) {
 	drawable::draw(w);
 	text.setPosition(sf::Vector2f(getPosition().x, getPosition().y - 10));
+	text.setFont(font);
 	w.draw(text);
 }
 

@@ -50,3 +50,5 @@ orc audio/orcSound_4.wav
 monster audio/monsterRoar_1.wav
 monster audio/monsterRoar_2.wav
 monster audio/monsterRoar_3.wav
+revive audio/revive_1.wav
+death audio/death_1.wav

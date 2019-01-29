@@ -11,7 +11,8 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	hud(hud),
 	ani(ani),
 	geluidje(geluidje),
-	cln_h(lvls.ground),
+	lvl(std::make_shared<AnimationManager>(ani)),
+	cln_h(lvl.getLevel()->getLayer("foreground")),
 	world_physics(&player, cln_h)
 {
 	char_alpha = sf::Texture();
@@ -24,8 +25,9 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
 
 	tex.loadFromFile("assets/slimeTest.png");
-	lvls.next_lvl(player);
-
+	lvl.getLevel()->setCharacterSpawn(player);
+	enemies = lvl.getLevel()->getEnemies();
+	npcs = lvl.getLevel()->getNPCs();
 	main_camera.setCenter(player.getPosition());
 	main_camera.setSize(640, 360);
 
@@ -44,6 +46,13 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 
 
 	ai = std::make_shared<AI>();
+	for (auto & enemy : enemies) {
+		world_physics.moveables.push_back(&enemy);
+	}
+	for (auto & np : npcs) {
+		world_physics.moveables.push_back(&np);
+	}
+
 
 	world_physics.moveables.push_back(&*enemy);
 	world_physics.moveables.push_back(&*np);
@@ -144,21 +153,23 @@ void Game::handleInput()
 			{
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 				//player.fight(enemy.get());
-				if (player.fight(enemy.get()))
-				{
-					geluidje.playSoundTwo("Sword", 75.0);
-					geluidje.playSound("maleAttack", 75.0);
-					if (player.getPosition().x < enemy.get()->getPosition().x)
+				for (auto & enemy : enemies) {
+					if (player.fight(&enemy))
 					{
-						enemy.get()->setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
-					}
-					else
-					{
-						enemy.get()->setVelocity(sf::Vector2f(player.getVelocity().x - 4, -4));
-					}
+						geluidje.playSoundTwo("Sword", 75.0);
+						geluidje.playSound("maleAttack", 75.0);
+						if (player.getPosition().x < enemy.getPosition().x)
+						{
+							enemy.setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
+						}
+						else
+						{
+							enemy.setVelocity(sf::Vector2f(player.getVelocity().x - 4, -4));
+						}
 
+					}
 				}
-				std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
+				std::cout << "health enemï¿½: " << enemy.get()->health.current << "\n";
 
 			}
 		}
@@ -245,8 +256,6 @@ void Game::handleInput()
 				else
 				{
 					geluidje.playSoundTwo("maleAttack", 77.0);
-
-
 				}
 				if (player.getCurrentAnimation() != "SLASHINGright") {
 					player.setAnimation("SLASHINGright", Animation::intervals::attack);
@@ -257,32 +266,32 @@ void Game::handleInput()
 
 			}
 		}
-		//if (enemy->getAnimation().dying )
-		//{
-		//	geluidje.playSoundTwo("monster", 55.0);
-		//}
-		//if (enemy->fight(&player))
-		//{
-		//	if (!geluidje.anySound())
-		//	{
-		//		geluidje.playSoundTwo("orc", 40.0);
-		//	}
-		//}
 
 		if (!enemy.get()->checkDead()) {
 
 			ai->shouldFollow_followDirection(enemy.get(), &player);
-
+		}
 			if (aiClock.getElapsedTime().asMilliseconds() >= 300)
 			{
 				if (!enemy.get()->checkDead())
 				{
-					ai->shouldFollow_followDirection(enemy.get(), &player);
-				}
-				aiClock.restart();
-			}
 
-			break;
+				}
+			}
+		for (auto & enemy : enemies) {
+			if (!enemy.checkDead()) {
+
+				ai->shouldFollow_followDirection(&enemy, &player);
+				if (aiClock.getElapsedTime().asMilliseconds() >= 300)
+				{
+					if (!enemy.checkDead())
+					{
+						ai->shouldFollow_followDirection(&enemy, &player);
+					}
+					aiClock.restart();
+				}
+
+			}
 		}
 	}
 
@@ -300,26 +309,44 @@ void Game::update() {
 
 	case STATE::PLAYING:
 	{
-		ai->walkRandomly(np.get());
 
-		if (np->updateAnimation())
-		{
-			np->setTexture(np->currentAnimation.getCurrentFrame());
+
+		for (auto & np : npcs) {
+			ai->walkRandomly(&np);
+			if (np.updateAnimation())
+			{
+				np.setTexture(np.currentAnimation.getCurrentFrame());
+			}
 		}
 		if (player.updateAnimation())
 		{
 			player.setTexture(player.currentAnimation.getCurrentFrame());
 		}
-		if (enemy->updateAnimation())
-		{
-			enemy->setTexture(enemy->currentAnimation.getCurrentFrame());
+		for (auto & enemy : enemies) {
+			if (enemy.updateAnimation())
+			{
+				enemy.setTexture(enemy.currentAnimation.getCurrentFrame());
+			}
 		}
 
 		world_physics.step_x_moveables();
 		world_physics.step_y_moveables();
-		lvls.check_interaction(player,window);
+		if (lvl.check_interaction(player)) {
+			cln_h.collision_layer = &lvl.getLevel()->getLayer("foreground");
+			world_physics.clh = &cln_h;
+			enemies = lvl.getLevel()->getEnemies();
+			npcs = lvl.getLevel()->getNPCs();
+			world_physics.moveables.clear();
+			world_physics.moveables.push_back(&player);
+			for (auto & enemy : enemies) {
+				world_physics.moveables.push_back(&enemy);
+			}
+			for (auto & np : npcs) {
+				world_physics.moveables.push_back(&np);
+			}
 
-		np->showText(player);
+		}
+
 		hud.update();
 
 
@@ -335,21 +362,33 @@ void Game::update() {
 		}
 		projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), tobedeleted), projectiles.end());
 
-		np->showText(player);
+		for (auto & np : npcs) {
+			np.showText(player);
+		}
 		hud.update();
 			
-
-		enemy->update_info_pos(window);
+		for (auto & enemy : enemies) {
+			enemy.update_info_pos(window);
+			if (enemy.checkDead()) {
+				enemy.die();
+			}
+		}
 		if (player.checkDead()) {
 			player.die();
+		}
+
+		if (player.health.current <= 0)
+		{
+			geluidje.playSound("death", 55.0);
+
 		}
 		if (enemy.get()->checkDead()) {
 			enemy.get()->die();
 		}
 		if (player.getPosition().y > 30000) {
 			player.respawn();
+			geluidje.playSound("revive", 88);
 			player.setVelocity(sf::Vector2f(0, 0));
-
 		}
 
 	}
@@ -366,7 +405,7 @@ void Game::render() {
 	case STATE::MENU:
 	{
 		window.clear();
-		currentMenu->draw(window, lvls, enemy, main_camera, bgMain, player);
+		currentMenu->draw(window, lvl, enemy, main_camera, bgMain, player);
 		window.display();
 		break;
 	}
@@ -376,21 +415,29 @@ void Game::render() {
 	{
 
 		if (rerender) {
+
 			window.clear();
-			window.draw(lvls.background);
-			np->draw(window);
-			enemy->draw(window);
+			auto level = lvl.getLevel();
+			window.draw(level->getLayer("background"));
+			for (auto & npc : npcs) {
+				npc.draw(window);
+			}
+			for (auto & enemy : enemies) {
+				enemy.draw(window);
+			}
 			player.draw(window);
 
+			window.draw(level->getLayer("foreground"));
 
+			window.draw(level->getLayer("foreground_dmg"));
+			window.draw(level->getLayer("foreground_bounce"));
 
-			window.draw(lvls.ground);
-			window.draw(lvls.damage_background);
-			window.draw(lvls.foreground_bounce);
 			for (auto prj : projectiles) {
 				prj->draw(window);
 			}
-			window.draw(lvls.end);
+
+			window.draw(level->getLayer("lvl_end"));
+
 			auto mouse_pos = sf::Mouse::getPosition(window);
 			auto mouse_pos_relative_to_view = window.mapPixelToCoords(mouse_pos);
 			cursor.setPosition(mouse_pos_relative_to_view);
@@ -401,12 +448,11 @@ void Game::render() {
 			auto center = Collision::GetSpriteCenter(player);
 			main_camera.setCenter(center);
 			window.setView(main_camera);
-			
+
 			rerender = false;
-			
 			window.display();
+
 		}
-		
 
 		
 		
