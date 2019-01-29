@@ -12,7 +12,7 @@ fighter::fighter(statistic health_c, int lvl_c)
 
 bool fighter::fight(fighter * opponent) {
 
-	if (Collision::PixelPerfectTest(makeFightBox(), opponent->getBox())) {
+	if (Collision::PixelPerfectTest(getHitbox(), opponent->getBox())) {
 		updateFollowPosition(0);
 		opponent->take_damage(20+lvl*lvl);
 		opponent->update_info();

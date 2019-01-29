@@ -10,6 +10,7 @@ drawable::drawable(sf::Vector2f &position, sf::Vector2f scale, sf::Texture textu
 	sprite.setTexture(texture);
 	sprite.setScale(scale);
 	AABB.loadFromFile("assets/AABB.png");
+	HB.loadFromFile("assets/AABB_H.png");
 }
 
 drawable::drawable(sf::Vector2f &position, sf::Vector2f scale, const std::string &textureFile) :
@@ -22,6 +23,7 @@ drawable::drawable(sf::Vector2f &position, sf::Vector2f scale, const std::string
 	sprite.setTexture(texture, true);
 	sprite.setScale(scale);
 	AABB.loadFromFile("assets/AABB.png");
+	HB.loadFromFile("assets/AABB_H.png");
 }
 
 sf::Vector2f drawable::getPosition() {

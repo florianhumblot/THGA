@@ -24,6 +24,7 @@ public:
 
 	sf::Sprite getBox() override;
 	sf::Sprite makeFightBox() override;
+	sf::Sprite getHitbox() override;
 
 	void setProjectile(std::function<std::shared_ptr<projectile>(sf::Vector2f, sf::Vector2f, std::map<std::string, Animation>)> newS, std::map<std::string, Animation> & animations);
 	std::shared_ptr<projectile> shootProjectile(sf::Vector2f direction);

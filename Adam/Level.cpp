@@ -25,7 +25,7 @@ void Level::draw(sf::RenderTarget & w)
 void Level::addSprite(const std::string & name, const std::string & location)
 {
 	std::cout << "Loading sprite: " << name << " at: " << location << std::endl;
-	sprites[name].second.setSmooth(true);
+	//sprites[name].second.setSmooth(true);
 	Collision::CreateTextureAndBitmask(sprites[name].second, location);
 	sprites[name].first.setTexture(sprites[name].second);
 
