@@ -75,3 +75,9 @@ menuReturn audio/menuReturn_1.wav
 menuReturn audio/menuReturn_2.wav
 monsterDeath audio/monsterDeath_1.wav
 gameOver audio/gameOver_1.wav
+bounce audio/bounce_1.wav
+bounce audio/bounce_2.wav
+bounce audio/bounce_3.wav
+foregroundDMG audio/foregroundDMG_1.wav
+foregroundDMG audio/foregroundDMG_2.wav
+endLVL audio/endLVL_1.wav
