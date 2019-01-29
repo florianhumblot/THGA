@@ -313,6 +313,7 @@ void Game::update() {
 			enemies = lvl.getLevel()->getEnemies();
 			npcs = lvl.getLevel()->getNPCs();
 			world_physics.moveables.clear();
+			world_physics.moveables.push_back(&player);
 			for (auto & enemy : enemies) {
 				world_physics.moveables.push_back(&enemy);
 			}
