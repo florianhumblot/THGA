@@ -37,7 +37,6 @@ void inGameMenu::draw(sf::RenderWindow & window, LvlManager & lvls, std::shared_
 	window.draw(level->getLayer("foreground_bounce"));
 
 	window.draw(sf::Sprite(player));
-	window.draw(sf::Sprite(*enemy));
 	for (unsigned int i = 0; i < pauseOptions; i++)
 	{
 		window.draw(pauseScreen[i]);

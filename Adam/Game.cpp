@@ -180,7 +180,7 @@ void Game::handleInput()
 
 		}
 
-     	if (Keyboard::isKeyPressed(Keyboard::Escape))
+		if (Keyboard::isKeyPressed(Keyboard::Escape))
 		{
 			//window.close();
 			state = STATE::MENU;
@@ -247,7 +247,7 @@ void Game::handleInput()
 				prj->setRotation(angle_degrees);
 				prj->setVelocity(shoot_vector);
 
-				prj->setOrigin(sf::Vector2f(prj->getSize().x /2, prj->getSize().y /2));
+				prj->setOrigin(sf::Vector2f(prj->getSize().x / 2, prj->getSize().y / 2));
 				projectiles.push_back(prj);
 				if (player.role == "mage")
 				{
@@ -271,13 +271,13 @@ void Game::handleInput()
 
 			ai->shouldFollow_followDirection(enemy.get(), &player);
 		}
-			if (aiClock.getElapsedTime().asMilliseconds() >= 300)
+		if (aiClock.getElapsedTime().asMilliseconds() >= 300)
+		{
+			if (!enemy.get()->checkDead())
 			{
-				if (!enemy.get()->checkDead())
-				{
 
-				}
 			}
+		}
 		for (auto & enemy : enemies) {
 			if (!enemy.checkDead()) {
 
@@ -290,14 +290,27 @@ void Game::handleInput()
 					}
 					aiClock.restart();
 				}
+				for (auto & enemy : enemies) {
+					if (!enemy.checkDead()) {
 
+						ai->shouldFollow_followDirection(&enemy, &player);
+						if (aiClock.getElapsedTime().asMilliseconds() >= 300)
+						{
+							if (!enemy.checkDead())
+							{
+								ai->shouldFollow_followDirection(&enemy, &player);
+							}
+							aiClock.restart();
+						}
+
+					}
+				}
 			}
+
 		}
 	}
-
 	}
 }
-
 void Game::update() {
 
 	switch (state)
