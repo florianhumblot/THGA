@@ -394,6 +394,7 @@ void Game::handleInput()
 
 						if (ai->shouldFollow_followDirection(&enemy, &player, geluidje))
 						{
+							geluidje.playSound("MaleHurtPain", 50.0);
 							auto c = damage_overlay.getColor();
 							damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 100));
 						}
