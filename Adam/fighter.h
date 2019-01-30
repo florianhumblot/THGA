@@ -1,8 +1,8 @@
 #pragma once
-
+#include "Audio.h"
 #include "statistic.h"
-#include "fighter.h"
 #include "Collision.h"
+
 ///@file
 
 /// \brief
@@ -52,7 +52,7 @@ public:
 	/// If attack overlaps with opponent.
 	/// oppenent takes damage & updates info
 	/// returns if fighter has hit his oppenent
-	virtual bool fight(fighter * opponent);
+	virtual bool fight(fighter * opponent, Audio & sound);
 
 	/// \brief
 	/// take damage

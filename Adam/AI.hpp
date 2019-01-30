@@ -2,6 +2,7 @@
 #include "Enemy.hpp"
 #include "npc.hpp"
 #include "Character.h"
+#include "Audio.h"
 
 // ==========================================================================
 //
@@ -24,7 +25,7 @@ public:
 	/// \brief Updates an enemy to it's next move
 	/// \detail
 	/// This function will check what the enemy should do, follow, fight or nothing
-	void shouldFollow_followDirection(Enemy * p1, Character * p2);
+	void shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound);
 
 	/// \brief Updates the ncp to it's next move
 	/// \detail

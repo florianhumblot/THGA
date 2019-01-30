@@ -13,9 +13,11 @@
 #include "statistic.h"
 #include "Movable.h"
 #include "Animated.hpp"
+#include "Audio.h"
 #include "fighter.h"
 #include "projectile.hpp"
 #include "shooter.hpp"
+
 
 class Character :  public fighter, public Animateable, public movable, public shooter
 {
@@ -42,7 +44,7 @@ public:
 	/// \details
 	/// Sets the correct animation for fighting if it isn't already set
 	/// Tries to fight the given opponent and returns true if their was a hit and false in all other cases.
-	bool fight(fighter * opponent) override;
+	bool fight(fighter * opponent, Audio & sound) override;
 
 	/// \brief gets the collision box used for collision with the world from the drawable parent instance.
 	sf::Sprite getBox() override;

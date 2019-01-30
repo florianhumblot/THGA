@@ -1,9 +1,6 @@
-#ifndef AUDIO_HPP
-#define AUDIO_HPP
+#pragma once
 
 #include "pch.h"
-#include "Character.h"
-#include "Enemy.hpp"
 
 class Audio
 {
@@ -22,4 +19,3 @@ public:
 	void playMusic(const std::string & song,const float volume);
 	bool anySound();
 };
-#endif //AUDIO_HPP

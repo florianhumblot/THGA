@@ -1,3 +1,5 @@
-boy 690 400
-boy 1150 400
-boy 850 400
+blacksmithguy 690 520
+romaniansettler 1150 520
+sheep 850 520
+medievalhoodedgirl 1050 520
+medievalking 1100 520
