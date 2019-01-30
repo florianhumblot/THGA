@@ -21,6 +21,11 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	char_alpha_invert = sf::Texture();
 	menuTex = sf::Texture();
 
+	damage_texture.loadFromFile("assets/damage.png");
+	damage_overlay.setTexture(damage_texture);
+	auto c = damage_overlay.getColor();
+	damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 0));
+
 	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
 	bgMain = Sprite(menuTex);
 	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
@@ -367,24 +372,40 @@ void Game::handleInput()
 		for (auto & enemy : enemies) {
 			if (!enemy.checkDead()) {
 
-				ai->shouldFollow_followDirection(&enemy, &player, geluidje);
+				if (ai->shouldFollow_followDirection(&enemy, &player, geluidje))
+				{
+					auto c = damage_overlay.getColor();
+					damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 100));
+				}
 				if (aiClock.getElapsedTime().asMilliseconds() >= 300)
 				{
 					if (!enemy.checkDead())
 					{
-						ai->shouldFollow_followDirection(&enemy, &player, geluidje);
+						if (ai->shouldFollow_followDirection(&enemy, &player, geluidje))
+						{
+							auto c = damage_overlay.getColor();
+							damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 100));
+						}
 					}
 					aiClock.restart();
 				}
 				for (auto & enemy : enemies) {
 					if (!enemy.checkDead()) {
 
-						ai->shouldFollow_followDirection(&enemy, &player, geluidje);
+						if (ai->shouldFollow_followDirection(&enemy, &player, geluidje))
+						{
+							auto c = damage_overlay.getColor();
+							damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 100));
+						}
 						if (aiClock.getElapsedTime().asMilliseconds() >= 300)
 						{
 							if (!enemy.checkDead())
 							{
-								ai->shouldFollow_followDirection(&enemy, &player, geluidje);
+								if (ai->shouldFollow_followDirection(&enemy, &player, geluidje))
+								{
+									auto c = damage_overlay.getColor();
+									damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 100));
+								}
 							}
 							aiClock.restart();
 						}
@@ -408,6 +429,10 @@ void Game::update() {
 
 	case STATE::PLAYING:
 	{
+
+		auto c = damage_overlay.getColor();
+		if (damage_overlay.getColor().a > 0)
+			damage_overlay.setColor(sf::Color(c.r, c.g, c.b, c.a - 1));
 		//if (player.getVelocity().y == 0 && player.getVelocity().x > 2)
 		//{
 		//	geluidje.playSound("footStep", 11.0);
@@ -608,6 +633,8 @@ void Game::render() {
 			window.draw(cursor);
 			window.setView(main_HUD);
 			hud.draw(window);
+
+			if (damage_overlay.getColor().a > 0) window.draw(damage_overlay);
 
 			auto center = Collision::GetSpriteCenter(player);
 			center.y -= 50;
