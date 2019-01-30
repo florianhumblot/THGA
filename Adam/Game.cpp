@@ -315,14 +315,14 @@ void Game::update() {
 
 	case STATE::PLAYING:
 	{
-		if (player.getVelocity().y == 0 && player.getVelocity().x > 2)
-		{
-			geluidje.playSound("footStep", 11.0);
-		}
-		if (player.getVelocity().y == 0 && player.getVelocity().x < -2)
-		{
-			geluidje.playSound("footStep", 11.0);
-		}
+		//if (player.getVelocity().y == 0 && player.getVelocity().x > 2)
+		//{
+		//	geluidje.playSound("footStep", 11.0);
+		//}
+		//if (player.getVelocity().y == 0 && player.getVelocity().x < -2)
+		//{
+		//	geluidje.playSound("footStep", 11.0);
+		//}
 
 		for (auto & np : npcs) {
 			ai->walkRandomly(&np);
