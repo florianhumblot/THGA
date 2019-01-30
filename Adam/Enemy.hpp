@@ -14,18 +14,21 @@ private:
 	std::array<sf::Text, 2> text;
 	int teller = 0;
 
-	enum class STATE { IDLE, FOLLOWING, DEAD };
+	enum class STATE { IDLE, WALKING, FOLLOWING, DEAD };
 	STATE state = STATE::IDLE;
 
 public:
-
-	enum class direction { LEFT, RIGHT };
-	direction current_direction = direction::RIGHT;
+	sf::Vector2f originPos;
+	int lastDirection;
+//	enum class direction { LEFT, RIGHT };
+//	direction current_direction = direction::RIGHT;
 	void update_info() override;
 	void update_info_pos(sf::RenderWindow & window) override;
 	Enemy() {}
 	Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 
+	bool isWalking();
+	void updateState();
 	bool fight(fighter * opponent) override;
 
 	sf::Sprite makeFightBox() override;
