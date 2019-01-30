@@ -34,4 +34,5 @@ lvl5 foreground_bounce assets/backgrounds/emptylvl.png
 lvl5 lvl_end assets/backgrounds/emptylvl.png
 lvl5 infinity assets/backgrounds/VictoryInfinity.png
 lvl5 spawnpoint_player 1150,1000
+lvl5 npcs assets/backgrounds/npcslvl5.txt
 lvl5 next_level lvl5
