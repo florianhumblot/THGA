@@ -149,7 +149,7 @@ void Game::handleInput()
 				player.canJump = false;
 				if (!player.checkDead() && player.jumpCount < 2)
 				{
-					geluidje.playSoundTwo("jump", 77.0);
+					geluidje.playSoundTwo("jump", 30.0);
 					player.setVelocity(sf::Vector2f(player.getVelocity().x, -6));
 					player.jumpCount++;
 				}
@@ -166,8 +166,8 @@ void Game::handleInput()
 					for (auto & enemy : enemies) {
 						if (player.fight(&enemy))
 						{
-							geluidje.playSoundTwo("Sword", 75.0);
-							geluidje.playSound("maleAttack", 75.0);
+							geluidje.playSoundTwo("Sword", 45.0);
+							geluidje.playSound("maleAttack", 45.0);
 							if (player.getPosition().x < enemy.getPosition().x)
 							{
 								enemy.setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
@@ -265,9 +265,9 @@ void Game::handleInput()
 				//play sound according to role chosen
 				if (!player.mana.is_zero()) {
 					if (player.role == "mage")
-						geluidje.playSoundTwo("Fireball", 75.0);
+						geluidje.playSoundTwo("Fireball", 50.0);
 					else
-						geluidje.playSoundTwo("maleAttack", 77.0);
+						geluidje.playSoundTwo("maleAttack", 45.0);
 				}
 
 				//flip player sprite to show which way its shooting
