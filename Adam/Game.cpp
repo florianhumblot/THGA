@@ -246,7 +246,10 @@ void Game::handleInput()
 		if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Button::Right) {
 			if (ev.key.code == sf::Mouse::Right && !player.checkDead()) {
 
-				player.state = state::SLASHING;
+				//set player state to slashing and lock x movement
+				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
+				if(player.state != state::SLASHING) player.state = state::SLASHING;
+
 
 				//math stuff to get mouse angle for projectile
 				auto mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
