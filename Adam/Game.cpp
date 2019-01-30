@@ -197,6 +197,9 @@ void Game::handleInput()
 							{
 								enemy.setVelocity(sf::Vector2f(player.getVelocity().x - 4, -4));
 							}
+							if (enemy.checkDead()) {
+								player.mana.add(50);
+							}
 						}
 					}
 				}
@@ -231,6 +234,7 @@ void Game::handleInput()
 			{
 				player.state = state::WALKING;
 				player.setScale(sf::Vector2f(0.2, 0.2));
+				player.current_direction = movable::direction::RIGHT;
 				player.setVelocity(sf::Vector2f(3, player.getVelocity().y));
 			}
 		}
@@ -241,6 +245,7 @@ void Game::handleInput()
 			{
 				player.state = state::WALKING;
 				player.setScale(sf::Vector2f(-0.2, 0.2));
+				player.current_direction = movable::direction::LEFT;
 				player.setVelocity(sf::Vector2f(-3, player.getVelocity().y));
 			}
 		}
@@ -272,16 +277,37 @@ void Game::handleInput()
 				if(player.state != state::SLASHING) player.state = state::SLASHING;
 
 
-				//math stuff to get mouse angle for projectile
+				//get mousePosition
 				auto mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-				auto delta = mouse_pos - player.getPosition();
+
+				//player pos stuff
+				auto pPos = player.getPosition();
+				pPos.x = pPos.x + (sf::Sprite(player).getGlobalBounds().width / 2);
+
+
+				//flip player sprite to show which way its shooting
+				if (mouse_pos.x < player.getPosition().x) {
+					player.setScale(sf::Vector2f(-0.2, 0.2));
+					player.current_direction = movable::direction::LEFT;
+					pPos.y = pPos.y + (sf::Sprite(player).getGlobalBounds().height / 2);
+				}
+				else {
+					player.setScale(sf::Vector2f(0.2, 0.2));
+					player.current_direction = movable::direction::RIGHT;
+				}
+
+
+
+				//math stuff to get mouse angle for projectile
+				auto delta = mouse_pos - pPos;
 				float angle_r = atan2(delta.y, delta.x);
 				auto angle_degrees = angle_r * (180 / 3.14);
 				auto delta_normalized = delta / sqrt(pow(delta.x, 2) + pow(delta.y, 2));
 				sf::Vector2f shoot_vector(delta_normalized * 15.f);
 
-				player.shootProjectile(player.getPosition(), shoot_vector, angle_degrees); //TODO: expensive operation, drops FPS
 
+				//shoot the projectile
+				player.shootProjectile(pPos, shoot_vector, angle_degrees); 
 
 				//play sound according to role chosen
 				if (!player.mana.is_zero()) {
@@ -291,11 +317,6 @@ void Game::handleInput()
 						geluidje.playSoundTwo("maleAttack", 45.0);
 				}
 
-				//flip player sprite to show which way its shooting
-				if (mouse_pos.x < player.getPosition().x) 
-					player.setScale(sf::Vector2f(-0.2, 0.2));
-				else 
-					player.setScale(sf::Vector2f(0.2, 0.2));
 			}
 		}
 
@@ -439,6 +460,7 @@ void Game::update() {
 				for (auto & enemie : enemies) {
 					if (prj->fight(&enemie)) {
 						player.update_exp(20);
+						player.mana.add(50);
 					}
 				}
 				if (Collision::PixelPerfectTest(lvl.getLevel()->getLayer("foreground"), prj->operator sf::Sprite() )) {
@@ -471,7 +493,16 @@ void Game::update() {
 			geluidje.playSound("death", 55.0);
 		}
 
-		if (player.mana.current < player.mana.max / 2)
+		if (player.health.current < player.health.max)
+		{
+			if (healthClock.getElapsedTime().asSeconds() > 2.0)
+			{
+				player.health.add(2);
+				healthClock.restart();
+			}
+		}
+
+		if (player.mana.current < player.mana.max)
 		{
 			if (manaClock.getElapsedTime().asSeconds() > 2.0)
 			{
@@ -533,7 +564,6 @@ void Game::render() {
 		//	window.draw(lvls.foreground_bounce);
 			for (auto &prj : player.projectiles) {
 				if (!prj->isDeath()) {
-		//			std::cout << "hier tekenene \n";
 					prj->draw(window);
 				}
 

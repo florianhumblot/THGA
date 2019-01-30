@@ -48,9 +48,14 @@ sf::Sprite Character::makeFightBox() {
 	temp.setScale(scale);
 	return temp;
 }
-void Character::shootProjectile(sf::Vector2f position, sf::Vector2f direction, float angle) {
-	if (!mana.is_zero()) {
-		shooter::shootProjectile(position, direction, angle);
+void Character::shootProjectile(sf::Vector2f pos, sf::Vector2f direction, float angle) {
+	if (mana.current >= 20) {
+	//	pos.x = pos.x + (sprite.getGlobalBounds().width / 2);
+	//	if (current_direction == direction::LEFT) {
+		//	std::cout << "je muil! ";
+		//	pos.y = pos.y + 500;
+	//	}
+		shooter::shootProjectile(pos, direction, angle);
 		mana.sub(20);
 	}
 }
