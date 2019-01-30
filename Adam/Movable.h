@@ -6,6 +6,7 @@ protected:
 	sf::Vector2f velocity;
 	
 public:
+	bool collide_others = true;
 	bool canJump = true;
 	int jumpCount = 0;
 

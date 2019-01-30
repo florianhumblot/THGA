@@ -26,6 +26,7 @@ public:
 		walk = 10,
 		attack = 50,
 		dying = 50,
+		jump = 10
 	};
 
 	/// \brief the name of the animation
@@ -51,6 +52,8 @@ public:
 	sf::Texture & nextFrame();
 	/// \brief returns the current frame of the animation.
 	sf::Texture & getCurrentFrame();
+	/// \brief returns the last frame of the animation.
+	sf::Texture & getLastFrame();
 	/// \brief resets the animation to it's starting point.
 	/// \detail
 	/// Sets the done flag to false and resets the index to the start of the vector.

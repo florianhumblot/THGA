@@ -56,6 +56,7 @@ private:
 
 	sf::Clock Clock;
 	sf::Clock aiClock;
+	sf::Clock manaClock;
 
 	Adam::collision_handler cln_h;
 	Adam::physics world_physics;
@@ -68,7 +69,6 @@ private:
 
 	std::shared_ptr<AI> ai;
 	
-
 	AnimationManager & ani;
 	enum class STATE { MENU, PLAYING, GAMEOVER };
 	enum STATE state;

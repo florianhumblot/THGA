@@ -88,12 +88,14 @@ Character::~Character()
 {
 }
 
-void Character::update_exp(int amount)
+bool Character::update_exp(int amount)
 {
 	exp.add(amount);
 	if (exp.is_max()) {
 		lvl++;
 		exp.set_max(exp.max + 20);
 		exp.zero();
+		return true;
 	}
+	return false;
 }

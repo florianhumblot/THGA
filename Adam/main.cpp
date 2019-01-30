@@ -33,18 +33,23 @@ public:
 void render_loading_screen(sf::RenderWindow & w, bool & loaded)
 {
 	sf::Sprite loader;
+	sf::Sprite background;
 	sf::Texture loader_png;
+	sf::Texture background_texture;
 	loader_png.loadFromFile("assets/loader.png");
+	background_texture.loadFromFile("assets/backgrounds/loadingScreen.png");
 	loader_png.setSmooth(true);
 	loader.setTexture(loader_png);
+	background.setTexture(background_texture);
 	loader.setOrigin(sf::Vector2f(loader_png.getSize().x / 2, loader_png.getSize().y / 2));
-	loader.setPosition(sf::Vector2f(w.getSize().x / 2, w.getSize().y / 2));
+	loader.setPosition(sf::Vector2f(w.getSize().x - loader.getTextureRect().width * 0.2, w.getSize().y - loader.getTextureRect().height * 0.2));
 	loader.setScale(sf::Vector2f(0.2, 0.2));
 
 	w.setFramerateLimit(60);
 	while (!loaded)
 	{
 		w.clear();
+		w.draw(background);
 		w.draw(loader);
 		loader.rotate(10);
 		w.display();

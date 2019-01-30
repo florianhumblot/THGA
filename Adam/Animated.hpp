@@ -28,7 +28,8 @@ public:
 		IDLE = 1,
 		WALKING,
 		SLASHING,
-		DEAD
+		DEAD,
+		JUMPING
 	};
 
 	states state;

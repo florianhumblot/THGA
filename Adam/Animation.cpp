@@ -39,6 +39,11 @@ sf::Texture & Animation::getCurrentFrame()
 	}
 }
 
+sf::Texture & Animation::getLastFrame()
+{
+	return textures.back();
+}
+
 
 void Animation::reset_animation()
 {

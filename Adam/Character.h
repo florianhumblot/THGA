@@ -31,7 +31,7 @@ public:
 	/// \brief The selected class of the character
 	std::string role;
 	/// \brief Updates the experience of the player by the specified amount.
-	void update_exp(int amount);
+	bool update_exp(int amount);
 	/// \brief Resets the player's position to the spawn point and resets it's health to it's maximum.
 	void respawn();
 
