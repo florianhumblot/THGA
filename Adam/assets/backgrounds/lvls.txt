@@ -18,3 +18,12 @@ lvl1 spawnpoint_player 890,690
 lvl1 enemies assets/backgrounds/enemys.txt
 lvl1 npcs assets/backgrounds/npcs.txt
 lvl1 next_level lvl2
+lvl0 background assets/backgrounds/lvl0BG.png
+lvl0 foreground assets/backgrounds/lvl0FG.png
+lvl0 foreground_dmg assets/backgrounds/emptylvl.png
+lvl0 foreground_bounce assets/backgrounds/emptylvl.png
+lvl0 lvl_end assets/backgrounds/lvl0LVLend.png
+lvl0 infinity assets/backgrounds/emptylvl.png
+lvl0 spawnpoint_player 450,400
+lvl0 npcs assets/backgrounds/npcslvl0.txt
+lvl0 next_level lvl1

@@ -30,7 +30,7 @@ public:
 	~LvlManager();
 
 	/// \brief keeps track of the current level
-	std::string current_level = "lvl1";
+	std::string current_level = "lvl0";
 
 	/// \brief sets the current level to the one specified by it's name in the parameter.
 	void make_lvl(std::string lvl_name);
