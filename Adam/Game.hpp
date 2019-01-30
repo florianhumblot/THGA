@@ -1,4 +1,14 @@
 #pragma once
+// ==========================================================================
+//
+// File      : Game.hpp
+//
+// ==========================================================================
+
+// this file contains Doxygen lines
+///file Game.hpp
+/// \brief Game class.
+
 
 #include "Collision.h"
 #include "Character.h"
@@ -77,12 +87,29 @@ private:
 
 public:
 
+	/// \brief construct a game class. 
 	Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani, Audio & geluidje);
 
+	/// \brief Handle the gameinput
+	/// \detail
+	/// Inputhandling depends on the state (menu or playing)
+	/// It also depends on the players state
 	void handleInput();
+
+	/// \brief Update gameplay
+	/// \detail
+	/// Inputhandling depends on the state (menu or playing)
+	/// Only when the state is Playing, the game will be updated
 	void update();
+
+	/// \brief Render game
+	/// \detail
+	/// Rendering depends on the state (menu or playing) 
+	/// State menu shows the current menu
+	/// state playing shows the game
 	void render();
 
+	/// \brief Returns game
 	sf::RenderWindow & getWindow() {
 		return window;
 	}
