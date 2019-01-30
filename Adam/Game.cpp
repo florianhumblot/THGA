@@ -2,7 +2,7 @@
 #include "Game.hpp"
 #include "Menu.hpp"
 #include "npc.hpp"
-#include "Audio.hpp"
+#include "Audio.h"
 
 typedef Animateable::states state;
 
@@ -132,6 +132,8 @@ void Game::handleInput()
 						}
 						main_camera.setCenter(player.getPosition());
 						main_camera.setSize(560, 315);
+						state = STATE::PLAYING;
+						currentMenu->setInGame();
 					}
 					else if (menuResult == 3) {
 						state = STATE::GAMEOVER;
@@ -185,7 +187,7 @@ void Game::handleInput()
 					player.state = state::SLASHING;
 
 					for (auto & enemy : enemies) {
-						if (player.fight(&enemy))
+						if (player.fight(&enemy, geluidje))
 						{
 							geluidje.playSoundTwo("Sword", 45.0);
 							geluidje.playSound("maleAttack", 45.0);
@@ -365,24 +367,24 @@ void Game::handleInput()
 		for (auto & enemy : enemies) {
 			if (!enemy.checkDead()) {
 
-				ai->shouldFollow_followDirection(&enemy, &player);
+				ai->shouldFollow_followDirection(&enemy, &player, geluidje);
 				if (aiClock.getElapsedTime().asMilliseconds() >= 300)
 				{
 					if (!enemy.checkDead())
 					{
-						ai->shouldFollow_followDirection(&enemy, &player);
+						ai->shouldFollow_followDirection(&enemy, &player, geluidje);
 					}
 					aiClock.restart();
 				}
 				for (auto & enemy : enemies) {
 					if (!enemy.checkDead()) {
 
-						ai->shouldFollow_followDirection(&enemy, &player);
+						ai->shouldFollow_followDirection(&enemy, &player, geluidje);
 						if (aiClock.getElapsedTime().asMilliseconds() >= 300)
 						{
 							if (!enemy.checkDead())
 							{
-								ai->shouldFollow_followDirection(&enemy, &player);
+								ai->shouldFollow_followDirection(&enemy, &player, geluidje);
 							}
 							aiClock.restart();
 						}
@@ -458,7 +460,7 @@ void Game::update() {
 			if (!prj->isDeath()) {
 				prj->updateLive(1);
 				for (auto & enemie : enemies) {
-					if (prj->fight(&enemie)) {
+					if (prj->fight(&enemie, geluidje)) {
 						player.update_exp(20);
 						player.mana.add(50);
 					}
@@ -468,7 +470,9 @@ void Game::update() {
 				}
 				prj->setTexture(prj->currentAnimation.nextFrame());
 				prj->move();
+				
 			}
+			
 		}
 
 		for (auto & np : npcs) {
@@ -583,7 +587,15 @@ void Game::render() {
 				if (!prj->isDeath()) {
 					prj->draw(window);
 				}
-
+				
+				if (prj->isDeath() && !prj->currentAnimationIsDone()) {
+					
+					prj->setTexture(prj->currentAnimation.nextFrame());
+					prj->draw(window);
+				}
+				/*if (prj->isDeath() && prj->currentAnimationIsDone()) {
+					prj->setAnimation(prj->animation_name, Animation::intervals::idle);
+				}*/
 			}
 
 			window.draw(level->getLayer("lvl_end"));

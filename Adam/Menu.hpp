@@ -9,7 +9,7 @@
 class Menu {
 public:
 	enum class menu_states { MAIN, NEWGAME, INGAME };
-	enum menu_states menu_states = menu_states::MAIN;
+	menu_states menu_states = menu_states::MAIN;
 
 	int selectedItem;
 

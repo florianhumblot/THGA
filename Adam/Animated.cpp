@@ -31,6 +31,7 @@ std::string Animateable::getCurrentAnimation() {
 void Animateable::setAnimation(std::string animation, int interval) {
 	animation_interval = interval;
 	currentAnimation = (*animations)[animation];
+	currentAnimation.reset_animation();
 }
 
 void Animateable::setAnimationMap(std::map<std::string, Animation> & newAnimations)

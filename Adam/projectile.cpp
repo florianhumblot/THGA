@@ -10,6 +10,11 @@ projectile::projectile(sf::Vector2f &position, sf::Vector2f scale, std::map<std:
 	death = true;
 }
 
+void projectile::setImpactName(const std::string & name)
+{
+	impact_name = name;
+}
+
 
 
 void projectile::setDamage(float dmg) {
@@ -27,6 +32,9 @@ float projectile::getDamage() {
 void projectile::updateLive(int minus){
 	live -= minus;
 	if (live <= 0) {
+		if(getCurrentAnimation() != impact_name) {
+			setAnimation(impact_name, Animation::intervals::dying);
+		}
 		death = true;
 	}
 }
@@ -36,12 +44,16 @@ bool projectile::isDeath() {
 }
 
 void projectile::revive() {
+	setAnimation(animation_name, Animation::intervals::idle);
 	live = 50;
 	death = false;
 }
 
-bool projectile::fight(fighter * opponent) {
-	if (fighter::fight(opponent)) {
+bool projectile::fight(fighter * opponent, Audio & sound) {
+	if (fighter::fight(opponent, sound)) {
+		if (getCurrentAnimation() != impact_name) {
+			setAnimation(impact_name, Animation::intervals::dying);
+		}
 		death = true;
 		if (opponent->checkDead()) {
 			return true;
@@ -68,6 +80,9 @@ sf::Sprite projectile::getHitbox() {
 
 void projectile::die()
 {
+	if (getCurrentAnimation() != impact_name) {
+		setAnimation(impact_name, Animation::intervals::dying);
+	}
 	death = true;
 }
 

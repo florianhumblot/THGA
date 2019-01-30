@@ -25,9 +25,9 @@ Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::st
 	exp = exp_c;
 }
 
-bool Character::fight(fighter * opponent) {
+bool Character::fight(fighter * opponent, Audio & sound) {
 
-	if (fighter::fight(opponent)) {
+	if (fighter::fight(opponent, sound)) {
 
 		if (fighter::checkDead()) {
 			setPosition(sf::Vector2f(890, 690));

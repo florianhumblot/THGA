@@ -4,6 +4,7 @@
 #include "Collision.h"
 #include "statistic.h"
 #include "Movable.h"
+#include "Audio.h"
 #include "fighter.h"
 #include "Animated.hpp"
 
@@ -16,7 +17,7 @@
 
 // this file contains Doxygen lines
 ///file Enemy.hpp
-/// \brief Enemy class 
+/// \brief Enemy class
 /// \details
 /// This class is for the fighting npc's
 
@@ -27,21 +28,29 @@ private:
 	std::array<sf::Text, 2> text;
 	int teller = 0;
 
-	enum class STATE { IDLE, FOLLOWING, DEAD };
+	enum class STATE { IDLE, WALKING, FOLLOWING, DEAD };
+
 	STATE state = STATE::IDLE;
 
 public:
 	/// \brief container for the walking direction
-	enum class direction { LEFT, RIGHT };
+	///enum class direction { LEFT, RIGHT };
 	/// \brief variable for the current direction
-	direction current_direction = direction::RIGHT;
-	/// \brief 
+	//direction current_direction = direction::RIGHT;
+	/// \brief
+	sf::Vector2f originPos;
+	int lastDirection;
+//	enum class direction { LEFT, RIGHT };
+//	direction current_direction = direction::RIGHT;
 	void update_info() override;
 	void update_info_pos(sf::RenderWindow & window) override;
 	Enemy() {}
 	Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 
-	bool fight(fighter * opponent) override;
+	bool isWalking();
+	void updateState();
+
+	bool fight(fighter * opponent, Audio & sound) override;
 
 	sf::Sprite makeFightBox() override;
 	sf::Sprite getBox() override;

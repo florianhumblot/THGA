@@ -1,1 +1,2 @@
-boy 1670 590 {hello, this#is#a#test, vera#did#this }
+monkguy 1655 590 {hello, this#is#a#test, vera#did#this }
+boy 2335 630 {hello, this#is#a#test, vera#did#this }

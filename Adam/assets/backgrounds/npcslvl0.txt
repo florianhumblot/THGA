@@ -1,3 +1,5 @@
-boy 690 400 {hello, this#is#a#test, vera#did#this }
-boy 1150 400 {hello#again, this#is#a#test, vera#did#this }
-boy 850 400 {hello#again, this#is#another#test, Go#get#that#basterd }
+blacksmithguy 690 520 {hello, this#is#a#test, vera#did#this }
+romaniansettler 1150 520 {hello, this#is#a#test, vera#did#this }
+sheep 850 520 {hello, this#is#a#test, vera#did#this }
+medievalhoodedgirl 1050 520 {hello, this#is#a#test, vera#did#this }
+medievalking 1100 520 {hello, this#is#a#test, vera#did#this }
