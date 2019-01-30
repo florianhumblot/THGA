@@ -2,7 +2,7 @@
 #include "Game.hpp"
 #include "Menu.hpp"
 #include "npc.hpp"
-#include "Audio.hpp"
+#include "Audio.h"
 
 typedef Animateable::states state;
 
@@ -185,7 +185,7 @@ void Game::handleInput()
 					player.state = state::SLASHING;
 
 					for (auto & enemy : enemies) {
-						if (player.fight(&enemy))
+						if (player.fight(&enemy, geluidje))
 						{
 							geluidje.playSoundTwo("Sword", 45.0);
 							geluidje.playSound("maleAttack", 45.0);
@@ -365,24 +365,24 @@ void Game::handleInput()
 		for (auto & enemy : enemies) {
 			if (!enemy.checkDead()) {
 
-				ai->shouldFollow_followDirection(&enemy, &player);
+				ai->shouldFollow_followDirection(&enemy, &player, geluidje);
 				if (aiClock.getElapsedTime().asMilliseconds() >= 300)
 				{
 					if (!enemy.checkDead())
 					{
-						ai->shouldFollow_followDirection(&enemy, &player);
+						ai->shouldFollow_followDirection(&enemy, &player, geluidje);
 					}
 					aiClock.restart();
 				}
 				for (auto & enemy : enemies) {
 					if (!enemy.checkDead()) {
 
-						ai->shouldFollow_followDirection(&enemy, &player);
+						ai->shouldFollow_followDirection(&enemy, &player, geluidje);
 						if (aiClock.getElapsedTime().asMilliseconds() >= 300)
 						{
 							if (!enemy.checkDead())
 							{
-								ai->shouldFollow_followDirection(&enemy, &player);
+								ai->shouldFollow_followDirection(&enemy, &player, geluidje);
 							}
 							aiClock.restart();
 						}
@@ -458,7 +458,7 @@ void Game::update() {
 			if (!prj->isDeath()) {
 				prj->updateLive(1);
 				for (auto & enemie : enemies) {
-					if (prj->fight(&enemie)) {
+					if (prj->fight(&enemie, geluidje)) {
 						player.update_exp(20);
 						player.mana.add(50);
 					}

@@ -40,8 +40,8 @@ void projectile::revive() {
 	death = false;
 }
 
-bool projectile::fight(fighter * opponent) {
-	if (fighter::fight(opponent)) {
+bool projectile::fight(fighter * opponent, Audio & sound) {
+	if (fighter::fight(opponent, sound)) {
 		death = true;
 		if (opponent->checkDead()) {
 			return true;

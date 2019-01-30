@@ -18,7 +18,7 @@
 #include "ingameMenu.hpp"
 #include "AI.hpp"
 #include "fighter.h"
-#include "Audio.hpp"
+#include "Audio.h"
 #include "LvlManager.h"
 #include "npc.hpp"
 

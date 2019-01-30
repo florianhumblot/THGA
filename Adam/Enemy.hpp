@@ -4,8 +4,10 @@
 #include "Collision.h"
 #include "statistic.h"
 #include "Movable.h"
+#include "Audio.h"
 #include "fighter.h"
 #include "Animated.hpp"
+
 
 class Enemy : public fighter, public Animateable, public movable
 {
@@ -13,7 +15,6 @@ private:
 	sf::Font font;
 	std::array<sf::Text, 2> text;
 	int teller = 0;
-
 	enum class STATE { IDLE, FOLLOWING, DEAD };
 	STATE state = STATE::IDLE;
 
@@ -26,7 +27,7 @@ public:
 	Enemy() {}
 	Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 
-	bool fight(fighter * opponent) override;
+	bool fight(fighter * opponent, Audio & sound) override;
 
 	sf::Sprite makeFightBox() override;
 	sf::Sprite getBox() override;
