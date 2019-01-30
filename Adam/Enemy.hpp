@@ -7,6 +7,19 @@
 #include "fighter.h"
 #include "Animated.hpp"
 
+
+// ==========================================================================
+//
+// File      : Enemy.hpp
+//
+// ==========================================================================
+
+// this file contains Doxygen lines
+///file Enemy.hpp
+/// \brief Enemy class 
+/// \details
+/// This class is for the fighting npc's
+
 class Enemy : public fighter, public Animateable, public movable
 {
 private:
@@ -18,9 +31,11 @@ private:
 	STATE state = STATE::IDLE;
 
 public:
-
+	/// \brief container for the walking direction
 	enum class direction { LEFT, RIGHT };
+	/// \brief variable for the current direction
 	direction current_direction = direction::RIGHT;
+	/// \brief 
 	void update_info() override;
 	void update_info_pos(sf::RenderWindow & window) override;
 	Enemy() {}

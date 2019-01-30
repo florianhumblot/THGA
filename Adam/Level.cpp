@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "Level.h"
+#include <vector>
+#include <string>
 
 
 Level::Level(std::shared_ptr<AnimationManager> ani) : ani(ani)
@@ -48,16 +50,42 @@ void Level::enemy_factory(std::string s)
 	}
 }
 
+bool getVectorString(std::ifstream & input, std::vector<std::string> & npc_text) {
+	char c;
+	std::string tempString = "";
+	if (!(input >> c)) {
+		return false;
+	}
+	if (c != '{') {
+		std::cout << "-------------------------" << c << "\n";
+		return false;
+	}
+	while (c != '}') {
+		while ((input >> c) && (c != ',' && c != '}') ){
+			tempString += c;
+			if (c == ' ') {
+				tempString += " ";
+			}
+		}
+		std::cout << "--------------------------------------" << tempString << "\n";
+		npc_text.push_back(tempString);
+		tempString = "";
+	}
+	return true;
+}
+
+
+
 void Level::npc_factory(std::string s)
 {
 	std::ifstream lvls_file(s);
 	if (lvls_file.is_open())
 	{
 		std::string png, posx, posy = "";
-
-		while (lvls_file >> png >> posx >> posy)
+		std::vector<std::string> npc_text = {};
+		while (lvls_file >> png >> posx >> posy && getVectorString(lvls_file, npc_text))
 		{
-			npcs.push_back(npc(sf::Vector2f(stoi(posx), stoi(posy)), sf::Vector2f(0.2, 0.2), ani->animations[png], sf::Vector2f(0, 0), statistic(200, 200)));
+			npcs.push_back(npc(sf::Vector2f(stoi(posx), stoi(posy)), sf::Vector2f(0.2, 0.2), ani->animations[png], sf::Vector2f(0, 0), npc_text, statistic(200, 200)));
 			npcs.back().setAnimation("IDLEright", Animation::intervals::idle);
 			npcs.back().setTexture(npcs.back().currentAnimation.getCurrentFrame());
 		}
