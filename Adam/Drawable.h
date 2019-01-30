@@ -20,6 +20,7 @@ protected:
 	
 public:
 	sf::Texture AABB;
+	sf::Texture HB;
 
 	/// \details
 	/// default class constructor, only loads the AABB hitbox texture from disk.
@@ -62,6 +63,18 @@ public:
 		temp.setTexture(AABB);
 		temp.setScale(scale);
 		return temp;
+	}
+
+	virtual sf::Sprite getHitbox()
+	{
+		auto tmp = sf::Sprite();
+		tmp.setTexture(HB);
+		if (sprite.getScale().x < 0)
+			tmp.setPosition(sf::Vector2f(position.x - (texture.getSize().x * sprite.getScale().x), position.y));
+		else
+			tmp.setPosition(position);
+		tmp.setScale(sprite.getScale());
+		return tmp;
 	}
 
 	/// \details

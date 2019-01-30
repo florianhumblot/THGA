@@ -53,15 +53,40 @@ bool projectile::fight(fighter * opponent) {
 
 sf::Sprite projectile::getBox()
 {
-	return sf::Sprite();
+	return drawable::operator sf::Sprite();
 }
+
 
 sf::Sprite projectile::makeFightBox()
 {
 	return drawable::operator sf::Sprite();
 }
 
+sf::Sprite projectile::getHitbox() {
+	return drawable::operator sf::Sprite();
+}
+
 void projectile::die()
 {
 	death = true;
+}
+
+void projectile::move() {
+	movDeco(velocity);
+	movable::move();
+}
+
+void projectile::setVelocity(sf::Vector2f newVel) {
+	std::cout << newVel.x << " ";
+	veloDeco(newVel);
+	std::cout << newVel.x << " ";
+	movable::setVelocity(newVel);
+}
+
+void projectile::setMovDeco(std::function<void(sf::Vector2f&)> NmovDeco) {
+	movDeco = NmovDeco;
+}
+
+void projectile::setVeloDeco(std::function<void(sf::Vector2f&)> NveloDeco) {
+	veloDeco = NveloDeco;
 }

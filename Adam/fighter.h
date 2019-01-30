@@ -76,6 +76,8 @@ public:
 	/// Must be used to implement a get function.
 	virtual sf::Sprite getBox() = 0;
 
+	virtual sf::Sprite getHitbox() { return sf::Sprite(); }
+
 	/// \brief
 	/// update_info
 	/// \details

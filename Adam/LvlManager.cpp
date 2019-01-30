@@ -75,22 +75,23 @@ sf::Vector2f LvlManager::to_vector(const std::string & vec)
 	}
 }
 
-bool LvlManager::check_interaction(Character & player) {
+bool LvlManager::check_interaction(Character & player, Audio & sound) {
 	if (Collision::PixelPerfectTest(levels[current_level].getLayer("foreground_dmg"), player))
 	{
 		player.health.sub(((float)(player.health.max / 100) * 0.5f));
-
 	}
 
 	if (Collision::PixelPerfectTest(levels[current_level].getLayer("infinity"), player))
 	{
 		std::cout << "DEAD" << std::endl;
+		sound.playSound("revive", 55.0f);
 		player.respawn();
 	}
 
 	if (Collision::PixelPerfectTest(levels[current_level].getLayer("lvl_end"), player))
 	{
 		//next_lvl(player);
+		sound.playSound("endLVL", 100.0f);
 		current_level = levels[current_level].get_next_level();
 		levels[current_level].setCharacterSpawn(player);
 		player.respawn();
@@ -99,7 +100,7 @@ bool LvlManager::check_interaction(Character & player) {
 	if (Collision::PixelPerfectTest(levels[current_level].getLayer("foreground_bounce"), player))
 	{
 		player.setVelocity(sf::Vector2f(player.getVelocity().x, -2 * levels[current_level].bounce_velocity));
-
+		sound.playSound("bounce", 15.0f);
 		if (levels[current_level].bounce_velocity < 9)
 		{
 			levels[current_level].bounce_velocity += 2;

@@ -35,6 +35,18 @@ void shooter::setProjectile(std::function<std::shared_ptr<projectile>(sf::Vector
 	}
 }
 
+void shooter::setVeloDeco(std::function<void(sf::Vector2f&)> NveloDeco){
+	for (auto & prj: projectiles) {
+		prj->setVeloDeco(NveloDeco);
+	}
+}
+
+void shooter::setMovDeco(std::function<void(sf::Vector2f&)> NmovDeco){
+	for (auto & prj : projectiles) {
+		prj->setMovDeco(NmovDeco);
+	}
+}
+
 
 shooter::~shooter()
 {
