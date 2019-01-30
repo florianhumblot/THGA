@@ -27,6 +27,7 @@ public:
 	bool fight(fighter * opponent) override;
 	sf::Sprite getBox() override;
 	sf::Sprite makeFightBox() override;
+	sf::Sprite getHitbox() override;
 	void die() override;
 	
 };

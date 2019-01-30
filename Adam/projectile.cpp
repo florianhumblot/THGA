@@ -53,11 +53,16 @@ bool projectile::fight(fighter * opponent) {
 
 sf::Sprite projectile::getBox()
 {
-	return sf::Sprite();
+	return drawable::operator sf::Sprite();
 }
+
 
 sf::Sprite projectile::makeFightBox()
 {
+	return drawable::operator sf::Sprite();
+}
+
+sf::Sprite projectile::getHitbox() {
 	return drawable::operator sf::Sprite();
 }
 

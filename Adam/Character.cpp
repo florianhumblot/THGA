@@ -5,13 +5,13 @@ void Character::respawn()
 {
 	setPosition(spawn);
 	health.current = health.max;
+	mana.current = mana.max;
 }
 
 void Character::set_spawn(sf::Vector2f new_spawn)
 {
 	spawn = new_spawn;
 }
-//Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, int prjSize, statistic mana_c, statistic health_c, statistic exp_c):
 Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, int prjSize, statistic mana_c, statistic health_c, statistic exp_c):
 
 	Animateable(animations),
@@ -26,12 +26,7 @@ Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::st
 }
 
 bool Character::fight(fighter * opponent) {
-	//if (getCurrentAnimation() == "SLASHINGright") return false;
 
-	if (getCurrentAnimation() != "SLASHINGright") {
-		setAnimation("SLASHINGright", Animation::intervals::attack);
-		setTexture(currentAnimation.nextFrame());
-	}
 	if (fighter::fight(opponent)) {
 
 		if (fighter::checkDead()) {
@@ -60,9 +55,6 @@ void Character::shootProjectile(sf::Vector2f position, sf::Vector2f direction, f
 	}
 }
 
-/*std::shared_ptr<projectile> Character::shootProjectile(sf::Vector2f direction) {
-	return shoot(getPosition(), sf::Vector2f(direction.x, direction.y ), projectileAnimations);
-}*/
 
 void Character::die()
 {
@@ -73,8 +65,7 @@ void Character::die()
 	else {
 		if (currentAnimationIsDone()) {
 			respawn();
-			setAnimation("IDLEright", Animation::intervals::idle);
-			setTexture(currentAnimation.nextFrame());
+			state = Animateable::states::IDLE;
 		}
 	}
 }
@@ -83,6 +74,10 @@ sf::Sprite Character::getBox() {
 	return drawable::getBox();
 }
 
+sf::Sprite Character::getHitbox()
+{
+	return drawable::getHitbox();
+}
 
 Character::~Character()
 {

@@ -35,6 +35,7 @@ void render_loading_screen(sf::RenderWindow & w, bool & loaded)
 	sf::Sprite loader;
 	sf::Texture loader_png;
 	loader_png.loadFromFile("assets/loader.png");
+	loader_png.setSmooth(true);
 	loader.setTexture(loader_png);
 	loader.setOrigin(sf::Vector2f(loader_png.getSize().x / 2, loader_png.getSize().y / 2));
 	loader.setPosition(sf::Vector2f(w.getSize().x / 2, w.getSize().y / 2));
@@ -89,6 +90,13 @@ int main()
 
 		if (clock.getElapsedTime().asMilliseconds() >= MS_TIME) {
 			if (window.hasFocus()) game.object.handleInput();
+			else {
+				sf::Event ev;
+				while (window.pollEvent(ev))
+				{
+					std::cout << "hello i'm still running" << std::endl;
+				}
+			}
 			game.object.update();
 			clock.restart();
 		}
