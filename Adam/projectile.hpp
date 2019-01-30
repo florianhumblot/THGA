@@ -8,11 +8,18 @@ private:
 	float dmg;
 	bool death = true;
 	int live = 50;
+	std::function<void(sf::Vector2f&)> movDeco = [&](sf::Vector2f &mov)->void {};
+	std::function<void(sf::Vector2f&)> veloDeco = [&](sf::Vector2f &velo)->void {};
 public:
 	projectile() {}
 	projectile(sf::Vector2f &position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f &velocity, float dmg);
+	void move();
+	void setVelocity(sf::Vector2f newVel);
 	void setDamage(float dmg);
 	void setLive(int newLive);
+	void setMovDeco(std::function<void(sf::Vector2f&)> NmovDeco);
+	void setVeloDeco(std::function<void(sf::Vector2f&)> NveloDeco);
+
 	float getDamage();
 	void updateLive( int minus = 1);
 	bool isDeath();
@@ -21,5 +28,5 @@ public:
 	sf::Sprite getBox() override;
 	sf::Sprite makeFightBox() override;
 	void die() override;
-
+	
 };

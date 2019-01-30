@@ -251,14 +251,15 @@ void Game::handleInput()
 
 
 //				prj->setOrigin(sf::Vector2f(prj->getSize().x / 2, prj->getSize().y / 2));
-
-				if (player.role == "mage")
-				{
-					geluidje.playSoundTwo("Fireball", 75.0);
-				}
-				else
-				{
-					geluidje.playSoundTwo("maleAttack", 77.0);
+				if (!player.mana.is_zero()) {
+					if (player.role == "mage")
+					{
+						geluidje.playSoundTwo("Fireball", 75.0);
+					}
+					else
+					{
+						geluidje.playSoundTwo("maleAttack", 77.0);
+					}
 				}
 				if (player.getCurrentAnimation() != "SLASHINGright") {
 					player.setAnimation("SLASHINGright", Animation::intervals::attack);

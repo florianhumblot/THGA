@@ -129,6 +129,8 @@ int newGameMenu::chooseTile(std::shared_ptr<Menu> & currentMenu, Character & pla
 			prj->setAnimation("AXEright", Animation::intervals::idle);
 			return prj;
 		}, ani.animations["projectile"]);
+		player.setVeloDeco([&](sf::Vector2f &velo) {velo.x = velo.x *0.5; velo.y = velo.y *0.5;});
+		player.setMovDeco([&](sf::Vector2f &mov) {mov.y = mov.y + 0.3;});
 		//menu_states = menu_states::INGAME;
 		setInGame();
 		//gameStarted = 1;
