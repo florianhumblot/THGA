@@ -4,7 +4,8 @@
 Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c):
 	fighter(health_c, 1),
 	Animateable(animations),
-	movable(position, scale, animations["IDLEright"].textures[0], velocity)
+	movable(position, scale, animations["IDLEright"].textures[0], velocity),
+	originPos(position)
 {
 	health = health_c;
 	texture = animations["IDLEright"].textures[0];
@@ -134,3 +135,29 @@ sf::Sprite Enemy::getHitbox()
 {
 	return drawable::getHitbox();
 }
+
+bool Enemy::isWalking() {
+	return state != STATE::IDLE;
+}
+
+void Enemy::updateState() {
+	int chance = rand();
+	if (chance % 1000 < 5) {
+		if (state == STATE::IDLE) {
+			state = STATE::WALKING;
+		}
+		else if (state == STATE::WALKING) {
+			state = STATE::IDLE;
+		}
+
+		if (current_direction == direction::LEFT) {
+			current_direction = direction::RIGHT;
+			setScale(sf::Vector2f(0.2,0.2));
+		}
+		else if (current_direction == direction::RIGHT){
+			current_direction = direction::LEFT;
+			setScale(sf::Vector2f(-0.2,0.2));
+		}
+	}
+}
+
