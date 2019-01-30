@@ -62,12 +62,15 @@ bool getVectorString(std::ifstream & input, std::vector<std::string> & npc_text)
 	}
 	while (c != '}') {
 		while ((input >> c) && (c != ',' && c != '}') ){
-			tempString += c;
-			if (c == ' ') {
+			if (c == '#') {
 				tempString += " ";
+			}
+			else {
+				tempString += c;
 			}
 		}
 		std::cout << "--------------------------------------" << tempString << "\n";
+		
 		npc_text.push_back(tempString);
 		tempString = "";
 	}
