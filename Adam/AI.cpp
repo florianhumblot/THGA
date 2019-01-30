@@ -2,18 +2,19 @@
 #include "AI.hpp"
 
 
-void AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound) {
+bool AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound) {
 
 	//Check if p1 and p2 are close to each other
 	// if so, make enemy move towarts the player
 	auto abs = p1->getPosition() - p2->getPosition();
 	int dir = 0;
-
+	bool hit = false;
 
 	if (abs.x <= 200 && abs.x > 0 && (abs.y < 30 && abs.y > -30) )
 	{
 		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
-			if (!p1->fight(p2, sound)) {
+			if (!p1->fight(p2, sound)) 
+			{
 				if (p1->getCurrentAnimation() != "WALKright") {
 					p1->setAnimation("WALKright", Animation::intervals::walk);
 					p1->setTexture(p1->currentAnimation.nextFrame());
@@ -21,6 +22,10 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 
 //				p1->updateFollowPosition(-1);
 				dir = -1;
+			}
+			else
+			{
+				hit = true;
 			}
 
 			p1->setScale(sf::Vector2f(-0.2, 0.2));
@@ -35,7 +40,8 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 	}
 	else if (abs.x >= -200 && abs.x < 0 && (abs.y < 30 && abs.y > -30) ) {
 		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
-			if (!p1->fight(p2, sound)) {
+			if (!p1->fight(p2, sound)) 
+			{
 				if (p1->getCurrentAnimation() != "WALKright") {
 					p1->setAnimation("WALKright", Animation::intervals::walk);
 					p1->setTexture(p1->currentAnimation.nextFrame());
@@ -44,6 +50,11 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 			//	p1->updateFollowPosition(1);
 				dir = 1;
 			}
+			else
+			{
+				hit = true;
+			}
+
 			p1->setScale(sf::Vector2f(0.2, 0.2));
 		}
 		if (p1->getVelocity().x == 0 && p1->lastDirection != 0) {
@@ -112,7 +123,7 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 	}
 	p1->setVelocity(sf::Vector2f(dir*2, p1->getVelocity().y));
 
-
+	return hit;
 }
 
 void AI::walkRandomly(npc * p1) {
