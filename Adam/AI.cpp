@@ -65,12 +65,16 @@ bool AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 		//return;
 	}
 	else {
-		p1->updateState();
+		
 
 		// if they are not close to eachother
 		// make sure the enemy's velocity is zero
+
+
+		
+		p1->updateState();
 		if (p1->isWalking()) {
-			if (p1->getCurrentAnimation() != "WALKright") {
+			if (p1->getCurrentAnimation() != std::string("WALKright")) {
 				p1->setAnimation("WALKright", Animation::intervals::walk);
 				p1->setTexture(p1->currentAnimation.nextFrame());
 			}
@@ -106,13 +110,15 @@ bool AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 		}
 		else {
 			dir = 0;
-			if (p1->getCurrentAnimation() != "IDLEright") {
+			if (p1->getCurrentAnimation() != std::string("IDLEright")) {
 				p1->setAnimation("IDLEright", Animation::intervals::idle);
 				p1->setTexture(p1->currentAnimation.nextFrame());
 			}
 			p1->setVelocity(sf::Vector2f(0, p1->getVelocity().y));
 			p1->lastDirection = 0;
 		}
+
+
 
 	//	if (p1->getCurrentAnimation() != std::string("IDLEright")) {
 	//		p1->setAnimation("IDLEright", Animation::intervals::idle);

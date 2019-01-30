@@ -141,7 +141,8 @@ bool Enemy::isWalking() {
 }
 
 void Enemy::updateState() {
-	int chance = rand();
+	state = STATE::WALKING;
+	/*int chance = rand();
 	if (chance % 1000 < 5) {
 		if (state == STATE::IDLE) {
 			state = STATE::WALKING;
@@ -158,6 +159,6 @@ void Enemy::updateState() {
 			current_direction = direction::LEFT;
 			setScale(sf::Vector2f(-0.2,0.2));
 		}
-	}
+	}*/
 }
 
