@@ -477,8 +477,17 @@ void Game::update() {
 		{
 			if (healthClock.getElapsedTime().asSeconds() > 2.0)
 			{
-				player.health.add(2);
-				healthClock.restart();
+				if (player.role == "knight")
+				{
+					player.health.add(4);
+					healthClock.restart();
+				}
+				else
+				{
+					player.health.add(2);
+					healthClock.restart();
+				}
+				
 			}
 		}
 
@@ -486,8 +495,17 @@ void Game::update() {
 		{
 			if (manaClock.getElapsedTime().asSeconds() > 2.0)
 			{
-				player.mana.add(1);
-				manaClock.restart();
+				if (player.role == "knight")
+				{
+					player.mana.add(2);
+					manaClock.restart();
+				}
+				else
+				{
+					player.mana.add(4);
+					manaClock.restart();
+				}
+				
 			}
 			
 		}
