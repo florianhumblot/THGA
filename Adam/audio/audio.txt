@@ -80,4 +80,5 @@ bounce audio/bounce_2.wav
 bounce audio/bounce_3.wav
 foregroundDMG audio/foregroundDMG_1.wav
 foregroundDMG audio/foregroundDMG_2.wav
-endLVL audio/endLVL_1.wav
+endLVL audio/end_1.wav
+lvlUP audio/lvlUP_1.wav
