@@ -57,6 +57,7 @@ private:
 	sf::Clock Clock;
 	sf::Clock aiClock;
 	sf::Clock manaClock;
+	sf::Clock healthClock;
 
 	Adam::collision_handler cln_h;
 	Adam::physics world_physics;

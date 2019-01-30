@@ -452,7 +452,16 @@ void Game::update() {
 			geluidje.playSound("death", 55.0);
 		}
 
-		if (player.mana.current < player.mana.max / 2)
+		if (player.health.current < player.health.max)
+		{
+			if (healthClock.getElapsedTime().asSeconds() > 2.0)
+			{
+				player.health.add(2);
+				healthClock.restart();
+			}
+		}
+
+		if (player.mana.current < player.mana.max)
 		{
 			if (manaClock.getElapsedTime().asSeconds() > 2.0)
 			{
