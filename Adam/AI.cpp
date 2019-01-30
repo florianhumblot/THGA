@@ -8,7 +8,7 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2) {
 	// if so, make enemy move towarts the player
 	auto abs = p1->getPosition() - p2->getPosition();
 
-	if (abs.x <= 100 && abs.x > 10 && (abs.y < 2 && abs.y > -2) )
+	if (abs.x <= 100 && abs.x > 0 && (abs.y < 2 && abs.y > -2) )
 	{
 		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
 			if (!p1->fight(p2)) {
@@ -25,7 +25,7 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2) {
 		
 		return;
 	}
-	else if (abs.x >= -100 && abs.x < 10 && (abs.y < 2 && abs.y > -2) ) {
+	else if (abs.x >= -100 && abs.x < 0 && (abs.y < 2 && abs.y > -2) ) {
 		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
 			if (!p1->fight(p2)) {
 				if (p1->getCurrentAnimation() != "WALKright") {
