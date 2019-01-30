@@ -91,10 +91,15 @@ int npc::getDirection() {
 
 void npc::draw(sf::RenderTarget & w) {
 	drawable::draw(w);
+}
+
+void npc::drawDialogue(sf::RenderTarget & w)
+{
 	text.setPosition(sf::Vector2f(getPosition().x, getPosition().y - 30));
 	text.setFont(font);
 	w.draw(text);
 }
+
 
 std::string npc::linearDialogue::line(){
 	std::string currentLine = dialogue[index];

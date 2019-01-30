@@ -597,21 +597,17 @@ void Game::render() {
 			auto level = lvl.getLevel();
 			window.draw(level->getLayer("background"));
 			
-			for (auto & enemy : enemies) {
-				enemy.draw(window);
-			}
+			for (auto & enemy : enemies)	enemy.draw(window);
+			for (auto & npc : npcs)			npc.draw(window);
+			
 			player.draw(window);
 
 			window.draw(level->getLayer("foreground"));
-			for (auto & npc : npcs) {
-				npc.draw(window);
-			}
 			window.draw(level->getLayer("foreground_dmg"));
 			window.draw(level->getLayer("foreground_bounce"));
 
-		//	window.draw(lvls.ground);
-		//	window.draw(lvls.damage_background);
-		//	window.draw(lvls.foreground_bounce);
+			for (auto & npc : npcs)			npc.drawDialogue(window);
+
 			for (auto &prj : player.projectiles) {
 				if (!prj->isDeath()) {
 					prj->draw(window);
