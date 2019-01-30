@@ -5,6 +5,7 @@ void Character::respawn()
 {
 	setPosition(spawn);
 	health.current = health.max;
+	mana.current = mana.max;
 }
 
 void Character::set_spawn(sf::Vector2f new_spawn)
