@@ -1,5 +1,4 @@
-#ifndef _GAME_HPP
-#define _GAME_HPP
+#pragma once
 
 #include "Collision.h"
 #include "Character.h"
@@ -88,5 +87,3 @@ public:
 };
 
 
-
-#endif  _GAME_HPP

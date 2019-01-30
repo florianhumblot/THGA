@@ -132,6 +132,8 @@ void Game::handleInput()
 						}
 						main_camera.setCenter(player.getPosition());
 						main_camera.setSize(560, 315);
+						state = STATE::PLAYING;
+						currentMenu->setInGame();
 					}
 					else if (menuResult == 3) {
 						state = STATE::GAMEOVER;
@@ -468,7 +470,9 @@ void Game::update() {
 				}
 				prj->setTexture(prj->currentAnimation.nextFrame());
 				prj->move();
+				
 			}
+			
 		}
 
 		for (auto & np : npcs) {
@@ -583,7 +587,15 @@ void Game::render() {
 				if (!prj->isDeath()) {
 					prj->draw(window);
 				}
-
+				
+				if (prj->isDeath() && !prj->currentAnimationIsDone()) {
+					
+					prj->setTexture(prj->currentAnimation.nextFrame());
+					prj->draw(window);
+				}
+				/*if (prj->isDeath() && prj->currentAnimationIsDone()) {
+					prj->setAnimation(prj->animation_name, Animation::intervals::idle);
+				}*/
 			}
 
 			window.draw(level->getLayer("lvl_end"));
