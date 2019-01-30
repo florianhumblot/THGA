@@ -9,8 +9,8 @@ newGameMenu::newGameMenu(float width, float heigth, Character & player)
 	}
 
 	menuChoices[0].setString("What class do you want to play?");
-	menuChoices[1].setString("The Warrior! A stalward defender of justice and honor. Skilled with the sword! Has more health than the mage.");
-	menuChoices[2].setString("The Mage! A fireball shooting spellcaster, burning all enemies in his wake!, Has more speed than the warrior.");
+	menuChoices[1].setString("The Warrior! A stalward defender of justice and honor. Skilled with the sword!");
+	menuChoices[2].setString("The Mage! A fireball shooting spellcaster, burning all enemies in her wake!");
 	menuChoices[3].setString("Choose your Class and venture forth into the world!");
 
 	for (int i = 0; i < newGameTiles; i++) {
