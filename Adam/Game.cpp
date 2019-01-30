@@ -31,7 +31,6 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	enemies = lvl.getLevel()->getEnemies();
 	npcs = lvl.getLevel()->getNPCs();
 	main_camera.setCenter(player.getPosition());
-	main_camera.setSize(640, 360);
 
 	//np = std::make_shared<npc>(v2(890, 690), v2(0.2, 0.2), ani.animations["boy"], v2(0, 0), statistic(200, 200));
 	//enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
@@ -111,7 +110,7 @@ void Game::handleInput()
 
 					else if (menuResult == 2) {
 						main_camera.setCenter(player.getPosition());
-						main_camera.setSize(640, 360);
+						main_camera.setSize(560, 315);
 						state = STATE::PLAYING;
 					}
 					else if (menuResult == 3) {
@@ -553,6 +552,7 @@ void Game::render() {
 			hud.draw(window);
 
 			auto center = Collision::GetSpriteCenter(player);
+			center.y -= 50;
 			main_camera.setCenter(center);
 			window.setView(main_camera);
 
