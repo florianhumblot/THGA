@@ -18,7 +18,7 @@ inGameMenu::inGameMenu(float width, float heigth, Character &player) :
 		pauseScreen[i].setFont(font);
 		pauseScreen[i].setCharacterSize(80);
 		pauseScreen[i].setFillColor(sf::Color::White);
-		pauseScreen[i].setPosition(sf::Vector2f((player.getPosition().x) - 100, (player.getPosition().y) + 50 *(i-2)-20));
+		pauseScreen[i].setPosition(sf::Vector2f((player.getPosition().x) - 85, (player.getPosition().y) + 50 *(i-2)-70));
 	}
 	pauseScreen[0].setFillColor(sf::Color::Red);
 

@@ -99,7 +99,7 @@ int main()
 				sf::Event ev;
 				while (window.pollEvent(ev))
 				{
-					std::cout << "hello i'm still running" << std::endl;
+					//std::cout << "hello i'm still running" << std::endl;
 				}
 			}
 			game.object.update();
