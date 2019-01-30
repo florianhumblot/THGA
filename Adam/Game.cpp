@@ -52,6 +52,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 		world_physics.moveables.push_back(&enemy);
 	}
 	for (auto & np : npcs) {
+		np.collide_others = false;
 		world_physics.moveables.push_back(&np);
 	}
 
@@ -60,6 +61,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	//world_physics.moveables.push_back(&*np);
 	geluidje.playMusic("audio/music1.wav", 20.0);
 	state = STATE::MENU;
+
 }
 
 
@@ -404,6 +406,7 @@ void Game::update() {
 				world_physics.moveables.push_back(&enemy);
 			}
 			for (auto & np : npcs) {
+				np.collide_others = false;
 				world_physics.moveables.push_back(&np);
 			}
 
@@ -447,6 +450,16 @@ void Game::update() {
 		if (player.health.current <= 0)
 		{
 			geluidje.playSound("death", 55.0);
+		}
+
+		if (player.mana.current < player.mana.max / 2)
+		{
+			if (manaClock.getElapsedTime().asSeconds() > 2.0)
+			{
+				player.mana.add(1);
+				manaClock.restart();
+			}
+			
 		}
 
 		if (player.getPosition().y > 30000) {

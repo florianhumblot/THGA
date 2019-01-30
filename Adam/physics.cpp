@@ -35,7 +35,8 @@ namespace Adam
 			//handle collision for current moveable with every other moveable
 			for (auto & other_moveable : moveables)
 			{
-				if (moveable == other_moveable) continue;
+				if (moveable == other_moveable)			continue;
+				if (!other_moveable->collide_others)	continue;
 
 				clh->handle_collision(clh->collides_with_sprite(moveable->getBox(), other_moveable->getBox()),
 				[&]()
