@@ -52,6 +52,7 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 		world_physics.moveables.push_back(&enemy);
 	}
 	for (auto & np : npcs) {
+		np.collide_others = false;
 		world_physics.moveables.push_back(&np);
 	}
 
@@ -405,6 +406,7 @@ void Game::update() {
 				world_physics.moveables.push_back(&enemy);
 			}
 			for (auto & np : npcs) {
+				np.collide_others = false;
 				world_physics.moveables.push_back(&np);
 			}
 
