@@ -58,6 +58,8 @@ void Level::npc_factory(std::string s)
 		while (lvls_file >> png >> posx >> posy)
 		{
 			npcs.push_back(npc(sf::Vector2f(stoi(posx), stoi(posy)), sf::Vector2f(0.2, 0.2), ani->animations[png], sf::Vector2f(0, 0), statistic(200, 200)));
+			npcs.back().setAnimation("IDLEright", Animation::intervals::idle);
+			npcs.back().setTexture(npcs.back().currentAnimation.getCurrentFrame());
 		}
 
 	}
