@@ -9,8 +9,10 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 	auto abs = p1->getPosition() - p2->getPosition();
 	int dir = 0;
 
-
-	if (abs.x <= 200 && abs.x > 0 && (abs.y < 30 && abs.y > -30) )
+	if ((abs.x >= 450 && abs.x > -450) && (abs.y < 300 && abs.y > -300)) {
+		return;
+	}
+	else if (abs.x <= 200 && abs.x > 0 && (abs.y < 30 && abs.y > -30) )
 	{
 		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
 			if (!p1->fight(p2, sound)) {
@@ -25,7 +27,7 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 
 			p1->setScale(sf::Vector2f(-0.2, 0.2));
 		}
-		if (p1->getVelocity().x == 0 && p1->lastDirection != 0) {
+		if (p1->getVelocity().x == 0 && p1->lastDirection != 0 && p1->getVelocity().y == 0) {
 			p1->setVelocity(sf::Vector2f(p1->getVelocity().x, -4));
 			p1->lastDirection = 1;
 
@@ -46,14 +48,15 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 			}
 			p1->setScale(sf::Vector2f(0.2, 0.2));
 		}
-		if (p1->getVelocity().x == 0 && p1->lastDirection != 0) {
+		if (p1->getVelocity().x == 0 && p1->lastDirection != 0 && p1->getVelocity().y == 0) {
 			p1->setVelocity(sf::Vector2f(p1->getVelocity().x, -4));
 			p1->lastDirection = 1;
 		}
 		
 		//return;
 	}
-	else {
+
+	else { 
 		p1->updateState();
 
 		// if they are not close to eachother
@@ -102,12 +105,6 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 			p1->setVelocity(sf::Vector2f(0, p1->getVelocity().y));
 			p1->lastDirection = 0;
 		}
-
-	//	if (p1->getCurrentAnimation() != std::string("IDLEright")) {
-	//		p1->setAnimation("IDLEright", Animation::intervals::idle);
-	//		p1->setTexture(p1->currentAnimation.nextFrame());
-	//		p1->updateFollowPosition(0);
-	//	}
 		
 	}
 	p1->setVelocity(sf::Vector2f(dir*2, p1->getVelocity().y));
@@ -134,7 +131,7 @@ void AI::walkRandomly(npc * p1) {
 
 		}
 
-		if (p1->getVelocity().x == 0 && p1->lastDirection != 0) {
+		if (p1->getVelocity().x == 0 && p1->lastDirection != 0 && p1->getVelocity().y == 0) {
 			p1->walkTheOtherWay();
 			p1->setVelocity(sf::Vector2f(0, -9));
 		}		
