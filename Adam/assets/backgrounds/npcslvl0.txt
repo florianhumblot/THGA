@@ -1,5 +1,5 @@
-blacksmithguy 690 520
-romaniansettler 1150 520
-sheep 850 520
-medievalhoodedgirl 1050 520
-medievalking 1100 520
+blacksmithguy 690 520 {hello, this#is#a#test, vera#did#this }
+romaniansettler 1150 520 {hello, this#is#a#test, vera#did#this }
+sheep 850 520 {hello, this#is#a#test, vera#did#this }
+medievalhoodedgirl 1050 520 {hello, this#is#a#test, vera#did#this }
+medievalking 1100 520 {hello, this#is#a#test, vera#did#this }

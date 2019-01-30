@@ -1,5 +1,4 @@
-#ifndef _GAME_HPP
-#define _GAME_HPP
+#pragma once
 
 #include "Collision.h"
 #include "Character.h"
@@ -46,12 +45,14 @@ private:
 	sf::Texture char_alpha_invert;
 	sf::Texture menuTex;
 	sf::Texture mouse_texture;
+	sf::Texture damage_texture;
 
 	Character & player;
 	Audio & geluidje;
 
 	sf::Sprite bgMain;
 	sf::Sprite cursor;
+	sf::Sprite damage_overlay;
 	int bounce_velocity = 1;
 
 	sf::Clock Clock;
@@ -88,5 +89,3 @@ public:
 };
 
 
-
-#endif  _GAME_HPP

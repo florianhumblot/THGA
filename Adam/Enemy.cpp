@@ -159,5 +159,6 @@ void Enemy::updateState() {
 			setScale(sf::Vector2f(-0.2,0.2));
 		}
 	}
+	return;
 }
 

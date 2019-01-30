@@ -116,8 +116,15 @@ int mainMenu::chooseTile(std::shared_ptr<Menu> &currentMenu, Character & player,
 		//state = STATE::PLAYING;
 		std::cout << "set ingame \n";
 		//menu_states = menu_states::INGAME;
-		setInGame();
-		return 2;
+		if (player.role == std::string("")) {
+			currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y, player);
+			//menu_states = menu_states::NEWGAME;
+			setNewGame();
+		}
+		else {
+			setInGame();
+			return 2;
+		}
 	}
 	else if (selectedItem == 2) {
 		std::cout << "not made yet";

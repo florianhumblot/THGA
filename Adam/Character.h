@@ -31,7 +31,7 @@ public:
 	/// The spawn point changes per level and is used by the respawn() function when the character dies or switches level to reset it's position to the starting point of that level.
 	sf::Vector2f spawn = sf::Vector2f(890,690);
 	/// \brief The selected class of the character
-	std::string role;
+	std::string role = "";
 	/// \brief Updates the experience of the player by the specified amount.
 	bool update_exp(int amount);
 	/// \brief Resets the player's position to the spawn point and resets it's health to it's maximum.
