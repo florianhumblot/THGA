@@ -56,7 +56,12 @@ public:
 	/// \brief construct a character. 
 	Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 
+	/// \brief 
+	/// Returns true if the enemy is walking
 	bool isWalking();
+
+	/// \brief 
+	/// Updates the state where the enemy is currently in
 	void updateState();
 
 	/// \brief fights with an opponent.
