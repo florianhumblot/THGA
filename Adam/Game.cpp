@@ -4,6 +4,8 @@
 #include "npc.hpp"
 #include "Audio.hpp"
 
+typedef Animateable::states state;
+
 Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani, Audio & geluidje) :
 
 	window(w),
@@ -156,8 +158,10 @@ void Game::handleInput()
 
 			else if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Button::Left && !player.checkDead())
 			{
+				//set the slashing state
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
-				if (player.getCurrentAnimation() != std::string("SLASHINGright")) {
+				if (player.state != state::SLASHING) {
+					player.state = state::SLASHING;
 
 					for (auto & enemy : enemies) {
 						if (player.fight(&enemy))
@@ -172,13 +176,19 @@ void Game::handleInput()
 							{
 								enemy.setVelocity(sf::Vector2f(player.getVelocity().x - 4, -4));
 							}
-							std::cout << "health enem�: " << enemy.health.current << "\n";
 						}
 					}
 				}
 
 			}
 		}
+
+		//release the slashing state if slashing animation is done
+		if (player.state == state::SLASHING && player.currentAnimationIsDone())
+		{
+			player.state = state::IDLE;
+		}
+
 		if (Keyboard::isKeyPressed(Keyboard::O))
 		{
 			state = STATE::MENU;
@@ -195,34 +205,30 @@ void Game::handleInput()
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !player.checkDead())
 		{
-			if (player.getCurrentAnimation() != std::string("WALKright")) {
-				player.setAnimation("WALKright", Animation::intervals::walk);
-				player.setTexture(player.currentAnimation.nextFrame());
+			//we only allow input if the player is not currently slashing
+			if (player.state != state::SLASHING && player.state != state::DEAD)
+			{
+				player.state = state::WALKING;
+				player.setScale(sf::Vector2f(0.2, 0.2));
+				player.setVelocity(sf::Vector2f(3, player.getVelocity().y));
 			}
-			player.setScale(sf::Vector2f(0.2, 0.2));
-			player.setVelocity(sf::Vector2f(3, player.getVelocity().y));
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !player.checkDead())
 		{
-			if (player.getCurrentAnimation() != std::string("WALKright")) {
-				player.setAnimation("WALKright", Animation::intervals::walk);
-				player.setTexture(player.currentAnimation.nextFrame());
-
+			//we only allow input if the player is not currently slashing or dead
+			if (player.state != state::SLASHING && player.state != state::DEAD)
+			{
+				player.state = state::WALKING;
+				player.setScale(sf::Vector2f(-0.2, 0.2));
+				player.setVelocity(sf::Vector2f(-3, player.getVelocity().y));
 			}
-			player.setScale(sf::Vector2f(-0.2, 0.2));
-			player.setVelocity(sf::Vector2f(-3, player.getVelocity().y));
 		}
-
-		else if (player.currentAnimation.isDone() || player.getCurrentAnimation() == std::string("WALKright"))
+		else if (player.state != state::SLASHING && player.state != state::DEAD) //if the player is not slashing , not dead, and no button was pressed, the player is idle
 		{
+			player.state = state::IDLE;
 			player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
-			if (player.getVelocity().y == 0) {
-				if (player.getCurrentAnimation() != std::string("IDLEright") && player.getCurrentAnimation() != std::string("DYINGright")) {
-					player.setAnimation("IDLEright", Animation::intervals::idle);
-					player.setTexture(player.currentAnimation.nextFrame());
-				}
-			}
 		}
+
 
 		if (ev.type == sf::Event::KeyReleased) {
 			if (ev.key.code == sf::Keyboard::W && !player.checkDead()) {
@@ -239,34 +245,71 @@ void Game::handleInput()
 
 		if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Button::Right) {
 			if (ev.key.code == sf::Mouse::Right && !player.checkDead()) {
+
+				player.state = state::SLASHING;
+
+				//math stuff to get mouse angle for projectile
 				auto mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 				auto delta = mouse_pos - player.getPosition();
 				float angle_r = atan2(delta.y, delta.x);
 				auto angle_degrees = angle_r * (180 / 3.14);
-				std::cout << angle_r << std::endl;
 				auto delta_normalized = delta / sqrt(pow(delta.x, 2) + pow(delta.y, 2));
 				sf::Vector2f shoot_vector(delta_normalized * 15.f);
 
 				player.shootProjectile(player.getPosition(), shoot_vector, angle_degrees); //TODO: expensive operation, drops FPS
 
-
-//				prj->setOrigin(sf::Vector2f(prj->getSize().x / 2, prj->getSize().y / 2));
-
+				//play sound according to role chosen
 				if (player.role == "mage")
-				{
 					geluidje.playSoundTwo("Fireball", 75.0);
-				}
 				else
-				{
 					geluidje.playSoundTwo("maleAttack", 77.0);
+
+				//flip player sprite to show which way its shooting
+				if (mouse_pos.x < player.getPosition().x) 
+					player.setScale(sf::Vector2f(-0.2, 0.2));
+				else 
+					player.setScale(sf::Vector2f(0.2, 0.2));
+			}
+		}
+
+
+		switch (player.state)
+		{
+			case state::IDLE:
+			{
+				if (player.getCurrentAnimation() != std::string("IDLEright"))
+				{
+					player.setAnimation("IDLEright", Animation::intervals::idle);
+					player.setTexture(player.currentAnimation.nextFrame());
 				}
-				if (player.getCurrentAnimation() != "SLASHINGright") {
+				break;
+			}
+			case state::SLASHING:
+			{
+				if (player.getCurrentAnimation() != std::string("SLASHINGright"))
+				{
 					player.setAnimation("SLASHINGright", Animation::intervals::attack);
 					player.setTexture(player.currentAnimation.nextFrame());
 				}
-				if (mouse_pos.x < player.getPosition().x) player.setScale(sf::Vector2f(-0.2, 0.2));
-				else player.setScale(sf::Vector2f(0.2, 0.2));
-
+				break;
+			}
+			case state::WALKING:
+			{
+				if (player.getCurrentAnimation() != std::string("WALKright"))
+				{
+					player.setAnimation("WALKright", Animation::intervals::walk);
+					player.setTexture(player.currentAnimation.nextFrame());
+				}
+				break;
+			}
+			case state::DEAD:
+			{
+				if (player.getCurrentAnimation() != std::string("DYINGright"))
+				{
+					player.setAnimation("DYINGright", Animation::intervals::dying);
+					player.setTexture(player.currentAnimation.nextFrame());
+				}
+				break;
 			}
 		}
 
@@ -390,6 +433,7 @@ void Game::update() {
 			}
 		}
 		if (player.checkDead()) {
+			player.state = state::DEAD;
 			player.die();
 			geluidje.playSound("revive", 88);
 		}

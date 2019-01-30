@@ -23,6 +23,16 @@ protected:
 	/// Access the animations by their key, which is the name of the animation, in example: "WALKright" will give you the corresponding animation.
 	std::shared_ptr<std::map<std::string, Animation>> animations;
 public:
+
+	enum states {
+		IDLE = 1,
+		WALKING,
+		SLASHING,
+		DEAD
+	};
+
+	states state;
+
 	/// \brief The current animation of the animateable object.
 	/// \detail
 	/// This is the animation on which the functions are being executed.
