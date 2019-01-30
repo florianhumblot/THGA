@@ -77,9 +77,7 @@ void projectile::move() {
 }
 
 void projectile::setVelocity(sf::Vector2f newVel) {
-	std::cout << newVel.x << " ";
 	veloDeco(newVel);
-	std::cout << newVel.x << " ";
 	movable::setVelocity(newVel);
 }
 

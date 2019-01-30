@@ -14,12 +14,12 @@ shooter::shooter(int & size, std::map<std::string, Animation> projectileAnimatio
 	}
 }
 
-void shooter::shootProjectile(sf::Vector2f position, sf::Vector2f direction, float angle){
+void shooter::shootProjectile(sf::Vector2f pos, sf::Vector2f direction, float angle){
 	for (auto &prj : projectiles) {
 		if (prj->isDeath()) {
-			std::cout << "hier ";
+			std::cout << pos.x << "," << pos.y << " ";
 			prj->revive();
-			prj->setPosition(position);
+			prj->setPosition(pos);
 			prj->setRotation(angle);
 			prj->setVelocity(direction);
 			return;
