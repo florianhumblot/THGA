@@ -46,12 +46,12 @@ void Enemy::update_info_pos(sf::RenderWindow & window)
 	text[1].setPosition(sf::Vector2f(position.x, position.y - 30 + 12));
 }
 
-bool Enemy::fight(fighter * opponent) {
+bool Enemy::fight(fighter * opponent, Audio & sound) {
 	
 	if (getCurrentAnimation() == std::string("SLASHINGright")) return false;
 
 	if (!checkDead()) {
-		if (fighter::fight(opponent)) {
+		if (fighter::fight(opponent, sound)) {
 			if (getCurrentAnimation() != std::string("SLASHINGright")) {
 				setAnimation("SLASHINGright", Animation::intervals::attack);
 				std::cout << getCurrentAnimation() << std::endl;

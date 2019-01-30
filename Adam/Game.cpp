@@ -2,7 +2,7 @@
 #include "Game.hpp"
 #include "Menu.hpp"
 #include "npc.hpp"
-#include "Audio.hpp"
+#include "Audio.h"
 
 typedef Animateable::states state;
 
@@ -108,10 +108,30 @@ void Game::handleInput()
 						state = STATE::MENU;
 					}
 
-					else if (menuResult == 2) {
+					else if (menuResult == 2 && currentMenu->menu_states == Menu::menu_states::INGAME) {
 						main_camera.setCenter(player.getPosition());
 						main_camera.setSize(560, 315);
 						state = STATE::PLAYING;
+					}
+					else if (menuResult == 2 && currentMenu->menu_states == Menu::menu_states::MAIN) {
+						lvl.make_lvl("lvl0");
+						lvl.getLevel()->setCharacterSpawn(player);
+						player.respawn();
+						cln_h.collision_layer = &lvl.getLevel()->getLayer("foreground");
+						world_physics.clh = &cln_h;
+						enemies = lvl.getLevel()->getEnemies();
+						npcs = lvl.getLevel()->getNPCs();
+						world_physics.moveables.clear();
+						world_physics.moveables.push_back(&player);
+						for (auto & enemy : enemies) {
+							world_physics.moveables.push_back(&enemy);
+						}
+						for (auto & np : npcs) {
+							np.collide_others = false;
+							world_physics.moveables.push_back(&np);
+						}
+						main_camera.setCenter(player.getPosition());
+						main_camera.setSize(560, 315);
 					}
 					else if (menuResult == 3) {
 						state = STATE::GAMEOVER;
@@ -165,7 +185,7 @@ void Game::handleInput()
 					player.state = state::SLASHING;
 
 					for (auto & enemy : enemies) {
-						if (player.fight(&enemy))
+						if (player.fight(&enemy, geluidje))
 						{
 							geluidje.playSoundTwo("Sword", 45.0);
 							geluidje.playSound("maleAttack", 45.0);
@@ -345,24 +365,24 @@ void Game::handleInput()
 		for (auto & enemy : enemies) {
 			if (!enemy.checkDead()) {
 
-				ai->shouldFollow_followDirection(&enemy, &player);
+				ai->shouldFollow_followDirection(&enemy, &player, geluidje);
 				if (aiClock.getElapsedTime().asMilliseconds() >= 300)
 				{
 					if (!enemy.checkDead())
 					{
-						ai->shouldFollow_followDirection(&enemy, &player);
+						ai->shouldFollow_followDirection(&enemy, &player, geluidje);
 					}
 					aiClock.restart();
 				}
 				for (auto & enemy : enemies) {
 					if (!enemy.checkDead()) {
 
-						ai->shouldFollow_followDirection(&enemy, &player);
+						ai->shouldFollow_followDirection(&enemy, &player, geluidje);
 						if (aiClock.getElapsedTime().asMilliseconds() >= 300)
 						{
 							if (!enemy.checkDead())
 							{
-								ai->shouldFollow_followDirection(&enemy, &player);
+								ai->shouldFollow_followDirection(&enemy, &player, geluidje);
 							}
 							aiClock.restart();
 						}
@@ -438,7 +458,7 @@ void Game::update() {
 			if (!prj->isDeath()) {
 				prj->updateLive(1);
 				for (auto & enemie : enemies) {
-					if (prj->fight(&enemie)) {
+					if (prj->fight(&enemie, geluidje)) {
 						player.update_exp(20);
 						player.mana.add(50);
 					}
@@ -473,12 +493,38 @@ void Game::update() {
 			geluidje.playSound("death", 55.0);
 		}
 
-		if (player.mana.current < player.mana.max / 2)
+		if (player.health.current < player.health.max)
+		{
+			if (healthClock.getElapsedTime().asSeconds() > 2.0)
+			{
+				if (player.role == "knight")
+				{
+					player.health.add(4);
+					healthClock.restart();
+				}
+				else
+				{
+					player.health.add(2);
+					healthClock.restart();
+				}
+			}
+		}
+
+		if (player.mana.current < player.mana.max)
 		{
 			if (manaClock.getElapsedTime().asSeconds() > 2.0)
 			{
-				player.mana.add(1);
-				manaClock.restart();
+				if (player.role == "knight")
+				{
+					player.mana.add(2);
+					manaClock.restart();
+				}
+				else
+				{
+					player.mana.add(4);
+					manaClock.restart();
+				}
+				
 			}
 			
 		}

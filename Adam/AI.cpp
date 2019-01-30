@@ -2,7 +2,7 @@
 #include "AI.hpp"
 
 
-void AI::shouldFollow_followDirection(Enemy * p1, Character * p2) {
+void AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound) {
 
 	//Check if p1 and p2 are close to each other
 	// if so, make enemy move towarts the player
@@ -13,7 +13,7 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2) {
 	if (abs.x <= 200 && abs.x > 0 && (abs.y < 30 && abs.y > -30) )
 	{
 		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
-			if (!p1->fight(p2)) {
+			if (!p1->fight(p2, sound)) {
 				if (p1->getCurrentAnimation() != "WALKright") {
 					p1->setAnimation("WALKright", Animation::intervals::walk);
 					p1->setTexture(p1->currentAnimation.nextFrame());
@@ -35,7 +35,7 @@ void AI::shouldFollow_followDirection(Enemy * p1, Character * p2) {
 	}
 	else if (abs.x >= -200 && abs.x < 0 && (abs.y < 30 && abs.y > -30) ) {
 		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
-			if (!p1->fight(p2)) {
+			if (!p1->fight(p2, sound)) {
 				if (p1->getCurrentAnimation() != "WALKright") {
 					p1->setAnimation("WALKright", Animation::intervals::walk);
 					p1->setTexture(p1->currentAnimation.nextFrame());

@@ -7,7 +7,7 @@ lvl2 infinity assets/backgrounds/casualWater.png
 lvl2 spawnpoint_player 1690,590
 lvl2 enemies assets/backgrounds/enemylvl2.txt
 lvl2 npcs assets/backgrounds/npcslvl2.txt
-lvl2 next_level lvl1
+lvl2 next_level lvl5
 lvl1 background assets/backgrounds/caveBG.png 
 lvl1 foreground assets/backgrounds/caveFG.png 
 lvl1 foreground_dmg assets/backgrounds/caveSpikes.png 
@@ -27,3 +27,11 @@ lvl0 infinity assets/backgrounds/emptylvl.png
 lvl0 spawnpoint_player 650,400
 lvl0 npcs assets/backgrounds/npcslvl0.txt
 lvl0 next_level lvl1
+lvl5 background assets/backgrounds/VictoryBG.png
+lvl5 foreground assets/backgrounds/VictoryFG.png
+lvl5 foreground_dmg assets/backgrounds/emptylvl.png
+lvl5 foreground_bounce assets/backgrounds/emptylvl.png
+lvl5 lvl_end assets/backgrounds/emptylvl.png
+lvl5 infinity assets/backgrounds/VictoryInfinity.png
+lvl5 spawnpoint_player 1150,1000
+lvl5 next_level lvl5

@@ -6,7 +6,7 @@
 #include "HUD.hpp"
 #include "statistic.h"
 #include "AnimationManager.h"
-#include "Audio.hpp"
+#include "Audio.h"
 
 using namespace std;
 using namespace sf;

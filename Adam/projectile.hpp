@@ -2,6 +2,7 @@
 #include "Movable.h"
 #include "Animated.hpp"
 #include "fighter.h"
+#include "Audio.h"
 
 class projectile : public movable, public Animateable, public fighter {
 private:
@@ -24,7 +25,7 @@ public:
 	void updateLive( int minus = 1);
 	bool isDeath();
 	void revive();
-	bool fight(fighter * opponent) override;
+	bool fight(fighter * opponent, Audio & sound) override;
 	sf::Sprite getBox() override;
 	sf::Sprite makeFightBox() override;
 	sf::Sprite getHitbox() override;

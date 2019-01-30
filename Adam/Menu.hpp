@@ -7,10 +7,10 @@
 #include "Enemy.hpp"
 
 class Menu {
-private:
+public:
 	enum class menu_states { MAIN, NEWGAME, INGAME };
 	enum menu_states menu_states = menu_states::MAIN;
-public:
+
 	int selectedItem;
 
 	virtual void draw(sf::RenderWindow & window, sf::View & main_camera, sf::Sprite & bgMain, Character & player) {}

@@ -4,8 +4,10 @@
 #include "Collision.h"
 #include "statistic.h"
 #include "Movable.h"
+#include "Audio.h"
 #include "fighter.h"
 #include "Animated.hpp"
+
 
 class Enemy : public fighter, public Animateable, public movable
 {
@@ -15,6 +17,7 @@ private:
 	int teller = 0;
 
 	enum class STATE { IDLE, WALKING, FOLLOWING, DEAD };
+
 	STATE state = STATE::IDLE;
 
 public:
@@ -29,7 +32,8 @@ public:
 
 	bool isWalking();
 	void updateState();
-	bool fight(fighter * opponent) override;
+
+	bool fight(fighter * opponent, Audio & sound) override;
 
 	sf::Sprite makeFightBox() override;
 	sf::Sprite getBox() override;

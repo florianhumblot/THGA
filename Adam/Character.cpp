@@ -25,9 +25,9 @@ Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::st
 	exp = exp_c;
 }
 
-bool Character::fight(fighter * opponent) {
+bool Character::fight(fighter * opponent, Audio & sound) {
 
-	if (fighter::fight(opponent)) {
+	if (fighter::fight(opponent, sound)) {
 
 		if (fighter::checkDead()) {
 			setPosition(sf::Vector2f(890, 690));
@@ -93,6 +93,10 @@ bool Character::update_exp(int amount)
 	exp.add(amount);
 	if (exp.is_max()) {
 		lvl++;
+		health.max = health.max + 10;
+		mana.max = mana.max + 10;
+		health.current = health.max;
+		mana.current = mana.max;
 		exp.set_max(exp.max + 20);
 		exp.zero();
 		return true;
