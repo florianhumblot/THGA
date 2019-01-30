@@ -1,3 +1,3 @@
-monkguy 1655 590 {It's#me#again, You#have#to#find#the#letter, Good#luck }
+monkguy 1655 590 {It's#me#again, You#have#to#find#the#ladder, Good#luck }
 boy 2335 630 {Sup#fam, How#you#doing}
 
