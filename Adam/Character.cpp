@@ -95,6 +95,8 @@ bool Character::update_exp(int amount)
 		lvl++;
 		health.max = health.max + 10;
 		mana.max = mana.max + 10;
+		health.current = health.max;
+		mana.current = mana.max;
 		exp.set_max(exp.max + 20);
 		exp.zero();
 		return true;

@@ -507,7 +507,6 @@ void Game::update() {
 					player.health.add(2);
 					healthClock.restart();
 				}
-				
 			}
 		}
 
