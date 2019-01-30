@@ -63,11 +63,11 @@ void AI::walkRandomly(npc * p1) {
 			p1->setTexture(p1->currentAnimation.nextFrame());
 
 		}
-		if (p1->originPosition.x - p1->getPosition().x > 100) {
+		if (p1->originPosition.x - p1->getPosition().x > 30) {
 			p1->setScale(sf::Vector2f(0.2, 0.2));
 			p1->current_direction = movable::direction::RIGHT;
 
-		} else if (p1->originPosition.x - p1->getPosition().x < -100) {
+		} else if (p1->originPosition.x - p1->getPosition().x < -30) {
 			p1->setScale(sf::Vector2f(-0.2, 0.2));
 			p1->current_direction = movable::direction::LEFT;
 
