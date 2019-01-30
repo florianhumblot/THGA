@@ -108,10 +108,30 @@ void Game::handleInput()
 						state = STATE::MENU;
 					}
 
-					else if (menuResult == 2) {
+					else if (menuResult == 2 && currentMenu->menu_states == Menu::menu_states::INGAME) {
 						main_camera.setCenter(player.getPosition());
 						main_camera.setSize(560, 315);
 						state = STATE::PLAYING;
+					}
+					else if (menuResult == 2 && currentMenu->menu_states == Menu::menu_states::MAIN) {
+						lvl.make_lvl("lvl0");
+						lvl.getLevel()->setCharacterSpawn(player);
+						player.respawn();
+						cln_h.collision_layer = &lvl.getLevel()->getLayer("foreground");
+						world_physics.clh = &cln_h;
+						enemies = lvl.getLevel()->getEnemies();
+						npcs = lvl.getLevel()->getNPCs();
+						world_physics.moveables.clear();
+						world_physics.moveables.push_back(&player);
+						for (auto & enemy : enemies) {
+							world_physics.moveables.push_back(&enemy);
+						}
+						for (auto & np : npcs) {
+							np.collide_others = false;
+							world_physics.moveables.push_back(&np);
+						}
+						main_camera.setCenter(player.getPosition());
+						main_camera.setSize(560, 315);
 					}
 					else if (menuResult == 3) {
 						state = STATE::GAMEOVER;
