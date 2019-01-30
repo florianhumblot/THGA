@@ -449,7 +449,7 @@ void Game::update() {
 		{
 			geluidje.playSound("death", 55.0);
 		}
-	
+
 		if (player.mana.current < player.mana.max / 2)
 		{
 			if (manaClock.getElapsedTime().asSeconds() > 2.0)
