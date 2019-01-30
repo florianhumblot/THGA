@@ -18,6 +18,7 @@
 /// It can determen if an npc should follow, fight or walkrandomly
 
 class AI {
+	sf::Clock enemy_clock;
 
 public:
 	/// \brief Empty constructor for AI

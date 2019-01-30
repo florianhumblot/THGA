@@ -368,7 +368,9 @@ void Game::handleInput()
 			}
 		}
 
-		
+		std::clock_t    start;
+
+		start = std::clock();
 		for (auto & enemy : enemies) {
 			if (!enemy.checkDead()) {
 
@@ -416,6 +418,7 @@ void Game::handleInput()
 			}
 
 		}
+		std::cout << "Time: " << (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << std::endl;
 	}
 	}
 }
@@ -593,16 +596,16 @@ void Game::render() {
 			window.clear();
 			auto level = lvl.getLevel();
 			window.draw(level->getLayer("background"));
-			for (auto & npc : npcs) {
-				npc.draw(window);
-			}
+			
 			for (auto & enemy : enemies) {
 				enemy.draw(window);
 			}
 			player.draw(window);
 
 			window.draw(level->getLayer("foreground"));
-
+			for (auto & npc : npcs) {
+				npc.draw(window);
+			}
 			window.draw(level->getLayer("foreground_dmg"));
 			window.draw(level->getLayer("foreground_bounce"));
 
