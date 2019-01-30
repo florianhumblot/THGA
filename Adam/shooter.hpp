@@ -11,7 +11,7 @@ public:
 	std::vector<std::shared_ptr<projectile>> projectiles;
 	shooter();
 	shooter(int &size, std::map<std::string, Animation> projectileAnimations);
-	void shootProjectile(sf::Vector2f position, sf::Vector2f direction, float angle);
+	void shootProjectile(sf::Vector2f pos, sf::Vector2f direction, float angle);
 	void setProjectile(std::function<std::shared_ptr<projectile>(sf::Vector2f, sf::Vector2f, std::map<std::string, Animation>)> newS, std::map<std::string, Animation> & animations);
 	void setVeloDeco(std::function<void(sf::Vector2f&)> NveloDeco);
 	void setMovDeco(std::function<void(sf::Vector2f&)> NmovDeco);

@@ -57,7 +57,7 @@ public:
 	sf::Sprite getHitbox() override;
 
 	/// \brief shoots a projectile 
-	void shootProjectile(sf::Vector2f position, sf::Vector2f direction, float angle);
+	void shootProjectile(sf::Vector2f pos, sf::Vector2f direction, float angle) ;
 	/// \brief Make the player die
 	/// \detail
 	/// Makes the player undergo the DYING animation
