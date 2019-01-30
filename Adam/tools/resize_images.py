@@ -26,9 +26,9 @@ def resize_images(dir):
 
 
 
-if __name__ == '__main__':
+#if __name__ == '__main__':
+wd = get_wd()
+while wd is None:
     wd = get_wd()
-    while wd is None:
-        wd = get_wd()
-    resize_images(wd)
+resize_images(wd)
 
