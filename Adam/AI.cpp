@@ -10,12 +10,10 @@ bool AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 	int dir = 0;
 	bool hit = false;
 
-	//std::cout << abs.x << ", " << abs.y << " \n";
 	if ((abs.x >= 280 || abs.x < -280) && (abs.y > 157,5 || abs.y < -157,5)) {
-		//std::cout << "hiero ";
 		return false;
 	}
-	else if (abs.x <= 200 && abs.x > 0 && (abs.y < 30 && abs.y > -30) )
+	else if (abs.x <= 200 && abs.x > 0 && (abs.y < 40 && abs.y > -40) )
 
 	{
 
@@ -26,8 +24,13 @@ bool AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 					p1->setAnimation("WALKright", Animation::intervals::walk);
 					p1->setTexture(p1->currentAnimation.nextFrame());
 				}
+				if (p1->getVelocity().x == 0 && p1->lastDirection != 0 && p1->getVelocity().y == 0) {
+					p1->setVelocity(sf::Vector2f(p1->getVelocity().x, -4));
+					p1->lastDirection = 0;
+					std::cout << " huh?";
+				}
 
-//				p1->updateFollowPosition(-1);
+				p1->lastDirection = 0;
 				dir = -1;
 			}
 			else
@@ -37,23 +40,25 @@ bool AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 
 			p1->setScale(sf::Vector2f(-0.2, 0.2));
 		}
-		if (p1->getVelocity().x == 0 && p1->lastDirection != 0 && p1->getVelocity().y == 0) {
-			p1->setVelocity(sf::Vector2f(p1->getVelocity().x, -4));
-			p1->lastDirection = 0;
-		}
-		else {
-			p1->lastDirection = 1;
-		}
+
 		
 	//	return;
 	}
-	else if (abs.x >= -100 && abs.x < 0 && (abs.y < 10 && abs.y > -10) ) {
+	else if (abs.x >= -100 && abs.x < 0 && (abs.y < 40 && abs.y > -40) ) {
 		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
 			if (!p1->fight(p2, sound)) 
 			{
 				if (p1->getCurrentAnimation() != "WALKright") {
 					p1->setAnimation("WALKright", Animation::intervals::walk);
 					p1->setTexture(p1->currentAnimation.nextFrame());
+				}
+
+				if (p1->getVelocity().x == 0 && p1->lastDirection != 0 && p1->getVelocity().y == 0) {
+					p1->setVelocity(sf::Vector2f(p1->getVelocity().x, -4));
+					p1->lastDirection = 0;
+				}
+				else {
+					p1->lastDirection = 1;
 				}
 
 			//	p1->updateFollowPosition(1);
@@ -66,13 +71,7 @@ bool AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 
 			p1->setScale(sf::Vector2f(0.2, 0.2));
 		}
-		if (p1->getVelocity().x == 0 && p1->lastDirection != 0 && p1->getVelocity().y == 0) {
-			p1->setVelocity(sf::Vector2f(p1->getVelocity().x, -4));
-			p1->lastDirection = 0;
-		}
-		else {
-			p1->lastDirection = 1;
-		}
+
 		
 		//return;
 	}
@@ -96,9 +95,8 @@ bool AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 				p1->setTexture(p1->currentAnimation.nextFrame());
 			}
 			auto diff = p1->getPosition().x - p1->originPos.x;
-			//std::cout << diff << "hiero";
 			if (p1->current_direction == movable::direction::LEFT) {
-				if (p1->getPosition().x - p1->originPos.x < -50) {
+				if (p1->getPosition().x - p1->originPos.x < -30) {
 					p1->current_direction = movable::direction::RIGHT;
 					dir = 1;
 					p1->setScale(sf::Vector2f(0.2,0.2));
@@ -109,7 +107,7 @@ bool AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 
 			}
 			else if(p1->current_direction == movable::direction::RIGHT){
-				if (p1->getPosition().x - p1->originPos.x > 50) {
+				if (p1->getPosition().x - p1->originPos.x > 30) {
 					p1->current_direction = movable::direction::LEFT;
 					dir = -1;
 					p1->setScale(sf::Vector2f(-0.2, 0.2));

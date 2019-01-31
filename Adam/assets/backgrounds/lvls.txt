@@ -45,4 +45,13 @@ lvl3 infinity assets/backgrounds/lvl3Infinity.png
 lvl3 spawnpoint_player 880,988
 lvl3 npcs assets/backgrounds/npcslvl3.txt
 lvl3 enemies assets/backgrounds/enemieslvl3.txt
-lvl3 next_level lvl5
+lvl3 next_level lvl4
+lvl4 background assets/backgrounds/bossBG.png
+lvl4 foreground assets/backgrounds/bossFG.png
+lvl4 foreground_dmg assets/backgrounds/boss_dmg.png
+lvl4 foreground_bounce assets/backgrounds/bossBounce.png
+lvl4 lvl_end assets/backgrounds/bossLVLend.png
+lvl4 infinity assets/backgrounds/emptylvl.png
+lvl4 spawnpoint_player 500,100
+lvl4 enemies assets/backgrounds/enemieslvl4.txt
+lvl4 next_level lvl5
