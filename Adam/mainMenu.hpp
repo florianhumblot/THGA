@@ -13,8 +13,6 @@ private:
 	sf::Font font;
 	sf::Text menuChoices[numberOfTiles];
 	
-
-
 public:
 	mainMenu(float width, float heigth, Character &player);
 

@@ -22,7 +22,7 @@ public:
 	sf::Font font;
 	int lastDirection;
 	sf::Vector2f originPosition;
-	npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, std::vector<std::string> npc_text, statistic health_c = statistic(100, 100));
+	npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, std::vector<std::string> npc_text, statistic health_c = statistic(100, 100));
 	npc() {}
 	~npc();
 	void updateState();

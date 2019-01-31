@@ -83,14 +83,12 @@ bool LvlManager::check_interaction(Character & player, Audio & sound) {
 
 	if (Collision::PixelPerfectTest(levels[current_level].getLayer("infinity"), player))
 	{
-		std::cout << "DEAD" << std::endl;
 		sound.playSound("revive", 55.0f);
 		player.respawn();
 	}
 
 	if (Collision::PixelPerfectTest(levels[current_level].getLayer("lvl_end"), player))
 	{
-		//next_lvl(player);
 		sound.playSound("endLVL", 100.0f);
 		current_level = levels[current_level].get_next_level();
 		levels[current_level].setCharacterSpawn(player);

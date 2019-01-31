@@ -60,7 +60,6 @@ void render_loading_screen(sf::RenderWindow & w, bool & loaded)
 int main()
 {
 	RenderWindow window(VideoMode(1920, 1080, 32), "Project: ADAM");
-	//window.setFramerateLimit(60);
 	window.setKeyRepeatEnabled(false);
 	window.setMouseCursorVisible(false);
 
@@ -97,10 +96,7 @@ int main()
 			if (window.hasFocus()) game.object.handleInput();
 			else {
 				sf::Event ev;
-				while (window.pollEvent(ev))
-				{
-					//std::cout << "hello i'm still running" << std::endl;
-				}
+				while (window.pollEvent(ev)) {}
 			}
 			game.object.update();
 			clock.restart();

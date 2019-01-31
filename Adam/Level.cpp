@@ -1,10 +1,8 @@
 #include "pch.h"
 #include "Level.h"
-#include <vector>
-#include <string>
 
 
-Level::Level(std::shared_ptr<AnimationManager> ani) : ani(ani)
+Level::Level(std::shared_ptr<AnimationManager> & ani) : ani(ani)
 {
 }
 

@@ -22,7 +22,7 @@ Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, An
 		tex.setFont(font);
 		tex.setOutlineColor(sf::Color::Black);
 		tex.setOutlineThickness(2.0f);
-		tex.setScale(sf::Vector2f(0.1, 0.1));
+		tex.setScale(sf::Vector2f(0.12, 0.12));
 		tex.setCharacterSize(100);
 	}
 	text[0].setFillColor(sf::Color::Red);

@@ -28,39 +28,8 @@ newGameMenu::newGameMenu(float width, float heigth, Character & player)
 	menuChoices[2].setFillColor(sf::Color::White);
 	menuChoices[3].setFillColor(sf::Color::Red);
 
-	/*
-	menuChoices[0].setFont(font);
-	menuChoices[0].setFillColor(sf::Color::Red);
-	menuChoices[0].setString(
-		"What class do you want to play?");
-	menuChoices[0].setCharacterSize(111);
-	menuChoices[0].setPosition(sf::Vector2f((width / 2) * 0.85, (newGameTiles + 1) * 30));
-
-	menuChoices[1].setFont(font);
-	menuChoices[1].setString(
-		"The Warrior! A stalward defender of justice and honor. Skilled with the sword! Has more health than the mage.");
-	menuChoices[1].setFillColor(sf::Color::Yellow);
-	menuChoices[1].setCharacterSize(55);
-	menuChoices[1].setPosition(sf::Vector2f((width / 8) * 0.85, (newGameTiles + 1) * 60));
-
-	menuChoices[2].setFont(font);
-	menuChoices[2].setString(
-		"The Mage! A fireball shooting spellcaster, burning all enemies in his wake!, Has more speed than the warrior.");
-	menuChoices[2].setFillColor(sf::Color::White);
-	menuChoices[2].setCharacterSize(55);
-	menuChoices[2].setPosition(sf::Vector2f((width / 8) * 0.85, (newGameTiles + 1) * 90));
-
-	menuChoices[3].setFont(font);
-	menuChoices[3].setString(
-		"Choose your Class and venture forth into the world!");
-	menuChoices[3].setFillColor(sf::Color::Red);
-	menuChoices[3].setCharacterSize(77);
-	menuChoices[3].setPosition(sf::Vector2f((width / 2) * 0.85, (newGameTiles + 1) * 120));
-	*/
-
 	selectedItem = 1;
 	setNewGame();
-	//current_state = menu_states::s_newGameMenu;
 }
 
 void newGameMenu::draw(sf::RenderWindow & window, sf::View & main_camera, sf::Sprite & bgMain, Character & player)
@@ -112,61 +81,52 @@ int newGameMenu::chooseTile(std::shared_ptr<Menu> & currentMenu, Character & pla
 		
 	}
 	else if (selectedItem == 1) {
-		std::cout << "warrior has been chosen" << '\n';
-		//state = STATE::PLAYING;
 		player.setAnimationMap(ani.animations["knight"]);
 		player.setAnimation("IDLEright", Animation::intervals::idle);
 		player.setTexture(player.currentAnimation.nextFrame());
 		player.setTexture(player.currentAnimation.nextFrame());
 		player.role = "knight";
-		player.setProjectile([&](sf::Vector2f pos1, sf::Vector2f pos2, std::map<std::string, Animation> animations) {
+		player.setProjectile([&](sf::Vector2f pos1, sf::Vector2f pos2, std::map<std::string, Animation> animations) 
+		{
 			sf::Vector2f direction(pos2.x - pos1.x, pos2.y - pos1.y);
 			direction.y = (direction.y * 5) / direction.x;
 			direction.x = 5;
-			sf::Texture tex;
 			std::shared_ptr<projectile> prj = std::make_shared<projectile>(projectile(pos1, sf::Vector2f(0.2, 0.2), animations, direction, 10.0));
-			prj->setTexture(tex);
 			prj->setAnimation("AXEright", Animation::intervals::idle);
 			prj->setImpactName("AXEimpact");
 			prj->animation_name = "AXEright";
 			return prj;
-		}, ani.animations["projectile"]);
+		}
+		, ani.animations["projectile"]);
+
 		player.setVeloDeco([&](sf::Vector2f &velo) {velo.x = velo.x *0.5; velo.y = velo.y *0.5;});
 		player.setMovDeco([&](sf::Vector2f &mov) {mov.y = mov.y + 0.3;});
-		//menu_states = menu_states::INGAME;
-		//setInGame();
 		setMain();
-		//gameStarted = 1;
 		return 2;
 	}
 	else if (selectedItem == 2) {
-		std::cout << "hunter has been chosen" << '\n';
-		//state = STATE::PLAYING;
 		player.setAnimationMap(ani.animations["mage"]);
 		player.setAnimation("IDLEright", Animation::intervals::idle);
 		player.setTexture(player.currentAnimation.nextFrame());
 		player.role = "mage";
-		player.setProjectile([&](sf::Vector2f pos1, sf::Vector2f pos2, std::map<std::string, Animation> animations) {
+		player.setProjectile(
+			[&](sf::Vector2f pos1, sf::Vector2f pos2, std::map<std::string, Animation> animations) 
+		{
 			sf::Vector2f direction(pos2.x - pos1.x, pos2.y - pos1.y);
 			direction.y = (direction.y * 5) / direction.x;
 			direction.x = 5;
-			sf::Texture tex;
 			std::shared_ptr<projectile> prj = std::make_shared<projectile>(projectile(pos1, sf::Vector2f(1.0, 1.0), animations, direction, 10.0));
-			prj->setTexture(tex);
 			prj->setAnimation("FIREBALLright", Animation::intervals::idle);
 			prj->setImpactName("FIREBALLimpact");
 			prj->animation_name = "FIREBALLright";
 			return prj;
-			}, ani.animations["projectile"]);
+		}
+		, ani.animations["projectile"]);
 
-		//menu_states = menu_states::INGAME;
-		//setInGame();
 		setMain();
-		//gameStarted = 1;
 		return 2;
 	}
 	else if (selectedItem == 3) {
-		std::cout << "option menu not made yet" << std::endl;
 	}
 	return 0;
 }

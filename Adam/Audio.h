@@ -17,5 +17,4 @@ public:
 	void soundMaker();
 	void playSoundTwo(const std::string &key, const float volume);
 	void playMusic(const std::string & song,const float volume);
-	bool anySound();
 };
