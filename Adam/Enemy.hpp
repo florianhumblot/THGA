@@ -31,7 +31,7 @@ private:
 
 	enum class STATE { IDLE, WALKING, FOLLOWING, DEAD };
 
-	STATE state = STATE::IDLE;
+	STATE state = STATE::WALKING;
 
 public:
 

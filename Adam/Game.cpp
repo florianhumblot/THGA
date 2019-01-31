@@ -414,7 +414,7 @@ void Game::handleInput()
 					}
 				}
 			}
-
+		//	std::cout << "\n";
 		}
 	}
 	}
