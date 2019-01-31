@@ -1,1 +1,1 @@
-monkguy 1197 1030 {Seems#like#the#devil#always#wins , GAME#OVER!!!, You#better#quit#to#mainMenu}
+monkguy 1197 1030 {Seems#like#the#devil#always#wins , GAME#OVER!!!, You#better#return#to#mainMenu}
