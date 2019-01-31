@@ -24,6 +24,10 @@ protected:
 	std::shared_ptr<std::map<std::string, Animation>> animations;
 public:
 
+	/// \brief
+	/// Animation states
+	/// \details
+	/// These are used to check animation state, not to interfere with the animation actually playing.
 	enum states {
 		IDLE = 1,
 		WALKING,
@@ -32,6 +36,8 @@ public:
 		JUMPING
 	};
 
+	/// \brief
+	/// Current animation state.
 	states state;
 
 	/// \brief The current animation of the animateable object.
