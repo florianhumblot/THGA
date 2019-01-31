@@ -59,7 +59,7 @@ void render_loading_screen(sf::RenderWindow & w, bool & loaded)
 
 int main()
 {
-	RenderWindow window(VideoMode(1600, 900, 32), "Project: ADAM");
+	RenderWindow window(VideoMode(1920, 1080, 32), "Project: ADAM");
 	//window.setFramerateLimit(60);
 	window.setKeyRepeatEnabled(false);
 	window.setMouseCursorVisible(false);

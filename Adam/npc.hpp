@@ -34,6 +34,7 @@ public:
 	void walkTheOtherWay();
 	int getDirection();
 	void draw(sf::RenderTarget & w);
+	void drawDialogue(sf::RenderTarget & w);
 
 };
 

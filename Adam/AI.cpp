@@ -18,6 +18,7 @@ bool AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 	else if (abs.x <= 200 && abs.x > 0 && (abs.y < 30 && abs.y > -30) )
 
 	{
+
 		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
 			if (!p1->fight(p2, sound)) 
 			{
@@ -46,7 +47,7 @@ bool AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 		
 	//	return;
 	}
-	else if (abs.x >= -200 && abs.x < 0 && (abs.y < 30 && abs.y > -30) ) {
+	else if (abs.x >= -100 && abs.x < 0 && (abs.y < 10 && abs.y > -10) ) {
 		if (p1->currentAnimation.isDone() || p1->getCurrentAnimation() == std::string("WALKright")) {
 			if (!p1->fight(p2, sound)) 
 			{
@@ -82,6 +83,13 @@ bool AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 		// if they are not close to eachother
 		// walk in a random way
 	//	p1->updateState();
+		// make sure the enemy's velocity is zero
+
+
+	/*	if (enemy_clock.getElapsedTime().asSeconds() >= 2) {
+			p1->updateState();
+			enemy_clock.restart();
+		}*/
 		if (p1->isWalking()) {
 			if (p1->getCurrentAnimation() != std::string("WALKright")) {
 				p1->setAnimation("WALKright", Animation::intervals::walk);
@@ -118,6 +126,7 @@ bool AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 			else {
 				p1->setVelocity(sf::Vector2f(p1->getVelocity().x, 4));
 				p1->lastDirection = 1;
+
 			}
 
 		//	p1->lastDirection = 1;

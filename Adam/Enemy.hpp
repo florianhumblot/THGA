@@ -35,35 +35,67 @@ private:
 
 public:
 
-	/// \brief container for the walking direction
-	///enum class direction { LEFT, RIGHT };
-	/// \brief variable for the current direction
-	//direction current_direction = direction::RIGHT;
-	/// \brief
-
 	sf::Vector2f originPos;
 	int lastDirection;
 //	enum class direction { LEFT, RIGHT };
 //	direction current_direction = direction::RIGHT;
+
+	/// \brief 
+	/// Updates the health and level of the enemy
+	/// \detail
+	/// Updates the health and level of the enemy
 	void update_info() override;
+
+	/// \brief 
+	/// Updates the position of the HP and level of the enemy
+	/// \detail
+	/// Updates the position of the HP and level of the enemy, it depends on the place of the enemy
 	void update_info_pos(sf::RenderWindow & window) override;
+	/// \brief construct a character. 
 	Enemy() {}
+	/// \brief construct a character. 
 	Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c = statistic(100, 100));
 
+	/// \brief 
+	/// Returns true if the enemy is walking
 	bool isWalking();
+
+	/// \brief 
+	/// Updates the state where the enemy is currently in
 	void updateState();
 
+	/// \brief fights with an opponent.
+	/// \detail
+	/// fights with an opponent, updates audio, makes fight animation
 	bool fight(fighter * opponent, Audio & sound) override;
 
+	/// \brief returns the Sprite with dimensions of your fightrange
 	sf::Sprite makeFightBox() override;
+	/// \brief returns the Sprite with dimensions of your normal range
 	sf::Sprite getBox() override;
+	/// \brief returns the Sprite with dimensions of the box where you can get hit
 	sf::Sprite getHitbox() override;
 
-	virtual void setVelocity(sf::Vector2f newVel) override;
+	/// \brief set your new velocity
+	/// \details
+	/// set your new velocity, unless you are dead
+	void setVelocity(sf::Vector2f newVel) override;
 
+	/// \brief Make your enemy move.
+	/// \details
+	///  make the enemy move, x is the direction (x is 0, 1, or -1)
 	void updateFollowPosition(int x) override;
+
+	/// \brief Make the enemy die
+	/// \detail
+	/// Makes the enemy undergo the DYING animation
+	/// Once the animation is done, we "actually" die, and lie still.
 	void die();
+
+	/// \brief Draw the enemy on the RenderTarget
 	void draw(sf::RenderTarget &w);
+
+	/// \brief Enemy destructor
 	~Enemy();
 };
 
