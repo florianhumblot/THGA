@@ -388,9 +388,14 @@ void Game::update() {
 		}
 
 		for (auto & enemy : enemies) {
-			if (enemy.updateAnimation())
-			{
-				enemy.setTexture(enemy.currentAnimation.getCurrentFrame());
+			if (!enemy.checkDead()) {
+				if (enemy.updateAnimation())
+				{
+					enemy.setTexture(enemy.currentAnimation.getCurrentFrame());
+				}
+			}
+			else {
+				enemy.setTexture(enemy.currentAnimation.getLastFrame());
 			}
 		}
 

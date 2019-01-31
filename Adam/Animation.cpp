@@ -31,6 +31,9 @@ sf::Texture & Animation::nextFrame()
 
 sf::Texture & Animation::getCurrentFrame()
 {
+	if (animation_done && name == "DYINGright") {
+		return textures.back();
+	}
 	if (current_frame == textures.size()) {
 		return textures.back();
 	}
