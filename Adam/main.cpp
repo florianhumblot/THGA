@@ -45,23 +45,24 @@ void render_loading_screen(sf::RenderWindow & w, bool & loaded)
 	loader.setPosition(sf::Vector2f(w.getSize().x - loader.getTextureRect().width * 0.2, w.getSize().y - loader.getTextureRect().height * 0.2));
 	loader.setScale(sf::Vector2f(0.2, 0.2));
 
-	w.setFramerateLimit(60);
 	while (!loaded)
 	{
+		sf::Event e;
+		while (w.pollEvent(e)) {}
 		w.clear();
 		w.draw(background);
 		w.draw(loader);
 		loader.rotate(10);
 		w.display();
 	}
-	w.setFramerateLimit(0);
 }
 
 int main()
 {
-	RenderWindow window(VideoMode(1920, 1080, 32), "Project: ADAM");
+	RenderWindow window(VideoMode(1920, 1080, 32), "Project: ADAM", sf::Style::None);
 	window.setKeyRepeatEnabled(false);
 	window.setMouseCursorVisible(false);
+	window.setFramerateLimit(61);
 
 	//declare objects without constructing
 	deffered<AnimationManager> ani;
@@ -87,20 +88,16 @@ int main()
 	render_loading_screen(window, loaded);
 
 	t.join(); //wait for objects to finish constructing before moving on
-	sf::Clock clock;
-	float MS_TIME = 15;
+
 	while (window.isOpen())
 	{
-
-		if (clock.getElapsedTime().asMilliseconds() >= MS_TIME) {
-			if (window.hasFocus()) game.object.handleInput();
-			else {
-				sf::Event ev;
-				while (window.pollEvent(ev)) {}
-			}
-			game.object.update();
-			clock.restart();
+		if (window.hasFocus()) game.object.handleInput();
+		else 
+		{
+			sf::Event ev;
+			while (window.pollEvent(ev)) {}
 		}
+		game.object.update();
 		game.object.render();
 
 	}

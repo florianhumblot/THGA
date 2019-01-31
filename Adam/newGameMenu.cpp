@@ -109,6 +109,7 @@ int newGameMenu::chooseTile(std::shared_ptr<Menu> & currentMenu, Character & pla
 		player.setAnimation("IDLEright", Animation::intervals::idle);
 		player.setTexture(player.currentAnimation.nextFrame());
 		player.role = "mage";
+		player.lvl = 1;
 		player.setProjectile(
 			[&](sf::Vector2f pos1, sf::Vector2f pos2, std::map<std::string, Animation> animations) 
 		{
