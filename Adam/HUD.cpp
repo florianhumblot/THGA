@@ -4,7 +4,7 @@ HUD::HUD(Character & character) : character(character)
 {
 	if (!font.loadFromFile("fonts/stranger.ttf"))
 	{
-		//std::cout << "error loading font" << std::endl;
+		
 	}
 	
 	update();

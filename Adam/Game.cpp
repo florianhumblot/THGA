@@ -17,28 +17,18 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	cln_h(lvl.getLevel()->getLayer("foreground")),
 	world_physics(&player, cln_h)
 {
-	char_alpha = sf::Texture();
-	char_alpha_invert = sf::Texture();
-	menuTex = sf::Texture();
-
 	damage_texture.loadFromFile("assets/damage.png");
 	damage_overlay.setTexture(damage_texture);
 	auto c = damage_overlay.getColor();
 	damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 0));
 
 	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
-	bgMain = Sprite(menuTex);
-	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
-	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
+	bgMain = sf::Sprite(menuTex);
 
-	tex.loadFromFile("assets/slimeTest.png");
 	lvl.getLevel()->setCharacterSpawn(player);
 	enemies = lvl.getLevel()->getEnemies();
 	npcs = lvl.getLevel()->getNPCs();
 	main_camera.setCenter(player.getPosition());
-
-	//np = std::make_shared<npc>(v2(890, 690), v2(0.2, 0.2), ani.animations["boy"], v2(0, 0), statistic(200, 200));
-	//enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
 
 	bgMain.setTexture(menuTex);
 	sf::Vector2f playerposforbg = player.getPosition();
@@ -50,8 +40,8 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 
 	currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y, player);
 
-
 	ai = std::make_shared<AI>();
+
 	for (auto & enemy : enemies) {
 		world_physics.moveables.push_back(&enemy);
 	}
@@ -60,12 +50,9 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 		world_physics.moveables.push_back(&np);
 	}
 
-
-	//world_physics.moveables.push_back(&*enemy);
-	//world_physics.moveables.push_back(&*np);
 	geluidje.playMusic("audio/music1.wav", 20.0);
-	state = STATE::MENU;
 
+	state = STATE::MENU;
 }
 
 
@@ -112,7 +99,6 @@ void Game::handleInput()
 					if (menuResult == 1) {
 						state = STATE::MENU;
 					}
-
 					else if (menuResult == 2 && currentMenu->menu_states == Menu::menu_states::INGAME) {
 						main_camera.setCenter(player.getPosition());
 						main_camera.setSize(560, 315);
@@ -126,6 +112,7 @@ void Game::handleInput()
 						world_physics.clh = &cln_h;
 						enemies = lvl.getLevel()->getEnemies();
 						npcs = lvl.getLevel()->getNPCs();
+
 						world_physics.moveables.clear();
 						world_physics.moveables.push_back(&player);
 						for (auto & enemy : enemies) {
@@ -135,6 +122,7 @@ void Game::handleInput()
 							np.collide_others = false;
 							world_physics.moveables.push_back(&np);
 						}
+
 						main_camera.setCenter(player.getPosition());
 						main_camera.setSize(560, 315);
 						state = STATE::PLAYING;
@@ -159,12 +147,12 @@ void Game::handleInput()
 
 	case STATE::PLAYING:
 	{
-		Event ev;
+		sf::Event ev;
 		while (window.pollEvent(ev))
 		{
 			switch (ev.type)
 			{
-			case Event::Closed:
+			case sf::Event::Closed:
 			{
 				window.close();
 				break;
@@ -172,7 +160,7 @@ void Game::handleInput()
 
 			}
 
-			if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
+			if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
 			{
 				player.canJump = false;
 				if (!player.checkDead() && player.jumpCount < 2)
@@ -196,6 +184,7 @@ void Game::handleInput()
 						{
 							geluidje.playSoundTwo("Sword", 45.0);
 							geluidje.playSound("maleAttack", 45.0);
+
 							if (player.getPosition().x < enemy.getPosition().x)
 							{
 								enemy.setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
@@ -204,7 +193,11 @@ void Game::handleInput()
 							{
 								enemy.setVelocity(sf::Vector2f(player.getVelocity().x - 4, -4));
 							}
+
 							if (enemy.checkDead()) {
+								enemy.die();
+								geluidje.playSound("monsterDeath", 50.f);
+								player.health.add(15);
 								player.mana.add(50);
 							}
 						}
@@ -220,15 +213,8 @@ void Game::handleInput()
 			player.state = state::IDLE;
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::O))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		{
-			state = STATE::MENU;
-			currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
-		}
-
-		if (Keyboard::isKeyPressed(Keyboard::Escape))
-		{
-			//window.close();
 			state = STATE::MENU;
 			currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
 		}
@@ -263,8 +249,8 @@ void Game::handleInput()
 		}
 
 
-		if (ev.type == sf::Event::KeyReleased) {
-			if (ev.key.code == sf::Keyboard::W && !player.checkDead()) {
+		if (ev.type == sf::Event::KeyReleased && ev.key.code == sf::Keyboard::W && !player.checkDead()) 
+		{
 				for (auto & npc : npcs) {
 					npc.updateText();;
 					if (npc.getPosition().x - player.getPosition().x < 50 && npc.getPosition().x - player.getPosition().x >-50)
@@ -272,17 +258,12 @@ void Game::handleInput()
 						geluidje.playSound("npc", 55);
 					}
 				}
-				//np->updateText();
-			}
 		}
 
-		if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Button::Right) {
-			if (ev.key.code == sf::Mouse::Right && !player.checkDead()) {
-
+		if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Button::Right && !player.checkDead()) {
 				//set player state to slashing and lock x movement
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
 				if(player.state != state::SLASHING) player.state = state::SLASHING;
-
 
 				//get mousePosition
 				auto mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -290,7 +271,6 @@ void Game::handleInput()
 				//player pos stuff
 				auto pPos = player.getPosition();
 				pPos.x = pPos.x + (sf::Sprite(player).getGlobalBounds().width / 2);
-
 
 				//flip player sprite to show which way its shooting
 				if (mouse_pos.x < player.getPosition().x) {
@@ -303,15 +283,12 @@ void Game::handleInput()
 					player.current_direction = movable::direction::RIGHT;
 				}
 
-
-
-				//math stuff to get mouse angle for projectile
+				//do math stuff to get mouse angle for projectile
 				auto delta = mouse_pos - pPos;
 				float angle_r = atan2(delta.y, delta.x);
 				auto angle_degrees = angle_r * (180 / 3.14);
 				auto delta_normalized = delta / sqrt(pow(delta.x, 2) + pow(delta.y, 2));
 				sf::Vector2f shoot_vector(delta_normalized * 15.f);
-
 
 				//shoot the projectile
 				player.shootProjectile(pPos, shoot_vector, angle_degrees); 
@@ -324,7 +301,6 @@ void Game::handleInput()
 						geluidje.playSoundTwo("maleAttack", 45.0);
 				}
 
-			}
 		}
 
 
@@ -368,57 +344,17 @@ void Game::handleInput()
 			}
 		}
 
-		std::clock_t    start;
-
-		start = std::clock();
 		for (auto & enemy : enemies) {
 			if (!enemy.checkDead()) {
 
 				if (ai->shouldFollow_followDirection(&enemy, &player, geluidje))
 				{
+					geluidje.playSound("MaleHurtPain", 50.0);
 					auto c = damage_overlay.getColor();
 					damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 100));
 				}
-				if (aiClock.getElapsedTime().asMilliseconds() >= 300)
-				{
-					if (!enemy.checkDead())
-					{
-						if (ai->shouldFollow_followDirection(&enemy, &player, geluidje))
-						{
-							auto c = damage_overlay.getColor();
-							damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 100));
-						}
-					}
-					aiClock.restart();
-				}
-				for (auto & enemy : enemies) {
-					if (!enemy.checkDead()) {
-
-						if (ai->shouldFollow_followDirection(&enemy, &player, geluidje))
-						{
-							geluidje.playSound("MaleHurtPain", 50.0);
-							auto c = damage_overlay.getColor();
-							damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 100));
-						}
-					/*	if (aiClock.getElapsedTime().asMilliseconds() >= 300)
-						{
-							if (!enemy.checkDead())
-							{
-								
-								if (ai->shouldFollow_followDirection(&enemy, &player, geluidje))
-								{
-									auto c = damage_overlay.getColor();
-									damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 100));
-								}
-							}
-							aiClock.restart();
-						}*/
-
-					}
-				}
 			}
 		}
-	//	std::cout << "Time: " << (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << std::endl;
 	}
 	}
 }
@@ -435,28 +371,22 @@ void Game::update() {
 	{
 
 		auto c = damage_overlay.getColor();
-		if (damage_overlay.getColor().a > 0)
-			damage_overlay.setColor(sf::Color(c.r, c.g, c.b, c.a - 1));
-		//if (player.getVelocity().y == 0 && player.getVelocity().x > 2)
-		//{
-		//	geluidje.playSound("footStep", 11.0);
-		//}
-		//if (player.getVelocity().y == 0 && player.getVelocity().x < -2)
-		//{
-		//	geluidje.playSound("footStep", 11.0);
-		//}
+		if (damage_overlay.getColor().a > 0) damage_overlay.setColor(sf::Color(c.r, c.g, c.b, c.a - 1));
 
 		for (auto & np : npcs) {
 			ai->walkRandomly(&np);
+
 			if (np.updateAnimation())
 			{
 				np.setTexture(np.currentAnimation.getCurrentFrame());
 			}
 		}
+
 		if (player.updateAnimation())
 		{
 			player.setTexture(player.currentAnimation.getCurrentFrame());
 		}
+
 		for (auto & enemy : enemies) {
 			if (enemy.updateAnimation())
 			{
@@ -466,7 +396,9 @@ void Game::update() {
 
 		world_physics.step_x_moveables();
 		world_physics.step_y_moveables();
-		if (lvl.check_interaction(player, geluidje)) {
+
+		if (lvl.check_interaction(player, geluidje)) 
+		{
 			cln_h.collision_layer = &lvl.getLevel()->getLayer("foreground");
 			world_physics.clh = &cln_h;
 			enemies = lvl.getLevel()->getEnemies();
@@ -483,8 +415,6 @@ void Game::update() {
 
 		}
 
-		hud.update();
-
 		for (auto &prj : player.projectiles) {
 			if (!prj->isDeath()) {
 				prj->updateLive(1);
@@ -492,6 +422,9 @@ void Game::update() {
 					if (prj->fight(&enemie, geluidje)) {
 						player.update_exp(20);
 						player.mana.add(50);
+						player.health.add(15);
+						enemie.die();
+						geluidje.playSound("monsterDeath", 50.f);
 					}
 				}
 				if (Collision::PixelPerfectTest(lvl.getLevel()->getLayer("foreground"), prj->operator sf::Sprite() )) {
@@ -507,23 +440,18 @@ void Game::update() {
 		for (auto & np : npcs) {
 			np.showText(player);
 		}
+
 		hud.update();
 			
 		for (auto & enemy : enemies) {
 			enemy.update_info_pos(window);
-			if (enemy.checkDead()) {
-				enemy.die();
-			}
 		}
+
 		if (player.checkDead()) {
 			player.state = state::DEAD;
 			player.die();
+			geluidje.playSoundTwo("death", 55.f);
 			geluidje.playSound("revive", 88);
-		}
-
-		if (player.health.current <= 0)
-		{
-			geluidje.playSound("death", 55.0);
 		}
 
 		if (player.health.current < player.health.max)
@@ -582,7 +510,7 @@ void Game::render() {
 	case STATE::MENU:
 	{
 		window.clear();
-		currentMenu->draw(window, lvl, enemy, main_camera, bgMain, player);
+		currentMenu->draw(window, lvl, main_camera, bgMain, player);
 		window.display();
 		break;
 	}
@@ -618,19 +546,16 @@ void Game::render() {
 					prj->setTexture(prj->currentAnimation.nextFrame());
 					prj->draw(window);
 				}
-				/*if (prj->isDeath() && prj->currentAnimationIsDone()) {
-					prj->setAnimation(prj->animation_name, Animation::intervals::idle);
-				}*/
 			}
 
 			window.draw(level->getLayer("lvl_end"));
-
-			//window.draw(player.getHitbox());
 
 			auto mouse_pos = sf::Mouse::getPosition(window);
 			auto mouse_pos_relative_to_view = window.mapPixelToCoords(mouse_pos);
 			cursor.setPosition(mouse_pos_relative_to_view);
 			window.draw(cursor);
+
+
 			window.setView(main_HUD);
 			hud.draw(window);
 
@@ -645,9 +570,6 @@ void Game::render() {
 			window.display();
 
 		}
-
-		
-		
 		break;
 	}
 	}

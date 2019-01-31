@@ -26,6 +26,7 @@ public:
 	/// default class constructor, only loads the AABB hitbox texture from disk.
 	drawable() {
 		AABB.loadFromFile("assets/AABB.png");
+		HB.loadFromFile("assets/AABB_H.png");
 	}
 
 	/// \details

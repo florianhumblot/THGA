@@ -5,7 +5,7 @@ shooter::shooter()
 {
 }
 
-shooter::shooter(int & size, std::map<std::string, Animation> projectileAnimations):
+shooter::shooter(int & size, std::map<std::string, Animation> & projectileAnimations):
 	size(size),
 	projectileAnimations(projectileAnimations)
 {
@@ -17,7 +17,6 @@ shooter::shooter(int & size, std::map<std::string, Animation> projectileAnimatio
 void shooter::shootProjectile(sf::Vector2f pos, sf::Vector2f direction, float angle){
 	for (auto &prj : projectiles) {
 		if (prj->isDeath()) {
-			std::cout << pos.x << "," << pos.y << " ";
 			prj->revive();
 			prj->setPosition(pos);
 			prj->setRotation(angle);

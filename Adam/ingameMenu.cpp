@@ -24,11 +24,10 @@ inGameMenu::inGameMenu(float width, float heigth, Character &player) :
 
 
 	setInGame();
-	//current_state = menu_states::s_ingameMenu;
 	selectedItem = 0;
 }
 
-void inGameMenu::draw(sf::RenderWindow & window, LvlManager & lvls, std::shared_ptr<Enemy> & enemy)
+void inGameMenu::draw(sf::RenderWindow & window, LvlManager & lvls)
 {
 	auto level = lvls.getLevel();
 	window.draw(level->getLayer("background"));
@@ -74,17 +73,13 @@ void inGameMenu::moveDown()
 int inGameMenu::chooseTile(std::shared_ptr<Menu> & currentMenu, Character & player, sf::Window & window, AnimationManager & ani)
 {
 	if (selectedItem == 0) {
-		//state = STATE::PLAYING;
 		return 2;
 	}
 	else if (selectedItem == 1) {
-		std::cout << "option not made yet" << '\n';
 	}
 	else if (selectedItem == 2) {
 		currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y, player);
-		std::cout << "terug naar menu";
 		setMain();
-		//menu_states = menu_states::MAIN;
 	}
 	else if (selectedItem == 3) {
 		window.close();

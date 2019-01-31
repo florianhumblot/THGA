@@ -14,8 +14,8 @@ public:
 	int selectedItem;
 
 	virtual void draw(sf::RenderWindow & window, sf::View & main_camera, sf::Sprite & bgMain, Character & player) {}
-	virtual void draw(sf::RenderWindow & window, LvlManager & lvls, std::shared_ptr<Enemy> & enemy) {}
-	virtual void draw(sf::RenderWindow & window, LvlManager& lvls, std::shared_ptr<Enemy> & enemy, sf::View & main_camera, sf::Sprite & bgMain, Character & player);
+	virtual void draw(sf::RenderWindow & window, LvlManager & lvls) {}
+	virtual void draw(sf::RenderWindow & window, LvlManager& lvls, sf::View & main_camera, sf::Sprite & bgMain, Character & player);
 
 	virtual void moveUp() = 0;
 	virtual void moveDown() = 0;
