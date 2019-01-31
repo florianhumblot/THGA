@@ -69,8 +69,8 @@ public:
 	/// \brief gets the next level's name
 	std::string get_next_level();
 	/// \brief returns the npc's of this level
-	std::vector<npc>  getNPCs();
+	std::vector<npc> & getNPCs();
 	/// \brief returns the enemies of this level.
-	std::vector<Enemy>  getEnemies();
+	std::vector<Enemy> & getEnemies();
 };
 
