@@ -400,7 +400,7 @@ void Game::handleInput()
 							auto c = damage_overlay.getColor();
 							damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 100));
 						}
-						if (aiClock.getElapsedTime().asMilliseconds() >= 300)
+						if (aiClock.getElapsedTime().asMilliseconds() >= 1000)
 						{
 							if (!enemy.checkDead())
 							{
@@ -418,7 +418,7 @@ void Game::handleInput()
 			}
 		//	std::cout << "\n";
 		}
-		std::cout << "Time: " << (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << std::endl;
+		//std::cout << "Time: " << (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << std::endl;
 	}
 	}
 }
