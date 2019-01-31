@@ -23,7 +23,8 @@ namespace Adam
 		std::vector<movable*> moveables;				/*!< Vector of pointers to every movable in the game. */
 		sf::Vector2f gravity = sf::Vector2f(0, 0.5f);		/*!< Fixed gravity vector. */
 
-		//empty default constructor
+		/// \brief
+		/// Empty default constructor
 		physics();
 
 		/// \brief
@@ -31,14 +32,17 @@ namespace Adam
 		/// \details
 		/// For now, adds only the player object to moveables. Other movables are later manually pushed back.
 		physics(movable* player, collision_handler & clh_in);
+
+		/// \brief
+		/// Default empty destructor
 		~physics();
 
-		/// \details
+		/// \brief
 		/// Applies every movables' x velocity then checks and handles collision cases.
 		/// Overlap fixing is done by moving the sprite back on the collision axis until it's no longer colliding.
 		void step_x_moveables();
 
-		/// \details
+		/// \brief
 		/// Applies every movables' y velocity then checks and handles collision cases.
 		/// Overlap fixing is done by moving the sprite back on the collision axis until it's no longer colliding.
 		void step_y_moveables();
