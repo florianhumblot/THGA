@@ -1,10 +1,8 @@
 #include "pch.h"
 #include "Level.h"
-#include <vector>
-#include <string>
 
 
-Level::Level(std::shared_ptr<AnimationManager> ani) : ani(ani)
+Level::Level(std::shared_ptr<AnimationManager> & ani) : ani(ani)
 {
 }
 
@@ -121,12 +119,12 @@ std::string Level::get_next_level()
 	return next_level_name;
 }
 
-std::vector<npc> Level::getNPCs()
+std::vector<npc> & Level::getNPCs()
 {
 	return npcs;
 }
 
-std::vector<Enemy> Level::getEnemies()
+std::vector<Enemy> & Level::getEnemies()
 {
 	return enemies;
 }

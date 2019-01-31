@@ -1,7 +1,7 @@
 #include "pch.h"
 
 #include "Audio.h"
-//
+
 Audio::Audio(const std::string &filePath)
 {
 	std::ifstream soundFile(filePath, std::ios::in | std::ios::binary);
@@ -96,14 +96,6 @@ void Audio::playMusic(const std::string& song,const float volume)
 		music.play();
 	}
 
-}
-
-bool Audio::anySound()
-{
-	if (sound.getStatus() == sf::SoundSource::Status::Playing)
-	{
-		return true;
-	}
 }
 
 

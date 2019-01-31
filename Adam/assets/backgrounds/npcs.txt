@@ -1,2 +1,2 @@
-monkguy 920 690 {Hhmmm#it#stinks, Find#your#way#to#the#other#side }
-oldguy 5291 1969 {..., Enter#the#pipes#to#find#the#Devil! }
+monkguy 920 690 {Hey#you... , Find#the#pipe#out#of#the#sewer }
+oldguy 5291 1969 {HELP!, Kill#that#scumbag! }

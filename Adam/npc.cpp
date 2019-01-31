@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "npc.hpp"
 
-npc::npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, std::vector<std::string> npc_text, statistic health_c) :
+npc::npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, std::vector<std::string> npc_text, statistic health_c) :
 	Animateable(animations),
 	movable(position, scale, animations["IDLEright"].textures[0], velocity),
 	originPosition(position)
@@ -48,7 +48,6 @@ void npc::setDialogue(std::vector<std::string> & dia) {
 void npc::showText(Character &p) {
 	sf::Vector2f plPos = p.getPosition();
 	if (plPos.x - position.x < 50 && plPos.x - position.x > -50) {
-	//	speach.updateLine();
 		setText(speach.line());
 	}
 	else {
@@ -69,7 +68,6 @@ bool npc::isWalking() {
 void npc::walkTheOtherWay() {
 	if (current_direction == direction::LEFT) {
 		current_direction = direction::RIGHT;
-	//	std::cout << "moving the other way, right \n";
 		setScale(sf::Vector2f(0.2, 0.2));
 
 	}

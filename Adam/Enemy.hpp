@@ -37,8 +37,6 @@ public:
 
 	sf::Vector2f originPos;
 	int lastDirection;
-//	enum class direction { LEFT, RIGHT };
-//	direction current_direction = direction::RIGHT;
 
 	/// \brief 
 	/// Updates the health and level of the enemy

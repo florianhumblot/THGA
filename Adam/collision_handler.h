@@ -15,14 +15,20 @@ namespace Adam
 	class collision_handler
 	{
 	public:
-
+		/// \brief
+		/// Points to the sprite used for world collision.
 		sf::Sprite * collision_layer;
 
-		/// \details
+		/// \brief
 		/// Constructor for the collision_handler class, takes a reference to the sprite to be used for world collision.
 		collision_handler(sf::Sprite & collision_layer);
 
+		/// \brief
+		/// default empty constructor
 		collision_handler();
+
+		/// \brief
+		/// default empty destructor
 		~collision_handler();
 
 		/// \brief
@@ -36,12 +42,12 @@ namespace Adam
 			return condition;
 		}
 
-		/// \details
+		/// \brief
 		/// Abstracts the pixelperfecttest function to assist in checking collision.
 		bool collides_with_world(movable* object);
 
 
-		/// \details
+		/// \brief
 		/// Abstracts the pixelperfecttest function to assist in checking collision.
 		bool collides_with_sprite(const sf::Sprite & object1, const sf::Sprite & object2);
 

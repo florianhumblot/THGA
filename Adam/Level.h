@@ -10,8 +10,6 @@
 /// \brief Container for a game level
 /// \detail
 /// This class serves as a container for a game level.
-#include "pch.h"
-#include "vector"
 #include "Enemy.hpp"
 #include "npc.hpp"
 #include "AnimationManager.h"
@@ -39,7 +37,7 @@ public:
 	/// \brief factor used for bouncing
 	int bounce_velocity = 1;
 	/// \brief create a level, needed to set the animation manager smart pointer
-	explicit Level(std::shared_ptr<AnimationManager>);
+	explicit Level(std::shared_ptr<AnimationManager> &);
 	Level() {};
 	~Level();
 	/// \brief function to draw the level's layers
@@ -69,8 +67,8 @@ public:
 	/// \brief gets the next level's name
 	std::string get_next_level();
 	/// \brief returns the npc's of this level
-	std::vector<npc>  getNPCs();
+	std::vector<npc> & getNPCs();
 	/// \brief returns the enemies of this level.
-	std::vector<Enemy>  getEnemies();
+	std::vector<Enemy> & getEnemies();
 };
 
