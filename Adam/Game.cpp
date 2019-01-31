@@ -400,10 +400,11 @@ void Game::handleInput()
 							auto c = damage_overlay.getColor();
 							damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 100));
 						}
-						if (aiClock.getElapsedTime().asMilliseconds() >= 300)
+					/*	if (aiClock.getElapsedTime().asMilliseconds() >= 300)
 						{
 							if (!enemy.checkDead())
 							{
+								
 								if (ai->shouldFollow_followDirection(&enemy, &player, geluidje))
 								{
 									auto c = damage_overlay.getColor();
@@ -411,14 +412,13 @@ void Game::handleInput()
 								}
 							}
 							aiClock.restart();
-						}
+						}*/
 
 					}
 				}
 			}
-		//	std::cout << "\n";
 		}
-		std::cout << "Time: " << (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << std::endl;
+	//	std::cout << "Time: " << (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << std::endl;
 	}
 	}
 }
