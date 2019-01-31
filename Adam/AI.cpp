@@ -81,14 +81,6 @@ bool AI::shouldFollow_followDirection(Enemy * p1, Character * p2, Audio & sound)
 
 		// if they are not close to eachother
 		// walk in a random way
-	//	p1->updateState();
-		// make sure the enemy's velocity is zero
-
-
-	/*	if (enemy_clock.getElapsedTime().asSeconds() >= 2) {
-			p1->updateState();
-			enemy_clock.restart();
-		}*/
 		if (p1->isWalking()) {
 			if (p1->getCurrentAnimation() != std::string("WALKright")) {
 				p1->setAnimation("WALKright", Animation::intervals::walk);

@@ -36,3 +36,4 @@ void drawable::draw(sf::RenderTarget &w) {
 	w.draw(sprite);
 }
 
+

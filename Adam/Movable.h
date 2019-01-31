@@ -1,6 +1,13 @@
 #pragma once
 #include "Drawable.h"
 
+///@file
+
+/// \brief
+/// movable class
+/// \details
+/// Provides an inheritable interface for the game entities to be moved in the game.
+/// extends to form drawable
 class movable : public drawable {
 protected:
 	sf::Vector2f velocity;
@@ -10,8 +17,17 @@ public:
 	bool canJump = true;
 	int jumpCount = 0;
 
+	/// \brief
+	/// enum class of directions
+	/// \details
+	/// an enum class to indicate the direction of the movable
 	enum class direction { LEFT, RIGHT };
 	direction current_direction = direction::RIGHT;
+
+	/// \brief
+	/// constructs a movable
+	/// \details
+	/// 
 	movable(sf::Vector2f &position, sf::Vector2f &scale, sf::Texture &texture, sf::Vector2f &velocity);
 
 	movable() {}
