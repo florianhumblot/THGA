@@ -1,13 +1,12 @@
 #include "pch.h"
 #include "npc.hpp"
 
-npc::npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, std::vector<std::string> npc_text, statistic health_c) :
+npc::npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, std::vector<std::string> npc_text) :
 	Animateable(animations),
 	movable(position, scale, animations["IDLEright"].textures[0], velocity),
 	originPosition(position)
 {
 	speach.dialogue = npc_text;
-	health = health_c;
 	if (!font.loadFromFile("fonts/stranger.ttf"))
 	{
 		std::cout << "error loading font" << std::endl;
