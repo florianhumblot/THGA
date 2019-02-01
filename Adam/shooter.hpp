@@ -1,4 +1,6 @@
 #pragma once
+/// @file
+
 #include "projectile.hpp"
 
 class shooter

@@ -1,4 +1,6 @@
 #pragma once
+/// @file
+
 #include "Movable.h"
 #include "Animated.hpp"
 #include "fighter.h"

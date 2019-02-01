@@ -1,4 +1,12 @@
 #pragma once
+// ==========================================================================
+//
+// File      :npc.hpp
+//
+// ==========================================================================
+
+// this file contains Doxygen lines
+///file npc.hpp
 #include "Movable.h"
 #include "Animated.hpp"
 #include "Character.h"
