@@ -2,7 +2,9 @@
 #include "Game.hpp"
 #include "Menu.hpp"
 #include "npc.hpp"
-#include "Audio.hpp"
+#include "Audio.h"
+
+typedef Animateable::states state;
 
 Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & ani, Audio & geluidje) :
 
@@ -10,43 +12,45 @@ Game::Game(sf::RenderWindow &w, Character &player, HUD &hud, AnimationManager & 
 	player(player),
 	hud(hud),
 	ani(ani),
-	geluidje(geluidje)
+	geluidje(geluidje),
+	lvl(std::make_shared<AnimationManager>(ani)),
+	cln_h(lvl.getLevel()->getLayer("foreground")),
+	world_physics(&player, cln_h)
 {
-	window.setVerticalSyncEnabled(true);
-	window.setKeyRepeatEnabled(false);
-	char_alpha = sf::Texture();
-	char_alpha_invert = sf::Texture();
-	menuTex = sf::Texture();
+	damage_texture.loadFromFile("assets/damage.png");
+	damage_overlay.setTexture(damage_texture);
+	auto c = damage_overlay.getColor();
+	damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 0));
 
 	Collision::CreateTextureAndBitmask(menuTex, "assets/backgrounds/forest.png");
-	bgMain = Sprite(menuTex);
-	Collision::CreateTextureAndBitmask(char_alpha, "assets/char_alpha.png");
-	Collision::CreateTextureAndBitmask(char_alpha_invert, "assets/char_alpha_invert.png");
+	bgMain = sf::Sprite(menuTex);
 
-	tex.loadFromFile("assets/slimeTest.png");
-	lvls.next_lvl(player);
-
+	lvl.getLevel()->setCharacterSpawn(player);
+	enemies = lvl.getLevel()->getEnemies();
+	npcs = lvl.getLevel()->getNPCs();
 	main_camera.setCenter(player.getPosition());
-	main_camera.setSize(640, 360);
-
-	np = std::make_shared<npc>(v2(890, 690), v2(0.2, 0.2), ani.animations["boy"], v2(0, 0), statistic(200, 200));
-	enemy = std::make_shared<Enemy>(v2(2050, 700), v2(0.2, 0.2), ani.animations["skull"], v2(0, 0), statistic(200, 200));
-
-	this->cln_h = Adam::collision_handler(lvls.ground);
-
-	this->world_physics = Adam::physics(&player, cln_h);
 
 	bgMain.setTexture(menuTex);
 	sf::Vector2f playerposforbg = player.getPosition();
 	bgMain.setPosition(sf::Vector2f(playerposforbg.x - 960, playerposforbg.y - 540));
 
-	currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y, player);
+	mouse_texture.loadFromFile("assets/cursor.png");
+	cursor.setTexture(mouse_texture);
+	cursor.setScale(sf::Vector2f(0.03f,0.03f));
 
+	currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y, player);
 
 	ai = std::make_shared<AI>();
 
-	world_physics.moveables.push_back(&*enemy);
-	world_physics.moveables.push_back(&*np);
+	for (auto & enemy : enemies) {
+		world_physics.moveables.push_back(&enemy);
+	}
+	for (auto & np : npcs) {
+		np.collide_others = false;
+		world_physics.moveables.push_back(&np);
+	}
+
+	geluidje.playMusic("audio/music1.wav", 20.0);
 
 	state = STATE::MENU;
 }
@@ -66,6 +70,7 @@ void Game::handleInput()
 		{
 			if (ev.type == sf::Event::Closed)
 			{
+				geluidje.playSound("gameOver", 100);
 				window.close();
 			}
 			switch (ev.type)
@@ -76,26 +81,52 @@ void Game::handleInput()
 				{
 				case sf::Keyboard::Up:
 				{
+					geluidje.playSoundTwo("menuMove", 25.0);
 					currentMenu->moveUp();
 					break;
 				}
 				case sf::Keyboard::Down:
 				{
+					geluidje.playSoundTwo("menuMove", 25.0);
 					currentMenu->moveDown();
 					break;
 				}
 				case sf::Keyboard::Enter:
 				{
+					geluidje.playSoundTwo("menuEnter", 25.0);
 					int menuResult = currentMenu->chooseTile(currentMenu, player, window, ani);
 					// if 0, do nothing
 					if (menuResult == 1) {
 						state = STATE::MENU;
 					}
-
-					else if (menuResult == 2) {
+					else if (menuResult == 2 && currentMenu->menu_states == Menu::menu_states::INGAME) {
 						main_camera.setCenter(player.getPosition());
-						main_camera.setSize(640, 360);
+						main_camera.setSize(560, 315);
 						state = STATE::PLAYING;
+					}
+					else if (menuResult == 2 && currentMenu->menu_states == Menu::menu_states::MAIN) {
+						lvl.make_lvl("lvl0");
+						lvl.getLevel()->setCharacterSpawn(player);
+						player.respawn();
+						cln_h.collision_layer = &lvl.getLevel()->getLayer("foreground");
+						world_physics.clh = &cln_h;
+						enemies = lvl.getLevel()->getEnemies();
+						npcs = lvl.getLevel()->getNPCs();
+
+						world_physics.moveables.clear();
+						world_physics.moveables.push_back(&player);
+						for (auto & enemy : enemies) {
+							world_physics.moveables.push_back(&enemy);
+						}
+						for (auto & np : npcs) {
+							np.collide_others = false;
+							world_physics.moveables.push_back(&np);
+						}
+
+						main_camera.setCenter(player.getPosition());
+						main_camera.setSize(560, 315);
+						state = STATE::PLAYING;
+						currentMenu->setInGame();
 					}
 					else if (menuResult == 3) {
 						state = STATE::GAMEOVER;
@@ -104,6 +135,7 @@ void Game::handleInput()
 				}
 				case sf::Keyboard::BackSpace:
 				{
+					geluidje.playSoundTwo("menuReturn", 25.0);
 					currentMenu = std::make_shared<mainMenu>(window.getSize().x, window.getSize().y, player);
 					break;
 				}
@@ -113,17 +145,14 @@ void Game::handleInput()
 		}
 	}
 
-
-
-
 	case STATE::PLAYING:
 	{
-		Event ev;
+		sf::Event ev;
 		while (window.pollEvent(ev))
 		{
 			switch (ev.type)
 			{
-			case Event::Closed:
+			case sf::Event::Closed:
 			{
 				window.close();
 				break;
@@ -131,48 +160,61 @@ void Game::handleInput()
 
 			}
 
-			if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
+			if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Space)
 			{
 				player.canJump = false;
-
 				if (!player.checkDead() && player.jumpCount < 2)
 				{
-					player.setVelocity(sf::Vector2f(player.getVelocity().x, -9));
+					geluidje.playSoundTwo("jump", 30.0);
+					player.setVelocity(sf::Vector2f(player.getVelocity().x, -6));
 					player.jumpCount++;
 				}
 			}
 
 
-			else if (ev.type == Event::KeyPressed && ev.key.code == sf::Keyboard::K && !player.checkDead())
+			else if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Button::Left && !player.checkDead())
 			{
+				//set the slashing state
 				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
-				//player.fight(enemy.get());
-				if (player.fight(enemy.get()))
-				{
-					if (player.getPosition().x < enemy.get()->getPosition().x)
-					{
-						enemy.get()->setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
-					}
-					else
-					{
-						enemy.get()->setVelocity(sf::Vector2f(player.getVelocity().x - 4, -4));
-					}
+				if (player.state != state::SLASHING) {
+					player.state = state::SLASHING;
 
+					for (auto & enemy : enemies) {
+						if (player.fight(&enemy, geluidje))
+						{
+							geluidje.playSoundTwo("Sword", 45.0);
+							geluidje.playSound("maleAttack", 45.0);
+
+							if (player.getPosition().x < enemy.getPosition().x)
+							{
+								enemy.setVelocity(sf::Vector2f(player.getVelocity().x + 4, -4));
+							}
+							else
+							{
+								enemy.setVelocity(sf::Vector2f(player.getVelocity().x - 4, -4));
+							}
+
+							if (enemy.checkDead()) {
+								enemy.die();
+								geluidje.playSound("monsterDeath", 50.f);
+								player.health.add(15);
+								player.mana.add(50);
+							}
+						}
+					}
 				}
-				std::cout << "health enemÿ: " << enemy.get()->health.current << "\n";
 
 			}
 		}
-		if (Keyboard::isKeyPressed(Keyboard::O))
-		{
-			state = STATE::MENU;
-			currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
 
+		//release the slashing state if slashing animation is done
+		if (player.state == state::SLASHING && player.currentAnimationIsDone())
+		{
+			player.state = state::IDLE;
 		}
 
-     	if (Keyboard::isKeyPressed(Keyboard::Escape))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		{
-			//window.close();
 			state = STATE::MENU;
 			currentMenu = std::make_shared<inGameMenu>(window.getSize().x, window.getSize().y, player);
 		}
@@ -180,74 +222,142 @@ void Game::handleInput()
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !player.checkDead())
 		{
-			if (player.getCurrentAnimation() != std::string("WALKright")) {
-				player.setAnimation("WALKright", Animation::intervals::walk);
-				player.setTexture(player.currentAnimation.nextFrame());
+			//we only allow input if the player is not currently slashing
+			if (player.state != state::SLASHING && player.state != state::DEAD)
+			{
+				player.state = state::WALKING;
+				player.setScale(sf::Vector2f(0.2, 0.2));
+				player.current_direction = movable::direction::RIGHT;
+				player.setVelocity(sf::Vector2f(3, player.getVelocity().y));
 			}
-			geluidje.playSound("footStep");
-			player.setScale(sf::Vector2f(0.2, 0.2));
-			player.setVelocity(sf::Vector2f(4, player.getVelocity().y));
-
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !player.checkDead())
 		{
-			if (player.getCurrentAnimation() != std::string("WALKright")) {
-				player.setAnimation("WALKright", Animation::intervals::walk);
-				player.setTexture(player.currentAnimation.nextFrame());
-
+			//we only allow input if the player is not currently slashing or dead
+			if (player.state != state::SLASHING && player.state != state::DEAD)
+			{
+				player.state = state::WALKING;
+				player.setScale(sf::Vector2f(-0.2, 0.2));
+				player.current_direction = movable::direction::LEFT;
+				player.setVelocity(sf::Vector2f(-3, player.getVelocity().y));
 			}
-			player.setScale(sf::Vector2f(-0.2, 0.2));
+		}
+		else if (player.state != state::SLASHING && player.state != state::DEAD) //if the player is not slashing , not dead, and no button was pressed, the player is idle
+		{
+			player.state = state::IDLE;
+			player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
+		}
 
-			player.setVelocity(sf::Vector2f(-4, player.getVelocity().y));
+
+		if (ev.type == sf::Event::KeyReleased && ev.key.code == sf::Keyboard::W && !player.checkDead()) 
+		{
+				for (auto & npc : npcs) {
+					npc.updateText();;
+					if (npc.getPosition().x - player.getPosition().x < 50 && npc.getPosition().x - player.getPosition().x >-50)
+					{
+						geluidje.playSound("npc", 55);
+					}
+				}
+		}
+
+		if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Button::Right && !player.checkDead()) {
+				//set player state to slashing and lock x movement
+				player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
+				if(player.state != state::SLASHING) player.state = state::SLASHING;
+
+				//get mousePosition
+				auto mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+
+				//player pos stuff
+				auto pPos = player.getPosition();
+				pPos.x = pPos.x + (sf::Sprite(player).getGlobalBounds().width / 2);
+
+				//flip player sprite to show which way its shooting
+				if (mouse_pos.x < player.getPosition().x) {
+					player.setScale(sf::Vector2f(-0.2, 0.2));
+					player.current_direction = movable::direction::LEFT;
+					pPos.y = pPos.y + (sf::Sprite(player).getGlobalBounds().height / 2);
+				}
+				else {
+					player.setScale(sf::Vector2f(0.2, 0.2));
+					player.current_direction = movable::direction::RIGHT;
+				}
+
+				//do math stuff to get mouse angle for projectile
+				auto delta = mouse_pos - pPos;
+				float angle_r = atan2(delta.y, delta.x);
+				auto angle_degrees = angle_r * (180 / 3.14);
+				auto delta_normalized = delta / sqrt(pow(delta.x, 2) + pow(delta.y, 2));
+				sf::Vector2f shoot_vector(delta_normalized * 15.f);
+
+				//shoot the projectile
+				player.shootProjectile(pPos, shoot_vector, angle_degrees); 
+
+				//play sound according to role chosen
+				if (!player.mana.is_zero()) {
+					if (player.role == "mage")
+						geluidje.playSoundTwo("Fireball", 50.0);
+					else
+						geluidje.playSoundTwo("maleAttack", 45.0);
+				}
 
 		}
 
-		else if (player.currentAnimation.isDone() || player.getCurrentAnimation() == std::string("WALKright"))
+
+		switch (player.state)
 		{
-			player.setVelocity(sf::Vector2f(0, player.getVelocity().y));
-			if (player.getVelocity().y == 0) {
-				if (player.getCurrentAnimation() != std::string("IDLEright") && player.getCurrentAnimation() != std::string("DYINGright")) {
+			case state::IDLE:
+			{
+				if (player.getCurrentAnimation() != std::string("IDLEright"))
+				{
 					player.setAnimation("IDLEright", Animation::intervals::idle);
 					player.setTexture(player.currentAnimation.nextFrame());
 				}
+				break;
 			}
-		}
-
-		if (ev.type == sf::Event::KeyReleased) {
-			if (ev.key.code == sf::Keyboard::W && !player.checkDead()) {
-				np->updateText();
-			}
-		}
-
-		if (ev.type == sf::Event::MouseButtonReleased) {
-			if (ev.key.code == sf::Mouse::Left && !player.checkDead()) {
-				sf::Vector2i i = sf::Mouse::getPosition(window);
-				sf::Vector2f conf = window.mapPixelToCoords(i, main_camera);
-				std::shared_ptr<projectile> prj = player.shootProjectile(conf);
-				projectiles.push_back(prj);
-
-			}
-		}
-
-		if (!enemy.get()->checkDead()) {
-
-			ai->shouldFollow_followDirection(enemy.get(), &player);
-			if (aiClock.getElapsedTime().asMilliseconds() >= 300)
+			case state::SLASHING:
 			{
-				if (!enemy.get()->checkDead())
+				if (player.getCurrentAnimation() != std::string("SLASHINGright"))
 				{
-					ai->shouldFollow_followDirection(enemy.get(), &player);
+					player.setAnimation("SLASHINGright", Animation::intervals::attack);
+					player.setTexture(player.currentAnimation.nextFrame());
 				}
-				aiClock.restart();
+				break;
 			}
+			case state::WALKING:
+			{
+				if (player.getCurrentAnimation() != std::string("WALKright"))
+				{
+					player.setAnimation("WALKright", Animation::intervals::walk);
+					player.setTexture(player.currentAnimation.nextFrame());
+				}
+				break;
+			}
+			case state::DEAD:
+			{
+				if (player.getCurrentAnimation() != std::string("DYINGright"))
+				{
+					player.setAnimation("DYINGright", Animation::intervals::dying);
+					player.setTexture(player.currentAnimation.nextFrame());
+				}
+				break;
+			}
+		}
 
-			break;
+		for (auto & enemy : enemies) {
+			if (!enemy.checkDead()) {
+
+				if (ai->shouldFollow_followDirection(&enemy, &player, geluidje))
+				{
+					geluidje.playSound("MaleHurtPain", 50.0);
+					auto c = damage_overlay.getColor();
+					damage_overlay.setColor(sf::Color(c.r, c.g, c.b, 100));
+				}
+			}
 		}
 	}
-
 	}
 }
-
 void Game::update() {
 
 	switch (state)
@@ -259,62 +369,143 @@ void Game::update() {
 
 	case STATE::PLAYING:
 	{
-		ai->walkRandomly(np.get());
+
+		auto c = damage_overlay.getColor();
+		if (damage_overlay.getColor().a > 0) damage_overlay.setColor(sf::Color(c.r, c.g, c.b, c.a - 1));
+
+		for (auto & np : npcs) {
+			ai->walkRandomly(&np);
+
+			if (np.updateAnimation())
+			{
+				np.setTexture(np.currentAnimation.getCurrentFrame());
+			}
+		}
 
 		if (player.updateAnimation())
 		{
 			player.setTexture(player.currentAnimation.getCurrentFrame());
 		}
-		if (enemy->updateAnimation())
-		{
-			enemy->setTexture(enemy->currentAnimation.getCurrentFrame());
-		}
-		if (np->updateAnimation())
-		{
-			np->setTexture(np->currentAnimation.getCurrentFrame());
+
+		for (auto & enemy : enemies) {
+			if (!enemy.checkDead()) {
+				if (enemy.updateAnimation())
+				{
+					enemy.setTexture(enemy.currentAnimation.getCurrentFrame());
+				}
+			}
+			else {
+				enemy.setTexture(enemy.currentAnimation.getLastFrame());
+			}
 		}
 
 		world_physics.step_x_moveables();
 		world_physics.step_y_moveables();
-		lvls.check_interaction(player,window);
 
-		np->showText(player);
-		hud.update();
-
-
-		std::shared_ptr<projectile> tobedeleted;
-
-		for (auto prj : projectiles) {
-			if (prj->isDeath()) {
-				tobedeleted = prj;
+		if (lvl.check_interaction(player, geluidje)) 
+		{
+			cln_h.collision_layer = &lvl.getLevel()->getLayer("foreground");
+			world_physics.clh = &cln_h;
+			enemies = lvl.getLevel()->getEnemies();
+			npcs = lvl.getLevel()->getNPCs();
+			world_physics.moveables.clear();
+			world_physics.moveables.push_back(&player);
+			for (auto & enemy : enemies) {
+				world_physics.moveables.push_back(&enemy);
 			}
-			prj->updateLive(1);
-			prj->setTexture(prj->currentAnimation.nextFrame());
-			prj->move();
-		}
-		projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), tobedeleted), projectiles.end());
+			for (auto & np : npcs) {
+				np.collide_others = false;
+				world_physics.moveables.push_back(&np);
+			}
 
-		np->showText(player);
+		}
+
+		for (auto &prj : player.projectiles) {
+			if (!prj->isDeath()) {
+				prj->updateLive(1);
+				for (auto & enemie : enemies) {
+					if (prj->fight(&enemie, geluidje)) {
+						player.update_exp(20);
+						player.mana.add(50);
+						player.health.add(15);
+						enemie.die();
+						geluidje.playSound("monsterDeath", 50.f);
+					}
+				}
+				if (Collision::PixelPerfectTest(lvl.getLevel()->getLayer("foreground"), prj->operator sf::Sprite() )) {
+					prj->updateLive(50);
+				}
+				prj->setTexture(prj->currentAnimation.nextFrame());
+				prj->move();
+				
+			}
+			
+		}
+
+		for (auto & np : npcs) {
+			np.showText(player);
+		}
+
 		hud.update();
 			
+		for (auto & enemy : enemies) {
+			enemy.update_info_pos(window);
+		}
 
-		enemy->update_info_pos(window);
 		if (player.checkDead()) {
+			player.state = state::DEAD;
 			player.die();
+			geluidje.playSoundTwo("death", 55.f);
+			geluidje.playSound("revive", 88);
 		}
-		if (enemy.get()->checkDead()) {
-			enemy.get()->die();
+
+		if (player.health.current < player.health.max)
+		{
+			if (healthClock.getElapsedTime().asSeconds() > 2.0)
+			{
+				if (player.role == "knight")
+				{
+					player.health.add(4);
+					healthClock.restart();
+				}
+				else
+				{
+					player.health.add(2);
+					healthClock.restart();
+				}
+			}
 		}
+
+		if (player.mana.current < player.mana.max)
+		{
+			if (manaClock.getElapsedTime().asSeconds() > 2.0)
+			{
+				if (player.role == "knight")
+				{
+					player.mana.add(2);
+					manaClock.restart();
+				}
+				else
+				{
+					player.mana.add(4);
+					manaClock.restart();
+				}
+				
+			}
+			
+		}
+
 		if (player.getPosition().y > 30000) {
 			player.respawn();
+			geluidje.playSound("revive", 88);
 			player.setVelocity(sf::Vector2f(0, 0));
-
 		}
 
 	}
 	break;
 
 	}
+	rerender = true;
 }
 
 void Game::render() {
@@ -324,7 +515,7 @@ void Game::render() {
 	case STATE::MENU:
 	{
 		window.clear();
-		currentMenu->draw(window, lvls, enemy, main_camera, bgMain, player);
+		currentMenu->draw(window, lvl, main_camera, bgMain, player);
 		window.display();
 		break;
 	}
@@ -332,27 +523,58 @@ void Game::render() {
 
 	case STATE::PLAYING:
 	{
-		window.clear();
-		window.draw(lvls.background);
-		np->draw(window);
-		enemy->draw(window);
-		player.draw(window);
+
+		if (rerender) {
+
+			window.clear();
+			auto level = lvl.getLevel();
+			window.draw(level->getLayer("background"));
+			
+			for (auto & enemy : enemies)	enemy.draw(window);
+			for (auto & npc : npcs)			npc.draw(window);
+			
+			player.draw(window);
+
+			window.draw(level->getLayer("foreground"));
+			window.draw(level->getLayer("foreground_dmg"));
+			window.draw(level->getLayer("foreground_bounce"));
+
+			for (auto & npc : npcs)			npc.drawDialogue(window);
+
+			for (auto &prj : player.projectiles) {
+				if (!prj->isDeath()) {
+					prj->draw(window);
+				}
+				
+				if (prj->isDeath() && !prj->currentAnimationIsDone()) {
+					
+					prj->setTexture(prj->currentAnimation.nextFrame());
+					prj->draw(window);
+				}
+			}
+
+			window.draw(level->getLayer("lvl_end"));
+
+			auto mouse_pos = sf::Mouse::getPosition(window);
+			auto mouse_pos_relative_to_view = window.mapPixelToCoords(mouse_pos);
+			cursor.setPosition(mouse_pos_relative_to_view);
+			window.draw(cursor);
 
 
-		window.draw(lvls.ground);
-		window.draw(lvls.damage_background);
-		window.draw(lvls.foreground_bounce);
-		for (auto prj : projectiles) {
-			prj->draw(window);
+			window.setView(main_HUD);
+			hud.draw(window);
+
+			if (damage_overlay.getColor().a > 0) window.draw(damage_overlay);
+
+			auto center = Collision::GetSpriteCenter(player);
+			center.y -= 50;
+			main_camera.setCenter(center);
+			window.setView(main_camera);
+
+			rerender = false;
+			window.display();
+
 		}
-		window.draw(lvls.end);
-
-		window.setView(main_HUD);
-		hud.draw(window);
-		auto center = Collision::GetSpriteCenter(player);
-		main_camera.setCenter(center);
-		window.setView(main_camera);
-		window.display();
 		break;
 	}
 	}

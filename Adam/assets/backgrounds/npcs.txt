@@ -1,0 +1,2 @@
+monkguy 920 690 {Hey#you... , Find#the#pipe#out#of#the#sewer }
+oldguy 5291 1969 {HELP!, Kill#that#scumbag! }

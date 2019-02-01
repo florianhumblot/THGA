@@ -10,9 +10,9 @@ fighter::fighter(statistic health_c, int lvl_c)
 	AABB_H.loadFromFile("assets/AABB_H.png");
 }
 
-bool fighter::fight(fighter * opponent) {
+bool fighter::fight(fighter * opponent, Audio & sound) {
 
-	if (Collision::PixelPerfectTest(makeFightBox(), opponent->getBox())) {
+	if (Collision::PixelPerfectTest(getHitbox(), opponent->getBox())) {
 		updateFollowPosition(0);
 		opponent->take_damage(20+lvl*lvl);
 		opponent->update_info();

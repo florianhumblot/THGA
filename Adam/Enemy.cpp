@@ -4,7 +4,8 @@
 Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, statistic health_c):
 	fighter(health_c, 1),
 	Animateable(animations),
-	movable(position, scale, animations["IDLEright"].textures[0], velocity)
+	movable(position, scale, animations["IDLEright"].textures[0], velocity),
+	originPos(position)
 {
 	health = health_c;
 	texture = animations["IDLEright"].textures[0];
@@ -17,10 +18,11 @@ Enemy::Enemy(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, An
 
 	for (auto & tex: text)
 	{
+		tex = sf::Text();
 		tex.setFont(font);
 		tex.setOutlineColor(sf::Color::Black);
 		tex.setOutlineThickness(2.0f);
-		tex.setScale(sf::Vector2f(0.1, 0.1));
+		tex.setScale(sf::Vector2f(0.12, 0.12));
 		tex.setCharacterSize(100);
 	}
 	text[0].setFillColor(sf::Color::Red);
@@ -44,10 +46,12 @@ void Enemy::update_info_pos(sf::RenderWindow & window)
 	text[1].setPosition(sf::Vector2f(position.x, position.y - 30 + 12));
 }
 
-bool Enemy::fight(fighter * opponent) {
+bool Enemy::fight(fighter * opponent, Audio & sound) {
 	
+	if (getCurrentAnimation() == std::string("SLASHINGright")) return false;
+
 	if (!checkDead()) {
-		if (fighter::fight(opponent)) {
+		if (fighter::fight(opponent, sound)) {
 			if (getCurrentAnimation() != std::string("SLASHINGright")) {
 				setAnimation("SLASHINGright", Animation::intervals::attack);
 				std::cout << getCurrentAnimation() << std::endl;
@@ -68,7 +72,7 @@ bool Enemy::fight(fighter * opponent) {
 void Enemy::updateFollowPosition(int x) {
 	if (!checkDead()) {
 		// make the enemy move (x is 0, 1, or -1)
-		setVelocity(sf::Vector2f(4 * x, getVelocity().y));
+		setVelocity(sf::Vector2f(2 * x, getVelocity().y));
 	}
 }
 
@@ -121,8 +125,22 @@ void Enemy::draw(sf::RenderTarget &w) {
 	int j = -2;
 	for (auto & txt: text) {
 		txt.setPosition(sf::Vector2f(getPosition().x, getPosition().y + j * 10));
+		txt.setFont(font);
 		w.draw(txt);
 		j++;
 	}
+}
+
+sf::Sprite Enemy::getHitbox()
+{
+	return drawable::getHitbox();
+}
+
+bool Enemy::isWalking() {
+	return state != STATE::IDLE;
+}
+
+void Enemy::updateState() {
+	state = STATE::WALKING;
 }
 

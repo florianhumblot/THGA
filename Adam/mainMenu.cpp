@@ -24,41 +24,8 @@ mainMenu::mainMenu(float width, float heigth, Character &player)
 	}
 	menuChoices[0].setFillColor(sf::Color::Red);
 
-	/*
-	menuChoices[0].setFont(font);
-	menuChoices[0].setString("New Game");
-	menuChoices[0].setFillColor(sf::Color::Red);
-	menuChoices[0].setCharacterSize(111);
-	menuChoices[0].setPosition(sf::Vector2f((width / 2) * 0.85, (numberOfTiles + 1) * 30));
-
-	menuChoices[1].setFont(font);
-	menuChoices[1].setFillColor(sf::Color::White);
-	menuChoices[1].setString("Continue Game");
-	menuChoices[1].setCharacterSize(111);
-	menuChoices[1].setPosition(sf::Vector2f((width / 2)* 0.85, (numberOfTiles + 1) * 50));
-
-	menuChoices[2].setFont(font);
-	menuChoices[2].setFillColor(sf::Color::White);
-	menuChoices[2].setString("Load Game");
-	menuChoices[2].setCharacterSize(111);
-	menuChoices[2].setPosition(sf::Vector2f((width / 2) * 0.85, (numberOfTiles + 1) * 70));
-
-	menuChoices[3].setFont(font);
-	menuChoices[3].setFillColor(sf::Color::White);
-	menuChoices[3].setString("Options");
-	menuChoices[3].setCharacterSize(111);
-	menuChoices[3].setPosition(sf::Vector2f((width / 2)* 0.85, (numberOfTiles + 1) * 90));
-
-	menuChoices[4].setFont(font);
-	menuChoices[4].setFillColor(sf::Color::White);
-	menuChoices[4].setString("Quit Game");
-	menuChoices[4].setCharacterSize(111);
-	menuChoices[4].setPosition(sf::Vector2f((width / 2)* 0.85, (numberOfTiles + 1) * 110)); */
-
 	selectedItem = 0;
 	setMain();
-	//current_state = menu_states::s_mainMenu;
-	//gameStarted = 0;
 }
 
 void mainMenu::draw(sf::RenderWindow & window, sf::View & main_camera, sf::Sprite & bgMain, Character & player)
@@ -108,22 +75,21 @@ int mainMenu::chooseTile(std::shared_ptr<Menu> &currentMenu, Character & player,
 {
 	if (selectedItem == 0) {
 		currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y, player);
-		//menu_states = menu_states::NEWGAME;
 		setNewGame();
-		std::cout << "set newGAMe \n";
 	}
 	else if (selectedItem == 1) {
-		//state = STATE::PLAYING;
-		std::cout << "set ingame \n";
-		//menu_states = menu_states::INGAME;
-		setInGame();
-		return 2;
+		if (player.role == std::string("")) {
+			currentMenu = std::make_shared<newGameMenu>(window.getSize().x, window.getSize().y, player);
+			setNewGame();
+		}
+		else {
+			setInGame();
+			return 2;
+		}
 	}
 	else if (selectedItem == 2) {
-		std::cout << "not made yet";
 	}
 	else if (selectedItem == 3) {
-		std::cout << "option menu not made yet" << std::endl;
 	}
 	else if (selectedItem == 4) {
 		window.close();

@@ -8,11 +8,6 @@
 /// A variable with a max & current value.
 class statistic
 {
-private:
-
-	sf::Font font;
-	sf::Text text;
-
 public:
 	int max = 100;
 	int current = 100;

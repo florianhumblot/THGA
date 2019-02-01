@@ -4,7 +4,7 @@ HUD::HUD(Character & character) : character(character)
 {
 	if (!font.loadFromFile("fonts/stranger.ttf"))
 	{
-		//std::cout << "error loading font" << std::endl;
+		
 	}
 	
 	update();
@@ -14,13 +14,13 @@ HUD::HUD(Character & character) : character(character)
 		text[i].setFont(font);
 		text[i].setOutlineColor(sf::Color::Black);
 		text[i].setOutlineThickness(2.0f);
-		text[i].setCharacterSize(28);
+		text[i].setCharacterSize(40);
 		if (!texture_bar[i].loadFromFile(bar_location[i])) 
 		{
 			std::cout << "error loading font" << std::endl;
 		}
 		sprite_bar[i].setTexture(texture_bar[i]);
-		sprite_bar[i].setPosition(sf::Vector2f(10, 820 + 30 * i));
+		sprite_bar[i].setPosition(sf::Vector2f(20, 37 + 30 * i));
 		bar_status(i);
 	}
 	
@@ -53,13 +53,13 @@ void HUD::bar_status(int index)
 	{
 		sprite_bar[index].setScale(sf::Vector2f(1.45f, 1.45f));
 		sprite_bar[index].setTextureRect(sf::IntRect(50, 70, bar_length[index], 60));
-		text[index].setPosition(50, 813 + 30 * index);
+		text[index].setPosition(60, 15 + 30 * index);
 	}
 	else if (index == 3)
 	{
 		sprite_bar[3].setScale(sf::Vector2f(0.9f, 0.9f));
 		sprite_bar[3].setTextureRect(sf::IntRect(50, 70, bar_length[3], 26));
-		text[3].setPosition(20, 813 + 30 * 3);
+		text[3].setPosition(20, 15 + 30 * 3);
 	}
 }
 

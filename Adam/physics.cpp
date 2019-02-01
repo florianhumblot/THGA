@@ -35,7 +35,8 @@ namespace Adam
 			//handle collision for current moveable with every other moveable
 			for (auto & other_moveable : moveables)
 			{
-				if (moveable == other_moveable) continue;
+				if (moveable == other_moveable)			continue;
+				if (!other_moveable->collide_others)	continue;
 
 				clh->handle_collision(clh->collides_with_sprite(moveable->getBox(), other_moveable->getBox()),
 				[&]()
@@ -61,7 +62,7 @@ namespace Adam
 				while (clh->collides_with_world(moveable))
 				{
 					if (!moveable->canJump) { moveable->canJump = true; moveable->jumpCount = 0; }
-					moveable->move(sf::Vector2f(0, -1));
+					moveable->move(sf::Vector2f(0, -0.5f));
 				}
 				moveable->setVelocity(sf::Vector2f(moveable->getVelocity().x, 0));
 			})) continue;
@@ -70,7 +71,7 @@ namespace Adam
 				[&]() {
 				while (clh->collides_with_world(moveable))
 				{
-					moveable->move(sf::Vector2f(0, 1));
+					moveable->move(sf::Vector2f(0, 0.5f));
 				}
 				moveable->setVelocity(sf::Vector2f(moveable->getVelocity().x, 0));
 			})) continue;

@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Drawable.h"
 
-drawable::drawable(sf::Vector2f &position, sf::Vector2f scale, sf::Texture texture):
+drawable::drawable(sf::Vector2f &position, sf::Vector2f &scale, sf::Texture &texture):
 	position(position),
 	scale(scale),
 	texture(texture)
@@ -10,18 +10,7 @@ drawable::drawable(sf::Vector2f &position, sf::Vector2f scale, sf::Texture textu
 	sprite.setTexture(texture);
 	sprite.setScale(scale);
 	AABB.loadFromFile("assets/AABB.png");
-}
-
-drawable::drawable(sf::Vector2f &position, sf::Vector2f scale, const std::string &textureFile) :
-	position(position),
-	scale(scale)
-	//texture(texture)
-{
-	Collision::CreateTextureAndBitmask(texture, textureFile);
-	sprite.setPosition(position);
-	sprite.setTexture(texture, true);
-	sprite.setScale(scale);
-	AABB.loadFromFile("assets/AABB.png");
+	HB.loadFromFile("assets/AABB_H.png");
 }
 
 sf::Vector2f drawable::getPosition() {
@@ -46,4 +35,5 @@ void drawable::setTexture(sf::Texture & texture) {
 void drawable::draw(sf::RenderTarget &w) {
 	w.draw(sprite);
 }
+
 

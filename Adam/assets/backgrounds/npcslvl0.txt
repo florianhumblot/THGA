@@ -1,0 +1,5 @@
+blacksmithguy 640 520 {Hello#there#Hero , In#need#of#better#armor#? }
+romaniansettler 850 520 {Hello , Monsters#took#over#my#village}
+sheep 750 520 {BHEEEEEHHHH, sup#fam, Got#some#grass? }
+medievalhoodedgirl 950 520 {Hi, Are#you#going#to#save#the#kingdom? }
+medievalking 1100 520 {#######!, Your#quest#is... , Go#and#kill#the#devil }

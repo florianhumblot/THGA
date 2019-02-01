@@ -5,18 +5,19 @@ void Character::respawn()
 {
 	setPosition(spawn);
 	health.current = health.max;
+	mana.current = mana.max;
 }
 
 void Character::set_spawn(sf::Vector2f new_spawn)
 {
 	spawn = new_spawn;
 }
-
-Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic mana_c, statistic health_c, statistic exp_c):
+Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, int prjSize, statistic mana_c, statistic health_c, statistic exp_c):
 
 	Animateable(animations),
 	fighter(health_c, 1),
-	movable(position, scale, animations["IDLEright"].textures[0], velocity)
+	movable(position, scale, animations["IDLEright"].textures[0], velocity),
+	shooter(prjSize, animations)
 {
 	setAnimation("IDLEright", Animation::intervals::idle);
 	setTexture(currentAnimation.nextFrame());
@@ -24,12 +25,9 @@ Character::Character(sf::Vector2f position, sf::Vector2f scale, std::map<std::st
 	exp = exp_c;
 }
 
-bool Character::fight(fighter * opponent) {
-	if (getCurrentAnimation() != "SLASHINGright") {
-		setAnimation("SLASHINGright", Animation::intervals::attack);
-		setTexture(currentAnimation.nextFrame());
-	}
-	if (fighter::fight(opponent)) {
+bool Character::fight(fighter * opponent, Audio & sound) {
+
+	if (fighter::fight(opponent, sound)) {
 
 		if (fighter::checkDead()) {
 			setPosition(sf::Vector2f(890, 690));
@@ -50,19 +48,13 @@ sf::Sprite Character::makeFightBox() {
 	temp.setScale(scale);
 	return temp;
 }
-
-void Character::setProjectile(std::function<std::shared_ptr<projectile>(sf::Vector2f, sf::Vector2f, std::map<std::string, Animation> animations)> newP, std::map<std::string, Animation> & animations ) {
-	projectileAnimations = animations;
-	shoot = newP;
+void Character::shootProjectile(sf::Vector2f pos, sf::Vector2f direction, float angle) {
+	if (mana.current >= 20) {
+		shooter::shootProjectile(pos, direction, angle);
+		mana.sub(20);
+	}
 }
 
-std::shared_ptr<projectile> Character::shootProjectile(sf::Vector2f direction) {
-	sf::Vector2f shootPos;
-//	if (current_direction == direction::LEFT) {
-//		shootPos = getBox().getPosition
-//	}
-	return shoot(getPosition(), sf::Vector2f(direction.x, direction.y ), projectileAnimations);
-}
 
 void Character::die()
 {
@@ -73,8 +65,7 @@ void Character::die()
 	else {
 		if (currentAnimationIsDone()) {
 			respawn();
-			setAnimation("IDLEright", Animation::intervals::idle);
-			setTexture(currentAnimation.nextFrame());
+			state = Animateable::states::IDLE;
 		}
 	}
 }
@@ -83,17 +74,27 @@ sf::Sprite Character::getBox() {
 	return drawable::getBox();
 }
 
+sf::Sprite Character::getHitbox()
+{
+	return drawable::getHitbox();
+}
 
 Character::~Character()
 {
 }
 
-void Character::update_exp(int amount)
+bool Character::update_exp(int amount)
 {
 	exp.add(amount);
 	if (exp.is_max()) {
 		lvl++;
+		health.max = health.max + 10;
+		mana.max = mana.max + 10;
+		health.current = health.max;
+		mana.current = mana.max;
 		exp.set_max(exp.max + 20);
 		exp.zero();
+		return true;
 	}
+	return false;
 }

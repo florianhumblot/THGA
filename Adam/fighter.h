@@ -1,9 +1,8 @@
 #pragma once
-
+#include "Audio.h"
 #include "statistic.h"
-#include "Movable.h"
-#include "fighter.h"
-#include "Animated.hpp"
+#include "Collision.h"
+
 ///@file
 
 /// \brief
@@ -53,7 +52,7 @@ public:
 	/// If attack overlaps with opponent.
 	/// oppenent takes damage & updates info
 	/// returns if fighter has hit his oppenent
-	virtual bool fight(fighter * opponent);
+	virtual bool fight(fighter * opponent, Audio & sound);
 
 	/// \brief
 	/// take damage
@@ -77,12 +76,14 @@ public:
 	/// Must be used to implement a get function.
 	virtual sf::Sprite getBox() = 0;
 
+	virtual sf::Sprite getHitbox() { return sf::Sprite(); }
+
 	/// \brief
 	/// update_info
 	/// \details
 	/// this is a pure virtual function.
 	/// Must be used to implement a makeFightBox function.
-	virtual sf::Sprite makeFightBox() =0;
+	virtual sf::Sprite makeFightBox() { return sf::Sprite(); }
 
 	/// \brief
 	/// check if fighter is dead

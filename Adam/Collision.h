@@ -33,6 +33,8 @@ it freely, subject to the following restrictions:
  * Created on 30 January 2009, 11:02
  */
 
+/// @file
+
 #ifndef COLLISION_H
 #define COLLISION_H
 

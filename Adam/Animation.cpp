@@ -7,8 +7,8 @@ Animation::~Animation()
 
 void Animation::addFrame(const std::string & location)
 {
-	sf::Texture t;
-	textures.emplace_back(t);
+	textures.emplace_back(sf::Texture());
+	textures.back().setSmooth(true);
 	Collision::CreateTextureAndBitmask(textures.back(), location);
 }
 
@@ -31,12 +31,20 @@ sf::Texture & Animation::nextFrame()
 
 sf::Texture & Animation::getCurrentFrame()
 {
+	if (animation_done && name == "DYINGright") {
+		return textures.back();
+	}
 	if (current_frame == textures.size()) {
 		return textures.back();
 	}
 	else {
 		return textures[(current_frame == -1 ) ? 0 : current_frame];
 	}
+}
+
+sf::Texture & Animation::getLastFrame()
+{
+	return textures.back();
 }
 
 

@@ -1,17 +1,17 @@
 #include "pch.h"
 #include "npc.hpp"
 
-npc::npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> animations, sf::Vector2f velocity, statistic health_c) :
+npc::npc(sf::Vector2f position, sf::Vector2f scale, std::map<std::string, Animation> & animations, sf::Vector2f velocity, std::vector<std::string> npc_text) :
 	Animateable(animations),
 	movable(position, scale, animations["IDLEright"].textures[0], velocity),
 	originPosition(position)
 {
-	speach.dialogue = {"...", "this is standard text", "the devs were lazy", "no muny? "};
-	health = health_c;
+	speach.dialogue = npc_text;
 	if (!font.loadFromFile("fonts/stranger.ttf"))
 	{
 		std::cout << "error loading font" << std::endl;
 	}
+	text = sf::Text();
 	text.setFont(font);
 	text.setOutlineColor(sf::Color::Black);
 	text.setOutlineThickness(2.0f);
@@ -47,7 +47,6 @@ void npc::setDialogue(std::vector<std::string> & dia) {
 void npc::showText(Character &p) {
 	sf::Vector2f plPos = p.getPosition();
 	if (plPos.x - position.x < 50 && plPos.x - position.x > -50) {
-	//	speach.updateLine();
 		setText(speach.line());
 	}
 	else {
@@ -68,7 +67,6 @@ bool npc::isWalking() {
 void npc::walkTheOtherWay() {
 	if (current_direction == direction::LEFT) {
 		current_direction = direction::RIGHT;
-	//	std::cout << "moving the other way, right \n";
 		setScale(sf::Vector2f(0.2, 0.2));
 
 	}
@@ -90,9 +88,15 @@ int npc::getDirection() {
 
 void npc::draw(sf::RenderTarget & w) {
 	drawable::draw(w);
-	text.setPosition(sf::Vector2f(getPosition().x, getPosition().y - 10));
+}
+
+void npc::drawDialogue(sf::RenderTarget & w)
+{
+	text.setPosition(sf::Vector2f(getPosition().x, getPosition().y - 30));
+	text.setFont(font);
 	w.draw(text);
 }
+
 
 std::string npc::linearDialogue::line(){
 	std::string currentLine = dialogue[index];
