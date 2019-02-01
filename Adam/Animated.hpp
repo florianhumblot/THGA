@@ -7,7 +7,7 @@
 
 // this file contains Doxygen lines
 ///file Animated.hpp
-/// \brief Animateable interfact - defines an interface for animateable objects and contains their animations which consist of textures.
+/// \brief Animateable interface - defines an interface for animateable objects and contains their animations which consist of textures.
 /// \details
 /// This class serves as an interface to objects having animations. 
 /// The animations are stored in a map with a key which points to an animation
