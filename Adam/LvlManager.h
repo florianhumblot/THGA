@@ -19,14 +19,14 @@
 class LvlManager
 {
 	/// \brief shared pointer to the animation manager to be able to construct levels correctly.
-	std::shared_ptr<AnimationManager> ani;
+	AnimationManager & ani;
 	/// \brief container of the levels, indexed by name
 	std::map<std::string, Level> levels;
 public:
 	/// \brief constructor of the level manager. Takes a pointer to the animation manager to be able to construct levels later on.
 	/// \detail
 	/// Factory constructor which will read the lvls.txt file containing all the levels of this game and construct them.
-	LvlManager(std::shared_ptr<AnimationManager> ani);
+	LvlManager(AnimationManager & a);
 	~LvlManager();
 
 	/// \brief keeps track of the current level

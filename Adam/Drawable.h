@@ -59,7 +59,7 @@ public:
 	/// sets the Texture of the drawable
 	/// \details
 	/// Takes an lvalue texture and loads it on the sprite.
-	void setTexture(sf::Texture & texture);
+	void setTexture(sf::Texture & t);
 
 	/// \brief
 	/// Draws the sprite

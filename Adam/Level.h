@@ -17,8 +17,6 @@
 class Level
 {
 private:
-	/// \brief smart pointer to the animation manager to be able to correctly construct npc's and enemies.
-	std::shared_ptr<AnimationManager> ani;
 	/// \brief the name of the level
 	std::string name;
 	/// \brief container of the enemies of this level
@@ -36,10 +34,10 @@ private:
 public:
 	/// \brief factor used for bouncing
 	int bounce_velocity = 1;
-	/// \brief create a level, needed to set the animation manager smart pointer
-	explicit Level(std::shared_ptr<AnimationManager> &);
+
 	Level() {};
-	~Level();
+	~Level() {};
+
 	/// \brief function to draw the level's layers
 	void draw(sf::RenderTarget &w);
 	/// \brief adds a sprite to the level's layers. 
@@ -49,11 +47,11 @@ public:
 	/// \brief factory that creates the enemies of this level using the factory pattern.
 	/// \detail
 	/// Loads the text file located at a path (s) and initializes all the enemies and stores them in the enemies vector.
-	void enemy_factory(std::string s);
+	void enemy_factory(std::string s, AnimationManager & a);
 	/// \brief factory that creates the npcs of this level using the factory pattern.
 	/// \detail
 	/// Loads the text file located at a path (s) and initializes all the npcs and stores them in the npcs vector.
-	void npc_factory(std::string s);
+	void npc_factory(std::string s , AnimationManager & a);
 	/// \brief get a specific sprite layer of the level by it's name.
 	/// \detail
 	/// In example: getLayer("background") to get the background of this level.
