@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "LvlManager.h"
 
-LvlManager::LvlManager(std::shared_ptr<AnimationManager> ani) : ani(ani)
+LvlManager::LvlManager(AnimationManager & a) : ani(a)
 {
 
 	std::ifstream lvls_file("assets/backgrounds/lvls.txt");
@@ -12,14 +12,13 @@ LvlManager::LvlManager(std::shared_ptr<AnimationManager> ani) : ani(ani)
 			std::cout << "Level name: " << level_name << std::endl; 
 			auto level = levels.find(level_name);
 			if (level == levels.end()) {
-				Level L(ani);
-				levels[level_name] = L;
+				levels[level_name] = Level();
 			}
 			if (level_part == std::string("npcs")) {
-				levels[level_name].npc_factory(location);
+				levels[level_name].npc_factory(location, a);
 			}
 			else if (level_part == std::string("enemies")) {
-				levels[level_name].enemy_factory(location);
+				levels[level_name].enemy_factory(location, a);
 			}
 			else if (level_part == std::string("spawnpoint_player")) {
 				sf::Vector2f temp = to_vector(location);
@@ -83,13 +82,13 @@ bool LvlManager::check_interaction(Character & player, Audio & sound) {
 
 	if (Collision::PixelPerfectTest(levels[current_level].getLayer("infinity"), player))
 	{
-		sound.playSound("revive", 55.0f);
+		sound.playSound("revive", 20);
 		player.respawn();
 	}
 
 	if (Collision::PixelPerfectTest(levels[current_level].getLayer("lvl_end"), player))
 	{
-		sound.playSound("endLVL", 100.0f);
+		sound.playSound("endLVL", 20);
 		current_level = levels[current_level].get_next_level();
 		levels[current_level].setCharacterSpawn(player);
 		player.respawn();
@@ -98,7 +97,7 @@ bool LvlManager::check_interaction(Character & player, Audio & sound) {
 	if (Collision::PixelPerfectTest(levels[current_level].getLayer("foreground_bounce"), player))
 	{
 		player.setVelocity(sf::Vector2f(player.getVelocity().x, -2 * levels[current_level].bounce_velocity));
-		sound.playSound("bounce", 15.0f);
+		sound.playSound("bounce", 20);
 		if (levels[current_level].bounce_velocity < 9)
 		{
 			levels[current_level].bounce_velocity += 2;

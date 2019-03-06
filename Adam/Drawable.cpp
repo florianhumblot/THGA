@@ -27,9 +27,8 @@ void drawable::setTexture(const std::string & textureFile) {
 	sprite.setTexture(texture);
 }
 
-void drawable::setTexture(sf::Texture & texture) {
-	sprite.setTexture(texture, true);
-	texture = texture;
+void drawable::setTexture(sf::Texture & t) {
+	sprite.setTexture(t, true);
 }
 
 void drawable::draw(sf::RenderTarget &w) {
